@@ -26,6 +26,19 @@ def parse_float(value: object) -> Optional[float]:
         return None
 
 
+def parse_optional_date(value: object) -> Optional[pd.Timestamp]:
+    """宽松解析日期为归一化(零点)Timestamp,无法解析返回 None。移植自 monitor_drawdown。"""
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text or text == "-":
+        return None
+    parsed = pd.to_datetime(text, errors="coerce")
+    if pd.isna(parsed):
+        return None
+    return parsed.normalize()
+
+
 def get_index_valuation_metric(item: Dict, metric_name: str) -> Dict:
     metrics = item.get("index_valuation_metrics")
     if not isinstance(metrics, dict):
