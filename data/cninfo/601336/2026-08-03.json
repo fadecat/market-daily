@@ -1,0 +1,3906 @@
+{
+  "stock_code": "601336",
+  "stock_name": "新华保险",
+  "report_date": null,
+  "fetched_at": "2026-08-03T02:08:21+08:00",
+  "content_hash": "sha256:070726fbdbc5c43a258f05d2f0581c2056ea97fd0132c4a0938585c864e78a09",
+  "bundle": {
+    "company": {
+      "stock_code": "601336",
+      "sec_name": "新华保险",
+      "org_name": "新华人寿保险股份有限公司",
+      "org_short_name": "xhbx",
+      "market_code": "012001",
+      "sign": 4
+    },
+    "head_strip": {
+      "report_date": null,
+      "fields": [
+        {
+          "field": "F005N",
+          "label": "质押率",
+          "unit": "percent",
+          "value": null
+        },
+        {
+          "field": "F020N",
+          "label": "总股本",
+          "unit": "股",
+          "value": 2085439340
+        },
+        {
+          "field": "F021N",
+          "label": "流通股本",
+          "unit": "股",
+          "value": 2085439340
+        },
+        {
+          "field": "F041N",
+          "label": "负债率",
+          "unit": "percent",
+          "value": 93.333
+        },
+        {
+          "field": "F081N",
+          "label": "ROE",
+          "unit": "percent",
+          "value": 5.2615
+        },
+        {
+          "field": "F089N",
+          "label": "主营收入",
+          "unit": "元",
+          "value": 22133000000.0
+        },
+        {
+          "field": "F102N",
+          "label": "净利润",
+          "unit": "元",
+          "value": 6501000000.0
+        },
+        {
+          "field": "F109N",
+          "label": "货币资金",
+          "unit": "元",
+          "value": 36164000000.0
+        },
+        {
+          "field": "F111N",
+          "label": "应收款",
+          "unit": "元",
+          "value": null
+        },
+        {
+          "field": "F115N",
+          "label": "商誉",
+          "unit": "元",
+          "value": null
+        },
+        {
+          "field": "ENDDATE",
+          "label": "报告期",
+          "unit": "date",
+          "value": null
+        }
+      ],
+      "by_label": {
+        "质押率": {
+          "field": "F005N",
+          "label": "质押率",
+          "unit": "percent",
+          "value": null
+        },
+        "总股本": {
+          "field": "F020N",
+          "label": "总股本",
+          "unit": "股",
+          "value": 2085439340
+        },
+        "流通股本": {
+          "field": "F021N",
+          "label": "流通股本",
+          "unit": "股",
+          "value": 2085439340
+        },
+        "负债率": {
+          "field": "F041N",
+          "label": "负债率",
+          "unit": "percent",
+          "value": 93.333
+        },
+        "ROE": {
+          "field": "F081N",
+          "label": "ROE",
+          "unit": "percent",
+          "value": 5.2615
+        },
+        "主营收入": {
+          "field": "F089N",
+          "label": "主营收入",
+          "unit": "元",
+          "value": 22133000000.0
+        },
+        "净利润": {
+          "field": "F102N",
+          "label": "净利润",
+          "unit": "元",
+          "value": 6501000000.0
+        },
+        "货币资金": {
+          "field": "F109N",
+          "label": "货币资金",
+          "unit": "元",
+          "value": 36164000000.0
+        },
+        "应收款": {
+          "field": "F111N",
+          "label": "应收款",
+          "unit": "元",
+          "value": null
+        },
+        "商誉": {
+          "field": "F115N",
+          "label": "商誉",
+          "unit": "元",
+          "value": null
+        },
+        "报告期": {
+          "field": "ENDDATE",
+          "label": "报告期",
+          "unit": "date",
+          "value": null
+        }
+      },
+      "raw": {
+        "F081N": 5.2615,
+        "F089N": 22133000000.0,
+        "F102N": 6501000000.0,
+        "F109N": 36164000000.0,
+        "F041N": 93.333,
+        "F115N": null,
+        "F111N": null,
+        "F020N": 2085439340,
+        "F021N": 2085439340,
+        "F005N": null,
+        "ENDDATE": null
+      }
+    },
+    "main_indicators": {
+      "label": "主要财务指标",
+      "periods": [
+        "2026-03-31",
+        "2025-12-31",
+        "2025-09-30",
+        "2025-06-30",
+        "2025-03-31",
+        "2024-12-31",
+        "2024-09-30",
+        "2024-06-30",
+        "2024-03-31",
+        "2023-12-31",
+        "2023-09-30",
+        "2023-06-30",
+        "2023-03-31",
+        "2022-12-31",
+        "2022-09-30",
+        "2022-06-30",
+        "2022-03-31",
+        "2021-12-31",
+        "2021-09-30",
+        "2021-06-30"
+      ],
+      "entries": [
+        {
+          "report_date": "2026-03-31",
+          "bucket": "one",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 39.6074
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 39.6074
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 39.6074,
+            "F029N": null,
+            "F017N": 29.372,
+            "ENDDATE": "2026-03-31",
+            "F016N": 0.346,
+            "F004N": 2.08,
+            "F025N": 0.012,
+            "F058N": 10.941,
+            "F026N": 1.451,
+            "F067N": 5.53,
+            "F023N": null,
+            "F078N": null,
+            "F056N": -2.413,
+            "F043N": null,
+            "F011N": 30.145,
+            "F054N": 10.77,
+            "F010N": 7.6542,
+            "F022N": null,
+            "F052N": -33.738,
+            "F041N": 93.333,
+            "F053N": 10.524,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2025-12-31",
+          "bucket": "year",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 35.75
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 35.75
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 35.75,
+            "F029N": null,
+            "F017N": 23.002,
+            "ENDDATE": "2025-12-31",
+            "F016N": 2.02,
+            "F004N": 11.63,
+            "F025N": 0.088,
+            "F058N": 31.839,
+            "F026N": 10.219,
+            "F067N": 34.69,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.243,
+            "F043N": null,
+            "F011N": 23.583,
+            "F054N": 15.902,
+            "F010N": 7.6538,
+            "F022N": null,
+            "F052N": 19.003,
+            "F041N": 94.126,
+            "F053N": 38.335,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2025-09-30",
+          "bucket": "three",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.2188
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.2188
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 32.2188,
+            "F029N": null,
+            "F017N": 23.939,
+            "ENDDATE": "2025-09-30",
+            "F016N": 1.864,
+            "F004N": 10.53,
+            "F025N": 0.078,
+            "F058N": 58.522,
+            "F026N": 8.869,
+            "F067N": 33.1,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 8.343,
+            "F043N": null,
+            "F011N": 26.929,
+            "F054N": 4.435,
+            "F010N": 7.6652,
+            "F022N": null,
+            "F052N": 28.326,
+            "F041N": 94.516,
+            "F053N": 58.883,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2025-06-30",
+          "bucket": "middle",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 26.73
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 26.73
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 26.73,
+            "F029N": null,
+            "F017N": 21.129,
+            "ENDDATE": "2025-06-30",
+            "F016N": 0.853,
+            "F004N": 4.74,
+            "F025N": 0.04,
+            "F058N": 36.058,
+            "F026N": 4.511,
+            "F067N": 15.93,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.045,
+            "F043N": null,
+            "F011N": 23.219,
+            "F054N": -13.334,
+            "F010N": 7.6635,
+            "F022N": null,
+            "F052N": 25.993,
+            "F041N": 95.306,
+            "F053N": 33.529,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2025-03-31",
+          "bucket": "one",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 25.5963
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 25.5963
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 25.5963,
+            "F029N": null,
+            "F017N": 17.61,
+            "ENDDATE": "2025-03-31",
+            "F016N": 0.341,
+            "F004N": 1.89,
+            "F025N": 0.019,
+            "F058N": 16.709,
+            "F026N": 2.144,
+            "F067N": 6.68,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 3.612,
+            "F043N": null,
+            "F011N": 18.005,
+            "F054N": -17.031,
+            "F010N": 7.6726,
+            "F022N": null,
+            "F052N": 26.145,
+            "F041N": 95.444,
+            "F053N": 19.021,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2024-12-31",
+          "bucket": "year",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 30.85
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 30.85
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 30.85,
+            "F029N": null,
+            "F017N": 19.787,
+            "ENDDATE": "2024-12-31",
+            "F016N": 1.695,
+            "F004N": 8.41,
+            "F025N": 0.086,
+            "F058N": 408.965,
+            "F026N": 8.382,
+            "F067N": 25.88,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 20.598,
+            "F043N": null,
+            "F011N": 21.287,
+            "F054N": -8.401,
+            "F010N": 7.6827,
+            "F022N": null,
+            "F052N": 85.27,
+            "F041N": 94.311,
+            "F053N": 201.067,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2024-09-30",
+          "bucket": "three",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 29.1834
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 29.1834
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 29.1834,
+            "F029N": null,
+            "F017N": 19.335,
+            "ENDDATE": "2024-09-30",
+            "F016N": 1.347,
+            "F004N": 6.63,
+            "F025N": 0.07,
+            "F058N": 167.662,
+            "F026N": 6.727,
+            "F067N": 21.0,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 18.797,
+            "F043N": null,
+            "F011N": 21.8,
+            "F054N": -13.351,
+            "F010N": 7.6819,
+            "F022N": null,
+            "F052N": 72.914,
+            "F041N": 94.537,
+            "F053N": 116.726,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2024-06-30",
+          "bucket": "middle",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 28.85
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 28.85
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 28.85,
+            "F029N": null,
+            "F017N": 19.937,
+            "ENDDATE": "2024-06-30",
+            "F016N": 0.765,
+            "F004N": 3.55,
+            "F025N": 0.038,
+            "F058N": 11.346,
+            "F026N": 3.486,
+            "F067N": 11.21,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 6.515,
+            "F043N": null,
+            "F011N": 21.502,
+            "F054N": -14.317,
+            "F010N": 7.6854,
+            "F022N": null,
+            "F052N": 13.583,
+            "F041N": 93.975,
+            "F053N": 11.074,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2024-03-31",
+          "bucket": "one",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 30.1332
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 30.1332
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 30.1332,
+            "F029N": null,
+            "F017N": 18.664,
+            "ENDDATE": "2024-03-31",
+            "F016N": 0.349,
+            "F004N": 1.58,
+            "F025N": 0.019,
+            "F058N": -35.972,
+            "F026N": 1.655,
+            "F067N": 4.97,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.877,
+            "F043N": null,
+            "F011N": 19.461,
+            "F054N": -10.531,
+            "F010N": 7.6843,
+            "F022N": null,
+            "F052N": -8.709,
+            "F041N": 93.423,
+            "F053N": -28.553,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2023-12-31",
+          "bucket": "year",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.68
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.68
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 33.68,
+            "F029N": null,
+            "F017N": 12.177,
+            "ENDDATE": "2023-12-31",
+            "F016N": 0.665,
+            "F004N": 2.79,
+            "F025N": 0.055,
+            "F058N": -74.899,
+            "F026N": 4.492,
+            "F067N": 7.94,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 15.5,
+            "F043N": null,
+            "F011N": 7.749,
+            "F054N": 7.239,
+            "F010N": 7.6856,
+            "F022N": null,
+            "F052N": -33.782,
+            "F041N": 92.511,
+            "F053N": -59.479,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2023-09-30",
+          "bucket": "three",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.7204
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.7204
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 34.7204,
+            "F029N": null,
+            "F017N": 15.426,
+            "ENDDATE": "2023-09-30",
+            "F016N": 0.74,
+            "F004N": 3.06,
+            "F025N": 0.048,
+            "F058N": -24.782,
+            "F026N": 3.901,
+            "F067N": 8.53,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.3,
+            "F043N": null,
+            "F011N": 14.083,
+            "F054N": 10.551,
+            "F010N": 7.6862,
+            "F022N": null,
+            "F052N": -18.63,
+            "F041N": 92.06,
+            "F053N": -15.498,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2023-06-30",
+          "bucket": "middle",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 35.9943
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 35.9943
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 35.9943,
+            "F029N": null,
+            "F017N": 20.387,
+            "ENDDATE": "2023-06-30",
+            "F016N": 0.791,
+            "F004N": 3.2,
+            "F025N": 0.039,
+            "F058N": 8.478,
+            "F026N": 3.077,
+            "F067N": 8.68,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 7.757,
+            "F043N": null,
+            "F011N": 21.934,
+            "F054N": 14.607,
+            "F010N": 7.692,
+            "F022N": null,
+            "F052N": -4.739,
+            "F041N": 91.421,
+            "F053N": 8.575,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2023-03-31",
+          "bucket": "one",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 38.9807
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 38.9807
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 38.9807,
+            "F029N": null,
+            "F017N": 23.848,
+            "ENDDATE": "2023-03-31",
+            "F016N": 0.554,
+            "F004N": 2.22,
+            "F025N": 0.023,
+            "F058N": 154.603,
+            "F026N": 1.827,
+            "F067N": 5.86,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.637,
+            "F043N": null,
+            "F011N": 27.747,
+            "F054N": 24.115,
+            "F010N": 7.6902,
+            "F022N": null,
+            "F052N": 17.439,
+            "F041N": 90.523,
+            "F053N": 114.814,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2022-12-31",
+          "bucket": "year",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.98
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.98
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 32.98,
+            "F029N": null,
+            "F017N": 4.583,
+            "ENDDATE": "2022-12-31",
+            "F016N": 0.824,
+            "F004N": 3.15,
+            "F025N": 0.18,
+            "F058N": -58.339,
+            "F026N": 13.741,
+            "F067N": 9.29,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 11.29,
+            "F043N": null,
+            "F011N": 3.04,
+            "F054N": -5.173,
+            "F010N": 7.695,
+            "F022N": null,
+            "F052N": -3.625,
+            "F041N": 91.801,
+            "F053N": -34.288,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2022-09-30",
+          "bucket": "three",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.0733
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.0733
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 32.0733,
+            "F029N": null,
+            "F017N": 3.032,
+            "ENDDATE": "2022-09-30",
+            "F016N": 0.447,
+            "F004N": 1.66,
+            "F025N": 0.147,
+            "F058N": -73.762,
+            "F026N": 10.887,
+            "F067N": 4.94,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.985,
+            "F043N": null,
+            "F011N": 2.013,
+            "F054N": -7.782,
+            "F010N": 7.6947,
+            "F022N": null,
+            "F052N": -6.962,
+            "F041N": 91.627,
+            "F053N": -56.584,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2022-06-30",
+          "bucket": "middle",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.49
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.49
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 33.49,
+            "F029N": null,
+            "F017N": 4.156,
+            "ENDDATE": "2022-06-30",
+            "F016N": 0.448,
+            "F004N": 1.66,
+            "F025N": 0.108,
+            "F058N": -62.334,
+            "F026N": 8.134,
+            "F067N": 4.77,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.392,
+            "F043N": null,
+            "F011N": 3.652,
+            "F054N": -3.684,
+            "F010N": 7.6942,
+            "F022N": null,
+            "F052N": -5.512,
+            "F041N": 91.206,
+            "F053N": -50.815,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2022-03-31",
+          "bucket": "one",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.6727
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 32.6727
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 32.6727,
+            "F029N": null,
+            "F017N": 1.793,
+            "ENDDATE": "2022-03-31",
+            "F016N": 0.118,
+            "F004N": 0.43,
+            "F025N": 0.066,
+            "F058N": -91.261,
+            "F026N": 4.903,
+            "F067N": 1.28,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.478,
+            "F043N": null,
+            "F011N": 0.88,
+            "F054N": -6.058,
+            "F010N": 7.6603,
+            "F022N": null,
+            "F052N": -7.868,
+            "F041N": 91.092,
+            "F053N": -78.684,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2021-12-31",
+          "bucket": "year",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.77
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.77
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 34.77,
+            "F029N": null,
+            "F017N": 6.721,
+            "ENDDATE": "2021-12-31",
+            "F016N": 1.402,
+            "F004N": 4.79,
+            "F025N": 0.209,
+            "F058N": 0.392,
+            "F026N": 16.5,
+            "F067N": 14.22,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.281,
+            "F043N": null,
+            "F011N": 7.032,
+            "F054N": 6.718,
+            "F010N": 7.6619,
+            "F022N": null,
+            "F052N": 7.67,
+            "F041N": 90.378,
+            "F053N": 4.568,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2021-09-30",
+          "bucket": "three",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.5812
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 33.5812
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 33.5812,
+            "F029N": null,
+            "F017N": 6.497,
+            "ENDDATE": "2021-09-30",
+            "F016N": 1.157,
+            "F004N": 3.83,
+            "F025N": 0.178,
+            "F058N": 8.602,
+            "F026N": 15.172,
+            "F067N": 11.5,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.708,
+            "F043N": null,
+            "F011N": 7.136,
+            "F054N": 3.04,
+            "F010N": 7.6636,
+            "F022N": null,
+            "F052N": 8.374,
+            "F041N": 90.132,
+            "F053N": 7.645,
+            "F042N": null
+          }
+        },
+        {
+          "report_date": "2021-06-30",
+          "bucket": "middle",
+          "fields": [
+            {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.12
+            },
+            {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          ],
+          "by_label": {
+            "每股净资产": {
+              "field": "F008N",
+              "label": "每股净资产",
+              "unit": "元",
+              "value": 34.12
+            },
+            "ROE": {
+              "field": "F078N",
+              "label": "ROE",
+              "unit": "percent",
+              "value": null
+            }
+          },
+          "raw": {
+            "F008N": 34.12,
+            "F029N": null,
+            "F017N": 7.985,
+            "ENDDATE": "2021-06-30",
+            "F016N": 1.041,
+            "F004N": 3.38,
+            "F025N": 0.13,
+            "F058N": 30.188,
+            "F026N": 10.985,
+            "F067N": 9.93,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.772,
+            "F043N": null,
+            "F011N": 9.162,
+            "F054N": 4.711,
+            "F010N": 7.6619,
+            "F022N": null,
+            "F052N": 11.305,
+            "F041N": 89.584,
+            "F053N": 28.328,
+            "F042N": null
+          }
+        }
+      ],
+      "latest_report": {
+        "report_date": "2026-03-31",
+        "bucket": "one",
+        "fields": [
+          {
+            "field": "F008N",
+            "label": "每股净资产",
+            "unit": "元",
+            "value": 39.6074
+          },
+          {
+            "field": "F078N",
+            "label": "ROE",
+            "unit": "percent",
+            "value": null
+          }
+        ],
+        "by_label": {
+          "每股净资产": {
+            "field": "F008N",
+            "label": "每股净资产",
+            "unit": "元",
+            "value": 39.6074
+          },
+          "ROE": {
+            "field": "F078N",
+            "label": "ROE",
+            "unit": "percent",
+            "value": null
+          }
+        },
+        "raw": {
+          "F008N": 39.6074,
+          "F029N": null,
+          "F017N": 29.372,
+          "ENDDATE": "2026-03-31",
+          "F016N": 0.346,
+          "F004N": 2.08,
+          "F025N": 0.012,
+          "F058N": 10.941,
+          "F026N": 1.451,
+          "F067N": 5.53,
+          "F023N": null,
+          "F078N": null,
+          "F056N": -2.413,
+          "F043N": null,
+          "F011N": 30.145,
+          "F054N": 10.77,
+          "F010N": 7.6542,
+          "F022N": null,
+          "F052N": -33.738,
+          "F041N": 93.333,
+          "F053N": 10.524,
+          "F042N": null
+        }
+      },
+      "raw": {
+        "year": [
+          {
+            "F008N": 35.75,
+            "F029N": null,
+            "F017N": 23.002,
+            "ENDDATE": "2025-12-31",
+            "F016N": 2.02,
+            "F004N": 11.63,
+            "F025N": 0.088,
+            "F058N": 31.839,
+            "F026N": 10.219,
+            "F067N": 34.69,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.243,
+            "F043N": null,
+            "F011N": 23.583,
+            "F054N": 15.902,
+            "F010N": 7.6538,
+            "F022N": null,
+            "F052N": 19.003,
+            "F041N": 94.126,
+            "F053N": 38.335,
+            "F042N": null
+          },
+          {
+            "F008N": 30.85,
+            "F029N": null,
+            "F017N": 19.787,
+            "ENDDATE": "2024-12-31",
+            "F016N": 1.695,
+            "F004N": 8.41,
+            "F025N": 0.086,
+            "F058N": 408.965,
+            "F026N": 8.382,
+            "F067N": 25.88,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 20.598,
+            "F043N": null,
+            "F011N": 21.287,
+            "F054N": -8.401,
+            "F010N": 7.6827,
+            "F022N": null,
+            "F052N": 85.27,
+            "F041N": 94.311,
+            "F053N": 201.067,
+            "F042N": null
+          },
+          {
+            "F008N": 33.68,
+            "F029N": null,
+            "F017N": 12.177,
+            "ENDDATE": "2023-12-31",
+            "F016N": 0.665,
+            "F004N": 2.79,
+            "F025N": 0.055,
+            "F058N": -74.899,
+            "F026N": 4.492,
+            "F067N": 7.94,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 15.5,
+            "F043N": null,
+            "F011N": 7.749,
+            "F054N": 7.239,
+            "F010N": 7.6856,
+            "F022N": null,
+            "F052N": -33.782,
+            "F041N": 92.511,
+            "F053N": -59.479,
+            "F042N": null
+          },
+          {
+            "F008N": 32.98,
+            "F029N": null,
+            "F017N": 4.583,
+            "ENDDATE": "2022-12-31",
+            "F016N": 0.824,
+            "F004N": 3.15,
+            "F025N": 0.18,
+            "F058N": -58.339,
+            "F026N": 13.741,
+            "F067N": 9.29,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 11.29,
+            "F043N": null,
+            "F011N": 3.04,
+            "F054N": -5.173,
+            "F010N": 7.695,
+            "F022N": null,
+            "F052N": -3.625,
+            "F041N": 91.801,
+            "F053N": -34.288,
+            "F042N": null
+          },
+          {
+            "F008N": 34.77,
+            "F029N": null,
+            "F017N": 6.721,
+            "ENDDATE": "2021-12-31",
+            "F016N": 1.402,
+            "F004N": 4.79,
+            "F025N": 0.209,
+            "F058N": 0.392,
+            "F026N": 16.5,
+            "F067N": 14.22,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.281,
+            "F043N": null,
+            "F011N": 7.032,
+            "F054N": 6.718,
+            "F010N": 7.6619,
+            "F022N": null,
+            "F052N": 7.67,
+            "F041N": 90.378,
+            "F053N": 4.568,
+            "F042N": null
+          }
+        ],
+        "middle": [
+          {
+            "F008N": 26.73,
+            "F029N": null,
+            "F017N": 21.129,
+            "ENDDATE": "2025-06-30",
+            "F016N": 0.853,
+            "F004N": 4.74,
+            "F025N": 0.04,
+            "F058N": 36.058,
+            "F026N": 4.511,
+            "F067N": 15.93,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.045,
+            "F043N": null,
+            "F011N": 23.219,
+            "F054N": -13.334,
+            "F010N": 7.6635,
+            "F022N": null,
+            "F052N": 25.993,
+            "F041N": 95.306,
+            "F053N": 33.529,
+            "F042N": null
+          },
+          {
+            "F008N": 28.85,
+            "F029N": null,
+            "F017N": 19.937,
+            "ENDDATE": "2024-06-30",
+            "F016N": 0.765,
+            "F004N": 3.55,
+            "F025N": 0.038,
+            "F058N": 11.346,
+            "F026N": 3.486,
+            "F067N": 11.21,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 6.515,
+            "F043N": null,
+            "F011N": 21.502,
+            "F054N": -14.317,
+            "F010N": 7.6854,
+            "F022N": null,
+            "F052N": 13.583,
+            "F041N": 93.975,
+            "F053N": 11.074,
+            "F042N": null
+          },
+          {
+            "F008N": 35.9943,
+            "F029N": null,
+            "F017N": 20.387,
+            "ENDDATE": "2023-06-30",
+            "F016N": 0.791,
+            "F004N": 3.2,
+            "F025N": 0.039,
+            "F058N": 8.478,
+            "F026N": 3.077,
+            "F067N": 8.68,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 7.757,
+            "F043N": null,
+            "F011N": 21.934,
+            "F054N": 14.607,
+            "F010N": 7.692,
+            "F022N": null,
+            "F052N": -4.739,
+            "F041N": 91.421,
+            "F053N": 8.575,
+            "F042N": null
+          },
+          {
+            "F008N": 33.49,
+            "F029N": null,
+            "F017N": 4.156,
+            "ENDDATE": "2022-06-30",
+            "F016N": 0.448,
+            "F004N": 1.66,
+            "F025N": 0.108,
+            "F058N": -62.334,
+            "F026N": 8.134,
+            "F067N": 4.77,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.392,
+            "F043N": null,
+            "F011N": 3.652,
+            "F054N": -3.684,
+            "F010N": 7.6942,
+            "F022N": null,
+            "F052N": -5.512,
+            "F041N": 91.206,
+            "F053N": -50.815,
+            "F042N": null
+          },
+          {
+            "F008N": 34.12,
+            "F029N": null,
+            "F017N": 7.985,
+            "ENDDATE": "2021-06-30",
+            "F016N": 1.041,
+            "F004N": 3.38,
+            "F025N": 0.13,
+            "F058N": 30.188,
+            "F026N": 10.985,
+            "F067N": 9.93,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.772,
+            "F043N": null,
+            "F011N": 9.162,
+            "F054N": 4.711,
+            "F010N": 7.6619,
+            "F022N": null,
+            "F052N": 11.305,
+            "F041N": 89.584,
+            "F053N": 28.328,
+            "F042N": null
+          }
+        ],
+        "one": [
+          {
+            "F008N": 39.6074,
+            "F029N": null,
+            "F017N": 29.372,
+            "ENDDATE": "2026-03-31",
+            "F016N": 0.346,
+            "F004N": 2.08,
+            "F025N": 0.012,
+            "F058N": 10.941,
+            "F026N": 1.451,
+            "F067N": 5.53,
+            "F023N": null,
+            "F078N": null,
+            "F056N": -2.413,
+            "F043N": null,
+            "F011N": 30.145,
+            "F054N": 10.77,
+            "F010N": 7.6542,
+            "F022N": null,
+            "F052N": -33.738,
+            "F041N": 93.333,
+            "F053N": 10.524,
+            "F042N": null
+          },
+          {
+            "F008N": 25.5963,
+            "F029N": null,
+            "F017N": 17.61,
+            "ENDDATE": "2025-03-31",
+            "F016N": 0.341,
+            "F004N": 1.89,
+            "F025N": 0.019,
+            "F058N": 16.709,
+            "F026N": 2.144,
+            "F067N": 6.68,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 3.612,
+            "F043N": null,
+            "F011N": 18.005,
+            "F054N": -17.031,
+            "F010N": 7.6726,
+            "F022N": null,
+            "F052N": 26.145,
+            "F041N": 95.444,
+            "F053N": 19.021,
+            "F042N": null
+          },
+          {
+            "F008N": 30.1332,
+            "F029N": null,
+            "F017N": 18.664,
+            "ENDDATE": "2024-03-31",
+            "F016N": 0.349,
+            "F004N": 1.58,
+            "F025N": 0.019,
+            "F058N": -35.972,
+            "F026N": 1.655,
+            "F067N": 4.97,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.877,
+            "F043N": null,
+            "F011N": 19.461,
+            "F054N": -10.531,
+            "F010N": 7.6843,
+            "F022N": null,
+            "F052N": -8.709,
+            "F041N": 93.423,
+            "F053N": -28.553,
+            "F042N": null
+          },
+          {
+            "F008N": 38.9807,
+            "F029N": null,
+            "F017N": 23.848,
+            "ENDDATE": "2023-03-31",
+            "F016N": 0.554,
+            "F004N": 2.22,
+            "F025N": 0.023,
+            "F058N": 154.603,
+            "F026N": 1.827,
+            "F067N": 5.86,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.637,
+            "F043N": null,
+            "F011N": 27.747,
+            "F054N": 24.115,
+            "F010N": 7.6902,
+            "F022N": null,
+            "F052N": 17.439,
+            "F041N": 90.523,
+            "F053N": 114.814,
+            "F042N": null
+          },
+          {
+            "F008N": 32.6727,
+            "F029N": null,
+            "F017N": 1.793,
+            "ENDDATE": "2022-03-31",
+            "F016N": 0.118,
+            "F004N": 0.43,
+            "F025N": 0.066,
+            "F058N": -91.261,
+            "F026N": 4.903,
+            "F067N": 1.28,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 1.478,
+            "F043N": null,
+            "F011N": 0.88,
+            "F054N": -6.058,
+            "F010N": 7.6603,
+            "F022N": null,
+            "F052N": -7.868,
+            "F041N": 91.092,
+            "F053N": -78.684,
+            "F042N": null
+          }
+        ],
+        "three": [
+          {
+            "F008N": 32.2188,
+            "F029N": null,
+            "F017N": 23.939,
+            "ENDDATE": "2025-09-30",
+            "F016N": 1.864,
+            "F004N": 10.53,
+            "F025N": 0.078,
+            "F058N": 58.522,
+            "F026N": 8.869,
+            "F067N": 33.1,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 8.343,
+            "F043N": null,
+            "F011N": 26.929,
+            "F054N": 4.435,
+            "F010N": 7.6652,
+            "F022N": null,
+            "F052N": 28.326,
+            "F041N": 94.516,
+            "F053N": 58.883,
+            "F042N": null
+          },
+          {
+            "F008N": 29.1834,
+            "F029N": null,
+            "F017N": 19.335,
+            "ENDDATE": "2024-09-30",
+            "F016N": 1.347,
+            "F004N": 6.63,
+            "F025N": 0.07,
+            "F058N": 167.662,
+            "F026N": 6.727,
+            "F067N": 21.0,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 18.797,
+            "F043N": null,
+            "F011N": 21.8,
+            "F054N": -13.351,
+            "F010N": 7.6819,
+            "F022N": null,
+            "F052N": 72.914,
+            "F041N": 94.537,
+            "F053N": 116.726,
+            "F042N": null
+          },
+          {
+            "F008N": 34.7204,
+            "F029N": null,
+            "F017N": 15.426,
+            "ENDDATE": "2023-09-30",
+            "F016N": 0.74,
+            "F004N": 3.06,
+            "F025N": 0.048,
+            "F058N": -24.782,
+            "F026N": 3.901,
+            "F067N": 8.53,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 12.3,
+            "F043N": null,
+            "F011N": 14.083,
+            "F054N": 10.551,
+            "F010N": 7.6862,
+            "F022N": null,
+            "F052N": -18.63,
+            "F041N": 92.06,
+            "F053N": -15.498,
+            "F042N": null
+          },
+          {
+            "F008N": 32.0733,
+            "F029N": null,
+            "F017N": 3.032,
+            "ENDDATE": "2022-09-30",
+            "F016N": 0.447,
+            "F004N": 1.66,
+            "F025N": 0.147,
+            "F058N": -73.762,
+            "F026N": 10.887,
+            "F067N": 4.94,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.985,
+            "F043N": null,
+            "F011N": 2.013,
+            "F054N": -7.782,
+            "F010N": 7.6947,
+            "F022N": null,
+            "F052N": -6.962,
+            "F041N": 91.627,
+            "F053N": -56.584,
+            "F042N": null
+          },
+          {
+            "F008N": 33.5812,
+            "F029N": null,
+            "F017N": 6.497,
+            "ENDDATE": "2021-09-30",
+            "F016N": 1.157,
+            "F004N": 3.83,
+            "F025N": 0.178,
+            "F058N": 8.602,
+            "F026N": 15.172,
+            "F067N": 11.5,
+            "F023N": null,
+            "F078N": null,
+            "F056N": 5.708,
+            "F043N": null,
+            "F011N": 7.136,
+            "F054N": 3.04,
+            "F010N": 7.6636,
+            "F022N": null,
+            "F052N": 8.374,
+            "F041N": 90.132,
+            "F053N": 7.645,
+            "F042N": null
+          }
+        ]
+      }
+    },
+    "income_statement": {
+      "label": "利润表",
+      "unit": "万元",
+      "cumulative": true,
+      "periods": [
+        "2026-03-31",
+        "2025-12-31",
+        "2025-09-30",
+        "2025-06-30",
+        "2025-03-31",
+        "2024-12-31",
+        "2024-09-30",
+        "2024-06-30",
+        "2024-03-31",
+        "2023-12-31",
+        "2023-09-30",
+        "2023-06-30",
+        "2023-03-31",
+        "2022-12-31",
+        "2022-09-30",
+        "2022-06-30",
+        "2022-03-31",
+        "2021-12-31",
+        "2021-09-30",
+        "2021-06-30"
+      ],
+      "rows": [
+        {
+          "name": "营业收入",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 15774500.0,
+            "2024-12-31": 13255500.0,
+            "2023-12-31": 7154700.0,
+            "2022-12-31": 21431900.0,
+            "2021-12-31": 22238000.0,
+            "2025-09-30": 13725200.0,
+            "2024-09-30": 10695600.0,
+            "2023-09-30": 6185500.0,
+            "2022-09-30": 17117800.0,
+            "2021-09-30": 18398800.0,
+            "2025-06-30": 7004100.0,
+            "2024-06-30": 5559100.0,
+            "2023-06-30": 4894300.0,
+            "2022-06-30": 12479500.0,
+            "2021-06-30": 13207500.0,
+            "2026-03-31": 2213300.0,
+            "2025-03-31": 3340200.0,
+            "2024-03-31": 2647900.0,
+            "2023-03-31": 2900500.0,
+            "2022-03-31": 7496300.0
+          }
+        },
+        {
+          "name": "已赚保费",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 16090400.0,
+            "2021-12-31": 16131400.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 13553300.0,
+            "2021-09-30": 13488200.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": 2659300.0,
+            "2022-06-30": 10075500.0,
+            "2021-06-30": 9918200.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": 1355800.0,
+            "2022-03-31": 6389400.0
+          }
+        },
+        {
+          "name": "保险业务收入",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 16309900.0,
+            "2021-12-31": 16347000.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 13779200.0,
+            "2021-09-30": 13656200.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": 2659300.0,
+            "2022-06-30": 10258600.0,
+            "2021-06-30": 10061000.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": 1355800.0,
+            "2022-03-31": 6489000.0
+          }
+        },
+        {
+          "name": "营业支出",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 12054400.0,
+            "2024-12-31": 10433800.0,
+            "2023-12-31": 6600300.0,
+            "2022-12-31": 20780400.0,
+            "2021-12-31": 20674200.0,
+            "2025-09-30": 10029100.0,
+            "2024-09-30": 8364000.0,
+            "2023-09-30": 5314400.0,
+            "2022-09-30": 16773300.0,
+            "2021-09-30": 17085800.0,
+            "2025-06-30": 5377800.0,
+            "2024-06-30": 4363800.0,
+            "2023-06-30": 3820800.0,
+            "2022-06-30": 12023700.0,
+            "2021-06-30": 11997400.0,
+            "2026-03-31": 1546100.0,
+            "2025-03-31": 2738800.0,
+            "2024-03-31": 2132600.0,
+            "2023-03-31": 2095700.0,
+            "2022-03-31": 7430300.0
+          }
+        },
+        {
+          "name": "退保金",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 1854700.0,
+            "2021-12-31": 1778600.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 1445200.0,
+            "2021-09-30": 1311200.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 956600.0,
+            "2021-06-30": 856100.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 512700.0
+          }
+        },
+        {
+          "name": "赔付支出",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 4052200.0,
+            "2021-12-31": 4357700.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 3170200.0,
+            "2021-09-30": 3513500.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 2193300.0,
+            "2021-06-30": 2611200.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 1338900.0
+          }
+        },
+        {
+          "name": "营业利润",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 3720100.0,
+            "2024-12-31": 2821700.0,
+            "2023-12-31": 554400.0,
+            "2022-12-31": 651500.0,
+            "2021-12-31": 1563800.0,
+            "2025-09-30": 3696100.0,
+            "2024-09-30": 2331600.0,
+            "2023-09-30": 871100.0,
+            "2022-09-30": 344500.0,
+            "2021-09-30": 1313000.0,
+            "2025-06-30": 1626300.0,
+            "2024-06-30": 1195300.0,
+            "2023-06-30": 1073500.0,
+            "2022-06-30": 455800.0,
+            "2021-06-30": 1210100.0,
+            "2026-03-31": 667200.0,
+            "2025-03-31": 601400.0,
+            "2024-03-31": 515300.0,
+            "2023-03-31": 804800.0,
+            "2022-03-31": 66000.0
+          }
+        },
+        {
+          "name": "利润总额",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 4052500.0,
+            "2024-12-31": 2814100.0,
+            "2023-12-31": 551500.0,
+            "2022-12-31": 650700.0,
+            "2021-12-31": 1567000.0,
+            "2025-09-30": 3805000.0,
+            "2024-09-30": 2328100.0,
+            "2023-09-30": 868500.0,
+            "2022-09-30": 340300.0,
+            "2021-09-30": 1306100.0,
+            "2025-06-30": 1621800.0,
+            "2024-06-30": 1192800.0,
+            "2023-06-30": 1071600.0,
+            "2022-06-30": 454300.0,
+            "2021-06-30": 1208600.0,
+            "2026-03-31": 673200.0,
+            "2025-03-31": 597400.0,
+            "2024-03-31": 514200.0,
+            "2023-03-31": 804500.0,
+            "2022-03-31": 65300.0
+          }
+        },
+        {
+          "name": "所得税",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 423600.0,
+            "2024-12-31": 190800.0,
+            "2023-12-31": -320100.0,
+            "2022-12-31": -331900.0,
+            "2021-12-31": 71900.0,
+            "2025-09-30": 518900.0,
+            "2024-09-30": 259800.0,
+            "2023-09-30": -85900.0,
+            "2022-09-30": -178900.0,
+            "2021-09-30": 110400.0,
+            "2025-06-30": 141700.0,
+            "2024-06-30": 84300.0,
+            "2023-06-30": 73600.0,
+            "2022-06-30": -64600.0,
+            "2021-06-30": 153800.0,
+            "2026-03-31": 23000.0,
+            "2025-03-31": 9100.0,
+            "2024-03-31": 19900.0,
+            "2023-03-31": 112700.0,
+            "2022-03-31": -69200.0
+          }
+        },
+        {
+          "name": "归属母公司净利润",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 3628400.0,
+            "2024-12-31": 2622900.0,
+            "2023-12-31": 871200.0,
+            "2022-12-31": 982200.0,
+            "2021-12-31": 1494700.0,
+            "2025-09-30": 3285700.0,
+            "2024-09-30": 2068000.0,
+            "2023-09-30": 954200.0,
+            "2022-09-30": 519000.0,
+            "2021-09-30": 1195400.0,
+            "2025-06-30": 1479900.0,
+            "2024-06-30": 1108300.0,
+            "2023-06-30": 997800.0,
+            "2022-06-30": 518700.0,
+            "2021-06-30": 1054600.0,
+            "2026-03-31": 650100.0,
+            "2025-03-31": 588200.0,
+            "2024-03-31": 494200.0,
+            "2023-03-31": 691700.0,
+            "2022-03-31": 134400.0
+          }
+        }
+      ],
+      "raw": {
+        "year": [
+          {
+            "2025": 15774500.0,
+            "2024": 13255500.0,
+            "2023": 7154700.0,
+            "2022": 21431900.0,
+            "index": "营业收入",
+            "2021": 22238000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 16090400.0,
+            "index": "已赚保费",
+            "2021": 16131400.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 16309900.0,
+            "index": "保险业务收入",
+            "2021": 16347000.0
+          },
+          {
+            "2025": 12054400.0,
+            "2024": 10433800.0,
+            "2023": 6600300.0,
+            "2022": 20780400.0,
+            "index": "营业支出",
+            "2021": 20674200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 1854700.0,
+            "index": "退保金",
+            "2021": 1778600.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 4052200.0,
+            "index": "赔付支出",
+            "2021": 4357700.0
+          },
+          {
+            "2025": 3720100.0,
+            "2024": 2821700.0,
+            "2023": 554400.0,
+            "2022": 651500.0,
+            "index": "营业利润",
+            "2021": 1563800.0
+          },
+          {
+            "2025": 4052500.0,
+            "2024": 2814100.0,
+            "2023": 551500.0,
+            "2022": 650700.0,
+            "index": "利润总额",
+            "2021": 1567000.0
+          },
+          {
+            "2025": 423600.0,
+            "2024": 190800.0,
+            "2023": -320100.0,
+            "2022": -331900.0,
+            "index": "所得税",
+            "2021": 71900.0
+          },
+          {
+            "2025": 3628400.0,
+            "2024": 2622900.0,
+            "2023": 871200.0,
+            "2022": 982200.0,
+            "index": "归属母公司净利润",
+            "2021": 1494700.0
+          }
+        ],
+        "middle": [
+          {
+            "2025": 7004100.0,
+            "2024": 5559100.0,
+            "2023": 4894300.0,
+            "2022": 12479500.0,
+            "index": "营业收入",
+            "2021": 13207500.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": 2659300.0,
+            "2022": 10075500.0,
+            "index": "已赚保费",
+            "2021": 9918200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": 2659300.0,
+            "2022": 10258600.0,
+            "index": "保险业务收入",
+            "2021": 10061000.0
+          },
+          {
+            "2025": 5377800.0,
+            "2024": 4363800.0,
+            "2023": 3820800.0,
+            "2022": 12023700.0,
+            "index": "营业支出",
+            "2021": 11997400.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 956600.0,
+            "index": "退保金",
+            "2021": 856100.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 2193300.0,
+            "index": "赔付支出",
+            "2021": 2611200.0
+          },
+          {
+            "2025": 1626300.0,
+            "2024": 1195300.0,
+            "2023": 1073500.0,
+            "2022": 455800.0,
+            "index": "营业利润",
+            "2021": 1210100.0
+          },
+          {
+            "2025": 1621800.0,
+            "2024": 1192800.0,
+            "2023": 1071600.0,
+            "2022": 454300.0,
+            "index": "利润总额",
+            "2021": 1208600.0
+          },
+          {
+            "2025": 141700.0,
+            "2024": 84300.0,
+            "2023": 73600.0,
+            "2022": -64600.0,
+            "index": "所得税",
+            "2021": 153800.0
+          },
+          {
+            "2025": 1479900.0,
+            "2024": 1108300.0,
+            "2023": 997800.0,
+            "2022": 518700.0,
+            "index": "归属母公司净利润",
+            "2021": 1054600.0
+          }
+        ],
+        "one": [
+          {
+            "2026": 2213300.0,
+            "2025": 3340200.0,
+            "2024": 2647900.0,
+            "2023": 2900500.0,
+            "2022": 7496300.0,
+            "index": "营业收入"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": 1355800.0,
+            "2022": 6389400.0,
+            "index": "已赚保费"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": 1355800.0,
+            "2022": 6489000.0,
+            "index": "保险业务收入"
+          },
+          {
+            "2026": 1546100.0,
+            "2025": 2738800.0,
+            "2024": 2132600.0,
+            "2023": 2095700.0,
+            "2022": 7430300.0,
+            "index": "营业支出"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 512700.0,
+            "index": "退保金"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 1338900.0,
+            "index": "赔付支出"
+          },
+          {
+            "2026": 667200.0,
+            "2025": 601400.0,
+            "2024": 515300.0,
+            "2023": 804800.0,
+            "2022": 66000.0,
+            "index": "营业利润"
+          },
+          {
+            "2026": 673200.0,
+            "2025": 597400.0,
+            "2024": 514200.0,
+            "2023": 804500.0,
+            "2022": 65300.0,
+            "index": "利润总额"
+          },
+          {
+            "2026": 23000.0,
+            "2025": 9100.0,
+            "2024": 19900.0,
+            "2023": 112700.0,
+            "2022": -69200.0,
+            "index": "所得税"
+          },
+          {
+            "2026": 650100.0,
+            "2025": 588200.0,
+            "2024": 494200.0,
+            "2023": 691700.0,
+            "2022": 134400.0,
+            "index": "归属母公司净利润"
+          }
+        ],
+        "three": [
+          {
+            "2025": 13725200.0,
+            "2024": 10695600.0,
+            "2023": 6185500.0,
+            "2022": 17117800.0,
+            "index": "营业收入",
+            "2021": 18398800.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 13553300.0,
+            "index": "已赚保费",
+            "2021": 13488200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 13779200.0,
+            "index": "保险业务收入",
+            "2021": 13656200.0
+          },
+          {
+            "2025": 10029100.0,
+            "2024": 8364000.0,
+            "2023": 5314400.0,
+            "2022": 16773300.0,
+            "index": "营业支出",
+            "2021": 17085800.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 1445200.0,
+            "index": "退保金",
+            "2021": 1311200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 3170200.0,
+            "index": "赔付支出",
+            "2021": 3513500.0
+          },
+          {
+            "2025": 3696100.0,
+            "2024": 2331600.0,
+            "2023": 871100.0,
+            "2022": 344500.0,
+            "index": "营业利润",
+            "2021": 1313000.0
+          },
+          {
+            "2025": 3805000.0,
+            "2024": 2328100.0,
+            "2023": 868500.0,
+            "2022": 340300.0,
+            "index": "利润总额",
+            "2021": 1306100.0
+          },
+          {
+            "2025": 518900.0,
+            "2024": 259800.0,
+            "2023": -85900.0,
+            "2022": -178900.0,
+            "index": "所得税",
+            "2021": 110400.0
+          },
+          {
+            "2025": 3285700.0,
+            "2024": 2068000.0,
+            "2023": 954200.0,
+            "2022": 519000.0,
+            "index": "归属母公司净利润",
+            "2021": 1195400.0
+          }
+        ]
+      }
+    },
+    "balance_sheet": {
+      "label": "资产负债表",
+      "unit": "万元",
+      "cumulative": false,
+      "periods": [
+        "2026-03-31",
+        "2025-12-31",
+        "2025-09-30",
+        "2025-06-30",
+        "2025-03-31",
+        "2024-12-31",
+        "2024-09-30",
+        "2024-06-30",
+        "2024-03-31",
+        "2023-12-31",
+        "2023-09-30",
+        "2023-06-30",
+        "2023-03-31",
+        "2022-12-31",
+        "2022-09-30",
+        "2022-06-30",
+        "2022-03-31",
+        "2021-12-31",
+        "2021-09-30",
+        "2021-06-30"
+      ],
+      "rows": [
+        {
+          "name": "资产类科目",
+          "is_section": true,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": null,
+            "2021-12-31": null,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": null,
+            "2021-09-30": null,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": null,
+            "2021-06-30": null,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": null
+          }
+        },
+        {
+          "name": "货币资金",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 4292300.0,
+            "2024-12-31": 3846100.0,
+            "2023-12-31": 2180800.0,
+            "2022-12-31": 1758600.0,
+            "2021-12-31": 1547600.0,
+            "2025-09-30": 2876100.0,
+            "2024-09-30": 2346700.0,
+            "2023-09-30": 1700100.0,
+            "2022-09-30": 1291100.0,
+            "2021-09-30": 1347500.0,
+            "2025-06-30": 3258000.0,
+            "2024-06-30": 2601200.0,
+            "2023-06-30": 1859900.0,
+            "2022-06-30": 1779400.0,
+            "2021-06-30": 1690000.0,
+            "2026-03-31": 3616400.0,
+            "2025-03-31": 4166400.0,
+            "2024-03-31": 2537300.0,
+            "2023-03-31": 2098200.0,
+            "2022-03-31": 1748800.0
+          }
+        },
+        {
+          "name": "以公允价值计量且其变动计入当期损益的金融资产",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 57975600.0,
+            "2024-12-31": 48592800.0,
+            "2023-12-31": 38023900.0,
+            "2022-12-31": 7926900.0,
+            "2021-12-31": 7000000.0,
+            "2025-09-30": 52655300.0,
+            "2024-09-30": 51538800.0,
+            "2023-09-30": 36983900.0,
+            "2022-09-30": 7014100.0,
+            "2021-09-30": 6580200.0,
+            "2025-06-30": 48011900.0,
+            "2024-06-30": 47580700.0,
+            "2023-06-30": 36380200.0,
+            "2022-06-30": 7626600.0,
+            "2021-06-30": 3470600.0,
+            "2026-03-31": 65044500.0,
+            "2025-03-31": 48569100.0,
+            "2024-03-31": 42342600.0,
+            "2023-03-31": 38007600.0,
+            "2022-03-31": 7095900.0
+          }
+        },
+        {
+          "name": "买入返售金融资产",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 1399900.0,
+            "2024-12-31": 543600.0,
+            "2023-12-31": 526500.0,
+            "2022-12-31": 884700.0,
+            "2021-12-31": 411200.0,
+            "2025-09-30": 1064300.0,
+            "2024-09-30": 368900.0,
+            "2023-09-30": 551800.0,
+            "2022-09-30": 1118200.0,
+            "2021-09-30": 463300.0,
+            "2025-06-30": 591100.0,
+            "2024-06-30": 848700.0,
+            "2023-06-30": 657200.0,
+            "2022-06-30": 267700.0,
+            "2021-06-30": 565800.0,
+            "2026-03-31": 1069600.0,
+            "2025-03-31": 439300.0,
+            "2024-03-31": 105600.0,
+            "2023-03-31": 634500.0,
+            "2022-03-31": 1114000.0
+          }
+        },
+        {
+          "name": "应收保费",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 308800.0,
+            "2021-12-31": 286700.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 586200.0,
+            "2021-09-30": 607900.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 574700.0,
+            "2021-06-30": 536900.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 499000.0
+          }
+        },
+        {
+          "name": "定期存款",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 29396400.0,
+            "2024-12-31": 28245800.0,
+            "2023-12-31": 25598400.0,
+            "2022-12-31": 22754700.0,
+            "2021-12-31": 16854000.0,
+            "2025-09-30": 30779400.0,
+            "2024-09-30": 28856600.0,
+            "2023-09-30": 26465800.0,
+            "2022-09-30": 19864700.0,
+            "2021-09-30": 14974000.0,
+            "2025-06-30": 33310900.0,
+            "2024-06-30": 26804300.0,
+            "2023-06-30": 24455900.0,
+            "2022-06-30": 18674700.0,
+            "2021-06-30": 13054000.0,
+            "2026-03-31": 27530300.0,
+            "2025-03-31": 33934300.0,
+            "2024-03-31": 25523700.0,
+            "2023-03-31": 22988500.0,
+            "2022-03-31": 16964700.0
+          }
+        },
+        {
+          "name": "可供出售金融资产",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 37565400.0,
+            "2021-12-31": 40342700.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 38831100.0,
+            "2021-09-30": 38441600.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 40965000.0,
+            "2021-06-30": 40741000.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 39678600.0
+          }
+        },
+        {
+          "name": "持有至到期投资",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 37839100.0,
+            "2021-12-31": 30110200.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 34685300.0,
+            "2021-09-30": 29144000.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 32703100.0,
+            "2021-06-30": 28274100.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 30994500.0
+          }
+        },
+        {
+          "name": "总资产",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 189948400.0,
+            "2024-12-31": 169229700.0,
+            "2023-12-31": 140325700.0,
+            "2022-12-31": 125504400.0,
+            "2021-12-31": 112772100.0,
+            "2025-09-30": 183349100.0,
+            "2024-09-30": 166702800.0,
+            "2023-09-30": 136437400.0,
+            "2022-09-30": 119521300.0,
+            "2021-09-30": 106170200.0,
+            "2025-06-30": 177766500.0,
+            "2024-06-30": 149468400.0,
+            "2023-06-30": 130917900.0,
+            "2022-06-30": 118852600.0,
+            "2021-06-30": 102217500.0,
+            "2026-03-31": 185365300.0,
+            "2025-03-31": 175341600.0,
+            "2024-03-31": 142959800.0,
+            "2023-03-31": 128341600.0,
+            "2022-03-31": 114439300.0
+          }
+        },
+        {
+          "name": "负债类科目",
+          "is_section": true,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": null,
+            "2021-12-31": null,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": null,
+            "2021-09-30": null,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": null,
+            "2021-06-30": null,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": null
+          }
+        },
+        {
+          "name": "卖出回购金融资产款",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 19351800.0,
+            "2024-12-31": 17158800.0,
+            "2023-12-31": 10698700.0,
+            "2022-12-31": 4361700.0,
+            "2021-12-31": 5541500.0,
+            "2025-09-30": 14937000.0,
+            "2024-09-30": 19333200.0,
+            "2023-09-30": 8611000.0,
+            "2022-09-30": 3134400.0,
+            "2021-09-30": 1912100.0,
+            "2025-06-30": 13807200.0,
+            "2024-06-30": 8011300.0,
+            "2023-06-30": 4629000.0,
+            "2022-06-30": 3525200.0,
+            "2021-06-30": 214900.0,
+            "2026-03-31": 10583600.0,
+            "2025-03-31": 16252400.0,
+            "2024-03-31": 7570000.0,
+            "2023-03-31": 5762900.0,
+            "2022-03-31": 2823000.0
+          }
+        },
+        {
+          "name": "预收保费",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 33600.0,
+            "2024-12-31": 33600.0,
+            "2023-12-31": 27400.0,
+            "2022-12-31": 376000.0,
+            "2021-12-31": 509500.0,
+            "2025-09-30": 24900.0,
+            "2024-09-30": 30900.0,
+            "2023-09-30": 34300.0,
+            "2022-09-30": 25000.0,
+            "2021-09-30": 23100.0,
+            "2025-06-30": 42200.0,
+            "2024-06-30": 29800.0,
+            "2023-06-30": 42000.0,
+            "2022-06-30": 28800.0,
+            "2021-06-30": 27000.0,
+            "2026-03-31": 25300.0,
+            "2025-03-31": 38800.0,
+            "2024-03-31": 26200.0,
+            "2023-03-31": 34400.0,
+            "2022-03-31": 22600.0
+          }
+        },
+        {
+          "name": "保户储金及投资款",
+          "is_section": false,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": 6944700.0,
+            "2021-12-31": 5769100.0,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": 6695500.0,
+            "2021-09-30": 5701300.0,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": 6506000.0,
+            "2021-06-30": 5496800.0,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": 6159200.0
+          }
+        },
+        {
+          "name": "应付债券",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 2017300.0,
+            "2024-12-31": 3038400.0,
+            "2023-12-31": 2026200.0,
+            "2022-12-31": 1000000.0,
+            "2021-12-31": 1000000.0,
+            "2025-09-30": 2037100.0,
+            "2024-09-30": 3049800.0,
+            "2023-09-30": 1012700.0,
+            "2022-09-30": 1000000.0,
+            "2021-09-30": 1000000.0,
+            "2025-06-30": 2022800.0,
+            "2024-06-30": 3027200.0,
+            "2023-06-30": 1004400.0,
+            "2022-06-30": 1000000.0,
+            "2021-06-30": 1000000.0,
+            "2026-03-31": 2031300.0,
+            "2025-03-31": 3060500.0,
+            "2024-03-31": 2042900.0,
+            "2023-03-31": 1029200.0,
+            "2022-03-31": 1000000.0
+          }
+        },
+        {
+          "name": "总负债",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 178790600.0,
+            "2024-12-31": 159602800.0,
+            "2023-12-31": 129816500.0,
+            "2022-12-31": 115213900.0,
+            "2021-12-31": 101920700.0,
+            "2025-09-30": 173295000.0,
+            "2024-09-30": 157596100.0,
+            "2023-09-30": 125603900.0,
+            "2022-09-30": 109514000.0,
+            "2021-09-30": 95692800.0,
+            "2025-06-30": 169422700.0,
+            "2024-06-30": 140463200.0,
+            "2023-06-30": 119687000.0,
+            "2022-06-30": 108400700.0,
+            "2021-06-30": 91570300.0,
+            "2026-03-31": 173006100.0,
+            "2025-03-31": 167353700.0,
+            "2024-03-31": 133557000.0,
+            "2023-03-31": 116179200.0,
+            "2022-03-31": 104245100.0
+          }
+        },
+        {
+          "name": "股东权益类科目",
+          "is_section": true,
+          "values": {
+            "2025-12-31": null,
+            "2024-12-31": null,
+            "2023-12-31": null,
+            "2022-12-31": null,
+            "2021-12-31": null,
+            "2025-09-30": null,
+            "2024-09-30": null,
+            "2023-09-30": null,
+            "2022-09-30": null,
+            "2021-09-30": null,
+            "2025-06-30": null,
+            "2024-06-30": null,
+            "2023-06-30": null,
+            "2022-06-30": null,
+            "2021-06-30": null,
+            "2026-03-31": null,
+            "2025-03-31": null,
+            "2024-03-31": null,
+            "2023-03-31": null,
+            "2022-03-31": null
+          }
+        },
+        {
+          "name": "实收资本（或股本）",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 312000.0,
+            "2024-12-31": 312000.0,
+            "2023-12-31": 312000.0,
+            "2022-12-31": 312000.0,
+            "2021-12-31": 312000.0,
+            "2025-09-30": 312000.0,
+            "2024-09-30": 312000.0,
+            "2023-09-30": 312000.0,
+            "2022-09-30": 312000.0,
+            "2021-09-30": 312000.0,
+            "2025-06-30": 312000.0,
+            "2024-06-30": 312000.0,
+            "2023-06-30": 312000.0,
+            "2022-06-30": 312000.0,
+            "2021-06-30": 312000.0,
+            "2026-03-31": 312000.0,
+            "2025-03-31": 312000.0,
+            "2024-03-31": 312000.0,
+            "2023-03-31": 312000.0,
+            "2022-03-31": 312000.0
+          }
+        },
+        {
+          "name": "一般风险准备",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 2123400.0,
+            "2024-12-31": 1773800.0,
+            "2023-12-31": 1521600.0,
+            "2022-12-31": 997500.0,
+            "2021-12-31": 886100.0,
+            "2025-09-30": 1773800.0,
+            "2024-09-30": 1521600.0,
+            "2023-09-30": 1441700.0,
+            "2022-09-30": 886100.0,
+            "2021-09-30": 741400.0,
+            "2025-06-30": 1773800.0,
+            "2024-06-30": 1521600.0,
+            "2023-06-30": 1441700.0,
+            "2022-06-30": 886100.0,
+            "2021-06-30": 741400.0,
+            "2026-03-31": 2123400.0,
+            "2025-03-31": 1773800.0,
+            "2024-03-31": 1521700.0,
+            "2023-03-31": 1441700.0,
+            "2022-03-31": 886100.0
+          }
+        },
+        {
+          "name": "未分配利润",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 12651900.0,
+            "2024-12-31": 10817600.0,
+            "2023-12-31": 9212400.0,
+            "2022-12-31": 5399300.0,
+            "2021-12-31": 5233100.0,
+            "2025-09-30": 13192200.0,
+            "2024-09-30": 10935400.0,
+            "2023-09-30": 9455100.0,
+            "2022-09-30": 5158900.0,
+            "2021-09-30": 5222500.0,
+            "2025-06-30": 11386600.0,
+            "2024-06-30": 9975700.0,
+            "2023-06-30": 9498700.0,
+            "2022-06-30": 5158600.0,
+            "2021-06-30": 5081700.0,
+            "2026-03-31": 13338000.0,
+            "2025-03-31": 11372000.0,
+            "2024-03-31": 9706500.0,
+            "2023-03-31": 9640900.0,
+            "2022-03-31": 5367500.0
+          }
+        },
+        {
+          "name": "所有者权益",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 11157800.0,
+            "2024-12-31": 9626900.0,
+            "2023-12-31": 10509200.0,
+            "2022-12-31": 10290500.0,
+            "2021-12-31": 10851400.0,
+            "2025-09-30": 10054100.0,
+            "2024-09-30": 9106700.0,
+            "2023-09-30": 10833500.0,
+            "2022-09-30": 10007300.0,
+            "2021-09-30": 10477400.0,
+            "2025-06-30": 8343800.0,
+            "2024-06-30": 9005200.0,
+            "2023-06-30": 11230900.0,
+            "2022-06-30": 10451900.0,
+            "2021-06-30": 10647200.0,
+            "2026-03-31": 12359200.0,
+            "2025-03-31": 7987900.0,
+            "2024-03-31": 9402800.0,
+            "2023-03-31": 12162400.0,
+            "2022-03-31": 10194200.0
+          }
+        }
+      ],
+      "raw": {
+        "year": [
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "资产类科目",
+            "2021": null
+          },
+          {
+            "2025": 4292300.0,
+            "2024": 3846100.0,
+            "2023": 2180800.0,
+            "2022": 1758600.0,
+            "index": "货币资金",
+            "2021": 1547600.0
+          },
+          {
+            "2025": 57975600.0,
+            "2024": 48592800.0,
+            "2023": 38023900.0,
+            "2022": 7926900.0,
+            "index": "以公允价值计量且其变动计入当期损益的金融资产",
+            "2021": 7000000.0
+          },
+          {
+            "2025": 1399900.0,
+            "2024": 543600.0,
+            "2023": 526500.0,
+            "2022": 884700.0,
+            "index": "买入返售金融资产",
+            "2021": 411200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 308800.0,
+            "index": "应收保费",
+            "2021": 286700.0
+          },
+          {
+            "2025": 29396400.0,
+            "2024": 28245800.0,
+            "2023": 25598400.0,
+            "2022": 22754700.0,
+            "index": "定期存款",
+            "2021": 16854000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 37565400.0,
+            "index": "可供出售金融资产",
+            "2021": 40342700.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 37839100.0,
+            "index": "持有至到期投资",
+            "2021": 30110200.0
+          },
+          {
+            "2025": 189948400.0,
+            "2024": 169229700.0,
+            "2023": 140325700.0,
+            "2022": 125504400.0,
+            "index": "总资产",
+            "2021": 112772100.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "负债类科目",
+            "2021": null
+          },
+          {
+            "2025": 19351800.0,
+            "2024": 17158800.0,
+            "2023": 10698700.0,
+            "2022": 4361700.0,
+            "index": "卖出回购金融资产款",
+            "2021": 5541500.0
+          },
+          {
+            "2025": 33600.0,
+            "2024": 33600.0,
+            "2023": 27400.0,
+            "2022": 376000.0,
+            "index": "预收保费",
+            "2021": 509500.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 6944700.0,
+            "index": "保户储金及投资款",
+            "2021": 5769100.0
+          },
+          {
+            "2025": 2017300.0,
+            "2024": 3038400.0,
+            "2023": 2026200.0,
+            "2022": 1000000.0,
+            "index": "应付债券",
+            "2021": 1000000.0
+          },
+          {
+            "2025": 178790600.0,
+            "2024": 159602800.0,
+            "2023": 129816500.0,
+            "2022": 115213900.0,
+            "index": "总负债",
+            "2021": 101920700.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "股东权益类科目",
+            "2021": null
+          },
+          {
+            "2025": 312000.0,
+            "2024": 312000.0,
+            "2023": 312000.0,
+            "2022": 312000.0,
+            "index": "实收资本（或股本）",
+            "2021": 312000.0
+          },
+          {
+            "2025": 2123400.0,
+            "2024": 1773800.0,
+            "2023": 1521600.0,
+            "2022": 997500.0,
+            "index": "一般风险准备",
+            "2021": 886100.0
+          },
+          {
+            "2025": 12651900.0,
+            "2024": 10817600.0,
+            "2023": 9212400.0,
+            "2022": 5399300.0,
+            "index": "未分配利润",
+            "2021": 5233100.0
+          },
+          {
+            "2025": 11157800.0,
+            "2024": 9626900.0,
+            "2023": 10509200.0,
+            "2022": 10290500.0,
+            "index": "所有者权益",
+            "2021": 10851400.0
+          }
+        ],
+        "middle": [
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "资产类科目",
+            "2021": null
+          },
+          {
+            "2025": 3258000.0,
+            "2024": 2601200.0,
+            "2023": 1859900.0,
+            "2022": 1779400.0,
+            "index": "货币资金",
+            "2021": 1690000.0
+          },
+          {
+            "2025": 48011900.0,
+            "2024": 47580700.0,
+            "2023": 36380200.0,
+            "2022": 7626600.0,
+            "index": "以公允价值计量且其变动计入当期损益的金融资产",
+            "2021": 3470600.0
+          },
+          {
+            "2025": 591100.0,
+            "2024": 848700.0,
+            "2023": 657200.0,
+            "2022": 267700.0,
+            "index": "买入返售金融资产",
+            "2021": 565800.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 574700.0,
+            "index": "应收保费",
+            "2021": 536900.0
+          },
+          {
+            "2025": 33310900.0,
+            "2024": 26804300.0,
+            "2023": 24455900.0,
+            "2022": 18674700.0,
+            "index": "定期存款",
+            "2021": 13054000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 40965000.0,
+            "index": "可供出售金融资产",
+            "2021": 40741000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 32703100.0,
+            "index": "持有至到期投资",
+            "2021": 28274100.0
+          },
+          {
+            "2025": 177766500.0,
+            "2024": 149468400.0,
+            "2023": 130917900.0,
+            "2022": 118852600.0,
+            "index": "总资产",
+            "2021": 102217500.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "负债类科目",
+            "2021": null
+          },
+          {
+            "2025": 13807200.0,
+            "2024": 8011300.0,
+            "2023": 4629000.0,
+            "2022": 3525200.0,
+            "index": "卖出回购金融资产款",
+            "2021": 214900.0
+          },
+          {
+            "2025": 42200.0,
+            "2024": 29800.0,
+            "2023": 42000.0,
+            "2022": 28800.0,
+            "index": "预收保费",
+            "2021": 27000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 6506000.0,
+            "index": "保户储金及投资款",
+            "2021": 5496800.0
+          },
+          {
+            "2025": 2022800.0,
+            "2024": 3027200.0,
+            "2023": 1004400.0,
+            "2022": 1000000.0,
+            "index": "应付债券",
+            "2021": 1000000.0
+          },
+          {
+            "2025": 169422700.0,
+            "2024": 140463200.0,
+            "2023": 119687000.0,
+            "2022": 108400700.0,
+            "index": "总负债",
+            "2021": 91570300.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "股东权益类科目",
+            "2021": null
+          },
+          {
+            "2025": 312000.0,
+            "2024": 312000.0,
+            "2023": 312000.0,
+            "2022": 312000.0,
+            "index": "实收资本（或股本）",
+            "2021": 312000.0
+          },
+          {
+            "2025": 1773800.0,
+            "2024": 1521600.0,
+            "2023": 1441700.0,
+            "2022": 886100.0,
+            "index": "一般风险准备",
+            "2021": 741400.0
+          },
+          {
+            "2025": 11386600.0,
+            "2024": 9975700.0,
+            "2023": 9498700.0,
+            "2022": 5158600.0,
+            "index": "未分配利润",
+            "2021": 5081700.0
+          },
+          {
+            "2025": 8343800.0,
+            "2024": 9005200.0,
+            "2023": 11230900.0,
+            "2022": 10451900.0,
+            "index": "所有者权益",
+            "2021": 10647200.0
+          }
+        ],
+        "one": [
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "资产类科目"
+          },
+          {
+            "2026": 3616400.0,
+            "2025": 4166400.0,
+            "2024": 2537300.0,
+            "2023": 2098200.0,
+            "2022": 1748800.0,
+            "index": "货币资金"
+          },
+          {
+            "2026": 65044500.0,
+            "2025": 48569100.0,
+            "2024": 42342600.0,
+            "2023": 38007600.0,
+            "2022": 7095900.0,
+            "index": "以公允价值计量且其变动计入当期损益的金融资产"
+          },
+          {
+            "2026": 1069600.0,
+            "2025": 439300.0,
+            "2024": 105600.0,
+            "2023": 634500.0,
+            "2022": 1114000.0,
+            "index": "买入返售金融资产"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 499000.0,
+            "index": "应收保费"
+          },
+          {
+            "2026": 27530300.0,
+            "2025": 33934300.0,
+            "2024": 25523700.0,
+            "2023": 22988500.0,
+            "2022": 16964700.0,
+            "index": "定期存款"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 39678600.0,
+            "index": "可供出售金融资产"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 30994500.0,
+            "index": "持有至到期投资"
+          },
+          {
+            "2026": 185365300.0,
+            "2025": 175341600.0,
+            "2024": 142959800.0,
+            "2023": 128341600.0,
+            "2022": 114439300.0,
+            "index": "总资产"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "负债类科目"
+          },
+          {
+            "2026": 10583600.0,
+            "2025": 16252400.0,
+            "2024": 7570000.0,
+            "2023": 5762900.0,
+            "2022": 2823000.0,
+            "index": "卖出回购金融资产款"
+          },
+          {
+            "2026": 25300.0,
+            "2025": 38800.0,
+            "2024": 26200.0,
+            "2023": 34400.0,
+            "2022": 22600.0,
+            "index": "预收保费"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 6159200.0,
+            "index": "保户储金及投资款"
+          },
+          {
+            "2026": 2031300.0,
+            "2025": 3060500.0,
+            "2024": 2042900.0,
+            "2023": 1029200.0,
+            "2022": 1000000.0,
+            "index": "应付债券"
+          },
+          {
+            "2026": 173006100.0,
+            "2025": 167353700.0,
+            "2024": 133557000.0,
+            "2023": 116179200.0,
+            "2022": 104245100.0,
+            "index": "总负债"
+          },
+          {
+            "2026": null,
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "股东权益类科目"
+          },
+          {
+            "2026": 312000.0,
+            "2025": 312000.0,
+            "2024": 312000.0,
+            "2023": 312000.0,
+            "2022": 312000.0,
+            "index": "实收资本（或股本）"
+          },
+          {
+            "2026": 2123400.0,
+            "2025": 1773800.0,
+            "2024": 1521700.0,
+            "2023": 1441700.0,
+            "2022": 886100.0,
+            "index": "一般风险准备"
+          },
+          {
+            "2026": 13338000.0,
+            "2025": 11372000.0,
+            "2024": 9706500.0,
+            "2023": 9640900.0,
+            "2022": 5367500.0,
+            "index": "未分配利润"
+          },
+          {
+            "2026": 12359200.0,
+            "2025": 7987900.0,
+            "2024": 9402800.0,
+            "2023": 12162400.0,
+            "2022": 10194200.0,
+            "index": "所有者权益"
+          }
+        ],
+        "three": [
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "资产类科目",
+            "2021": null
+          },
+          {
+            "2025": 2876100.0,
+            "2024": 2346700.0,
+            "2023": 1700100.0,
+            "2022": 1291100.0,
+            "index": "货币资金",
+            "2021": 1347500.0
+          },
+          {
+            "2025": 52655300.0,
+            "2024": 51538800.0,
+            "2023": 36983900.0,
+            "2022": 7014100.0,
+            "index": "以公允价值计量且其变动计入当期损益的金融资产",
+            "2021": 6580200.0
+          },
+          {
+            "2025": 1064300.0,
+            "2024": 368900.0,
+            "2023": 551800.0,
+            "2022": 1118200.0,
+            "index": "买入返售金融资产",
+            "2021": 463300.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 586200.0,
+            "index": "应收保费",
+            "2021": 607900.0
+          },
+          {
+            "2025": 30779400.0,
+            "2024": 28856600.0,
+            "2023": 26465800.0,
+            "2022": 19864700.0,
+            "index": "定期存款",
+            "2021": 14974000.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 38831100.0,
+            "index": "可供出售金融资产",
+            "2021": 38441600.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 34685300.0,
+            "index": "持有至到期投资",
+            "2021": 29144000.0
+          },
+          {
+            "2025": 183349100.0,
+            "2024": 166702800.0,
+            "2023": 136437400.0,
+            "2022": 119521300.0,
+            "index": "总资产",
+            "2021": 106170200.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "负债类科目",
+            "2021": null
+          },
+          {
+            "2025": 14937000.0,
+            "2024": 19333200.0,
+            "2023": 8611000.0,
+            "2022": 3134400.0,
+            "index": "卖出回购金融资产款",
+            "2021": 1912100.0
+          },
+          {
+            "2025": 24900.0,
+            "2024": 30900.0,
+            "2023": 34300.0,
+            "2022": 25000.0,
+            "index": "预收保费",
+            "2021": 23100.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": 6695500.0,
+            "index": "保户储金及投资款",
+            "2021": 5701300.0
+          },
+          {
+            "2025": 2037100.0,
+            "2024": 3049800.0,
+            "2023": 1012700.0,
+            "2022": 1000000.0,
+            "index": "应付债券",
+            "2021": 1000000.0
+          },
+          {
+            "2025": 173295000.0,
+            "2024": 157596100.0,
+            "2023": 125603900.0,
+            "2022": 109514000.0,
+            "index": "总负债",
+            "2021": 95692800.0
+          },
+          {
+            "2025": null,
+            "2024": null,
+            "2023": null,
+            "2022": null,
+            "index": "股东权益类科目",
+            "2021": null
+          },
+          {
+            "2025": 312000.0,
+            "2024": 312000.0,
+            "2023": 312000.0,
+            "2022": 312000.0,
+            "index": "实收资本（或股本）",
+            "2021": 312000.0
+          },
+          {
+            "2025": 1773800.0,
+            "2024": 1521600.0,
+            "2023": 1441700.0,
+            "2022": 886100.0,
+            "index": "一般风险准备",
+            "2021": 741400.0
+          },
+          {
+            "2025": 13192200.0,
+            "2024": 10935400.0,
+            "2023": 9455100.0,
+            "2022": 5158900.0,
+            "index": "未分配利润",
+            "2021": 5222500.0
+          },
+          {
+            "2025": 10054100.0,
+            "2024": 9106700.0,
+            "2023": 10833500.0,
+            "2022": 10007300.0,
+            "index": "所有者权益",
+            "2021": 10477400.0
+          }
+        ]
+      }
+    },
+    "cash_flow_statement": {
+      "label": "现金流量表",
+      "unit": "万元",
+      "cumulative": true,
+      "periods": [
+        "2026-03-31",
+        "2025-12-31",
+        "2025-09-30",
+        "2025-06-30",
+        "2025-03-31",
+        "2024-12-31",
+        "2024-09-30",
+        "2024-06-30",
+        "2024-03-31",
+        "2023-12-31",
+        "2023-09-30",
+        "2023-06-30",
+        "2023-03-31",
+        "2022-12-31",
+        "2022-09-30",
+        "2022-06-30",
+        "2022-03-31",
+        "2021-12-31",
+        "2021-09-30",
+        "2021-06-30"
+      ],
+      "rows": [
+        {
+          "name": "经营活动产生的现金流量净额",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 11091600.0,
+            "2024-12-31": 9629000.0,
+            "2023-12-31": 9154800.0,
+            "2022-12-31": 8938500.0,
+            "2021-12-31": 7385300.0,
+            "2025-09-30": 9017400.0,
+            "2024-09-30": 8878800.0,
+            "2023-09-30": 7961100.0,
+            "2022-09-30": 7430900.0,
+            "2021-09-30": 5779800.0,
+            "2025-06-30": 5871900.0,
+            "2024-06-30": 6110700.0,
+            "2023-06-30": 6550800.0,
+            "2022-06-30": 5727100.0,
+            "2021-06-30": 4206800.0,
+            "2026-03-31": 3631100.0,
+            "2025-03-31": 3358800.0,
+            "2024-03-31": 3765800.0,
+            "2023-03-31": 3823300.0,
+            "2022-03-31": 3614900.0
+          }
+        },
+        {
+          "name": "投资活动产生的现金流量净额",
+          "is_section": false,
+          "values": {
+            "2025-12-31": -11011600.0,
+            "2024-12-31": -14177100.0,
+            "2023-12-31": -15664900.0,
+            "2022-12-31": -9047000.0,
+            "2021-12-31": -10653100.0,
+            "2025-09-30": -5788700.0,
+            "2024-09-30": -16735700.0,
+            "2023-09-30": -12382400.0,
+            "2022-09-30": -6049300.0,
+            "2021-09-30": -5899300.0,
+            "2025-06-30": -2172500.0,
+            "2024-06-30": -3201900.0,
+            "2023-06-30": -7669600.0,
+            "2022-06-30": -4892300.0,
+            "2021-06-30": -1421400.0,
+            "2026-03-31": 3586800.0,
+            "2025-03-31": -2526600.0,
+            "2024-03-31": 826200.0,
+            "2023-03-31": -5414400.0,
+            "2022-03-31": -1841000.0
+          }
+        },
+        {
+          "name": "筹资活动产生的现金流量净额",
+          "is_section": false,
+          "values": {
+            "2025-12-31": 373900.0,
+            "2024-12-31": 6202900.0,
+            "2023-12-31": 6928600.0,
+            "2022-12-31": 283900.0,
+            "2021-12-31": 3524100.0,
+            "2025-09-30": -4191400.0,
+            "2024-09-30": 8017700.0,
+            "2023-09-30": 4355300.0,
+            "2022-09-30": -1831600.0,
+            "2021-09-30": 168400.0,
+            "2025-06-30": -4285000.0,
+            "2024-06-30": -2496100.0,
+            "2023-06-30": 1214000.0,
+            "2022-06-30": -621600.0,
+            "2021-06-30": -2390500.0,
+            "2026-03-31": -7882000.0,
+            "2025-03-31": -508500.0,
+            "2024-03-31": -4243900.0,
+            "2023-03-31": 1927000.0,
+            "2022-03-31": -1570500.0
+          }
+        }
+      ],
+      "raw": {
+        "year": [
+          {
+            "2025": 11091600.0,
+            "2024": 9629000.0,
+            "2023": 9154800.0,
+            "2022": 8938500.0,
+            "index": "经营活动产生的现金流量净额",
+            "2021": 7385300.0
+          },
+          {
+            "2025": -11011600.0,
+            "2024": -14177100.0,
+            "2023": -15664900.0,
+            "2022": -9047000.0,
+            "index": "投资活动产生的现金流量净额",
+            "2021": -10653100.0
+          },
+          {
+            "2025": 373900.0,
+            "2024": 6202900.0,
+            "2023": 6928600.0,
+            "2022": 283900.0,
+            "index": "筹资活动产生的现金流量净额",
+            "2021": 3524100.0
+          }
+        ],
+        "middle": [
+          {
+            "2025": 5871900.0,
+            "2024": 6110700.0,
+            "2023": 6550800.0,
+            "2022": 5727100.0,
+            "index": "经营活动产生的现金流量净额",
+            "2021": 4206800.0
+          },
+          {
+            "2025": -2172500.0,
+            "2024": -3201900.0,
+            "2023": -7669600.0,
+            "2022": -4892300.0,
+            "index": "投资活动产生的现金流量净额",
+            "2021": -1421400.0
+          },
+          {
+            "2025": -4285000.0,
+            "2024": -2496100.0,
+            "2023": 1214000.0,
+            "2022": -621600.0,
+            "index": "筹资活动产生的现金流量净额",
+            "2021": -2390500.0
+          }
+        ],
+        "one": [
+          {
+            "2026": 3631100.0,
+            "2025": 3358800.0,
+            "2024": 3765800.0,
+            "2023": 3823300.0,
+            "2022": 3614900.0,
+            "index": "经营活动产生的现金流量净额"
+          },
+          {
+            "2026": 3586800.0,
+            "2025": -2526600.0,
+            "2024": 826200.0,
+            "2023": -5414400.0,
+            "2022": -1841000.0,
+            "index": "投资活动产生的现金流量净额"
+          },
+          {
+            "2026": -7882000.0,
+            "2025": -508500.0,
+            "2024": -4243900.0,
+            "2023": 1927000.0,
+            "2022": -1570500.0,
+            "index": "筹资活动产生的现金流量净额"
+          }
+        ],
+        "three": [
+          {
+            "2025": 9017400.0,
+            "2024": 8878800.0,
+            "2023": 7961100.0,
+            "2022": 7430900.0,
+            "index": "经营活动产生的现金流量净额",
+            "2021": 5779800.0
+          },
+          {
+            "2025": -5788700.0,
+            "2024": -16735700.0,
+            "2023": -12382400.0,
+            "2022": -6049300.0,
+            "index": "投资活动产生的现金流量净额",
+            "2021": -5899300.0
+          },
+          {
+            "2025": -4191400.0,
+            "2024": 8017700.0,
+            "2023": 4355300.0,
+            "2022": -1831600.0,
+            "index": "筹资活动产生的现金流量净额",
+            "2021": 168400.0
+          }
+        ]
+      }
+    }
+  },
+  "derived": {
+    "ttm_parent_net_profit_wan": 3690300.0,
+    "ttm_parent_net_profit_yi": 369.03,
+    "ttm_parent_net_profit_latest_period": "2026-03-31",
+    "ttm_parent_net_profit_basis": "rolling",
+    "ttm_parent_net_profit_components": {
+      "annual_period": "2025-12-31",
+      "current_period": "2026-03-31",
+      "prior_same_period": "2025-03-31"
+    },
+    "latest_book_value_per_share": 39.6074,
+    "latest_main_indicators_report_date": "2026-03-31"
+  }
+}

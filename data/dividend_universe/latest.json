@@ -1,0 +1,459 @@
+{
+  "date": "2026-07-24",
+  "fetched_at": "2026-07-24T19:58:36+08:00",
+  "count": 44,
+  "filters": {
+    "market": [
+      "sh",
+      "sz"
+    ],
+    "pe_max": 15,
+    "pb_max": "",
+    "dividend_rate_min": 3,
+    "roe_min": "",
+    "ttm_parent_net_profit_min_yi": 10.0,
+    "state_owned_whitelist_file": "2026年7月24日.xlsx"
+  },
+  "stocks": [
+    {
+      "stock_code": "000568",
+      "stock_name": "泸州老窖",
+      "industry": "白酒",
+      "dividend_rate": "7.168",
+      "pe": "12.406",
+      "pb": "2.368",
+      "roe": "22.66",
+      "ttm_parent_net_profit_yi": 99.46
+    },
+    {
+      "stock_code": "600970",
+      "stock_name": "中材国际",
+      "industry": "国际工程",
+      "dividend_rate": "6.226",
+      "pe": "8.299",
+      "pb": "0.864",
+      "roe": "13.10",
+      "ttm_parent_net_profit_yi": 26.54
+    },
+    {
+      "stock_code": "600023",
+      "stock_name": "浙能电力",
+      "industry": "火力发电",
+      "dividend_rate": "6.157",
+      "pe": "10.037",
+      "pb": "0.931",
+      "roe": "10.10",
+      "ttm_parent_net_profit_yi": 74.01
+    },
+    {
+      "stock_code": "600015",
+      "stock_name": "华夏银行",
+      "industry": "股份制银行",
+      "dividend_rate": "5.991",
+      "pe": "4.097",
+      "pb": "0.278",
+      "roe": "8.32",
+      "ttm_parent_net_profit_yi": 271.24
+    },
+    {
+      "stock_code": "601229",
+      "stock_name": "上海银行",
+      "industry": "城商行",
+      "dividend_rate": "5.689",
+      "pe": "5.348",
+      "pb": "0.494",
+      "roe": "9.69",
+      "ttm_parent_net_profit_yi": 242.35
+    },
+    {
+      "stock_code": "600039",
+      "stock_name": "XD四川路",
+      "industry": "基建市政工程",
+      "dividend_rate": "5.585",
+      "pe": "11.152",
+      "pb": "1.415",
+      "roe": "14.54",
+      "ttm_parent_net_profit_yi": 70.18
+    },
+    {
+      "stock_code": "601818",
+      "stock_name": "光大银行",
+      "industry": "股份制银行",
+      "dividend_rate": "5.556",
+      "pe": "4.891",
+      "pb": "0.324",
+      "roe": "7.00",
+      "ttm_parent_net_profit_yi": 378.21
+    },
+    {
+      "stock_code": "601169",
+      "stock_name": "北京银行",
+      "industry": "城商行",
+      "dividend_rate": "5.494",
+      "pe": "5.200",
+      "pb": "0.277",
+      "roe": "6.11",
+      "ttm_parent_net_profit_yi": 205.12
+    },
+    {
+      "stock_code": "601997",
+      "stock_name": "贵阳银行",
+      "industry": "城商行",
+      "dividend_rate": "5.415",
+      "pe": "3.800",
+      "pb": "0.285",
+      "roe": "7.97",
+      "ttm_parent_net_profit_yi": 52.83
+    },
+    {
+      "stock_code": "600642",
+      "stock_name": "申能股份",
+      "industry": "火力发电",
+      "dividend_rate": "5.393",
+      "pe": "12.065",
+      "pb": "0.982",
+      "roe": "10.79",
+      "ttm_parent_net_profit_yi": 37.91
+    },
+    {
+      "stock_code": "600887",
+      "stock_name": "伊利股份",
+      "industry": "乳品",
+      "dividend_rate": "5.104",
+      "pe": "14.538",
+      "pb": "2.870",
+      "roe": "20.87",
+      "ttm_parent_net_profit_yi": 120.86
+    },
+    {
+      "stock_code": "600809",
+      "stock_name": "山西汾酒",
+      "industry": "白酒",
+      "dividend_rate": "5.027",
+      "pe": "13.400",
+      "pb": "3.267",
+      "roe": "33.48",
+      "ttm_parent_net_profit_yi": 109.81
+    },
+    {
+      "stock_code": "600795",
+      "stock_name": "国电电力",
+      "industry": "火力发电",
+      "dividend_rate": "4.888",
+      "pe": "13.470",
+      "pb": "1.439",
+      "roe": "12.28",
+      "ttm_parent_net_profit_yi": 67.49
+    },
+    {
+      "stock_code": "600096",
+      "stock_name": "云天化",
+      "industry": "磷肥及磷化工",
+      "dividend_rate": "4.861",
+      "pe": "10.235",
+      "pb": "2.015",
+      "roe": "21.87",
+      "ttm_parent_net_profit_yi": 52.91
+    },
+    {
+      "stock_code": "601555",
+      "stock_name": "东吴证券",
+      "industry": "证券",
+      "dividend_rate": "4.741",
+      "pe": "11.615",
+      "pb": "0.898",
+      "roe": "8.35",
+      "ttm_parent_net_profit_yi": 33.74
+    },
+    {
+      "stock_code": "603369",
+      "stock_name": "今世缘",
+      "industry": "白酒",
+      "dividend_rate": "4.702",
+      "pe": "13.611",
+      "pb": "1.773",
+      "roe": "16.39",
+      "ttm_parent_net_profit_yi": 23.45
+    },
+    {
+      "stock_code": "601577",
+      "stock_name": "长沙银行",
+      "industry": "城商行",
+      "dividend_rate": "4.664",
+      "pe": "4.528",
+      "pb": "0.448",
+      "roe": "11.24",
+      "ttm_parent_net_profit_yi": 82.33
+    },
+    {
+      "stock_code": "601186",
+      "stock_name": "中国铁建",
+      "industry": "基建市政工程",
+      "dividend_rate": "4.615",
+      "pe": "5.793",
+      "pb": "0.253",
+      "roe": "5.91",
+      "ttm_parent_net_profit_yi": 176.04
+    },
+    {
+      "stock_code": "600741",
+      "stock_name": "华域汽车",
+      "industry": "车身附件及饰件",
+      "dividend_rate": "4.611",
+      "pe": "8.572",
+      "pb": "0.803",
+      "roe": "11.16",
+      "ttm_parent_net_profit_yi": 71.81
+    },
+    {
+      "stock_code": "600415",
+      "stock_name": "小商品城",
+      "industry": "商业物业经营",
+      "dividend_rate": "4.566",
+      "pe": "14.858",
+      "pb": "2.516",
+      "roe": "17.53",
+      "ttm_parent_net_profit_yi": 43.91
+    },
+    {
+      "stock_code": "600704",
+      "stock_name": "物产中大",
+      "industry": "原材料供应链服务",
+      "dividend_rate": "4.517",
+      "pe": "9.002",
+      "pb": "0.546",
+      "roe": "8.70",
+      "ttm_parent_net_profit_yi": 36.1
+    },
+    {
+      "stock_code": "002966",
+      "stock_name": "苏州银行",
+      "industry": "城商行",
+      "dividend_rate": "4.489",
+      "pe": "6.563",
+      "pb": "0.571",
+      "roe": "10.66",
+      "ttm_parent_net_profit_yi": 54.76
+    },
+    {
+      "stock_code": "002736",
+      "stock_name": "国信证券",
+      "industry": "证券",
+      "dividend_rate": "4.487",
+      "pe": "9.489",
+      "pb": "0.732",
+      "roe": "10.69",
+      "ttm_parent_net_profit_yi": 108.49
+    },
+    {
+      "stock_code": "601336",
+      "stock_name": "新华保险",
+      "industry": "保险",
+      "dividend_rate": "4.214",
+      "pe": "5.695",
+      "pb": "1.594",
+      "roe": "34.69",
+      "ttm_parent_net_profit_yi": 369.03
+    },
+    {
+      "stock_code": "000999",
+      "stock_name": "华润三九",
+      "industry": "中药",
+      "dividend_rate": "4.211",
+      "pe": "13.869",
+      "pb": "1.768",
+      "roe": "16.07",
+      "ttm_parent_net_profit_yi": 32.27
+    },
+    {
+      "stock_code": "600926",
+      "stock_name": "杭州银行",
+      "industry": "城商行",
+      "dividend_rate": "4.193",
+      "pe": "5.858",
+      "pb": "0.671",
+      "roe": "14.65",
+      "ttm_parent_net_profit_yi": 196.37
+    },
+    {
+      "stock_code": "600008",
+      "stock_name": "首创环保",
+      "industry": "水务及水治理",
+      "dividend_rate": "4.152",
+      "pe": "12.960",
+      "pb": "0.681",
+      "roe": "5.73",
+      "ttm_parent_net_profit_yi": 18.02
+    },
+    {
+      "stock_code": "600377",
+      "stock_name": "宁沪高速",
+      "industry": "高速公路",
+      "dividend_rate": "4.013",
+      "pe": "13.272",
+      "pb": "1.419",
+      "roe": "11.48",
+      "ttm_parent_net_profit_yi": 47.49
+    },
+    {
+      "stock_code": "600483",
+      "stock_name": "福能股份",
+      "industry": "电能综合服务",
+      "dividend_rate": "3.985",
+      "pe": "10.439",
+      "pb": "1.059",
+      "roe": "11.27",
+      "ttm_parent_net_profit_yi": 28.55
+    },
+    {
+      "stock_code": "600332",
+      "stock_name": "白云山",
+      "industry": "中药",
+      "dividend_rate": "3.937",
+      "pe": "14.677",
+      "pb": "0.887",
+      "roe": "8.09",
+      "ttm_parent_net_profit_yi": 29.46
+    },
+    {
+      "stock_code": "601128",
+      "stock_name": "常熟银行",
+      "industry": "农商行",
+      "dividend_rate": "3.933",
+      "pe": "5.231",
+      "pb": "0.694",
+      "roe": "14.05",
+      "ttm_parent_net_profit_yi": 43.4
+    },
+    {
+      "stock_code": "600968",
+      "stock_name": "海油发展",
+      "industry": "油田服务",
+      "dividend_rate": "3.879",
+      "pe": "9.644",
+      "pb": "1.277",
+      "roe": "13.69",
+      "ttm_parent_net_profit_yi": 39.28
+    },
+    {
+      "stock_code": "600018",
+      "stock_name": "上港集团",
+      "industry": "港口",
+      "dividend_rate": "3.794",
+      "pe": "9.698",
+      "pb": "0.824",
+      "roe": "9.88",
+      "ttm_parent_net_profit_yi": 136.65
+    },
+    {
+      "stock_code": "601117",
+      "stock_name": "中国化学",
+      "industry": "化学工程",
+      "dividend_rate": "3.778",
+      "pe": "7.436",
+      "pb": "0.671",
+      "roe": "9.93",
+      "ttm_parent_net_profit_yi": 65.58
+    },
+    {
+      "stock_code": "601390",
+      "stock_name": "中国中铁",
+      "industry": "基建市政工程",
+      "dividend_rate": "3.739",
+      "pe": "6.933",
+      "pb": "0.296",
+      "roe": "6.72",
+      "ttm_parent_net_profit_yi": 212.26
+    },
+    {
+      "stock_code": "600958",
+      "stock_name": "东方证券",
+      "industry": "证券",
+      "dividend_rate": "3.612",
+      "pe": "13.465",
+      "pb": "0.888",
+      "roe": "6.99",
+      "ttm_parent_net_profit_yi": 57.85
+    },
+    {
+      "stock_code": "000786",
+      "stock_name": "北新建材",
+      "industry": "其他建材",
+      "dividend_rate": "3.605",
+      "pe": "11.816",
+      "pb": "1.158",
+      "roe": "11.11",
+      "ttm_parent_net_profit_yi": 28.68
+    },
+    {
+      "stock_code": "600583",
+      "stock_name": "海油工程",
+      "industry": "油气及炼化工程",
+      "dividend_rate": "3.557",
+      "pe": "14.056",
+      "pb": "0.840",
+      "roe": "7.78",
+      "ttm_parent_net_profit_yi": 19.82
+    },
+    {
+      "stock_code": "600323",
+      "stock_name": "瀚蓝环境",
+      "industry": "固废治理",
+      "dividend_rate": "3.492",
+      "pe": "11.815",
+      "pb": "1.612",
+      "roe": "14.07",
+      "ttm_parent_net_profit_yi": 21.32
+    },
+    {
+      "stock_code": "000783",
+      "stock_name": "长江证券",
+      "industry": "证券",
+      "dividend_rate": "3.448",
+      "pe": "11.240",
+      "pb": "1.123",
+      "roe": "10.02",
+      "ttm_parent_net_profit_yi": 42.03
+    },
+    {
+      "stock_code": "000598",
+      "stock_name": "兴蓉环境",
+      "industry": "水务及水治理",
+      "dividend_rate": "3.237",
+      "pe": "10.917",
+      "pb": "1.070",
+      "roe": "10.60",
+      "ttm_parent_net_profit_yi": 20.25
+    },
+    {
+      "stock_code": "000933",
+      "stock_name": "神火股份",
+      "industry": "铝",
+      "dividend_rate": "3.203",
+      "pe": "9.976",
+      "pb": "2.089",
+      "roe": "17.49",
+      "ttm_parent_net_profit_yi": 55.87
+    },
+    {
+      "stock_code": "000791",
+      "stock_name": "甘肃能源",
+      "industry": "水力发电",
+      "dividend_rate": "3.075",
+      "pe": "11.854",
+      "pb": "1.560",
+      "roe": "14.40",
+      "ttm_parent_net_profit_yi": 20.59
+    },
+    {
+      "stock_code": "600999",
+      "stock_name": "招商证券",
+      "industry": "证券",
+      "dividend_rate": "3.046",
+      "pe": "12.230",
+      "pb": "1.148",
+      "roe": "9.94",
+      "ttm_parent_net_profit_yi": 133.12
+    }
+  ]
+}

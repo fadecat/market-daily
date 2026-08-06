@@ -1,0 +1,191 @@
+{
+  "head_strip": {
+    "label": "摘要字段",
+    "report_date_field": "ENDDATE",
+    "field_order": [
+      "F005N",
+      "F020N",
+      "F021N",
+      "F041N",
+      "F081N",
+      "F089N",
+      "F102N",
+      "F109N",
+      "F111N",
+      "F115N",
+      "ENDDATE"
+    ],
+    "field_units": {
+      "F005N": "percent",
+      "F020N": "股",
+      "F021N": "股",
+      "F041N": "percent",
+      "F081N": "percent",
+      "F089N": "元",
+      "F102N": "元",
+      "F109N": "元",
+      "F111N": "元",
+      "F115N": "元",
+      "ENDDATE": "date"
+    },
+    "fields": {
+      "F005N": {
+        "label": "质押率",
+        "unit": "percent",
+        "section": "head_strip",
+        "kind": "ratio",
+        "notes": "点位值，展示时按百分比处理。"
+      },
+      "F020N": {
+        "label": "总股本",
+        "unit": "股",
+        "section": "head_strip",
+        "kind": "share_count",
+        "notes": "页面展示常按万股换算。"
+      },
+      "F021N": {
+        "label": "流通股本",
+        "unit": "股",
+        "section": "head_strip",
+        "kind": "share_count",
+        "notes": "页面展示常按万股换算。"
+      },
+      "F041N": {
+        "label": "负债率",
+        "unit": "percent",
+        "section": "head_strip",
+        "kind": "ratio",
+        "notes": "点位值，展示时按百分比处理。"
+      },
+      "F081N": {
+        "label": "ROE",
+        "unit": "percent",
+        "section": "head_strip",
+        "kind": "ratio",
+        "notes": "点位值，展示时按百分比处理。"
+      },
+      "F089N": {
+        "label": "主营收入",
+        "unit": "元",
+        "section": "head_strip",
+        "kind": "amount",
+        "notes": "页面展示常按亿元换算。"
+      },
+      "F102N": {
+        "label": "净利润",
+        "unit": "元",
+        "section": "head_strip",
+        "kind": "amount",
+        "notes": "页面展示常按亿元换算。"
+      },
+      "F109N": {
+        "label": "货币资金",
+        "unit": "元",
+        "section": "head_strip",
+        "kind": "amount",
+        "notes": "页面展示常按亿元换算。"
+      },
+      "F111N": {
+        "label": "应收款",
+        "unit": "元",
+        "section": "head_strip",
+        "kind": "amount",
+        "notes": "页面展示常按亿元换算。"
+      },
+      "F115N": {
+        "label": "商誉",
+        "unit": "元",
+        "section": "head_strip",
+        "kind": "amount",
+        "notes": "页面展示常按亿元换算。"
+      },
+      "ENDDATE": {
+        "label": "报告期",
+        "unit": "date",
+        "section": "head_strip",
+        "kind": "date",
+        "notes": "摘要字段对应的报告日期。"
+      }
+    }
+  },
+  "statements": {
+    "income_statement": {
+      "label": "利润表",
+      "unit": "万元",
+      "endpoint_path": "/financialData/getIncomeStatement",
+      "cumulative": true,
+      "default_rows": [
+        "营业总收入",
+        "营业总成本",
+        "营业利润",
+        "利润总额",
+        "所得税",
+        "归属母公司净利润"
+      ],
+      "notes": "接口返回 year/three/middle/one 四组累计口径数据。"
+    },
+    "balance_sheet": {
+      "label": "资产负债表",
+      "unit": "万元",
+      "endpoint_path": "/financialData/getBalanceSheets",
+      "cumulative": false,
+      "default_rows": [
+        "资产类科目",
+        "货币资金",
+        "流动资产",
+        "非流动资产",
+        "总资产",
+        "负债类科目",
+        "流动负债",
+        "长期借款",
+        "非流动负债",
+        "总负债",
+        "股东权益类科目",
+        "实收资本（或股本）",
+        "未分配利润",
+        "所有者权益"
+      ],
+      "notes": "接口返回时点口径数据，分组标题行值为 null。"
+    },
+    "cash_flow_statement": {
+      "label": "现金流量表",
+      "unit": "万元",
+      "endpoint_path": "/financialData/getCashFlowStatement",
+      "cumulative": true,
+      "default_rows": [
+        "经营活动产生的现金流量净额",
+        "投资活动产生的现金流量净额",
+        "筹资活动产生的现金流量净额"
+      ],
+      "notes": "接口返回 year/three/middle/one 四组累计口径数据。"
+    }
+  },
+  "main_indicators": {
+    "label": "主要财务指标",
+    "endpoint_path": "/financialData/getMainIndicators",
+    "field_order": [
+      "F008N",
+      "F078N"
+    ],
+    "field_units": {
+      "F008N": "元",
+      "F078N": "percent"
+    },
+    "fields": {
+      "F008N": {
+        "label": "每股净资产",
+        "unit": "元",
+        "section": "main_indicators",
+        "kind": "per_share",
+        "notes": "来自巨潮主要财务指标公开接口，可用于 PB 口径核对。"
+      },
+      "F078N": {
+        "label": "ROE",
+        "unit": "percent",
+        "section": "main_indicators",
+        "kind": "ratio",
+        "notes": "主要财务指标中的 ROE 点位值。"
+      }
+    }
+  }
+}
