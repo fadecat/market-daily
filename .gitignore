@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.pytest_tmp/
+tmp-pytest/
+
+# 本地环境(不入 git)
+.env.local
+.env
+
+# 预览产物(忽略内容,保留目录)
+preview/*
+!preview/.gitkeep
+
+# 临时图表与图片产物
+*.png
+*.jpg
+*.jpeg
+
+# Excel 产物(国资白名单除外)
+*.xlsx
+!data/whitelist/*.xlsx
+
+# 日志
+*.log
+
+# 临时/缓存目录
+datacache/
+.test_artifacts/
+.codex_tmp/
+.codex/
+
+# 注意:data/ 下的 json(state/archive/cninfo/cb_bonds/dividend_universe/cb_index_history.json)
+# 靠 git commit 持久化,不被忽略,需正常跟踪。

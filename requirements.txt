@@ -1,0 +1,21 @@
+# market-daily 依赖
+# 集思录账密登录(AES-ECB)
+pycryptodome
+# HTTP / 配置
+requests
+pyyaml
+# 数据处理与绘图
+pandas
+matplotlib
+# 行情数据源(ETF/指数/国债/汇率)
+akshare
+# CCTDA 煤炭日报解析
+beautifulsoup4
+PyMuPDF
+# 图片处理
+Pillow
+# 国资白名单 Excel
+openpyxl
+# 测试
+pytest
+# tickflow  # 可选:ETF/指数日线数据源,装不上时降级 akshare
