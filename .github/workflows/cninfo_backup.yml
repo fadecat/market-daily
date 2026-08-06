@@ -1,0 +1,61 @@
+name: 巨潮财报缓存
+
+on:
+  schedule:
+    # 预热:北京 01:07-05:07(UTC 17:07-21:07 周日-周四),按小时分 5 片,低速率避开巨潮限流
+    - cron: "7 17-21 * * 0-4"
+    # 重试兜底:北京 06:07-07:07(UTC 22:07-23:07 周日-周四)
+    - cron: "7 22-23 * * 0-4"
+    # 重试兜底:北京 08:07-15:07(UTC 00:07-07:07 周一-周五);全成功时 work 为空,空跑不抓取
+    - cron: "7 0-7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python + CJK fonts
+        uses: ./.github/actions/setup-python-cjk
+
+      - name: 运行巨潮财报缓存
+        env:
+          JISILU_USERNAME: ${{ secrets.JISILU_USERNAME }}
+          JISILU_PASSWORD: ${{ secrets.JISILU_PASSWORD }}
+          ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
+          EASTMONEY_XUANGU_COOKIE: ${{ secrets.EASTMONEY_XUANGU_COOKIE }}
+          DIVIDEND_EMAIL_SUPPLEMENT_XCID: ${{ secrets.DIVIDEND_EMAIL_SUPPLEMENT_XCID }}
+          CNINFO_FETCH_MAX_RETRIES: ${{ vars.CNINFO_FETCH_MAX_RETRIES }}
+          CNINFO_FETCH_BACKOFF_SECONDS: ${{ vars.CNINFO_FETCH_BACKOFF_SECONDS }}
+          CNINFO_WARMUP_DELAY_SECONDS: ${{ vars.CNINFO_WARMUP_DELAY_SECONDS || '4' }}
+        run: |
+          local_hour="$(TZ=Asia/Shanghai date '+%H')"
+          if [ "$local_hour" -ge 1 ] && [ "$local_hour" -le 5 ]; then
+            shard_index=$((10#$local_hour - 1))
+            echo "Warmup shard $((shard_index + 1))/5 at Asia/Shanghai ${local_hour}:07"
+            python -m src.valuation.dividend.cninfo_backup --warmup --shard-count 5 --shard-index "$shard_index"
+          else
+            echo "Retry at Asia/Shanghai ${local_hour}:07"
+            python -m src.valuation.dividend.cninfo_backup --retry
+          fi
+
+      - name: 提交缓存变更
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/cninfo data/dividend_universe
+          if git diff --cached --quiet; then
+            echo "no cninfo changes, skip commit"
+          else
+            git commit -m "chore: 巨潮财报缓存快照"
+            git pull --rebase origin main
+            git push
+          fi
