@@ -16,6 +16,10 @@ import requests
 import yaml
 
 from ...common import alerts, env, jisilu as jl
+from ...common.whitelist import (
+    load_stock_enterprise_nature_map_from_xlsx,
+    normalize_stock_code,
+)
 
 
 BEIJING_TZ = timezone(timedelta(hours=8))
@@ -213,21 +217,17 @@ def log_cb_exclusions(rows: List[Dict[str, Any]]) -> None:
         print(f"排除 {cell.get('bond_nm', '--')}({cell.get('bond_id', '--')}) 原因: {', '.join(reasons)}")
 
 
-# ── 企业性质(TODO: 2d 移植高股息时抽 common/whitelist.py 接回)─────────────────
-def normalize_stock_code(value: Any) -> str:
-    digits = "".join(ch for ch in str(value or "").strip() if ch.isdigit())
-    if not digits:
-        return ""
-    return digits.zfill(6)
-
-
+# ── 企业性质(与高股息共用 common/whitelist.py 白名单,口径一致)─────────────────
 def load_enterprise_nature_map() -> Dict[str, str]:
-    """加载 {正股代码: 企业性质} 映射。
+    """加载 {正股代码: 企业性质} 映射(来自国资白名单 Excel「企业性质」列)。
 
-    当前暂返回空映射(企业性质列留空)。白名单 Excel 加载逻辑与高股息板块共用,
-    将在移植高股息时抽到 common/whitelist.py 后接回。
+    白名单文件缺失时返回空映射,转债邮件不因此中断(企业性质列留空)。
     """
-    return {}
+    try:
+        return load_stock_enterprise_nature_map_from_xlsx()
+    except (FileNotFoundError, RuntimeError) as exc:
+        print(f"[WARN] 国资白名单加载失败,企业性质列将留空: {exc}")
+        return {}
 
 
 def get_enterprise_nature(c: Dict[str, Any], nature_map: Optional[Dict[str, str]] = None) -> str:

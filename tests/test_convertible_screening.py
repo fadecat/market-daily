@@ -78,10 +78,22 @@ def test_filter_cb_excludes_st_and_sorts():
     assert [r["cell"]["bond_id"] for r in filtered] == ["A"]
 
 
-def test_get_enterprise_nature_blank_for_now():
-    # 当前白名单未接回,企业性质列留空
-    assert strategy.get_enterprise_nature({"stock_id": "600001"}) == ""
-    assert strategy.load_enterprise_nature_map() == {}
+def test_get_enterprise_nature():
+    # 显式 nature_map
+    assert strategy.get_enterprise_nature({"stock_id": "600001"}, {"600001": "中央国有企业"}) == "中央国有企业"
+    assert strategy.get_enterprise_nature({"stock_id": "600001"}, {}) == ""
+    assert strategy.get_enterprise_nature({"stock_id": ""}, {"600001": "x"}) == ""
+    # normalize:"1" -> "000001"
+    assert strategy.get_enterprise_nature({"stock_id": "1"}, {"000001": "地方国有企业"}) == "地方国有企业"
+
+
+def test_load_enterprise_nature_map_from_whitelist():
+    nature_map = strategy.load_enterprise_nature_map()
+    assert isinstance(nature_map, dict)
+    # 真实白名单存在时应非空(已接回 common/whitelist)
+    from src.common.whitelist import DEFAULT_WHITELIST_XLSX
+    if DEFAULT_WHITELIST_XLSX.exists():
+        assert len(nature_map) > 0
 
 
 def test_load_config_reads_yaml():
