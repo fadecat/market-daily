@@ -1,0 +1,11 @@
+# 集思录日历下修提醒配置
+# 按规则拉集思录日历(qtype + 时间窗),用 title_keywords 过滤命中事件,
+# 聚合为一个 section 片段随转债行情邮件发出(原 webhook 推送已改为 SMTP)。
+# window: next_month(下月整月)/ current_to_lookahead(今日起 lookahead_days 天)
+calendar_monitors:
+  - name: "下修股东会提醒"
+    qtype: "CNV"
+    window: "next_month"
+    title_keywords:
+      - "下修股东会"
+    lookahead_days: 45
