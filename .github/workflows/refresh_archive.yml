@@ -1,0 +1,41 @@
+name: 归档刷新
+
+on:
+  schedule:
+    # UTC 07:15 = Asia/Shanghai 15:15(收盘后、板块日报前),刷新估值/国债/汇率/转债指数归档供板块回退读取
+    - cron: "15 7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python + CJK fonts
+        uses: ./.github/actions/setup-python-cjk
+
+      - name: 刷新归档
+        env:
+          ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
+        run: python -m src.valuation.refresh_archive
+
+      - name: 提交归档变更
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/archive data/cb_index_history.json
+          if git diff --cached --quiet; then
+            echo "no archive changes, skip commit"
+          else
+            git commit -m "chore: refresh 归档快照(估值/国债/汇率/转债指数)"
+            git pull --rebase origin main
+            git push
+          fi
