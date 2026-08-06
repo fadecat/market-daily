@@ -1,0 +1,44 @@
+name: 资产轮动日报
+
+on:
+  schedule:
+    # UTC 07:34 = Asia/Shanghai 15:34(收盘后);与其它板块错峰提交
+    - cron: "34 7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python + CJK fonts
+        uses: ./.github/actions/setup-python-cjk
+
+      - name: 运行资产轮动板块
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
+        run: python -m src.rotation.run
+
+      - name: 提交 state 变更
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/state data/archive
+          if git diff --cached --quiet; then
+            echo "no state changes, skip commit"
+          else
+            git commit -m "chore: 资产轮动 state 快照"
+            git pull --rebase origin main
+            git push
+          fi
