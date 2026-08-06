@@ -1,0 +1,8 @@
+# 可转债低价债筛选配置
+# 拉集思录全市场转债(价格≤max_price、评级 AAA~A-、已上市),排除 ST/强赎/到期赎回/
+# 短久期负收益债,按 factors 排名得分求和降序排序。
+max_price: 120              # 价格上限
+max_show: 50                # 邮件展示前 N 只
+factors:                    # 排序因子(值越小越好,得分求和降序;同分按双低/溢价/价格/规模升序)
+  - {field: dblow, label: "双低"}
+  - {field: curr_iss_amt, label: "规模"}
