@@ -1,0 +1,5 @@
+# 正股董秘互动 section 配置
+# 近一周已回复问答,每只正股最多展示条数与摘要截断长度
+max_qas_per_stock: 3
+question_max: 80
+answer_max: 150
