@@ -54,4 +54,19 @@ python -m src.preview.verify
 
 ## CI
 
-GitHub Actions:4 个板块 workflow(工作日收盘 UTC 07:30 触发)+ 数据归档/巨潮预热 workflow。详见 `.github/workflows/`。
+GitHub Actions(工作日错峰触发,详见 [DEPLOY.md](DEPLOY.md)):
+
+- `refresh_archive.yml` UTC 07:15 — 刷新指数/国债/汇率/转债指数归档
+- `valuation.yml` / `rotation.yml` / `convertible.yml` / `commodity.yml` — UTC 07:31/34/37/40,4 板块日报
+- `preview.yml` UTC 08:07 — 静态校验(板块日报后)
+- `cninfo_backup.yml` — 巨潮财报缓存预热(夜间分片)/重试
+
+凭据走 GitHub Secrets,非敏感配置走 GitHub Variables;各 workflow 末尾把 `data/state`、`data/archive` 变更回提交(`git pull --rebase` 后 push)。
+
+## 测试
+
+```powershell
+python -m pytest --basetemp=.pytest_tmp
+```
+
+本地须用 `--basetemp=.pytest_tmp`(系统 Temp 目录权限受限)。改动后优先跑 `python -m src.preview.verify` 复用 `data/state/` 快照做静态校验,不重跑全量。

@@ -8,7 +8,7 @@
 ### 公共层优先
 `src/common/` 是所有板块的依赖,改动板块前确认 common 层已就绪:
 - `env.py` - 配置加载(`.env.local` + 环境变量回退),统一读取方式,不要在板块里裸 `os.getenv`
-- `jisilu.py` - 账密登录,对外 `make_session(user, pwd)`;**禁止**再用 `JISILU_COOKIE` / 硬编码 cookie
+- `jisilu.py` - 账密登录,对外 `get_cookie()`(板块常用)/ `make_session()`;**禁止**再用 `JISILU_COOKIE` / 硬编码 cookie
 - `email.py` - SMTP 发信 + `compose_sections()` 多 section 聚合 + `render_markdown`/`render_table`
 - `alerts.py` - `notify_alert()`(唯一报警 webhook)+ `run_with_retry()` 装饰器;网络层都要套重试
 - `storage.py` - `save_snapshot`(content_hash 去重)/ `load_state`/`save_state`(`data/state/`)/ `merge_archive`(`data/archive/`)
