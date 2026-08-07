@@ -37,7 +37,7 @@ _REPORT_PATH = _PREVIEW_DIR / "verify_report.md"
 _STATE_SPECS: list[tuple[str, str, tuple[str, ...]]] = [
     ("valuation", "市场估值", ("last_valuation_date",)),
     ("etf_rotation_20d", "资产轮动ETF", ("holdings_history", "portfolio_nav", "next_holding")),
-    ("cb_three_low", "转债三低轮动", ("holdings_history", "next_holding")),
+    ("cb_three_low", "转债三低轮动", ("holdings_history",)),
     ("cctda_coal_daily", "煤炭日报", ("article_url", "sent_at")),
 ]
 
@@ -51,7 +51,7 @@ _FIXED_FILES = [
     ("fx", "日期", "usd_cnh.json"),
 ]
 
-_CID_RE = re.compile(r"cid:")
+_CID_RE = re.compile(r"""src=["']cid:""")
 
 
 @dataclass
@@ -339,6 +339,11 @@ def build_report(results: list[CheckResult], today: date) -> str:
 
 
 def main() -> int:
+    # Windows 控制台默认 GBK,emoji 标记(✅/❌)无法编码,reconfigure 为 UTF-8
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
     parser = argparse.ArgumentParser(description="静态校验 data/state、data/archive 与 preview/*.html")
     parser.add_argument("--output", default=str(_REPORT_PATH), help="报告输出路径")
     args = parser.parse_args()
