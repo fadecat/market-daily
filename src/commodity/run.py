@@ -49,7 +49,7 @@ def run_send() -> int:
         ):
             print(f"[INFO] 无今日({today})品种数据,跳过发信(skip_if_no_today_data)")
             return 0
-        html_parts, _summary = commodity_reporting.build_email_html(results, cfg)
+        html_parts, _summary = commodity_reporting.build_email_html(results, cfg, stale_days_threshold=cfg.max_stale_days)
         latest_dates = [r.latest_date for r in results if r.latest_date is not None]
         date_tag = max(latest_dates).isoformat() if latest_dates else ""
         subject = f"商品极值监控日报 {date_tag}".strip()
@@ -66,7 +66,7 @@ def run_preview(output_path: str | Path | None = None) -> Path:
     output_path = Path(output_path) if output_path else DEFAULT_PREVIEW_PATH
     try:
         cfg, results = _scan()
-        html_parts, _summary = commodity_reporting.build_email_html(results, cfg)
+        html_parts, _summary = commodity_reporting.build_email_html(results, cfg, stale_days_threshold=cfg.max_stale_days)
         body_html = email.compose_sections(html_parts)
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError(f"商品极值板块预览生成失败: {exc}") from exc

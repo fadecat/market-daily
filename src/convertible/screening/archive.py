@@ -334,6 +334,7 @@ def refresh_cb_adjust_archives(
             derived = derive_cb_adjust_metrics(detail, hist_payload, as_of_date=run_date)
             write_cb_archive_files(bond_id, detail, hist_payload, derived, as_of_date=run_date)
             archive_map[bond_id] = derived
+            time.sleep(0.3)  # 节流:每债 2 GET,避免触发集思录/东财限流
         except Exception as e:  # noqa: BLE001
             print(f"可转债下修归档失败 {bond_id}: {e}")
             reason = str(e)

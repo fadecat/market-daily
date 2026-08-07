@@ -33,9 +33,6 @@ DEFAULT_TIMEZONE = "Asia/Shanghai"
 # 这里对「抓取 bundle + 派生指标」整体重试,每次都会重新校验归母净利润行。
 CNINFO_FETCH_MAX_ATTEMPTS = max(1, int(env.get("CNINFO_FETCH_MAX_RETRIES", "3") or "3"))
 CNINFO_FETCH_BACKOFF_SECONDS = max(0.0, float(env.get("CNINFO_FETCH_BACKOFF_SECONDS", "2") or "2"))
-# 缓存超过该天数视为过期、需重新抓取(TTM 会随财报季变陈旧)。仅用于预热选品;
-# 推送路径不据此拒读缓存,避免当天 burst 重抓。
-CNINFO_CACHE_MAX_AGE_DAYS = max(1, int(env.get("CNINFO_CACHE_MAX_AGE_DAYS", "30") or "30"))
 
 
 def _normalize_stock_code(stock_code: str) -> str:
@@ -199,24 +196,6 @@ def load_cached_financial_snapshot(
     if any(field not in derived for field in required_fields):
         return None
     return snapshot
-
-
-def is_snapshot_fresh(snapshot: dict[str, Any], max_age_days: int) -> bool:
-    """缓存快照是否在 max_age_days 内抓取(基于 fetched_at)。
-
-    report_date 可能为 None,故以 fetched_at(抓取时刻)作为新鲜度判据。
-    """
-    fetched_at = snapshot.get("fetched_at")
-    if not fetched_at:
-        return False
-    try:
-        fetched_dt = datetime.fromisoformat(str(fetched_at))
-    except ValueError:
-        return False
-    if fetched_dt.tzinfo is None:
-        fetched_dt = fetched_dt.replace(tzinfo=ZoneInfo(DEFAULT_TIMEZONE))
-    now = datetime.now(ZoneInfo(DEFAULT_TIMEZONE))
-    return (now - fetched_dt).days < max_age_days
 
 
 def get_or_fetch_financial_snapshot(

@@ -35,7 +35,7 @@ def test_run_send_skips_when_no_today_data(monkeypatch):
         commodity_run,
         "_scan",
         lambda: (
-            SimpleNamespace(skip_if_no_today_data=True),
+            SimpleNamespace(skip_if_no_today_data=True, max_stale_days=10),
             [_result(datetime.date(2026, 8, 6))],  # 只有 T-1
         ),
     )
@@ -55,11 +55,11 @@ def test_run_send_sends_when_today_data_present(monkeypatch):
         commodity_run,
         "_scan",
         lambda: (
-            SimpleNamespace(skip_if_no_today_data=True),
+            SimpleNamespace(skip_if_no_today_data=True, max_stale_days=10),
             [_result(datetime.date(2026, 8, 7))],  # 有今日
         ),
     )
-    monkeypatch.setattr(commodity_reporting, "build_email_html", lambda results, cfg: (["<div>x</div>"], None))
+    monkeypatch.setattr(commodity_reporting, "build_email_html", lambda results, cfg, **k: (["<div>x</div>"], None))
     sent = _patch_send(monkeypatch, email_mod)
     assert commodity_run.run_send() == 0
     assert sent["n"] == 1
@@ -76,11 +76,11 @@ def test_run_send_sends_when_skip_disabled(monkeypatch):
         commodity_run,
         "_scan",
         lambda: (
-            SimpleNamespace(skip_if_no_today_data=False),
+            SimpleNamespace(skip_if_no_today_data=False, max_stale_days=10),
             [_result(datetime.date(2026, 8, 6))],  # 无今日但 skip 关闭
         ),
     )
-    monkeypatch.setattr(commodity_reporting, "build_email_html", lambda results, cfg: (["<div>x</div>"], None))
+    monkeypatch.setattr(commodity_reporting, "build_email_html", lambda results, cfg, **k: (["<div>x</div>"], None))
     sent = _patch_send(monkeypatch, email_mod)
     assert commodity_run.run_send() == 0
     assert sent["n"] == 1

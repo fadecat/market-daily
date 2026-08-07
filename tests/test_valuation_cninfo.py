@@ -139,14 +139,3 @@ def test_fetch_cached_or_live_hits_cache(tmp_path):
     )
     assert result["ttm_value_yi"] == 1.1
     assert result["stock_code"] == "600001"
-
-
-# ── is_snapshot_fresh ─────────────────────────────────────────────────────────
-def test_is_snapshot_fresh():
-    tz = ZoneInfo("Asia/Shanghai")
-    now_iso = datetime.now(tz).isoformat(timespec="seconds")
-    old_iso = (datetime.now(tz) - timedelta(days=40)).isoformat(timespec="seconds")
-    assert cninfo_cache.is_snapshot_fresh({"fetched_at": now_iso}, 30) is True
-    assert cninfo_cache.is_snapshot_fresh({"fetched_at": old_iso}, 30) is False
-    assert cninfo_cache.is_snapshot_fresh({}, 30) is False
-    assert cninfo_cache.is_snapshot_fresh({"fetched_at": "not-a-date"}, 30) is False

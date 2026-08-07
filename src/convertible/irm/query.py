@@ -245,6 +245,7 @@ def collect_irm_for_rows(
     results: List[Dict[str, Any]] = []
     for stock_nm, stock_id in stocks:
         qas = query_irm(stock_nm, stock_id)
+        time.sleep(0.5)  # 节流:每只正股 2 POST,最多 50 只,避免触发限流
         if not qas:
             continue
         trimmed = []
