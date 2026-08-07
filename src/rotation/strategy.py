@@ -17,7 +17,7 @@ import pandas as pd
 import requests
 import yaml
 
-from ..common import env, jisilu as jl, storage
+from ..common import alerts, env, jisilu as jl, storage
 from . import etf_data
 from .etf_data import now_in_beijing
 
@@ -375,11 +375,25 @@ def run_strategy(
             state["updated_at"] = now_in_beijing().strftime("%Y-%m-%d %H:%M:%S")
             logger.info("新增 %d 个交易日，组合净值 %.4f，次日持仓 %s", len(entries), nav, next_holding)
         else:
-            logger.warning("上次运行日期 %s 不在数据窗口内，重新回填", last_date)
-            entries, nav, next_holding = backfill(
-                price_frame, nav_frame, universe_codes, fallback_code, lookback, initial_nav
+            resume_nav = state.get("portfolio_nav", initial_nav)
+            logger.warning(
+                "上次运行日期 %s 不在数据窗口内，重新回填(从旧净值 %.4f 续接,保留历史)",
+                last_date, resume_nav,
             )
-            state = fresh_state(config, latest_date, entries, nav, next_holding)
+            entries, nav, next_holding = backfill(
+                price_frame, nav_frame, universe_codes, fallback_code, lookback, resume_nav
+            )
+            # 保留旧 holdings_history(窗口外真实曲线),append 窗口内新增(按日期去重)
+            old_history = list(state.get("holdings_history", []))
+            old_dates = {e.get("date") for e in old_history}
+            new_entries = [e for e in entries if e.get("date") not in old_dates]
+            state = fresh_state(config, latest_date, old_history + new_entries, nav, next_holding)
+            alerts.notify_alert(
+                "资产轮动板块",
+                f"上次运行日期 {last_date} 不在数据窗口内,已重新回填。"
+                f"旧历史已保留,组合净值从 {resume_nav:.4f} 续接"
+                f"(窗口外数据缺失,净值曲线在 gap 处可能不连续)。",
+            )
 
     save_state(state)
     return state

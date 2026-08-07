@@ -30,8 +30,9 @@ def run_send() -> int:
             alerts.notify_alert("资产轮动板块", "策略无数据，退出")  # 全数据源挂掉应告警
             return 1
 
-        prev_count = len((prev or {}).get("holdings_history", []))
-        if len(state.get("holdings_history", [])) <= prev_count:
+        # 用 last_run_date 判断有无新交易日,避免重回填后 history 变短误判为"无新日"跳过邮件
+        prev_date = (prev or {}).get("last_run_date")
+        if state.get("last_run_date") == prev_date:
             print(f"[INFO] 无新交易日（last_run_date={state.get('last_run_date')}），跳过邮件")
             return 0
 
