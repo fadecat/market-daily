@@ -48,6 +48,19 @@ def test_is_force_redeem_triggered():
     assert strategy.is_force_redeem_triggered({"sprice": "8", "force_redeem_price": "9"}) is False
 
 
+def test_is_force_redeem_triggered_dash_value_no_crash():
+    """P1-6: sprice/force_redeem_price 为 '-' (无数据) 不应崩溃,且不误判触发。
+
+    '-' 经 to_float(default=0.0/999.0) 兜底: sprice='-' -> 0.0, 0.0>=9.0 为 False
+    (不触发); force_redeem_price='-' -> 999.0, 10>=999 为 False (不触发)。
+    旧实现 float('-' or 0) 直接抛 ValueError。
+    """
+    assert strategy.is_force_redeem_triggered({"sprice": "-", "force_redeem_price": "9"}) is False
+    assert strategy.is_force_redeem_triggered({"sprice": "10", "force_redeem_price": "-"}) is False
+    # 正常触发不受影响
+    assert strategy.is_force_redeem_triggered({"sprice": "10", "force_redeem_price": "9"}) is True
+
+
 def test_normalize_stock_code():
     assert strategy.normalize_stock_code("  600001.SH ") == "600001"
     assert strategy.normalize_stock_code("000001") == "000001"

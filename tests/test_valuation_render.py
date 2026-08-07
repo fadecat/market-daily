@@ -328,6 +328,24 @@ def test_assemble_skips_item_with_no_block():
     assert "沪深300" in html
 
 
+def test_assemble_empty_item_does_not_misalign_chart_cid():
+    """P1-3 回归:空 item 不应让后续 item 的图表 cid 错位。
+
+    旧实现第二个循环按 items[i] 取 code,空 item 被跳过后 blocks 与 items 错位,
+    full item 的图会错挂到 empty item 的 code(图丢失)。修复后 block_codes 与
+    blocks 一一对应。
+    """
+    empty = {"index_code": "EMPTY", "index_valuation_metrics": {}}
+    _html, imgs = render.assemble_email_html(
+        current_time=datetime(2024, 5, 10, 9, 30),
+        valuation_items=[empty, _full_item()],
+        chart_paths={"000300": "/tmp/pe.png"},
+        extra_sections=[],
+    )
+    assert render.equity_bond_chart_cid("000300") in imgs
+    assert render.equity_bond_chart_cid("EMPTY") not in imgs
+
+
 def test_assemble_inline_images_excludes_extra_section_images():
     # assemble 只归集 per-item 图;额外 section 的图由调用方自管
     html, imgs = render.assemble_email_html(
