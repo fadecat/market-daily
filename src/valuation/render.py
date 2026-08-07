@@ -612,13 +612,15 @@ def assemble_email_html(
     global_info = _build_global_info(now_str, valuation_date, bond_yield)
 
     blocks: List[str] = []
+    block_codes: List[str] = []  # 与 blocks 一一对应,避免后续按 items[i] 索引错位
     inline_images: Dict[str, str] = {}
     for item in items:
         block = render_email_item_percentile_block(item)
         if not block:
             continue
-        blocks.append(block)
         code = str(item.get("index_code") or item.get("code") or "").strip()
+        blocks.append(block)
+        block_codes.append(code)
         chart_path = chart_paths.get(code) if code else None
         if chart_path:
             inline_images[equity_bond_chart_cid(code)] = str(chart_path)
@@ -632,7 +634,7 @@ def assemble_email_html(
     card_rows: List[str] = []
     for i, block in enumerate(blocks):
         card_rows.append(f'<tr><td style="padding:24px 28px 0 28px">{block}</td></tr>')
-        code = str(items[i].get("index_code") or items[i].get("code") or "").strip()
+        code = block_codes[i]
         chart_path = chart_paths.get(code) if code else None
         if chart_path:
             card_rows.append(

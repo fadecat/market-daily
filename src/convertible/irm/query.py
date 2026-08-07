@@ -213,7 +213,7 @@ def query_irm(stock_name: str, stock_code: str) -> List[Dict[str, Any]]:
         code = str(stock_code).zfill(6)
         if code.startswith(("00", "30")):
             return _query_cninfo(stock_name)
-        if code.startswith("60"):
+        if code.startswith(("60", "68")):  # 60 沪市主板 / 68 科创板(688/689),均走上证 e 互动
             return _query_sse(stock_name)
         return []
     except Exception as e:  # noqa: BLE001

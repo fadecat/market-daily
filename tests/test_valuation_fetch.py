@@ -488,3 +488,46 @@ def test_fetch_index_data_all_sources_fail_raises(monkeypatch):
     monkeypatch.setattr(fetch.alerts, "run_with_retry", lambda name, fn: fn())
     with pytest.raises(RuntimeError, match="指数数据获取失败"):
         fetch.fetch_index_data("sh000300", "20260101", "20260831")
+
+
+# ---------- fetch_target_index_metrics: detail 失败回退 (P1-4) ----------
+
+
+def test_fetch_target_index_metrics_detail_failure_falls_back(monkeypatch, capsys):
+    """detail 接口失败不应中断整个标的,应继续走股息率/分位归档回退。"""
+    target = {"tracking_index_code": "000300"}
+
+    def boom(*a, **k):
+        raise RuntimeError("detail boom")
+
+    monkeypatch.setattr(fetch, "fetch_index_detail", boom)
+    monkeypatch.setattr(
+        fetch, "fetch_index_dividend_yield_with_archive_fallback",
+        lambda *a, **k: {"index_dividend_yield": 2.5, "data_source": "archive", "archive_latest_date": "2026-08-06"},
+    )
+    monkeypatch.setattr(
+        fetch, "fetch_index_valuation_percentile_with_archive_fallback",
+        lambda *a, **k: {"index_valuation_percentile": 30, "data_source": "archive", "archive_latest_date": "2026-08-06"},
+    )
+    out = fetch.fetch_target_index_metrics(target)
+    assert out is not None
+    assert out["index_dividend_yield"] == 2.5
+    assert out["index_valuation_percentile"] == 30
+    assert "detail 接口失败" in capsys.readouterr().out
+
+
+def test_fetch_target_index_metrics_detail_success_no_warn(monkeypatch, capsys):
+    """detail 成功时不应打印失败回退告警。"""
+    target = {"tracking_index_code": "000300"}
+    monkeypatch.setattr(fetch, "fetch_index_detail", lambda *a, **k: {"index_code": "000300"})
+    monkeypatch.setattr(
+        fetch, "fetch_index_dividend_yield_with_archive_fallback",
+        lambda *a, **k: {"index_dividend_yield": 2.5, "data_source": "live", "archive_latest_date": None},
+    )
+    monkeypatch.setattr(
+        fetch, "fetch_index_valuation_percentile_with_archive_fallback",
+        lambda *a, **k: {"index_valuation_percentile": 30, "data_source": "live", "archive_latest_date": None},
+    )
+    out = fetch.fetch_target_index_metrics(target)
+    assert out is not None
+    assert "detail 接口失败" not in capsys.readouterr().out

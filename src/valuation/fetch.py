@@ -851,9 +851,13 @@ def fetch_target_index_metrics(target: Dict) -> Optional[Dict]:
 
     result: Dict = {}
     if index_code or detail_url:
-        detail = fetch_index_detail(index_code, url=detail_url)
-        result.update({key: value for key, value in detail.items() if value not in {"", None}})
-        index_code = str(result.get("index_code") or index_code).strip()
+        try:
+            detail = fetch_index_detail(index_code, url=detail_url)
+            result.update({key: value for key, value in detail.items() if value not in {"", None}})
+            index_code = str(result.get("index_code") or index_code).strip()
+        except Exception as exc:  # noqa: BLE001
+            # detail 接口失败不中止整个标的:保留已有 index_code,继续走股息率/分位归档回退
+            print(f"[WARN] 指数 detail 接口失败,改走股息率/分位归档回退: {index_code} -> {exc}")
 
     dividend_url = dividend_url or str(result.get("index_dividend_yield_url") or "").strip()
     if index_code or dividend_url:

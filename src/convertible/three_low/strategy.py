@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import requests
 import yaml
 
-from ...common import env, jisilu as jl, storage
+from ...common import alerts, env, jisilu as jl, storage
 
 
 BEIJING_TZ = timezone(timedelta(hours=8))
@@ -128,26 +128,34 @@ def build_bond_code_match_set(codes: List[Any]) -> set:
 
 # ── 数据层 ────────────────────────────────────────────────────────────────────
 def fetch_cb_list(session: requests.Session) -> List[Dict[str, Any]]:
-    """POST cb_list_new,返回 rows。≤30 条视为未登录/会话失效,抛错。"""
-    params = {"___jsl": f"LST___t={int(time.time() * 1000)}"}
-    resp = session.post(CB_LIST_URL, headers=CB_HEADERS, params=params, data=CB_FORM_DATA, timeout=15)
-    resp.raise_for_status()
-    rows = resp.json().get("rows", [])
-    if len(rows) <= 30:
-        raise ValueError(f"转债列表仅返回 {len(rows)} 条(≤30),可能未登录或会话已失效")
-    logger.info("cb_list 返回 %d 条", len(rows))
-    return rows
+    """POST cb_list_new,返回 rows。≤30 条视为未登录/会话失效,抛错。
+
+    包 ``run_with_retry``:网络层异常(超时/连接)自动退避重试,会话失效(ValueError)不重试。
+    与 screening.fetch_cb_data 重试策略一致。
+    """
+    def _fetch() -> List[Dict[str, Any]]:
+        params = {"___jsl": f"LST___t={int(time.time() * 1000)}"}
+        resp = session.post(CB_LIST_URL, headers=CB_HEADERS, params=params, data=CB_FORM_DATA, timeout=15)
+        resp.raise_for_status()
+        rows = resp.json().get("rows", [])
+        if len(rows) <= 30:
+            raise ValueError(f"转债列表仅返回 {len(rows)} 条(≤30),可能未登录或会话已失效")
+        logger.info("cb_list 返回 %d 条", len(rows))
+        return rows
+    return alerts.run_with_retry("转债三低 cb_list", _fetch)
 
 
 def fetch_redeem_list(session: requests.Session) -> List[Dict[str, Any]]:
-    params = {"___jsl": f"LST___t={int(time.time() * 1000)}"}
-    resp = session.post(
-        CB_REDEEM_LIST_URL, headers=CB_HEADERS, params=params, data={"rp": 50, "page": 1}, timeout=15
-    )
-    resp.raise_for_status()
-    rows = resp.json().get("rows", [])
-    logger.info("redeem_list 返回 %d 条", len(rows))
-    return rows
+    def _fetch() -> List[Dict[str, Any]]:
+        params = {"___jsl": f"LST___t={int(time.time() * 1000)}"}
+        resp = session.post(
+            CB_REDEEM_LIST_URL, headers=CB_HEADERS, params=params, data={"rp": 50, "page": 1}, timeout=15
+        )
+        resp.raise_for_status()
+        rows = resp.json().get("rows", [])
+        logger.info("redeem_list 返回 %d 条", len(rows))
+        return rows
+    return alerts.run_with_retry("转债三低 redeem_list", _fetch)
 
 
 def load_snapshot(

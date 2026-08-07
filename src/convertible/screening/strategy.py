@@ -144,8 +144,8 @@ def is_force_redeem_triggered(c: Dict[str, Any]) -> bool:
     icons = c.get("icons", {}) or {}
     if "O" in icons:
         return False
-    sprice = float(c.get("sprice", 0) or 0)
-    force_redeem_price = float(c.get("force_redeem_price", 999) or 999)
+    sprice = to_float(c.get("sprice"), default=0.0)
+    force_redeem_price = to_float(c.get("force_redeem_price"), default=999.0)
     return sprice >= force_redeem_price and force_redeem_price > 0
 
 

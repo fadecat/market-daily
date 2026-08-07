@@ -25,34 +25,35 @@ def run_send() -> int:
     prev = strategy.load_state()
     try:
         state = strategy.run_strategy()
+        if state is None:
+            print("[WARN] 策略无数据，退出")
+            alerts.notify_alert("资产轮动板块", "策略无数据，退出")  # 全数据源挂掉应告警
+            return 1
+
+        prev_count = len((prev or {}).get("holdings_history", []))
+        if len(state.get("holdings_history", [])) <= prev_count:
+            print(f"[INFO] 无新交易日（last_run_date={state.get('last_run_date')}），跳过邮件")
+            return 0
+
+        config = strategy.load_strategy_config()
+        report = strategy.build_report(state, config)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            chart_path = Path(tmpdir) / "nav_chart.png"
+            inline_images: dict[str, str] = {}
+            try:
+                charts.generate_nav_chart(report["history"], chart_path)
+                inline_images[charts.NAV_CHART_CID] = str(chart_path)
+            except Exception as exc:  # noqa: BLE001
+                print(f"[WARN] 净值曲线生成失败: {exc}")
+
+            html = render.build_email_html(report, charts.NAV_CHART_CID)
+            subject = _build_subject(report)
+            email.send_email(subject, html, inline_images=inline_images or None)
+        return 0
     except Exception as exc:  # noqa: BLE001
         alerts.notify_alert("资产轮动板块运行失败", str(exc))
         raise
-    if state is None:
-        print("[WARN] 策略无数据，退出")
-        return 1
-
-    prev_count = len((prev or {}).get("holdings_history", []))
-    if len(state.get("holdings_history", [])) <= prev_count:
-        print(f"[INFO] 无新交易日（last_run_date={state.get('last_run_date')}），跳过邮件")
-        return 0
-
-    config = strategy.load_strategy_config()
-    report = strategy.build_report(state, config)
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        chart_path = Path(tmpdir) / "nav_chart.png"
-        inline_images: dict[str, str] = {}
-        try:
-            charts.generate_nav_chart(report["history"], chart_path)
-            inline_images[charts.NAV_CHART_CID] = str(chart_path)
-        except Exception as exc:  # noqa: BLE001
-            print(f"[WARN] 净值曲线生成失败: {exc}")
-
-        html = render.build_email_html(report, charts.NAV_CHART_CID)
-        subject = _build_subject(report)
-        email.send_email(subject, html, inline_images=inline_images or None)
-    return 0
 
 
 def run_preview(output_path: str = str(DEFAULT_PREVIEW_PATH)) -> Path:
