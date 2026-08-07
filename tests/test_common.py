@@ -103,6 +103,37 @@ def test_merge_archive(monkeypatch, tmp_path: Path):
     assert {r["date"] for r in records} == {"2026-08-05", "2026-08-06"}
 
 
+def test_record_key_normalizes_timestamp():
+    """pd.Timestamp 与其 isoformat 字符串应产生相同 key(防 fx 归档翻倍回归)。"""
+    import pandas as pd
+    ts = pd.Timestamp("2010-08-23")
+    assert storage._record_key({"日期": ts}, "日期") == "2010-08-23T00:00:00"
+    assert storage._record_key({"日期": "2010-08-23T00:00:00"}, "日期") == "2010-08-23T00:00:00"
+
+
+def test_merge_archive_timestamp_key_no_dup(monkeypatch, tmp_path: Path):
+    """existing(字符串日期) + incoming(Timestamp 日期)merge 后不翻倍。"""
+    import pandas as pd
+    monkeypatch.setattr(storage, "ARCHIVE_DIR", tmp_path / "archive")
+    archive_path = tmp_path / "archive" / "fx" / "usd_cnh.json"
+    # 存量:字符串日期(T 格式,模拟落盘回读)
+    storage.merge_archive(
+        "fx", {"series": "usd_cnh"},
+        [{"日期": "2010-08-23T00:00:00", "最新价": 6.8}],
+        merge_key="日期", source="test", updated_at="2026-08-07T00:00:00",
+        filename="usd_cnh.json",
+    )
+    # incoming:Timestamp(模拟 refresh_fx_dataset 的 pd.to_datetime),同价
+    storage.merge_archive(
+        "fx", {"series": "usd_cnh"},
+        [{"日期": pd.Timestamp("2010-08-23"), "最新价": 6.8}],
+        merge_key="日期", source="test", updated_at="2026-08-07T00:00:00",
+        filename="usd_cnh.json",
+    )
+    records = storage.load_existing_records(archive_path)
+    assert len(records) == 1  # 关键:不翻倍
+
+
 # ---------- alerts ----------
 
 def test_run_with_retry_success():

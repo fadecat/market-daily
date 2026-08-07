@@ -96,6 +96,11 @@ def _record_key(record: Dict, key: str) -> str:
     value = record[key]
     if value is None:
         return ""
+    # datetime/date/pd.Timestamp 统一走 isoformat,与 _json_default 落盘口径一致:
+    # 否则内存里的 Timestamp(str 得 "2026-08-05 00:00:00" 空格)与落盘回读的字符串
+    # ("2026-08-05T00:00:00" T 分隔)key 不一致,会让 merge_archive 同日翻倍。
+    if isinstance(value, (datetime, date)):
+        return value.isoformat()
     return str(value).strip()
 
 

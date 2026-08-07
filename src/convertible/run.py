@@ -93,17 +93,21 @@ def _cid_to_data_uri(html: str, inline_images: Dict[str, str]) -> str:
 
 
 def run_send() -> int:
-    """聚合 5 section + 发邮件。tempdir 须存活到 send_email 读图完成,故发信在 with 块内。"""
+    """聚合 5 section + 发邮件。
+
+    tempdir 须存活到 send_email 读图完成,故 compose + send 均在 with 块内;
+    发信失败同样走 except 告警(与 valuation/coal/commodity 一致)。
+    """
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             bundle = _build_sections(Path(tmpdir))
+            subject = f"转债行情日报 {bundle['as_of_date']}".strip()
+            html = email.compose_sections(bundle["fragments"])
+            email.send_email(subject, html, inline_images=bundle["inline_images"] or None)
     except Exception as exc:  # noqa: BLE001
         alerts.notify_alert("转债行情板块运行失败", str(exc))
         raise
-    subject = f"转债行情日报 {bundle['as_of_date']}".strip()
-    html = email.compose_sections(bundle["fragments"])
-    ok = email.send_email(subject, html, inline_images=bundle["inline_images"] or None)
-    return 0 if ok else 1
+    return 0
 
 
 def run_preview(output_path: Path = DEFAULT_PREVIEW_PATH) -> Path:

@@ -9,7 +9,9 @@
 from __future__ import annotations
 
 import argparse
+from datetime import date, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from ..common import alerts, email
 from . import config as commodity_config
@@ -27,10 +29,26 @@ def _scan() -> tuple[commodity_config.MonitorConfig, list[commodity_core.SymbolR
     return cfg, results
 
 
+def _today_cn() -> date:
+    """北京时间今日(供 skip_if_no_today_data 守卫,可被测试 patch)。"""
+    return datetime.now(ZoneInfo("Asia/Shanghai")).date()
+
+
 def run_send() -> int:
-    """扫描全部品种并发送商品极值日报邮件。"""
+    """扫描全部品种并发送商品极值日报邮件。
+
+    ``skip_if_no_today_data`` 为真且无品种拉到今日数据时(长假/akshare 全体返旧数据)
+    跳过发信,避免发一封以旧日期为 subject 的"日报"(移植自源仓库 has_today_data 守卫)。
+    """
     try:
         cfg, results = _scan()
+        today = _today_cn()
+        if cfg.skip_if_no_today_data and not any(
+            r.error is None and r.latest_date is not None and r.latest_date == today
+            for r in results
+        ):
+            print(f"[INFO] 无今日({today})品种数据,跳过发信(skip_if_no_today_data)")
+            return 0
         html_parts, _summary = commodity_reporting.build_email_html(results, cfg)
         latest_dates = [r.latest_date for r in results if r.latest_date is not None]
         date_tag = max(latest_dates).isoformat() if latest_dates else ""

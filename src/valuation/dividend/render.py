@@ -29,7 +29,12 @@ from ...common.email import render_markdown, render_table
 from ...common.jisilu import get_cookie
 from ..fetch import now_in_beijing
 from .fetch import fetch_data, prepare_dividend_email_data
-from .filter import build_filter_summary_lines, ensure_dividend_report_meta, industry_name_of
+from .filter import (
+    build_filter_summary_lines,
+    ensure_dividend_report_meta,
+    filter_dividend_rows_by_secondary_rules,
+    industry_name_of,
+)
 from .supplement import (
     build_dividend_email_supplement_html,
     format_linked_bonds_html_from_items,
@@ -259,6 +264,7 @@ def build_section(work_dir: Path, *, cookie: Optional[str] = None) -> Optional[D
         if cookie is None:
             cookie = get_cookie()
         data = fetch_data(cookie=cookie)
+        data = filter_dividend_rows_by_secondary_rules(data)  # 二次筛选:国资白名单+行业+TTM(旧仓 main.py 同步,移植时遗漏)
         data = prepare_dividend_email_data(data, cookie=cookie)
     except Exception as exc:  # noqa: BLE001
         notify_alert("高股息数据获取失败", str(exc))
