@@ -59,7 +59,7 @@ def generate(boards: list[str] | None = None, preview_dir: Path | None = None) -
     """生成指定(或全部)板块预览。
 
     Args:
-        boards: 板块名列表;``None`` 表示全部 4 板块。
+        boards: 板块名列表;``None`` 表示全部 5 板块。
         preview_dir: 预览输出目录,默认仓库内 ``preview/``。
 
     Returns:

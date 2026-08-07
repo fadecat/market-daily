@@ -2,7 +2,7 @@ name: 预览与校验
 
 on:
   schedule:
-    # UTC 08:07 = Asia/Shanghai 16:07(4 板块日报跑完并提交后),仅做静态校验
+    # UTC 08:07 = Asia/Shanghai 16:07(5 板块日报跑完并提交后),仅做静态校验
     - cron: "7 8 * * 1-5"
   workflow_dispatch:
     inputs:
@@ -19,9 +19,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   preview:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,6 +46,7 @@ jobs:
         run: python -m src.preview.generate
 
       - name: 静态校验
+        if: ${{ github.event.inputs.mode != 'generate' }}
         run: python -m src.preview.verify
 
       - name: 上传预览与报告

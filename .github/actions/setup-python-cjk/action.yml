@@ -1,5 +1,5 @@
 name: Setup Python + CJK fonts
-description: 安装 Python、CJK 字体(fonts-noto-cjk,避免图中文字方框)与项目依赖(requirements.txt),4 个板块 workflow 复用
+description: 安装 Python、CJK 字体(fonts-noto-cjk,避免图中文字方框)与项目依赖(requirements.txt),各 workflow 复用
 
 inputs:
   python-version:

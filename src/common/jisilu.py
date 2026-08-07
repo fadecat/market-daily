@@ -14,7 +14,7 @@ from typing import Optional
 
 import requests
 
-from . import env
+from . import alerts, env
 
 try:
     from Crypto.Cipher import AES
@@ -103,21 +103,25 @@ def login_jisilu(
     }
     request_session = session or requests.Session()
     try:
-        response = request_session.post(LOGIN_URL, headers=LOGIN_HEADERS, data=data, timeout=10)
-        response.raise_for_status()
-        result = response.json()
-        logger.info("登录响应: %s", result)
-        if result.get("code") != 200:
-            logger.error("登录失败: %s", result.get("msg", "未知错误"))
-            return ""
-        cookie_str = build_cookie_string(response.cookies) or build_cookie_string(request_session.cookies)
-        if not cookie_str:
-            logger.error("登录成功但未获取到 Cookie")
-            return ""
-        logger.info("集思录登录成功")
-        return cookie_str
-    except Exception as exc:  # pragma: no cover
-        logger.exception("集思录登录异常: %s", exc)
+        def _login() -> str:
+            response = request_session.post(LOGIN_URL, headers=LOGIN_HEADERS, data=data, timeout=10)
+            response.raise_for_status()
+            result = response.json()
+            logger.info("登录响应: %s", result)
+            if result.get("code") != 200:
+                logger.error("登录失败(账密): %s", result.get("msg", "未知错误"))
+                return ""
+            cookie_str = build_cookie_string(response.cookies) or build_cookie_string(request_session.cookies)
+            if not cookie_str:
+                logger.error("登录成功但未获取到 Cookie")
+                return ""
+            logger.info("集思录登录成功")
+            return cookie_str
+
+        # 网络层(超时/连接/HTTP5xx)退避重试;账密错(code!=200)返回空串不重试
+        return alerts.run_with_retry("集思录登录", _login)
+    except Exception as exc:  # pragma: no cover  # 重试耗尽仍失败
+        logger.exception("集思录登录异常(可能网络故障): %s", exc)
         return ""
     finally:
         if session is None:
@@ -131,7 +135,7 @@ def make_session(
     """登录集思录并返回已塞 cookie 的 Session。登录失败抛 RuntimeError。"""
     cookie = login_jisilu(username, password)
     if not cookie:
-        raise RuntimeError("集思录登录失败,请检查 JISILU_USERNAME/JISILU_PASSWORD")
+        raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
     session = requests.Session()
     apply_cookie_string(session, cookie)
     return session
@@ -141,7 +145,7 @@ def get_cookie(username: Optional[str] = None, password: Optional[str] = None) -
     """登录并返回 cookie 字符串(给需要手动带 Cookie header 的接口)。失败抛 RuntimeError。"""
     cookie = login_jisilu(username, password)
     if not cookie:
-        raise RuntimeError("集思录登录失败,请检查 JISILU_USERNAME/JISILU_PASSWORD")
+        raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
     return cookie
 
 

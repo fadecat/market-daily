@@ -15,7 +15,7 @@ def _patch_boards(
     coal_code: int = 0,
     fail: tuple[str, ...] = (),
 ) -> None:
-    """把 4 个 board 的 run_preview 替换为写入临时文件的假实现。"""
+    """把 5 个 board 的 run_preview 替换为写入临时文件的假实现。"""
 
     def make(board: str):
         def fake(output_path):  # noqa: ANN001 - run_preview 统一关键字调用
