@@ -5,12 +5,12 @@
 
 用法::
 
-    python -m src.preview.generate                       # 生成全部 4 板块
+    python -m src.preview.generate                       # 生成全部 5 板块
     python -m src.preview.generate valuation             # 仅生成市场估值
     python -m src.preview.generate rotation convertible  # 指定多个板块
 
 板块名:valuation(市场估值)、rotation(资产轮动)、convertible(转债行情)、
-commodity(商品极值)。
+coal(煤炭日报)、commodity(商品极值)。
 """
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from src.coal import run as coal_run
 from src.commodity import run as commodity_run
 from src.convertible import run as convertible_run
 from src.rotation import run as rotation_run
@@ -27,12 +28,13 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 _PREVIEW_DIR = _REPO_ROOT / "preview"
 
 # board key -> (中文标签, run 模块)。
-# run_preview 在调用时按模块属性查找,便于测试 monkeypatch;commodity 的
-# run_preview 返回 int 状态码,其余返回写入的 Path。
+# run_preview 在调用时按模块属性查找,便于测试 monkeypatch;coal 的
+# run_preview 返回 int 状态码,commodity 与其余返回写入的 Path。
 _BOARDS: dict[str, tuple[str, object]] = {
     "valuation": ("市场估值", valuation_run),
     "rotation": ("资产轮动", rotation_run),
     "convertible": ("转债行情", convertible_run),
+    "coal": ("煤炭日报", coal_run),
     "commodity": ("商品极值", commodity_run),
 }
 
@@ -40,7 +42,7 @@ _BOARDS: dict[str, tuple[str, object]] = {
 def generate_board(board_key: str, output_path: Path) -> tuple[bool, str]:
     """生成单个板块预览。
 
-    返回 ``(是否成功, 信息)``。commodity 依据返回的 int 状态码判定,
+    返回 ``(是否成功, 信息)``。coal 依据返回的 int 状态码判定,
     其余板块返回 Path 即视为成功。失败时由调用方捕获异常。
     """
     if board_key not in _BOARDS:
@@ -103,7 +105,7 @@ def main() -> int:
     parser.add_argument(
         "boards",
         nargs="*",
-        help="板块名(可选): valuation rotation convertible commodity。留空=全部",
+        help="板块名(可选): valuation rotation convertible coal commodity。留空=全部",
     )
     args = parser.parse_args()
     return generate(args.boards)

@@ -1,0 +1,98 @@
+# 商品极值监控日报配置(core profile)。
+# 移植自 commodity-monitor-days/config/monitor.toml,去掉 wechat/degrade 配置。
+scan:
+  delay_min_seconds: 2.0
+  delay_max_seconds: 4.0
+  max_stale_days: 10
+  skip_if_no_today_data: true
+
+thresholds:
+  high_percentile: 85
+  low_percentile: 30
+
+windows:
+  d21: 21
+  d63: 63
+  y1: 252
+  y3: 756
+  y5: 1260
+  y10: 2520
+
+symbols:
+  # ---------- 外盘(akshare futures_foreign_hist)----------
+  - {code: CL,   name: NYMEX原油,   market: foreign}
+  - {code: NG,   name: NYMEX天然气, market: foreign}
+  - {code: OIL,  name: 布伦特原油,  market: foreign}
+  - {code: GC,   name: COMEX黄金,   market: foreign}
+  - {code: SI,   name: COMEX白银,   market: foreign}
+  - {code: HG,   name: COMEX铜,     market: foreign}
+  - {code: AHD,  name: LME铝,       market: foreign}
+  - {code: CAD,  name: LME铜,       market: foreign}
+  - {code: NID,  name: LME镍,       market: foreign}
+  - {code: PBD,  name: LME铅,       market: foreign}
+  - {code: SND,  name: LME锡,       market: foreign}
+  - {code: ZSD,  name: LME锌,       market: foreign}
+  - {code: C,    name: CBOT玉米,    market: foreign}
+  - {code: S,    name: CBOT大豆,    market: foreign}
+  - {code: W,    name: CBOT小麦,    market: foreign}
+  - {code: BO,   name: CBOT豆油,    market: foreign}
+  - {code: SM,   name: CBOT豆粕,    market: foreign}
+  - {code: CT,   name: ICE棉花,     market: foreign}
+  - {code: FCPO, name: 马棕榈油,    market: foreign}
+  - {code: RSS3, name: TOCOM橡胶,   market: foreign}
+  # ---------- 内盘主连(akshare futures_zh_daily_sina)----------
+  - {code: SC0,  name: 原油主连,      market: domestic}
+  - {code: FU0,  name: 燃油主连,      market: domestic}
+  - {code: BU0,  name: 沥青主连,      market: domestic}
+  - {code: LU0,  name: 低硫燃料油主连, market: domestic}
+  - {code: PG0,  name: 液化石油气主连, market: domestic}
+  - {code: ZC0,  name: 动力煤主连,    market: domestic}
+  - {code: JM0,  name: 焦煤主连,      market: domestic}
+  - {code: J0,   name: 焦炭主连,      market: domestic}
+  - {code: I0,   name: 铁矿石主连,    market: domestic}
+  - {code: RB0,  name: 螺纹钢主连,    market: domestic}
+  - {code: HC0,  name: 热卷主连,      market: domestic}
+  - {code: CU0,  name: 沪铜主连,      market: domestic}
+  - {code: AL0,  name: 沪铝主连,      market: domestic}
+  - {code: ZN0,  name: 沪锌主连,      market: domestic}
+  - {code: NI0,  name: 沪镍主连,      market: domestic}
+  - {code: SN0,  name: 沪锡主连,      market: domestic}
+  - {code: PB0,  name: 沪铅主连,      market: domestic}
+  - {code: AU0,  name: 沪金主连,      market: domestic}
+  - {code: AG0,  name: 沪银主连,      market: domestic}
+  - {code: AO0,  name: 氧化铝主连,    market: domestic}
+  - {code: SI0,  name: 工业硅主连,    market: domestic}
+  - {code: LC0,  name: 碳酸锂主连,    market: domestic}
+  - {code: M0,   name: 豆粕主连,      market: domestic}
+  - {code: Y0,   name: 豆油主连,      market: domestic}
+  - {code: P0,   name: 棕榈油主连,    market: domestic}
+  - {code: RM0,  name: 菜粕主连,      market: domestic}
+  - {code: OI0,  name: 菜油主连,      market: domestic}
+  - {code: C0,   name: 玉米主连,      market: domestic}
+  - {code: A0,   name: 豆一主连,      market: domestic}
+  - {code: SR0,  name: 白糖主连,      market: domestic}
+  - {code: CF0,  name: 棉花主连,      market: domestic}
+  - {code: TA0,  name: PTA主连,       market: domestic}
+  - {code: MA0,  name: 甲醇主连,      market: domestic}
+  - {code: EG0,  name: 乙二醇主连,    market: domestic}
+  - {code: SA0,  name: 纯碱主连,      market: domestic}
+  - {code: UR0,  name: 尿素主连,      market: domestic}
+  - {code: AP0,  name: 苹果主连,      market: domestic}
+  - {code: PK0,  name: 花生主连,      market: domestic}
+  - {code: L0,   name: 聚乙烯主连,    market: domestic}
+  - {code: PP0,  name: 聚丙烯主连,    market: domestic}
+  - {code: V0,   name: PVC主连,       market: domestic}
+  - {code: LH0,  name: 生猪主连,      market: domestic}
+  - {code: JD0,  name: 鸡蛋主连,      market: domestic}
+  - {code: FG0,  name: 玻璃主连,      market: domestic}
+  - {code: RU0,  name: 沪胶主连,      market: domestic}
+  - {code: SS0,  name: 不锈钢主连,    market: domestic}
+  - {code: EB0,  name: 苯乙烯主连,    market: domestic}
+  - {code: SP0,  name: 纸浆主连,      market: domestic}
+  - {code: EC0,  name: 集运指数主连,  market: domestic}
+  - {code: NR0,  name: 20号胶主连,    market: domestic}
+  - {code: BC0,  name: 国际铜主连,    market: domestic}
+  - {code: CS0,  name: 玉米淀粉主连,  market: domestic}
+  - {code: PF0,  name: 短纤主连,      market: domestic}
+  - {code: SF0,  name: 硅铁主连,      market: domestic}
+  - {code: SM0,  name: 锰硅主连,      market: domestic}

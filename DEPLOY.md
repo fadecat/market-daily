@@ -1,6 +1,6 @@
 # 部署指南
 
-market-daily 在 GitHub Actions 上跑 7 个 workflow。CI 凭据来自 **GitHub Secrets**,非敏感配置来自 **GitHub Variables**;本地开发则用 `.env.local`(见 `config/env.example`)。
+market-daily 在 GitHub Actions 上跑 8 个 workflow。CI 凭据来自 **GitHub Secrets**,非敏感配置来自 **GitHub Variables**;本地开发则用 `.env.local`(见 `config/env.example`)。
 
 ## 1. GitHub Secrets
 
@@ -10,9 +10,9 @@ market-daily 在 GitHub Actions 上跑 7 个 workflow。CI 凭据来自 **GitHub
 |--------|------|--------------|
 | `JISILU_USERNAME` | 集思录账号(统一账密登录) | valuation / rotation / convertible / cninfo_backup / preview(generate) |
 | `JISILU_PASSWORD` | 集思录密码 | valuation / rotation / convertible / cninfo_backup / preview(generate) |
-| `SMTP_USER` | 发信邮箱(QQ 邮箱) | valuation / rotation / convertible / commodity |
-| `SMTP_PASS` | 邮箱授权码(**非**登录密码) | valuation / rotation / convertible / commodity |
-| `RECEIVER_EMAIL` | 收件人,逗号分隔多个 | valuation / rotation / convertible / commodity |
+| `SMTP_USER` | 发信邮箱(QQ 邮箱) | valuation / rotation / convertible / coal / commodity |
+| `SMTP_PASS` | 邮箱授权码(**非**登录密码) | valuation / rotation / convertible / coal / commodity |
+| `RECEIVER_EMAIL` | 收件人,逗号分隔多个 | valuation / rotation / convertible / coal / commodity |
 | `ALERT_WEBHOOK` | 异常报警 webhook(企业微信/钉钉/飞书) | 全部 workflow |
 | `GUORN_COOKIE` | 果仁行业估值 cookie | valuation / preview(generate) |
 | `EASTMONEY_XUANGU_COOKIE` | 东财选股补充池 cookie(可选) | valuation / cninfo_backup / preview(generate) |
@@ -41,11 +41,12 @@ market-daily 在 GitHub Actions 上跑 7 个 workflow。CI 凭据来自 **GitHub
 | `valuation.yml` | `31 7 * * 1-5` | 15:31 | 市场估值 |
 | `rotation.yml` | `34 7 * * 1-5` | 15:34 | 资产轮动 |
 | `convertible.yml` | `37 7 * * 1-5` | 15:37 | 转债行情 |
-| `commodity.yml` | `40 7 * * 1-5` | 15:40 | 商品极值 |
+| `coal.yml` | `40 7 * * 1-5` | 15:40 | 煤炭日报 |
+| `commodity.yml` | `50 7 * * 1-5` | 15:50 | 商品极值 |
 | `preview.yml` | `7 8 * * 1-5` | 16:07 | 静态校验(板块日报后) |
 | `cninfo_backup.yml` | 多段(见文件) | 01:00–05:00 预热分片,其余重试 | 巨潮财报缓存预热/重试 |
 
-4 板块错峰 3 分钟,末尾 `git pull --rebase` 后提交 `data/state` `data/archive`,避免并发 push 冲突。
+5 板块错峰 3 分钟,末尾 `git pull --rebase` 后提交 `data/state` `data/archive`,避免并发 push 冲突。
 
 ## 4. 本地运行
 
@@ -54,7 +55,7 @@ pip install -r requirements.txt
 Copy-Item .\config\env.example .\.env.local   # 填入凭据(不入 git)
 
 python -m src.valuation.run        # 单板块发信
-python -m src.preview.generate     # 生成 4 个 preview/*.html
+python -m src.preview.generate     # 生成 5 个 preview/*.html
 python -m src.preview.verify       # 静态校验 -> preview/verify_report.md
 ```
 

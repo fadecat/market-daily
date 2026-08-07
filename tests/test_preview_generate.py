@@ -12,7 +12,7 @@ from src.preview import generate
 def _patch_boards(
     monkeypatch,
     *,
-    commodity_code: int = 0,
+    coal_code: int = 0,
     fail: tuple[str, ...] = (),
 ) -> None:
     """把 4 个 board 的 run_preview 替换为写入临时文件的假实现。"""
@@ -24,11 +24,11 @@ def _patch_boards(
             p = Path(output_path)
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(f"<html>{board}</html>", encoding="utf-8")
-            return commodity_code if board == "commodity" else p
+            return coal_code if board == "coal" else p
 
         return fake
 
-    for board in ("valuation", "rotation", "convertible", "commodity"):
+    for board in ("valuation", "rotation", "convertible", "coal", "commodity"):
         mod = getattr(generate, f"{board}_run")
         monkeypatch.setattr(mod, "run_preview", make(board))
 
@@ -46,20 +46,20 @@ def test_generate_board_path_return(monkeypatch, tmp_path):
     assert out.read_text(encoding="utf-8") == "<html>valuation</html>"
 
 
-def test_generate_board_commodity_success(monkeypatch, tmp_path):
-    """commodity 返回 0 视为成功。"""
-    _patch_boards(monkeypatch, commodity_code=0)
-    out = tmp_path / "commodity.html"
-    ok, info = generate.generate_board("commodity", out)
+def test_generate_board_coal_success(monkeypatch, tmp_path):
+    """coal 返回 0 视为成功。"""
+    _patch_boards(monkeypatch, coal_code=0)
+    out = tmp_path / "coal.html"
+    ok, info = generate.generate_board("coal", out)
     assert ok is True
     assert "退出码 0" in info
 
 
-def test_generate_board_commodity_failure(monkeypatch, tmp_path):
-    """commodity 返回非 0 视为失败。"""
-    _patch_boards(monkeypatch, commodity_code=1)
-    out = tmp_path / "commodity.html"
-    ok, info = generate.generate_board("commodity", out)
+def test_generate_board_coal_failure(monkeypatch, tmp_path):
+    """coal 返回非 0 视为失败。"""
+    _patch_boards(monkeypatch, coal_code=1)
+    out = tmp_path / "coal.html"
+    ok, info = generate.generate_board("coal", out)
     assert ok is False
     assert "退出码 1" in info
 
@@ -90,10 +90,10 @@ def test_generate_all_success(monkeypatch, tmp_path, capsys):
     _patch_boards(monkeypatch)
     rc = generate.generate(preview_dir=tmp_path)
     assert rc == 0
-    for board in ("valuation", "rotation", "convertible", "commodity"):
+    for board in ("valuation", "rotation", "convertible", "coal", "commodity"):
         assert (tmp_path / f"{board}.html").exists()
     out = capsys.readouterr()
-    assert "全部 4 板块" in out.out
+    assert "全部 5 板块" in out.out
 
 
 def test_generate_subset(monkeypatch, tmp_path):
@@ -103,6 +103,7 @@ def test_generate_subset(monkeypatch, tmp_path):
     assert (tmp_path / "valuation.html").exists()
     assert (tmp_path / "convertible.html").exists()
     assert not (tmp_path / "rotation.html").exists()
+    assert not (tmp_path / "coal.html").exists()
     assert not (tmp_path / "commodity.html").exists()
 
 
@@ -124,20 +125,21 @@ def test_generate_exception_failure(monkeypatch, tmp_path, capsys):
     err = capsys.readouterr().err
     assert "rotation boom" in err
     assert "1 板块预览失败" in err
-    # 其余 3 个仍成功生成
+    # 其余 4 个仍成功生成
     assert (tmp_path / "valuation.html").exists()
     assert (tmp_path / "convertible.html").exists()
+    assert (tmp_path / "coal.html").exists()
     assert (tmp_path / "commodity.html").exists()
 
 
-def test_generate_commodity_code_failure(monkeypatch, tmp_path, capsys):
-    """commodity 返回非 0 -> 计入失败,返回 1。"""
-    _patch_boards(monkeypatch, commodity_code=1)
+def test_generate_coal_code_failure(monkeypatch, tmp_path, capsys):
+    """coal 返回非 0 -> 计入失败,返回 1。"""
+    _patch_boards(monkeypatch, coal_code=1)
     rc = generate.generate(preview_dir=tmp_path)
     assert rc == 1
     combined = capsys.readouterr()
     assert "退出码 1" in combined.out or "退出码 1" in combined.err
-    assert "commodity" in combined.err
+    assert "coal" in combined.err
 
 
 def test_generate_multiple_failures(monkeypatch, tmp_path, capsys):
@@ -168,6 +170,7 @@ def test_main_no_args_all(monkeypatch, tmp_path):
     rc = generate.main()
     assert rc == 0
     assert (tmp_path / "valuation.html").exists()
+    assert (tmp_path / "coal.html").exists()
     assert (tmp_path / "commodity.html").exists()
 
 

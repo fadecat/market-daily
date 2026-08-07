@@ -1,9 +1,9 @@
-name: 商品极值日报
+name: 煤炭日报
 
 on:
   schedule:
-    # UTC 07:50 = Asia/Shanghai 15:50(收盘后);扫描 ~75 品种耗时较长,与其它板块错峰
-    - cron: "50 7 * * 1-5"
+    # UTC 07:40 = Asia/Shanghai 15:40(收盘后);与其它板块错峰提交
+    - cron: "40 7 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -21,13 +21,13 @@ jobs:
       - name: Setup Python + CJK fonts
         uses: ./.github/actions/setup-python-cjk
 
-      - name: 运行商品极值板块
+      - name: 运行煤炭日报板块
         env:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
           ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
-        run: python -m src.commodity.run
+        run: python -m src.coal.run
 
       - name: 提交 state 变更
         shell: bash
@@ -38,7 +38,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no state changes, skip commit"
           else
-            git commit -m "chore: 商品极值 state 快照"
+            git commit -m "chore: 煤炭 state 快照"
             git pull --rebase origin main
             git push
           fi

@@ -38,7 +38,7 @@ _STATE_SPECS: list[tuple[str, str, tuple[str, ...]]] = [
     ("valuation", "市场估值", ("last_valuation_date",)),
     ("etf_rotation_20d", "资产轮动ETF", ("holdings_history", "portfolio_nav", "next_holding")),
     ("cb_three_low", "转债三低轮动", ("holdings_history", "next_holding")),
-    ("cctda_coal_daily", "商品极值", ("article_url", "sent_at")),
+    ("cctda_coal_daily", "煤炭日报", ("article_url", "sent_at")),
 ]
 
 # 需做持仓连续性校验的 state 名

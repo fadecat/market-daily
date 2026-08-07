@@ -1,106 +1,81 @@
-"""商品极值板块编排:抓取 CCTDA 煤炭日报 -> 发邮件 / 生预览。
+"""商品极值板块编排:akshare 扫描 ~75 个品种分位数 -> 发邮件 / 生预览。
 
 用法:
-    python -m src.commodity.run              # 抓取并发送日报邮件
+    python -m src.commodity.run              # 扫描并发送极值日报邮件
     python -m src.commodity.run --preview    # 仅生成 preview/commodity.html(不发信)
+
+扫描 ~75 个品种、每品种间隔 2-4s,全程约 3-5 分钟。preview 与发送均跑全量扫描。
 """
 from __future__ import annotations
 
 import argparse
-import sys
-import tempfile
 from pathlib import Path
 
-from src.common import alerts, email, storage
-from src.commodity import cctda
+from ..common import alerts, email
+from . import config as commodity_config
+from . import core as commodity_core
+from . import reporting as commodity_reporting
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+CONFIG_PATH = REPO_ROOT / "config" / "commodity.yaml"
 DEFAULT_PREVIEW_PATH = REPO_ROOT / "preview" / "commodity.html"
 
 
+def _scan() -> tuple[commodity_config.MonitorConfig, list[commodity_core.SymbolResult]]:
+    cfg = commodity_config.load_config(CONFIG_PATH)
+    results = commodity_core.run_scan(cfg)
+    return cfg, results
+
+
 def run_send() -> int:
-    """抓取最新 CCTDA 日报并发送邮件。已发过的(按 article_url 去重)跳过。"""
+    """扫描全部品种并发送商品极值日报邮件。"""
     try:
-        state = storage.load_state(cctda.STATE_NAME, default={})
-        latest = cctda.parse_latest_article_from_list(
-            cctda.fetch_html(cctda.CCTDA_LIST_URL), cctda.CCTDA_LIST_URL
-        )
-        print(f"[INFO] 最新日报: {latest['article_title']} -> {latest['article_url']}")
-
-        if cctda.should_skip_article(latest, state):
-            print(f"[INFO] 最新日报已发送,跳过: {latest['article_url']}")
-            return 0
-
-        detail = cctda.parse_detail_content(
-            cctda.fetch_html(latest["article_url"]), latest["article_url"]
-        )
-        print(f"[INFO] 内容类型: {detail['content_type']}")
-
-        with tempfile.TemporaryDirectory(prefix="cctda_coal_daily_") as temp_dir:
-            temp_root = Path(temp_dir)
-            image_paths, content_hash = cctda.materialize_report_pages(detail, temp_root)
-            fetched_at = cctda.now_in_beijing().strftime("%Y-%m-%d %H:%M:%S")
-            print(f"[INFO] 图片数量: {len(image_paths)}")
-
-            subject = str(detail["article_title"])
-            html = cctda.build_email_html(subject, latest["article_url"], fetched_at, len(image_paths))
-            inline_images = {
-                f"report_page_{index}": str(path)
-                for index, path in enumerate(image_paths, start=1)
-            }
-            email.send_email(subject, html, inline_images=inline_images)
-
-            storage.save_state(
-                cctda.STATE_NAME,
-                {
-                    "article_url": latest["article_url"],
-                    "article_title": str(detail["article_title"]),
-                    "published_at": str(detail.get("published_at", "")),
-                    "content_type": str(detail["content_type"]),
-                    "image_count": len(image_paths),
-                    "content_hash": content_hash,
-                    "sent_at": fetched_at,
-                },
-            )
-            print(f"[INFO] 状态已更新: {cctda.STATE_NAME}")
-        return 0
+        cfg, results = _scan()
+        html_parts, _summary = commodity_reporting.build_email_html(results, cfg)
+        latest_dates = [r.latest_date for r in results if r.latest_date is not None]
+        date_tag = max(latest_dates).isoformat() if latest_dates else ""
+        subject = f"商品极值监控日报 {date_tag}".strip()
+        html = email.compose_sections(html_parts)
+        ok = email.send_email(subject, html)
+        return 0 if ok else 1
     except Exception as exc:  # noqa: BLE001
         alerts.notify_alert("商品极值板块运行失败", f"{type(exc).__name__}: {exc}")
-        raise
+        return 1
 
 
-def run_preview(output_path: str | Path | None = None) -> int:
-    """抓取最新日报,生成预览 HTML(图片 base64 内嵌,不发信)。"""
+def run_preview(output_path: str | Path | None = None) -> Path:
+    """扫描全部品种,生成预览 HTML(不发信)。"""
     output_path = Path(output_path) if output_path else DEFAULT_PREVIEW_PATH
-    latest = cctda.parse_latest_article_from_list(
-        cctda.fetch_html(cctda.CCTDA_LIST_URL), cctda.CCTDA_LIST_URL
-    )
-    detail = cctda.parse_detail_content(
-        cctda.fetch_html(latest["article_url"]), latest["article_url"]
-    )
-    fetched_at = cctda.now_in_beijing().strftime("%Y-%m-%d %H:%M:%S")
-
-    with tempfile.TemporaryDirectory(prefix="cctda_preview_") as temp_dir:
-        image_paths, _content_hash = cctda.materialize_report_pages(detail, Path(temp_dir))
-        html = cctda.build_preview_html(
-            str(detail["article_title"]), latest["article_url"], fetched_at, image_paths
-        )
-
+    try:
+        cfg, results = _scan()
+        html_parts, _summary = commodity_reporting.build_email_html(results, cfg)
+        body_html = email.compose_sections(html_parts)
+    except Exception as exc:  # noqa: BLE001
+        raise RuntimeError(f"商品极值板块预览生成失败: {exc}") from exc
+    html = f"""<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>商品极值监控日报预览</title></head>
+<body style="margin:0;padding:20px;background:#f5f6f7">
+{body_html}
+</body></html>
+"""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(html, encoding="utf-8")
     print(f"[INFO] 预览已生成: {output_path}")
-    return 0
+    return output_path
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="商品极值板块:CCTDA 煤炭日报")
+    parser = argparse.ArgumentParser(description="商品极值板块:商品分位数极值监控日报")
     parser.add_argument("--preview", action="store_true", help="仅生成预览 HTML,不发信")
     parser.add_argument("--output", default=None, help="预览输出路径(仅 --preview 生效)")
     args = parser.parse_args(argv)
     if args.preview:
-        return run_preview(args.output)
+        run_preview(args.output)
+        return 0
     return run_send()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

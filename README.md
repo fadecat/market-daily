@@ -1,15 +1,16 @@
 # market-daily
 
-A 股市场每日简报:扫描 4 个板块,每个板块生成一封 SMTP 邮件日报。整合自 `jisilu_ggx` 与 `monitor_drawdown` 两个历史仓库。
+A 股市场每日简报:扫描 5 个板块,每个板块生成一封 SMTP 邮件日报。整合自 `jisilu_ggx` 与 `monitor_drawdown` 两个历史仓库。
 
-## 4 个板块
+## 5 个板块
 
 | 板块邮件 | 内容 |
 |---------|------|
 | 市场估值 | 估值分位(PE/PB/股息率/股债收益差)+ 高股息(集思录主表 + 东财补充池 + 巨潮 TTM)+ 果仁行业估值 + 风格轮动 + 汇率图 |
 | 资产轮动 | ETF 20 日动量轮动 |
 | 转债行情 | 低价债筛选(三低排序)+ 三低轮动净值 + 转债指数图 + 董秘互动 + 日历下修提醒 |
-| 商品极值 | CCTDA 煤炭日报图片转发 |
+| 煤炭日报 | CCTDA 煤炭日报图片转发 |
+| 商品极值 | 商品期货分位数极值监控(75 品种,多周期高位/低位告警) |
 
 ## 目录结构
 
@@ -19,6 +20,7 @@ src/
   valuation/   # 市场估值板块
   rotation/    # 资产轮动板块
   convertible/ # 转债行情板块
+  coal/         # 煤炭日报板块
   commodity/   # 商品极值板块
   preview/     # 统一 preview 生成 + 数据校验
 data/          # 持久化数据(state/archive/cninfo/cb_bonds/dividend_universe/whitelist/cb_index_history.json),靠 git commit 持久化
@@ -36,6 +38,7 @@ Copy-Item .\config\env.example .\.env.local   # 填入凭据
 python -m src.valuation.run
 python -m src.rotation.run
 python -m src.convertible.run
+python -m src.coal.run
 python -m src.commodity.run
 
 # 本地预览(不发信,生成 preview/*.html)
@@ -57,7 +60,7 @@ python -m src.preview.verify
 GitHub Actions(工作日错峰触发,详见 [DEPLOY.md](DEPLOY.md)):
 
 - `refresh_archive.yml` UTC 07:15 — 刷新指数/国债/汇率/转债指数归档
-- `valuation.yml` / `rotation.yml` / `convertible.yml` / `commodity.yml` — UTC 07:31/34/37/40,4 板块日报
+- `valuation.yml` / `rotation.yml` / `convertible.yml` / `coal.yml` / `commodity.yml` — UTC 07:31/34/37/40/50,5 板块日报
 - `preview.yml` UTC 08:07 — 静态校验(板块日报后)
 - `cninfo_backup.yml` — 巨潮财报缓存预热(夜间分片)/重试
 
