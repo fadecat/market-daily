@@ -43,7 +43,6 @@ jobs:
           DIVIDEND_SUPPLEMENT_PE_TTM_MAX: ${{ secrets.DIVIDEND_SUPPLEMENT_PE_TTM_MAX }}
           CNINFO_FETCH_MAX_RETRIES: ${{ vars.CNINFO_FETCH_MAX_RETRIES }}
           CNINFO_FETCH_BACKOFF_SECONDS: ${{ vars.CNINFO_FETCH_BACKOFF_SECONDS }}
-          CNINFO_CACHE_MAX_AGE_DAYS: ${{ vars.CNINFO_CACHE_MAX_AGE_DAYS }}
         run: python -m src.valuation.run
 
       - name: 提交 state/archive 变更

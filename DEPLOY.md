@@ -30,7 +30,6 @@ market-daily 在 GitHub Actions 上跑 8 个 workflow。CI 凭据来自 **GitHub
 |----------|------|--------------|
 | `CNINFO_FETCH_MAX_RETRIES` | 3 | valuation / cninfo_backup |
 | `CNINFO_FETCH_BACKOFF_SECONDS` | 2 | valuation / cninfo_backup |
-| `CNINFO_CACHE_MAX_AGE_DAYS` | 30 | valuation |
 | `CNINFO_WARMUP_DELAY_SECONDS` | 4 | cninfo_backup |
 
 ## 3. Workflow 触发时间(UTC / 北京时间)
@@ -78,6 +77,6 @@ python -m pytest --basetemp=.pytest_tmp
 | `data/archive/` | 历史归档(指数 EOD/股息率/估值分位/国债/汇率/果仁快照) |
 | `data/cb_index_history.json` | 转债等权指数(非股票估值) |
 | `data/cninfo/` | 巨潮财报缓存 |
-| `data/cb_bonds/` `data/dividend_universe/` `data/whitelist/` | 转债/高股息池/白名单 |
+| `data/dividend_universe/` `data/whitelist/` | 高股息池/白名单 |
 
 `preview/` 已 gitignore(仅留 `.gitkeep`),CI 上传为构建产物。
