@@ -8,8 +8,8 @@ market-daily 在 GitHub Actions 上跑 7 个 workflow。CI 凭据来自 **GitHub
 
 | Secret | 说明 | 用于 workflow |
 |--------|------|--------------|
-| `JISILU_USERNAME` | 集思录账号(统一账密登录) | valuation / convertible / cninfo_backup / preview(generate) |
-| `JISILU_PASSWORD` | 集思录密码 | valuation / convertible / cninfo_backup / preview(generate) |
+| `JISILU_USERNAME` | 集思录账号(统一账密登录) | valuation / rotation / convertible / cninfo_backup / preview(generate) |
+| `JISILU_PASSWORD` | 集思录密码 | valuation / rotation / convertible / cninfo_backup / preview(generate) |
 | `SMTP_USER` | 发信邮箱(QQ 邮箱) | valuation / rotation / convertible / commodity |
 | `SMTP_PASS` | 邮箱授权码(**非**登录密码) | valuation / rotation / convertible / commodity |
 | `RECEIVER_EMAIL` | 收件人,逗号分隔多个 | valuation / rotation / convertible / commodity |

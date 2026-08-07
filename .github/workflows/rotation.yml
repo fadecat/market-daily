@@ -23,6 +23,8 @@ jobs:
 
       - name: 运行资产轮动板块
         env:
+          JISILU_USERNAME: ${{ secrets.JISILU_USERNAME }}
+          JISILU_PASSWORD: ${{ secrets.JISILU_PASSWORD }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
