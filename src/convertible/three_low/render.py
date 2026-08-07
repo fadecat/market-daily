@@ -196,15 +196,15 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
         bg = "background:#eef5ff" if item.get("selected") else ""
         ranking_rows.append(
             f"<tr style='{bg}'>"
-            f"<td style='padding:4px 10px;text-align:right'>{escape(str(item.get('rank', '')))}</td>"
-            f"<td style='padding:4px 10px'>{escape(str(item.get('name', '')))}</td>"
-            f"<td style='padding:4px 10px'>{escape(str(item.get('code', '')))}</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(item.get('price'))}</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(item.get('dblow'))}</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(item.get('premium_rt'))}%</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(item.get('curr_iss_amt'))}</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(item.get('total_score'), 1)}</td>"
-            f"<td style='padding:4px 10px;text-align:center'>{'✓' if item.get('selected') else ''}</td></tr>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{escape(str(item.get('rank', '')))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee'>{escape(str(item.get('name', '')))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee'>{escape(str(item.get('code', '')))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('price'))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('dblow'))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('premium_rt'))}%</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('curr_iss_amt'))}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('total_score'), 1)}</td>"
+            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:center'>{'✓' if item.get('selected') else ''}</td></tr>"
         )
     ranking_html = "\n".join(ranking_rows) if ranking_rows else "<tr><td colspan='9'>无数据</td></tr>"
 
@@ -232,8 +232,8 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
     history_html = "\n".join(history_rows) if history_rows else "<tr><td colspan='4'>无历史</td></tr>"
 
     return f"""\
-<div style="font-family:-apple-system,'Segoe UI','Microsoft YaHei',Arial,sans-serif;color:#222;max-width:720px">
-  <h2 style="margin:0 0 4px">📊 可转债三低轮动日报</h2>
+<div style="font-family:-apple-system,'Segoe UI','Microsoft YaHei',Arial,sans-serif;color:#222">
+  <div style="margin:8px 0"><b>📊 可转债三低轮动日报</b><br></div>
   <div style="color:#888;font-size:12px">信号日期 {as_of} · 生成 {generated}</div>
   <table style="border-collapse:collapse;margin:14px 0;font-size:14px">
     <tr><td style="padding:4px 16px 4px 0;color:#888">组合净值</td>
@@ -252,34 +252,34 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
         <td style="padding:4px 0">{len(report.get('holdings', []))} / {target_count} 等权</td></tr>
   </table>
 
-  <h3 style="margin:18px 0 6px">三低排名（✓ = 次日持仓，双低值 + 溢价率 + 剩余规模）</h3>
-  <table style="border-collapse:collapse;font-size:12px;width:100%">
-    <thead><tr style="background:#f4f6f8;color:#555">
-      <th style="padding:6px 8px;text-align:right">排名</th>
-      <th style="padding:6px 8px;text-align:left">名称</th>
-      <th style="padding:6px 8px;text-align:left">代码</th>
-      <th style="padding:6px 8px;text-align:right">收盘价</th>
-      <th style="padding:6px 8px;text-align:right">双低</th>
-      <th style="padding:6px 8px;text-align:right">溢价率</th>
-      <th style="padding:6px 8px;text-align:right">规模(亿)</th>
-      <th style="padding:6px 8px;text-align:right">得分</th>
-      <th style="padding:6px 8px;text-align:center">持仓</th>
+  <div style="margin:8px 0"><b>三低排名（✓ = 次日持仓，双低值 + 溢价率 + 剩余规模）</b><br></div>
+  <table style="border-collapse:collapse;font-size:13px;width:100%;margin:8px 0">
+    <thead><tr>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">排名</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">名称</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">代码</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">收盘价</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">双低</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">溢价率</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">规模(亿)</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">得分</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:center">持仓</th>
     </tr></thead>
     <tbody>
 {ranking_html}
     </tbody>
   </table>
 
-  <h3 style="margin:18px 0 6px">组合净值 vs 集思录等权指数</h3>
-  <img src="cid:{chart_cid}" alt="nav chart" style="width:100%;max-width:640px;border:1px solid #e5e5e5;border-radius:6px" />
+  <div style="margin:8px 0"><b>组合净值 vs 集思录等权指数</b><br></div>
+  <div style="margin:8px 0;text-align:center"><img src="cid:{chart_cid}" alt="nav chart" style="max-width:100%;height:auto" /></div>
 
-  <h3 style="margin:18px 0 6px">历史持仓（近 20 日）</h3>
-  <table style="border-collapse:collapse;font-size:12px;width:100%">
-    <thead><tr style="background:#f4f6f8;color:#555">
-      <th style="padding:5px 10px;text-align:left">日期</th>
-      <th style="padding:5px 10px;text-align:right">净值</th>
-      <th style="padding:5px 10px;text-align:right">日收益</th>
-      <th style="padding:5px 10px;text-align:right">换手</th>
+  <div style="margin:8px 0"><b>历史持仓（近 20 日）</b><br></div>
+  <table style="border-collapse:collapse;font-size:13px;width:100%;margin:8px 0">
+    <thead><tr>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">日期</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">净值</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">日收益</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">换手</th>
     </tr></thead>
     <tbody>
 {history_html}
@@ -307,7 +307,7 @@ def build_preview_html(report: Dict[str, Any], chart_path: Optional[Path] = None
         )
     else:
         fragment = fragment.replace(
-            f'<img src="cid:{NAV_CHART_CID}" alt="nav chart" style="width:100%;max-width:640px;border:1px solid #e5e5e5;border-radius:6px" />',
+            f'<div style="margin:8px 0;text-align:center"><img src="cid:{NAV_CHART_CID}" alt="nav chart" style="max-width:100%;height:auto" /></div>',
             '<p style="color:#aaa;font-size:12px">(净值图未生成)</p>',
         )
     return f"""<!DOCTYPE html>
