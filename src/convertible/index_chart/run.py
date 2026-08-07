@@ -41,9 +41,9 @@ def build_section(work_dir: Path) -> Optional[Dict[str, Any]]:
         return None
 
     html = (
-        f'<img src="cid:{CB_INDEX_CHART_CID}" '
-        f'alt="可转债价格中位数与平均收益率" '
-        f'style="width:100%;max-width:720px;border:1px solid #eee">'
+        f'<div style="margin:8px 0;text-align:center">'
+        f'<img src="cid:{CB_INDEX_CHART_CID}" alt="可转债价格中位数与平均收益率" '
+        f'style="max-width:100%;height:auto"></div>'
     )
     return {
         "html": html,
@@ -87,8 +87,9 @@ def run_preview(output_path: Path = DEFAULT_PREVIEW_PATH) -> Path:
         img_src = _embed_image_data_uri(chart_path)
 
     body = (
+        f'<div style="margin:8px 0;text-align:center">'
         f'<img src="{img_src}" alt="可转债价格中位数与平均收益率" '
-        f'style="width:100%;max-width:720px;border:1px solid #eee">'
+        f'style="max-width:100%;height:auto"></div>'
     )
     html = f"""<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">

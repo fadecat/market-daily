@@ -31,7 +31,6 @@ DEFAULT_PREVIEW_PATH = _REPO_ROOT / "preview" / "convertible.html"
 # 辅 section:(名称, 构造函数)——顺序即邮件中呈现顺序
 _SECONDARY_SECTIONS = [
     ("三低轮动", lambda work_dir, rows: three_low_run.build_section(work_dir)),
-    ("转债指数图", lambda work_dir, rows: index_chart_run.build_section(work_dir)),
     ("董秘互动", lambda work_dir, rows: irm_run.build_section(work_dir, rows=rows)),
     ("日历提醒", lambda work_dir, rows: calendar_run.build_section(work_dir)),
 ]
@@ -46,8 +45,19 @@ def _build_sections(work_dir: Path) -> Dict[str, Any]:
     inline_images: Dict[str, str] = {}
     as_of_date = ""
 
+    # 0. 转债指数图(注入筛选 section,置于概览后、筛选表前)
+    chart_html = ""
+    try:
+        chart_section = index_chart_run.build_section(work_dir)
+    except Exception as exc:  # noqa: BLE001
+        alerts.notify_alert("转债行情板块:转债指数图 section 异常", str(exc))
+        chart_section = None
+    if chart_section:
+        chart_html = chart_section.get("html", "")
+        inline_images.update(chart_section.get("inline_images") or {})
+
     # 1. 筛选(主 section)
-    screening_section = screening_run.build_section(work_dir)  # 失败向上抛
+    screening_section = screening_run.build_section(work_dir, mid_html=chart_html)  # 失败向上抛
     fragments.append(screening_section["html"])
     inline_images.update(screening_section.get("inline_images") or {})
     as_of_date = screening_section.get("as_of_date", "")

@@ -104,8 +104,16 @@ def generate_nav_chart(
 
     ax.set_title(title, fontsize=13)
     ax.grid(True, linestyle=":", alpha=0.4)
+    if dates:
+        d_min, d_max = min(dates), max(dates)
+        # 数据跨度太小时向两侧补齐,保证刻度落在"日"级以上,标签不重复堆叠
+        pad = max(dt.timedelta(days=10) - (d_max - d_min) / 2, dt.timedelta(0))
+        ax.set_xlim(d_min - pad, d_max + pad)
+        if len(set(dates)) < 10:  # 数据积累期提示
+            ax.text(0.5, 0.03, f"数据积累中(已 {len(set(dates))} 个交易日)",
+                    transform=ax.transAxes, ha="center", fontsize=9, color="#9aa0a6")
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=3, maxticks=8))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d"))
-    fig.autofmt_xdate()
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=130)

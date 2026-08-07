@@ -10,12 +10,12 @@ from typing import Any, Dict, List, Optional
 
 from ...common import email
 from .archive import get_cb_adjust_days_text
-from .strategy import get_enterprise_nature, is_force_redeem_triggered, load_enterprise_nature_map
+from .strategy import is_force_redeem_triggered, load_enterprise_nature_map
 
 
 CB_EMAIL_HEADERS = [
-    "#", "转债", "代码", "价格", "溢价率", "规模",
-    "评级", "剩余年限", "到期收益率", "正股", "正股价", "企业性质", "下修天计数",
+    "#", "转债", "价格", "溢价率", "规模",
+    "评级", "剩余年限", "到期收益率", "正股(价)", "下修",
 ]
 
 
@@ -108,16 +108,13 @@ def _cb_email_row(
     cells = [
         str(idx),
         f'📌 {c.get("bond_nm", "")}',
-        str(c.get("bond_id", "")),
         _cb_email_price(c.get("price")),
         _cb_email_premium(c.get("premium_rt")),
         str(c.get("curr_iss_amt", "--")),
         str(c.get("rating_cd", "--")),
         f'{c.get("year_left", "--")}年',
         _cb_email_ytm(c.get("ytm_rt")),
-        str(c.get("stock_nm", "--")),
-        _cb_email_sprice(c.get("sprice")),
-        get_enterprise_nature(c, nature_map),
+        f'{c.get("stock_nm", "--")} {_cb_email_sprice(c.get("sprice"))}',
         get_cb_adjust_days_text(c, archive_map),
     ]
     spec: dict = {"cells": cells}
@@ -131,6 +128,7 @@ def build_section_html(
     index_data: Optional[Dict[str, Any]],
     archive_map: Optional[Dict[str, Any]] = None,
     config: Optional[Dict[str, Any]] = None,
+    mid_html: str = "",
 ) -> str:
     """组装筛选 section HTML 片段(规则 + 概览 + 表格)。"""
     config = config or {}
@@ -144,6 +142,8 @@ def build_section_html(
     index_msg = build_cb_index_quote_message(index_data)
     if index_msg:
         parts.append(email.render_markdown(index_msg))
+    if mid_html:
+        parts.append(mid_html)
     if not show_rows:
         parts.append(email.render_markdown("暂无符合条件的可转债数据"))
         return "".join(parts)

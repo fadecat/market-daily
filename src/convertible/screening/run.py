@@ -19,7 +19,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PREVIEW_PATH = _REPO_ROOT / "preview" / "convertible_screening.html"
 
 
-def build_section(work_dir: Path) -> Dict[str, Any]:
+def build_section(work_dir: Path, mid_html: str = "") -> Dict[str, Any]:
     """登录 -> 抓 cb_list + 市场概览 -> 过滤排序 -> 刷新下修归档 -> 渲染。
 
     始终返回结果(screening 是主 section,无数据时展示"暂无")。
@@ -34,7 +34,7 @@ def build_section(work_dir: Path) -> Dict[str, Any]:
     finally:
         session.close()
 
-    html = render.build_section_html(filtered, index_quote, archive_map, config)
+    html = render.build_section_html(filtered, index_quote, archive_map, config, mid_html=mid_html)
     return {
         "html": html,
         "inline_images": {},

@@ -141,11 +141,8 @@ def build_email_text(report: Dict[str, Any]) -> str:
         f"当前回撤: {_fmt_pct(report.get('current_drawdown'))}",
         f"持仓只数: {len(report.get('holdings', []))}",
         "",
-        "次日持仓:",
+        "三低排名:",
     ]
-    for h in report.get("holdings", []):
-        lines.append(f"  {h['rank']}. {h['name']} ({h['code']}) 收盘 {_fmt_num(h.get('price'))}")
-    lines.extend(["", "三低排名:"])
     for item in report.get("ranking", []):
         mark = " *" if item.get("selected") else ""
         lines.append(
@@ -192,17 +189,6 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
     br_color = _return_color(benchmark_return)
     er_color = _return_color(excess_return)
     generated = strategy.now_in_beijing().replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
-
-    # 次日持仓表
-    holding_rows = []
-    for h in report.get("holdings", []):
-        holding_rows.append(
-            f"<tr><td style='padding:4px 10px;text-align:right'>{escape(str(h.get('rank', '')))}</td>"
-            f"<td style='padding:4px 10px'>{escape(str(h.get('name', '')))}</td>"
-            f"<td style='padding:4px 10px'>{escape(str(h.get('code', '')))}</td>"
-            f"<td style='padding:4px 10px;text-align:right'>{_fmt_num(h.get('price'))}</td></tr>"
-        )
-    holdings_html = "\n".join(holding_rows) if holding_rows else "<tr><td colspan='4'>无数据</td></tr>"
 
     # 三低排名表
     ranking_rows = []
@@ -266,20 +252,7 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
         <td style="padding:4px 0">{len(report.get('holdings', []))} / {target_count} 等权</td></tr>
   </table>
 
-  <h3 style="margin:18px 0 6px">次日持仓（{target_count} 只等权）</h3>
-  <table style="border-collapse:collapse;font-size:13px;width:100%">
-    <thead><tr style="background:#f4f6f8;color:#555">
-      <th style="padding:6px 10px;text-align:right">排名</th>
-      <th style="padding:6px 10px;text-align:left">名称</th>
-      <th style="padding:6px 10px;text-align:left">代码</th>
-      <th style="padding:6px 10px;text-align:right">收盘价</th>
-    </tr></thead>
-    <tbody>
-{holdings_html}
-    </tbody>
-  </table>
-
-  <h3 style="margin:18px 0 6px">三低排名（双低值 + 溢价率 + 剩余规模）</h3>
+  <h3 style="margin:18px 0 6px">三低排名（✓ = 次日持仓，双低值 + 溢价率 + 剩余规模）</h3>
   <table style="border-collapse:collapse;font-size:12px;width:100%">
     <thead><tr style="background:#f4f6f8;color:#555">
       <th style="padding:6px 8px;text-align:right">排名</th>
@@ -290,7 +263,7 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
       <th style="padding:6px 8px;text-align:right">溢价率</th>
       <th style="padding:6px 8px;text-align:right">规模(亿)</th>
       <th style="padding:6px 8px;text-align:right">得分</th>
-      <th style="padding:6px 8px;text-align:center">选</th>
+      <th style="padding:6px 8px;text-align:center">持仓</th>
     </tr></thead>
     <tbody>
 {ranking_html}

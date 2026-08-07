@@ -170,5 +170,6 @@ def test_build_section_html_with_rows():
     html = render.build_section_html(rows, {"cur_index": 100}, config={"max_show": 50, "max_price": 120})
     assert "可转债筛选" in html
     assert "📌 测试债" in html
-    assert "128001" in html
+    assert "正股(价)" in html  # 10 列精简后的合并表头(代码/企业性质/正股价 已删并)
+    assert "下修" in html
     assert "可转债市场概览" in html  # index_data 非空 -> 概览段

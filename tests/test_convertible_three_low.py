@@ -210,9 +210,9 @@ def test_build_email_html_contains_key_blocks():
     html = render.build_email_html(_sample_report(), charts.NAV_CHART_CID)
     assert "可转债三低轮动日报" in html
     assert f"cid:{charts.NAV_CHART_CID}" in html
-    assert "次日持仓" in html
     assert "三低排名" in html
     assert "历史持仓" in html
+    assert "次日持仓（" not in html  # 独立次日持仓表已删,持仓并入三低排名(✓列)
 
 
 def test_build_preview_html_without_chart():
