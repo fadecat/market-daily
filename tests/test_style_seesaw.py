@@ -1,5 +1,6 @@
 from src.research.style_seesaw_930955_vs_399326 import (
     build_current_event_card,
+    build_style_seesaw_payload,
     build_ratio_snapshot,
     build_relative_ratio_series,
 )
@@ -58,3 +59,17 @@ def test_build_current_event_card_extracts_required_fields():
     assert card["peak_pe"] == 9.94
     assert card["trough_pe"] == 8.22
     assert card["latest_pe"] == 9.10
+
+
+def test_build_style_seesaw_payload_contains_required_top_level_blocks(tmp_path):
+    payload = build_style_seesaw_payload(
+        archive_root=tmp_path / "archive",
+        as_of_date="2026-08-07",
+        dataset={
+            "events": [],
+            "indices": {"930955": "红利低波100", "399326": "深证成长40"},
+            "threshold": 0.05,
+        },
+    )
+
+    assert set(payload) == {"meta", "current", "distribution", "similar_events", "trace"}

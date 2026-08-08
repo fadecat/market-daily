@@ -1,0 +1,322 @@
+{
+  "meta": {
+    "pair_id": "930955_vs_399326",
+    "as_of_date": "2026-08-07",
+    "generated_at": null,
+    "sample_start": "2017-12-08",
+    "left": {
+      "index_code": "930955",
+      "index_name": "红利低波100"
+    },
+    "right": {
+      "index_code": "399326",
+      "index_name": "深证成长40"
+    },
+    "event_rule_version": "style-seesaw-v1"
+  },
+  "current": {
+    "relative_ratio": {
+      "value": 1.469960098382955,
+      "percentile": 53.7182,
+      "zscore_60d": 0.710066,
+      "zscore_120d": -0.182924
+    },
+    "left_event": {
+      "event_id": "930955:2025-11-13:2026-06-30",
+      "peak_date": "2025-11-13",
+      "trough_date": "2026-06-30",
+      "recovery_date": "2026-07-30",
+      "recovered": true,
+      "recovery_rule": "rebound_stability",
+      "max_drawdown": -0.15419729273338856,
+      "drawdown_days": 150,
+      "drawdown_percentile": 67.8571,
+      "peak_pe": 9.9414,
+      "trough_pe": 8.2167,
+      "latest_pe": 9.3228,
+      "peak_dividend_yield": 4.109,
+      "trough_dividend_yield": 4.6006,
+      "latest_dividend_yield": 4.1902,
+      "peak_bond_10y": 1.8126,
+      "trough_bond_10y": 1.733,
+      "latest_bond_10y": 1.7196
+    },
+    "right_event": {
+      "event_id": "399326:2026-06-25:2026-08-03",
+      "peak_date": "2026-06-25",
+      "trough_date": "2026-08-03",
+      "recovery_date": null,
+      "recovered": false,
+      "recovery_rule": null,
+      "max_drawdown": -0.3177245541549295,
+      "drawdown_days": 27,
+      "drawdown_percentile": 90.7895,
+      "peak_pe": 41.6717,
+      "trough_pe": 30.6608,
+      "latest_pe": 30.6608,
+      "peak_dividend_yield": 0.7374,
+      "trough_dividend_yield": 0.9837,
+      "latest_dividend_yield": 0.9837,
+      "peak_bond_10y": 1.7351,
+      "trough_bond_10y": 1.7169,
+      "latest_bond_10y": 1.7169
+    },
+    "style_state": {
+      "signal": "balanced",
+      "evidence": [
+        "growth_drawdown_deeper"
+      ]
+    }
+  },
+  "distribution": {
+    "relative_ratio_percentile": {
+      "current": 53.7182,
+      "sample_size": 4989
+    },
+    "left_drawdown_percentile": {
+      "current": 67.8571,
+      "sample_size": 56
+    },
+    "right_drawdown_percentile": {
+      "current": 90.7895,
+      "sample_size": 76
+    },
+    "left_repair_distribution": {
+      "21d": {
+        "sample_size": 56,
+        "p25": 0.05715944042854293,
+        "p50": 0.0851586923022174,
+        "p75": 0.12709130473557395
+      },
+      "63d": {
+        "sample_size": 55,
+        "p25": 0.039108067811709946,
+        "p50": 0.10134576321291844,
+        "p75": 0.22531202934176497
+      },
+      "126d": {
+        "sample_size": 55,
+        "p25": 0.011722589150439111,
+        "p50": 0.11883695826974239,
+        "p75": 0.26672217882959615
+      },
+      "252d": {
+        "sample_size": 55,
+        "p25": 0.040260526294379595,
+        "p50": 0.17144627486020925,
+        "p75": 0.3117063480118538
+      }
+    },
+    "right_repair_distribution": {
+      "21d": {
+        "sample_size": 75,
+        "p25": 0.07836478170543182,
+        "p50": 0.10342366705547956,
+        "p75": 0.15019672537831807
+      },
+      "63d": {
+        "sample_size": 73,
+        "p25": 0.00926823365392515,
+        "p50": 0.14664764092171212,
+        "p75": 0.3300199359387974
+      },
+      "126d": {
+        "sample_size": 71,
+        "p25": -0.03408850407195141,
+        "p50": 0.14692303603118773,
+        "p75": 0.435838019400677
+      },
+      "252d": {
+        "sample_size": 68,
+        "p25": -0.11058673706529898,
+        "p50": 0.07903122005803653,
+        "p75": 0.6248685797398084
+      }
+    },
+    "relative_repair_distribution": {
+      "21d": {
+        "sample_size": 0,
+        "p25": null,
+        "p50": null,
+        "p75": null
+      },
+      "63d": {
+        "sample_size": 0,
+        "p25": null,
+        "p50": null,
+        "p75": null
+      },
+      "126d": {
+        "sample_size": 0,
+        "p25": null,
+        "p50": null,
+        "p75": null
+      },
+      "252d": {
+        "sample_size": 0,
+        "p25": null,
+        "p50": null,
+        "p75": null
+      }
+    }
+  },
+  "similar_events": {
+    "left_event_matches": [
+      {
+        "event_id": "930955:2023-05-08:2024-01-22",
+        "trough_date": "2024-01-22",
+        "max_drawdown": -0.1446506000457246,
+        "drawdown_days": 176,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 7.2697,
+        "trough_pe": 6.0115,
+        "peak_dividend_yield": 4.6603,
+        "trough_dividend_yield": 5.535,
+        "forward_21d": 0.08260306535995299,
+        "forward_63d": 0.12542458045025828,
+        "forward_126d": 0.05109829830091228
+      },
+      {
+        "event_id": "930955:2024-05-22:2024-09-13",
+        "trough_date": "2024-09-13",
+        "max_drawdown": -0.17051821319877647,
+        "drawdown_days": 81,
+        "recovery_rule": "full_peak_recovery",
+        "peak_pe": 6.7256,
+        "trough_pe": 6.5148,
+        "peak_dividend_yield": 5.0729,
+        "trough_dividend_yield": 5.4029,
+        "forward_21d": 0.17909562470185203,
+        "forward_63d": 0.20567442301975092,
+        "forward_126d": 0.19400869532053044
+      },
+      {
+        "event_id": "930955:2021-05-12:2021-07-29",
+        "trough_date": "2021-07-29",
+        "max_drawdown": -0.10468476390694403,
+        "drawdown_days": 55,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 6.8225,
+        "trough_pe": 5.9828,
+        "peak_dividend_yield": 4.4691,
+        "trough_dividend_yield": 5.0205,
+        "forward_21d": 0.04618835285651923,
+        "forward_63d": 0.05384639351135423,
+        "forward_126d": 0.18322373447222162
+      },
+      {
+        "event_id": "930955:2022-04-06:2022-10-31",
+        "trough_date": "2022-10-31",
+        "max_drawdown": -0.17033692256814692,
+        "drawdown_days": 138,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 6.125,
+        "trough_pe": 5.1035,
+        "peak_dividend_yield": 4.9119,
+        "trough_dividend_yield": 6.4573,
+        "forward_21d": 0.1024603811638769,
+        "forward_63d": 0.1168022361808343,
+        "forward_126d": 0.29784238687735143
+      },
+      {
+        "event_id": "930955:2021-09-13:2021-11-09",
+        "trough_date": "2021-11-09",
+        "max_drawdown": -0.10413610192354184,
+        "drawdown_days": 34,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 6.1649,
+        "trough_pe": 5.7793,
+        "peak_dividend_yield": 4.931,
+        "trough_dividend_yield": 5.5249,
+        "forward_21d": 0.06065066917878803,
+        "forward_63d": 0.12311814038782876,
+        "forward_126d": 0.1049092957788531
+      }
+    ],
+    "right_event_matches": [
+      {
+        "event_id": "399326:2025-10-29:2025-11-24",
+        "trough_date": "2025-11-24",
+        "max_drawdown": -0.1284690613771018,
+        "drawdown_days": 18,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 33.5197,
+        "trough_pe": 29.1119,
+        "peak_dividend_yield": 1.0372,
+        "trough_dividend_yield": 1.1677,
+        "forward_21d": 0.16862411851297088,
+        "forward_63d": 0.23372207248032706,
+        "forward_126d": 0.6392145795998485
+      },
+      {
+        "event_id": "399326:2019-04-03:2019-06-06",
+        "trough_date": "2019-06-06",
+        "max_drawdown": -0.24289474979688785,
+        "drawdown_days": 42,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 32.7943,
+        "trough_pe": 25.6548,
+        "peak_dividend_yield": 0.7618,
+        "trough_dividend_yield": 1.0242,
+        "forward_21d": 0.09953457746986238,
+        "forward_63d": 0.24459407877639072,
+        "forward_126d": 0.3314042172414995
+      },
+      {
+        "event_id": "399326:2024-10-08:2024-10-17",
+        "trough_date": "2024-10-17",
+        "max_drawdown": -0.17644829806221407,
+        "drawdown_days": 7,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 28.4925,
+        "trough_pe": 23.3796,
+        "peak_dividend_yield": 1.1672,
+        "trough_dividend_yield": 1.4385,
+        "forward_21d": 0.09123809898099178,
+        "forward_63d": 0.00926823365392515,
+        "forward_126d": 0.0024171598886271184
+      },
+      {
+        "event_id": "399326:2021-12-14:2022-04-25",
+        "trough_date": "2022-04-25",
+        "max_drawdown": -0.36136624065394485,
+        "drawdown_days": 86,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 33.0176,
+        "trough_pe": 21.3373,
+        "peak_dividend_yield": 0.6183,
+        "trough_dividend_yield": 0.8897,
+        "forward_21d": 0.07836478170543182,
+        "forward_63d": 0.22891794414725974,
+        "forward_126d": 0.0686020423513729
+      },
+      {
+        "event_id": "399326:2021-06-28:2021-09-16",
+        "trough_date": "2021-09-16",
+        "max_drawdown": -0.2157546062126443,
+        "drawdown_days": 58,
+        "recovery_rule": "rebound_stability",
+        "peak_pe": 35.4567,
+        "trough_pe": 26.4612,
+        "peak_dividend_yield": 0.5965,
+        "trough_dividend_yield": 0.8289,
+        "forward_21d": 0.07819086161910627,
+        "forward_63d": 0.10666926708595148,
+        "forward_126d": -0.118366460555969
+      }
+    ]
+  },
+  "trace": {
+    "left_event_id": "930955:2025-11-13:2026-06-30",
+    "right_event_id": "399326:2026-06-25:2026-08-03",
+    "left_match_pool_size": 56,
+    "right_match_pool_size": 76,
+    "relative_ratio_sample_size": 4989,
+    "left_drawdown_sample_size": 56,
+    "right_drawdown_sample_size": 76,
+    "raw_metrics": {
+      "relative_ratio_value": 1.469960098382955,
+      "relative_ratio_percentile": 53.7182
+    }
+  }
+}
