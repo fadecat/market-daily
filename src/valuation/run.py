@@ -120,17 +120,33 @@ def _fetch_valuation_items(
 
 
 def _build_extra_sections(work_dir: Path) -> Tuple[List[str], Dict[str, str]]:
-    """高股息 -> 果仁 -> 风格轮动 -> 汇率图,各自失败 skip。返回 (extra_sections, inline_images)。"""
+    """风格轮动 -> 汇率图 -> 高股息 -> 果仁,各自失败 skip。返回 (extra_sections, inline_images)。"""
     extra_sections: List[str] = []
     inline_images: Dict[str, str] = {}
 
-    # 1. 高股息(build_section 内部单次 get_cookie,失败已 notify_alert 并返回 None)
+    # 1. 风格轮动(build_section 内部失败返回 None)
+    style_section = style_rotation.build_section(work_dir)
+    if style_section:
+        extra_sections.append(style_section["html"])
+        inline_images.update(style_section.get("inline_images") or {})
+
+    # 2. 汇率图
+    try:
+        fx_path = charts.generate_fx_chart(work_dir)
+    except Exception as exc:  # noqa: BLE001
+        print(f"[WARN] 汇率图生成失败,跳过: {exc}")
+        fx_path = None
+    if fx_path:
+        extra_sections.append(render.render_fx_chart_section(fx_path))
+        inline_images[render.FX_CHART_CID] = str(fx_path)
+
+    # 3. 高股息(build_section 内部单次 get_cookie,失败已 notify_alert 并返回 None)
     dividend_section = dividend_render.build_section(work_dir)
     if dividend_section:
         extra_sections.append(dividend_section["html"])
         inline_images.update(dividend_section.get("inline_images") or {})
 
-    # 2. 果仁行业估值(独立 GUORN_COOKIE)
+    # 4. 果仁行业估值(独立 GUORN_COOKIE)
     guorn_cookie = env.get("GUORN_COOKIE")
     if guorn_cookie:
         try:
@@ -149,22 +165,6 @@ def _build_extra_sections(work_dir: Path) -> Tuple[List[str], Dict[str, str]]:
             extra_sections.append(guorn_html)
     else:
         print("[INFO] 未配置 GUORN_COOKIE,跳过果仁行业估值区块")
-
-    # 3. 风格轮动(build_section 内部失败返回 None)
-    style_section = style_rotation.build_section(work_dir)
-    if style_section:
-        extra_sections.append(style_section["html"])
-        inline_images.update(style_section.get("inline_images") or {})
-
-    # 4. 汇率图
-    try:
-        fx_path = charts.generate_fx_chart(work_dir)
-    except Exception as exc:  # noqa: BLE001
-        print(f"[WARN] 汇率图生成失败,跳过: {exc}")
-        fx_path = None
-    if fx_path:
-        extra_sections.append(render.render_fx_chart_section(fx_path))
-        inline_images[render.FX_CHART_CID] = str(fx_path)
 
     return extra_sections, inline_images
 

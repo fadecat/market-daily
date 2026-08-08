@@ -633,6 +633,7 @@ def test_build_supplement_assembly():
     assert spec["cells"][10] == "-"  # 关联转债空
     assert "border-top" in spec["row_style"]  # 组首行
     assert sup["excluded_rows"] == []
+    assert sup["stock_codes"] == ["000001"]
 
 
 def test_build_supplement_assembly_two_groups_alternating_styles():

@@ -998,6 +998,7 @@ def build_dividend_email_supplement(
         "summary_lines": summary_lines,
         "headers": build_dividend_email_supplement_headers(roe_column.get("header", "ROE")),
         "rows": row_specs,
+        "stock_codes": [str(spec["cells"][3]) for spec in row_specs if len(spec.get("cells", [])) > 3],
         "xc_id": xc_id,
         "condition_text": result.get("condition_text", ""),
         "excluded_rows": excluded_rows,

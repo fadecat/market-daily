@@ -27,6 +27,7 @@ from typing import Any, Dict, List, Optional
 from ...common.alerts import notify_alert
 from ...common.email import render_markdown, render_table
 from ...common.jisilu import get_cookie
+from ...common.whitelist import normalize_stock_code
 from ..fetch import now_in_beijing
 from .fetch import fetch_data, prepare_dividend_email_data
 from .filter import (
@@ -200,6 +201,41 @@ def _dividend_email_row(idx: int, ranked_row: dict) -> dict:
     }
 
 
+def _supplement_stock_codes(data: dict) -> set[str]:
+    """提取东财补充池代码集合,供集思录主表去重。"""
+    supplement = data.get("email_supplement") or {}
+    raw_codes = supplement.get("stock_codes") or []
+    if not raw_codes:
+        for row_spec in supplement.get("rows") or []:
+            cells = row_spec.get("cells") or []
+            if len(cells) > 3:
+                raw_codes.append(cells[3])
+    return {
+        code
+        for code in (normalize_stock_code(item) for item in raw_codes)
+        if code
+    }
+
+
+def _dedup_dividend_rows_against_supplement(data: dict) -> tuple[dict, int, int]:
+    """移除已在东财补充池出现过的集思录行。"""
+    original_rows = list(data.get("rows") or [])
+    supplement_codes = _supplement_stock_codes(data)
+    if not supplement_codes:
+        return data, len(original_rows), 0
+
+    deduped_rows = []
+    overlap_count = 0
+    for row in original_rows:
+        cell = dict(row.get("cell") or {})
+        stock_id = normalize_stock_code(cell.get("stock_id"))
+        if stock_id and stock_id in supplement_codes:
+            overlap_count += 1
+            continue
+        deduped_rows.append(row)
+    return {**data, "rows": deduped_rows}, len(original_rows), overlap_count
+
+
 def build_dividend_email_html(data: dict) -> List[str]:
     """渲染高股息邮件 HTML 片段列表:补充池(前) + 规则 + 表头 + 主表(后)。
 
@@ -207,11 +243,17 @@ def build_dividend_email_html(data: dict) -> List[str]:
     ``render_markdown`` / ``render_table`` 输出;返回值由 ``build_section`` 包成单个卡片行。
     """
     data = ensure_dividend_report_meta(data)
+    data, filtered_count, dedup_count = _dedup_dividend_rows_against_supplement(data)
     grouped = build_dividend_display_groups(data)
     total = grouped["total_count"]
     raw_count = data["raw_returned_count"]
     header_text = f"**集思录高股息筛选** (集思录返回 {raw_count} 只)"
-    if total != raw_count:
+    if dedup_count:
+        if filtered_count != raw_count:
+            header_text += f"\n筛选后 {filtered_count} 只，去重东财后剩余 {total} 只"
+        else:
+            header_text += f"\n去重东财后剩余 {total} 只"
+    elif total != raw_count:
         header_text += f"\n筛选后剩余 {total} 只"
     supplement_parts = build_dividend_email_supplement_html(data)
     html_parts: List[str] = []
@@ -219,7 +261,8 @@ def build_dividend_email_html(data: dict) -> List[str]:
     html_parts.append(render_markdown(build_rule_msg(data)))
     html_parts.append(render_markdown(header_text))
     if not grouped["groups"]:
-        html_parts.append(render_markdown("暂无符合条件的股票数据"))
+        empty_text = "去重东财后无新增标的" if dedup_count and filtered_count else "暂无符合条件的股票数据"
+        html_parts.append(render_markdown(empty_text))
         return html_parts
 
     group_styles = ["background:#FBFCFE", "background:#F7FBF8"]

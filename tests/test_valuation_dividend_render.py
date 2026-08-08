@@ -191,6 +191,51 @@ def test_build_dividend_email_html_empty_rows():
     assert not any("浦发银行" in p for p in parts)
 
 
+def test_build_dividend_email_html_dedups_rows_already_in_supplement():
+    data = {
+        "rows": [
+            {"cell": _cell("600000", "浦发银行", "银行", "4.5", "0.5", "5.2")},
+            {"cell": _cell("601398", "工商银行", "银行", "5.0", "0.6", "6.0")},
+        ],
+        "raw_returned_count": 8,
+        "filter_steps": [],
+        "email_supplement": {
+            "title": "东财条件补充池·xc123",
+            "summary_lines": [],
+            "xc_id": "xc123",
+            "headers": ["#", "代码"],
+            "rows": [{"cells": ["1", "银行", "浦发银行", "600000"], "row_style": ""}],
+            "stock_codes": ["600000"],
+        },
+    }
+    parts = dr.build_dividend_email_html(data)
+    table_html = [p for p in parts if "<table" in p][-1]
+    assert "工商银行" in table_html
+    assert "浦发银行" not in table_html
+    assert any("去重东财后剩余 1 只" in p for p in parts)
+
+
+def test_build_dividend_email_html_empty_after_dedup_shows_no_new_rows():
+    data = {
+        "rows": [
+            {"cell": _cell("600000", "浦发银行", "银行", "4.5", "0.5", "5.2")},
+        ],
+        "raw_returned_count": 5,
+        "filter_steps": [],
+        "email_supplement": {
+            "title": "东财条件补充池·xc123",
+            "summary_lines": [],
+            "xc_id": "xc123",
+            "headers": ["#", "代码"],
+            "rows": [{"cells": ["1", "银行", "浦发银行", "600000"], "row_style": ""}],
+            "stock_codes": ["600000"],
+        },
+    }
+    parts = dr.build_dividend_email_html(data)
+    assert any("去重东财后无新增标的" in p for p in parts)
+    assert sum(1 for p in parts if "<table" in p) == 1
+
+
 def test_build_dividend_email_html_group_alternating_styles():
     data = {
         "rows": [

@@ -149,8 +149,8 @@ def test_build_extra_sections_order_and_merge(monkeypatch, tmp_path):
     monkeypatch.setattr(run.render, "render_fx_chart_section", lambda path: "<tr>FX</tr>")
 
     sections, imgs = run._build_extra_sections(tmp_path)
-    # 顺序:高股息 -> 果仁 -> 风格轮动 -> 汇率图
-    assert sections == ["<tr>DIV</tr>", "<tr>GUORN</tr>", "<tr>SR</tr>", "<tr>FX</tr>"]
+    # 顺序:风格轮动 -> 汇率图 -> 高股息 -> 果仁
+    assert sections == ["<tr>SR</tr>", "<tr>FX</tr>", "<tr>DIV</tr>", "<tr>GUORN</tr>"]
     assert imgs == {"div_cid": "/d.png", "style_rotation_chart": "/s.png", run.render.FX_CHART_CID: str(Path("/fx.png"))}
 def test_build_extra_sections_dividend_none_skipped(monkeypatch, tmp_path):
     monkeypatch.setattr(run.env, "get", lambda name, default="": "" if name == "GUORN_COOKIE" else default)
