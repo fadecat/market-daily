@@ -32,6 +32,7 @@
 from __future__ import annotations
 
 import os
+import re
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -657,6 +658,10 @@ def resolve_target_index_code(target: Dict) -> str:
     code = str(target.get("code") or "").strip()
     if index_code:
         return index_code
+    detail_url = str(target.get("index_detail_url") or "").strip()
+    match = re.search(r"(?:[?&])indexCode=(\d+)", detail_url, flags=re.IGNORECASE)
+    if match:
+        return match.group(1)
     if target_type == "index":
         return code
     return ""

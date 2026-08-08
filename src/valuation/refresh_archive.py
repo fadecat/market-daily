@@ -127,12 +127,24 @@ def refresh_cb_index() -> List[Path]:
     return [cb_index_refresh.ARCHIVE_PATH] if changed else []
 
 
-def _run_step(name: str, fn: Callable[[], List[Path]]) -> Tuple[List[Path], bool]:
+def _run_step(
+    dataset: str,
+    fn: Callable[[], List[Path]],
+    *,
+    code: str = "",
+    target_name: str = "",
+) -> Tuple[List[Path], bool]:
     try:
         return fn(), True
     except Exception as exc:  # noqa: BLE001
-        print(f"[WARN] {name} 归档刷新失败: {exc}")
-        alerts.notify_alert(f"{name} 归档刷新失败", str(exc))
+        print(f"[WARN] {dataset}:{code or target_name} 归档刷新失败: {exc}")
+        alerts.notify_data_failure(
+            dataset=dataset,
+            error=exc,
+            code=code,
+            target_name=target_name,
+            action="跳过本步并继续刷新其他归档",
+        )
         return [], False
 
 
@@ -144,6 +156,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     try:
         targets = load_targets(args.config)
         index_codes = resolve_index_codes(targets)
+        target_names = {
+            resolve_index_code(target): str(target.get("name") or resolve_index_code(target))
+            for target in targets
+            if resolve_index_code(target)
+        }
         updated_at = fetch.now_in_beijing().isoformat()
         changed: List[Path] = []
         ok = 0
@@ -152,30 +169,34 @@ def main(argv: Optional[List[str]] = None) -> int:
         for code in index_codes:
             for dataset, builder in _INDEX_DATASETS:
                 paths, success = _run_step(
-                    f"{dataset}:{code}",
+                    dataset,
                     lambda d=dataset, b=builder, c=code: refresh_index_dataset(d, b, c, updated_at),
+                    code=code,
+                    target_name=target_names.get(code, code),
                 )
                 changed.extend(paths)
                 if success:
                     ok += 1
                 else:
-                    failed.append(f"{dataset}:{code}")
+                    failed.append(f"{target_names.get(code, code)}/{dataset}")
 
-        bond_paths, bond_ok = _run_step("bond_10y", lambda: refresh_bond_dataset(updated_at))
+        bond_paths, bond_ok = _run_step(
+            "bond_10y", lambda: refresh_bond_dataset(updated_at), target_name="10Y国债"
+        )
         changed.extend(bond_paths)
         if bond_ok:
             ok += 1
         else:
             failed.append("bond_10y")
 
-        fx_paths, fx_ok = _run_step("fx", lambda: refresh_fx_dataset(updated_at))
+        fx_paths, fx_ok = _run_step("fx", lambda: refresh_fx_dataset(updated_at), target_name="汇率")
         changed.extend(fx_paths)
         if fx_ok:
             ok += 1
         else:
             failed.append("fx")
 
-        cb_paths, cb_ok = _run_step("cb_index", refresh_cb_index)
+        cb_paths, cb_ok = _run_step("cb_index", refresh_cb_index, target_name="转债等权指数")
         changed.extend(cb_paths)
         if cb_ok:
             ok += 1

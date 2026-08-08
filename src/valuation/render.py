@@ -528,6 +528,12 @@ def _build_global_info(
         )
     sep = f'<span style="color:#d2d2d7;margin:0 10px">|</span>'
     info_rows.append(f"<div>{sep.join(time_bits)}</div>")
+    if valuation_date:
+        info_rows.append(
+            f'<div style="margin-top:6px;color:{EMAIL_LABEL_COLOR};font-size:11.5px">'
+            f"数据时点：指数估值按最近交易日收盘数据，当前基准日为 {escape(valuation_date)}"
+            f"</div>"
+        )
     info_rows.append(
         f'<div style="margin-top:6px">'
         f'<span style="color:{EMAIL_LABEL_COLOR}">分位提示</span>'

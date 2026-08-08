@@ -10,7 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.convertible.index_chart import charts, history  # noqa: E402
+from src.convertible.index_chart import charts, history, run  # noqa: E402
 
 
 PAGE_BODY = """
@@ -125,3 +125,19 @@ def test_generate_cb_index_chart_insufficient_data(tmp_path):
     records = [{"date": "2024-01-01", "median_price": 115.0, "avg_ytm": 2.0}]
     out = charts.generate_cb_index_chart(tmp_path / "cb_index.png", records=records)
     assert out is None
+
+
+def test_convertible_index_section_mentions_close_update(monkeypatch, tmp_path):
+    monkeypatch.setattr(
+        run.history,
+        "build_merged_history",
+        lambda: ([{"date": "2026-08-07", "value": 100}], {}),
+    )
+    monkeypatch.setattr(
+        run.charts,
+        "generate_cb_index_chart",
+        lambda path, records: path.write_bytes(b"png") or path,
+    )
+    section = run.build_section(tmp_path)
+    assert "A股收盘后更新" in section["html"]
+    assert "2026-08-07" in section["html"]

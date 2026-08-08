@@ -372,7 +372,31 @@ def test_supplement_ttm_metrics_failure_returns_empty():
 
     row = {"TOAL_MARKET_VALUE": "200亿"}
     m = supplement._supplement_ttm_metrics(row, "000001", ttm_fetcher=boom)
-    assert m == {"ttm_text": "", "ttm_value_yi": None, "pe_ttm_text": ""}
+    assert m["ttm_text"] == ""
+    assert m["ttm_value_yi"] is None
+    assert m["pe_ttm_text"] == ""
+    assert m["error"] == "cninfo down"
+
+
+def test_supplement_summary_reports_partial_cninfo_metrics():
+    result = {
+        "rows": [
+            {
+                "SECURITY_CODE": "000001",
+                "INDUSTRY_LV3": "煤炭",
+                "DIVIDEND_NEWRATIO_HYY": "5.0%",
+                "TOAL_MARKET_VALUE": "100亿",
+            }
+        ],
+        "columns": [],
+        "xc_id": "xc1",
+    }
+
+    def boom(code):
+        raise RuntimeError("missing 归属母公司净利润")
+
+    sup = supplement.build_dividend_email_supplement(result, ttm_fetcher=boom)
+    assert "巨潮TTM部分缺失：1只，已保留股票但TTM/PE-TTM为空" in sup["summary_lines"]
 
 
 def test_supplement_ttm_metrics_no_market_value_empty_pe():

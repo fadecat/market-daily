@@ -103,6 +103,15 @@ def test_build_index_eod_price_url():
     assert "index_eod_price_000300" in fetch.build_index_eod_price_url("000300")
 
 
+def test_valuation_target_extracts_index_code_from_detail_url():
+    target = {
+        "type": "valuation",
+        "code": "000300",
+        "index_detail_url": "https://example.test/index/detail?indexCode=000300",
+    }
+    assert fetch.resolve_target_index_code(target) == "000300"
+
+
 def test_build_index_valuation_percentile_url():
     assert "index_valuation_percentile_930955" in fetch.build_index_valuation_percentile_url("csi930955")
 

@@ -159,9 +159,33 @@ def test_run_step_success():
 def test_run_step_failure_alerts(monkeypatch):
     alerted = []
     monkeypatch.setattr(run.alerts, "notify_alert", lambda title, detail="": alerted.append((title, detail)))
-    paths, ok = run._run_step("bond_10y", lambda: (_ for _ in ()).throw(RuntimeError("boom")))
+    paths, ok = run._run_step(
+        "bond_10y",
+        lambda: (_ for _ in ()).throw(RuntimeError("boom")),
+        target_name="10Y国债",
+    )
     assert paths == [] and ok is False
-    assert alerted and alerted[0][0] == "bond_10y 归档刷新失败"
+    assert alerted and alerted[0][0] == "市场估值数据刷新失败：10Y国债"
+    assert "影响范围：市场估值股债收益差和股债比值" in alerted[0][1]
+
+
+def test_run_step_index_failure_alert_is_searchable(monkeypatch):
+    alerted = []
+    monkeypatch.setattr(
+        run.alerts,
+        "notify_data_failure",
+        lambda dataset, **kwargs: alerted.append({"dataset": dataset, **kwargs}),
+    )
+    paths, ok = run._run_step(
+        "index_eod",
+        lambda: (_ for _ in ()).throw(RuntimeError("index fail")),
+        code="000300",
+        target_name="沪深300",
+    )
+    assert paths == [] and ok is False
+    assert alerted and alerted[0]["dataset"] == "index_eod"
+    assert alerted[0]["code"] == "000300"
+    assert alerted[0]["target_name"] == "沪深300"
 
 
 # ---------- main ----------

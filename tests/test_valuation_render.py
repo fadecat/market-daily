@@ -305,6 +305,12 @@ def test_assemble_extra_sections_appended_before_footer():
     assert html.index("EXTRA_MARKER") < html.index("本邮件由 GitHub Actions")
 
 
+def test_valuation_global_info_explains_close_based_data():
+    html = render._build_global_info("2026-08-08 12:06", "2026-08-07", 1.71)
+    assert "最近交易日收盘数据" in html
+    assert "2026-08-07" in html
+
+
 def test_assemble_multiple_items_with_divider():
     item2 = dict(_full_item(), index_code="000905", index_name="中证500")
     item2["index_valuation_metrics"] = {

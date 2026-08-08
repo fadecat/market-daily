@@ -80,3 +80,36 @@ def notify_alert(title: str, detail: str = "", webhook: Optional[str] = None) ->
     except Exception as exc:  # noqa: BLE001
         logger.exception("[ALERT] 报警发送失败: %s", exc)
         return False
+
+
+def notify_data_failure(
+    dataset: str,
+    *,
+    error: Exception,
+    code: str = "",
+    target_name: str = "",
+    action: str = "",
+    trace: str = "",
+    partial: bool = False,
+    webhook: Optional[str] = None,
+) -> bool:
+    """发送带业务影响范围和内部检索字段的数据失败报警。"""
+    from .data_status import build_data_alert_title, format_data_failure_detail
+
+    title = build_data_alert_title(
+        dataset,
+        code=code,
+        target_name=target_name,
+        partial=partial,
+    )
+    detail = format_data_failure_detail(
+        dataset,
+        error=error,
+        code=code,
+        target_name=target_name,
+        action=action,
+        trace=trace,
+    )
+    if webhook is None:
+        return notify_alert(title, detail)
+    return notify_alert(title, detail, webhook=webhook)

@@ -629,7 +629,7 @@ def _supplement_ttm_metrics(row, stock_code, ttm_fetcher=fetch_cached_or_live_tt
         ttm_info = ttm_fetcher(stock_code)
     except Exception as e:  # noqa: BLE001
         print(f"[东财补充池TTM失败] {stock_code}: {e}")
-        metrics = {"ttm_text": "", "ttm_value_yi": None, "pe_ttm_text": ""}
+        metrics = {"ttm_text": "", "ttm_value_yi": None, "pe_ttm_text": "", "error": str(e)}
         row["_ttm_metrics"] = metrics
         return metrics
     value = ttm_info.get("ttm_value_yi")
@@ -938,6 +938,11 @@ def build_dividend_email_supplement(
     xc_id = result.get("xc_id", "")
     rows, excluded_rows = filter_dividend_email_supplement_rows(source_rows, ttm_fetcher=ttm_fetcher)
     exclusion_summary = summarize_dividend_email_supplement_exclusions(excluded_rows)
+    ttm_missing_count = sum(
+        1
+        for row in rows
+        if isinstance(row.get("_ttm_metrics"), dict) and row["_ttm_metrics"].get("error")
+    )
     roe_column = resolve_dividend_email_supplement_roe_column(columns, rows)
     groups = build_dividend_email_supplement_groups(rows)
     group_styles = ["background:#FBFCFE", "background:#F7FBF8"]
@@ -972,18 +977,25 @@ def build_dividend_email_supplement(
                 }
             )
             idx += 1
+    summary_lines = [
+        "补充区块,与集思录高股息主表分开展示",
+        "本地展示:三级行业分组;行业与组内按股息率降序",
+        f"本地二次过滤:行业排除名单 + PE-TTM <= {DIVIDEND_SUPPLEMENT_PE_TTM_MAX:g}(空值保留)",
+        f"共 {len(groups)} 个三级行业,合计 {len(rows)} 只;组内按股息率降序",
+        f"本地二次过滤剔除 {len(excluded_rows)} 只:"
+        f"行业排除 {exclusion_summary['industry_excluded_count']} 只;"
+        f"PE-TTM 排除 {exclusion_summary['pe_ttm_excluded_count']} 只",
+    ]
+    if ttm_missing_count:
+        summary_lines.append(
+            f"巨潮TTM部分缺失：{ttm_missing_count}只，已保留股票但TTM/PE-TTM为空"
+        )
+    summary_lines.append(
+        "口径:国企;股息率/PB/ROE取东财字段;PE与净利润取本地TTM口径;关联转债复用本地映射"
+    )
     return {
         "title": build_dividend_email_supplement_title(xc_id),
-        "summary_lines": [
-            "补充区块,与集思录高股息主表分开展示",
-            "本地展示:三级行业分组;行业与组内按股息率降序",
-            f"本地二次过滤:行业排除名单 + PE-TTM <= {DIVIDEND_SUPPLEMENT_PE_TTM_MAX:g}(空值保留)",
-            f"共 {len(groups)} 个三级行业,合计 {len(rows)} 只;组内按股息率降序",
-            f"本地二次过滤剔除 {len(excluded_rows)} 只:"
-            f"行业排除 {exclusion_summary['industry_excluded_count']} 只;"
-            f"PE-TTM 排除 {exclusion_summary['pe_ttm_excluded_count']} 只",
-            "口径:国企;股息率/PB/ROE取东财字段;PE与净利润取本地TTM口径;关联转债复用本地映射",
-        ],
+        "summary_lines": summary_lines,
         "headers": build_dividend_email_supplement_headers(roe_column.get("header", "ROE")),
         "rows": row_specs,
         "xc_id": xc_id,
