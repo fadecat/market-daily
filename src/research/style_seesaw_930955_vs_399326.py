@@ -51,3 +51,33 @@ def build_ratio_snapshot(
         "zscore_60d": _window_zscore(history, current, 60),
         "zscore_120d": _window_zscore(history, current, 120),
     }
+
+
+def build_current_event_card(
+    event: dict,
+    *,
+    drawdown_percentile: float,
+    latest_context: dict,
+) -> dict:
+    peak_context = event.get("peak_context") or {}
+    trough_context = event.get("trough_context") or {}
+    return {
+        "event_id": event["event_id"],
+        "peak_date": event["peak_date"],
+        "trough_date": event["trough_date"],
+        "recovery_date": event.get("recovery_date"),
+        "recovered": event["recovered"],
+        "recovery_rule": event.get("recovery_rule"),
+        "max_drawdown": event["max_drawdown"],
+        "drawdown_days": event["drawdown_days"],
+        "drawdown_percentile": drawdown_percentile,
+        "peak_pe": peak_context.get("pe_ttm"),
+        "trough_pe": trough_context.get("pe_ttm"),
+        "latest_pe": latest_context.get("pe_ttm"),
+        "peak_dividend_yield": peak_context.get("dividend_yield"),
+        "trough_dividend_yield": trough_context.get("dividend_yield"),
+        "latest_dividend_yield": latest_context.get("dividend_yield"),
+        "peak_bond_10y": peak_context.get("bond_10y"),
+        "trough_bond_10y": trough_context.get("bond_10y"),
+        "latest_bond_10y": latest_context.get("bond_10y"),
+    }

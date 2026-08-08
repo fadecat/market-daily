@@ -1,4 +1,5 @@
 from src.research.style_seesaw_930955_vs_399326 import (
+    build_current_event_card,
     build_ratio_snapshot,
     build_relative_ratio_series,
 )
@@ -29,3 +30,31 @@ def test_build_ratio_snapshot_returns_percentile_and_zscores():
     assert snapshot["percentile"] == 100.0
     assert "zscore_60d" in snapshot
     assert "zscore_120d" in snapshot
+
+
+def test_build_current_event_card_extracts_required_fields():
+    event = {
+        "event_id": "930955:2025-11-13:2026-06-30",
+        "peak_date": "2025-11-13",
+        "trough_date": "2026-06-30",
+        "recovery_date": "2026-07-30",
+        "recovered": True,
+        "recovery_rule": "rebound_stability",
+        "max_drawdown": -0.1542,
+        "drawdown_days": 160,
+        "peak_context": {"pe_ttm": 9.94, "dividend_yield": 4.10, "bond_10y": 1.81},
+        "trough_context": {"pe_ttm": 8.22, "dividend_yield": 4.60, "bond_10y": 1.73},
+        "recovery_context": {"pe_ttm": 9.10, "dividend_yield": 4.30, "bond_10y": 1.74},
+    }
+
+    card = build_current_event_card(
+        event,
+        drawdown_percentile=88.0,
+        latest_context={"pe_ttm": 9.10, "dividend_yield": 4.30, "bond_10y": 1.74},
+    )
+
+    assert card["event_id"] == "930955:2025-11-13:2026-06-30"
+    assert card["drawdown_percentile"] == 88.0
+    assert card["peak_pe"] == 9.94
+    assert card["trough_pe"] == 8.22
+    assert card["latest_pe"] == 9.10
