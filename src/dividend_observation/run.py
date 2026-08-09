@@ -51,7 +51,7 @@ def run_preview(
         preview_payload = data.prepare_display_payload(
             data.build_or_load_payload(
                 force_refresh=True,
-                force_refresh_style_rotation=force_refresh_style_rotation,
+                force_refresh_style_rotation=True,
             )
         )
     else:
@@ -73,7 +73,10 @@ def run_preview(
 def run_send() -> int:
     try:
         payload = data.prepare_display_payload(
-            data.build_or_load_payload(force_refresh=True)
+            data.build_or_load_payload(
+                force_refresh=True,
+                force_refresh_style_rotation=True,
+            )
         )
         with tempfile.TemporaryDirectory(prefix="dividend_observation_send_") as tmpdir:
             chart_bundle = charts.generate_chart_bundle(payload, Path(tmpdir))
