@@ -499,6 +499,51 @@ def test_fetch_index_data_all_sources_fail_raises(monkeypatch):
         fetch.fetch_index_data("sh000300", "20260101", "20260831")
 
 
+def test_fetch_style_rotation_special_index_history_from_tencent(monkeypatch):
+    raw = pd.DataFrame({"date": ["2026-08-07", "2026-08-08"], "close": [123.4, 125.6]})
+    captured = {}
+
+    def fake_tx(symbol, start_date, end_date, adjust):
+        captured.update(
+            symbol=symbol,
+            start_date=start_date,
+            end_date=end_date,
+            adjust=adjust,
+        )
+        return raw
+
+    monkeypatch.setattr(fetch.ak, "stock_zh_a_hist_tx", fake_tx)
+    monkeypatch.setattr(fetch.alerts, "run_with_retry", lambda name, fn: fn())
+
+    frame = fetch.fetch_style_rotation_special_index_history("399376", "20260801", "20260809")
+
+    assert list(frame.columns) == ["date", "close"]
+    assert frame["close"].iloc[-1] == 125.6
+    assert captured == {
+        "symbol": "sz399376",
+        "start_date": "2026-08-01",
+        "end_date": "2026-08-09",
+        "adjust": "",
+    }
+
+
+def test_fetch_index_data_special_index_prefers_archive(monkeypatch, tmp_path):
+    _write_archive(
+        tmp_path / "index_eod" / "399376.json",
+        [{"trdDt": "2026-08-08", "pxClose": 111.0}, {"trdDt": "2026-08-09", "pxClose": 112.0}],
+    )
+    monkeypatch.setattr(
+        fetch,
+        "fetch_style_rotation_special_index_history",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("should not fetch live")),
+    )
+
+    frame = fetch.fetch_index_data("399376", "20260801", "20260809", archive_root=tmp_path)
+
+    assert list(frame["date"].dt.strftime("%Y-%m-%d")) == ["2026-08-08", "2026-08-09"]
+    assert frame["close"].iloc[-1] == 112.0
+
+
 # ---------- fetch_target_index_metrics: detail 失败回退 (P1-4) ----------
 
 

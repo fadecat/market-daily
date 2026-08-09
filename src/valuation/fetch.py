@@ -65,6 +65,7 @@ DEFAULT_INDEX_EOD_PRICE_URL_TEMPLATE = "https://cdn.efunds.com.cn/etf-net/index_
 DEFAULT_INDEX_VALUATION_PERCENTILE_URL_TEMPLATE = (
     "https://cdn.efunds.com.cn/etf-net/index_valuation_percentile_{index_code}.json"
 )
+STYLE_ROTATION_SPECIAL_INDEX_CODES = {"399376", "399373"}
 
 _CN_10Y_BOND_YIELD_COL = "中国国债收益率10年"
 
@@ -217,6 +218,17 @@ def build_numeric_index_symbols(code: str) -> List[str]:
     digits = extract_index_digits(raw)
     candidates = [digits, raw]
     return dedupe_keep_order([item.strip() for item in candidates])
+
+
+def is_style_rotation_special_index(code: str) -> bool:
+    return extract_index_digits(code) in STYLE_ROTATION_SPECIAL_INDEX_CODES
+
+
+def _to_tencent_index_symbol(code: str) -> str:
+    digits = extract_index_digits(code)
+    if digits.startswith("399"):
+        return f"sz{digits}"
+    return f"sh{digits}"
 
 
 def clip_dataframe_by_date(df: pd.DataFrame, start_date: str, end_date: str) -> pd.DataFrame:
@@ -891,12 +903,65 @@ def fetch_target_index_dividend_yield(target: Dict) -> Optional[Dict]:
 # ---------- 风格轮动:指数日线(多源) ----------
 
 
+def fetch_style_rotation_special_index_history(
+    code: str,
+    start_date: str,
+    end_date: str,
+) -> pd.DataFrame:
+    raw = alerts.run_with_retry(
+        "stock_zh_a_hist_tx",
+        lambda: ak.stock_zh_a_hist_tx(
+            symbol=_to_tencent_index_symbol(code),
+            start_date=f"{start_date[:4]}-{start_date[4:6]}-{start_date[6:]}",
+            end_date=f"{end_date[:4]}-{end_date[4:6]}-{end_date[6:]}",
+            adjust="",
+        ),
+    )
+    normalized = normalize_dataframe(raw)
+    return clip_dataframe_by_date(normalized, start_date, end_date)
+
+
+def _load_index_eod_archive_frame(
+    code: str,
+    start_date: str,
+    end_date: str,
+    archive_root: Path = storage.ARCHIVE_DIR,
+) -> pd.DataFrame:
+    records = load_archive_records("index_eod", index_code=extract_index_digits(code), archive_root=archive_root)
+    if not records:
+        return pd.DataFrame(columns=["date", "close"])
+
+    frame = pd.DataFrame(
+        [
+            {"date": row.get("trdDt"), "close": row.get("pxClose")}
+            for row in records
+            if row.get("trdDt") is not None
+        ]
+    )
+    if frame.empty:
+        return pd.DataFrame(columns=["date", "close"])
+    normalized = normalize_dataframe(frame)
+    return clip_dataframe_by_date(normalized, start_date, end_date)
+
+
 def fetch_index_data(
     code: str,
     start_date: str,
     end_date: str,
     tickflow_daily_count: int = DEFAULT_TICKFLOW_DAILY_COUNT,
+    archive_root: Path = storage.ARCHIVE_DIR,
 ) -> pd.DataFrame:
+    if is_style_rotation_special_index(code):
+        archived = _load_index_eod_archive_frame(code, start_date, end_date, archive_root=archive_root)
+        if not archived.empty:
+            print(f"[INFO] 风格指数数据来源: archive ({extract_index_digits(code)})")
+            return archived
+
+        live = fetch_style_rotation_special_index_history(code, start_date, end_date)
+        if not live.empty:
+            print(f"[INFO] 风格指数数据来源: tencent live ({extract_index_digits(code)})")
+            return live
+
     errors: List[str] = []
 
     tickflow_symbols = build_tickflow_index_symbols(code)

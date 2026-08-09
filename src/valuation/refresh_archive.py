@@ -33,6 +33,7 @@ _INDEX_DATASETS: List[Tuple[str, Callable[[str], str]]] = [
     ("index_dividend_ratio", fetch.build_index_dividend_yield_url),
     ("index_valuation_percentile", fetch.build_index_valuation_percentile_url),
 ]
+STYLE_ROTATION_SPECIAL_INDEX_CODES = ["399376", "399373"]
 
 
 def load_targets(config_path: str | Path = DEFAULT_CONFIG_PATH) -> List[Dict]:
@@ -80,6 +81,35 @@ def refresh_index_dataset(dataset: str, builder: Callable[[str], str], index_cod
         records,
         merge_key="trdDt",
         source=url,
+        updated_at=updated_at,
+    )
+    return [path] if path else []
+
+
+def refresh_style_rotation_special_index_dataset(index_code: str, updated_at: str) -> List[Path]:
+    end_date = fetch.now_in_beijing().strftime("%Y%m%d")
+    start_date = (fetch.now_in_beijing() - timedelta(days=365 * 10)).strftime("%Y%m%d")
+    frame = fetch.fetch_style_rotation_special_index_history(index_code, start_date, end_date)
+    if frame is None or getattr(frame, "empty", True):
+        return []
+
+    normalized = frame.copy()
+    normalized["date"] = pd.to_datetime(normalized["date"], errors="coerce")
+    normalized["close"] = pd.to_numeric(normalized["close"], errors="coerce")
+    normalized = normalized.dropna(subset=["date", "close"]).sort_values("date").reset_index(drop=True)
+    if normalized.empty:
+        return []
+
+    records = [
+        {"trdDt": row["date"].strftime("%Y-%m-%d"), "pxClose": float(row["close"])}
+        for row in normalized.to_dict(orient="records")
+    ]
+    path = storage.merge_archive(
+        "index_eod",
+        {"index_code": index_code},
+        records,
+        merge_key="trdDt",
+        source="akshare.stock_zh_a_hist_tx",
         updated_at=updated_at,
     )
     return [path] if path else []
@@ -181,6 +211,19 @@ def main(argv: Optional[List[str]] = None) -> int:
                     ok += 1
                 else:
                     failed.append(f"{target_names.get(code, code)}/{dataset}")
+
+        for code in STYLE_ROTATION_SPECIAL_INDEX_CODES:
+            paths, success = _run_step(
+                "index_eod",
+                lambda c=code: refresh_style_rotation_special_index_dataset(c, updated_at),
+                code=code,
+                target_name=f"风格指数{code}",
+            )
+            changed.extend(paths)
+            if success:
+                ok += 1
+            else:
+                failed.append(f"{code}/index_eod")
 
         bond_paths, bond_ok = _run_step(
             "bond_10y", lambda: refresh_bond_dataset(updated_at), target_name="10Y国债"

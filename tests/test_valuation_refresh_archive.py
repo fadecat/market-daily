@@ -88,6 +88,31 @@ def test_refresh_index_dataset_non_list_raises(monkeypatch):
         run.refresh_index_dataset("index_eod", run.fetch.build_index_eod_price_url, "000300", "now")
 
 
+def test_refresh_style_rotation_special_index_dataset_merges_tencent_rows(monkeypatch):
+    monkeypatch.setattr(
+        run.fetch,
+        "fetch_style_rotation_special_index_history",
+        lambda code, start_date, end_date: pd.DataFrame({"date": ["2026-08-08"], "close": [3210.5]}),
+    )
+    captured = {}
+    monkeypatch.setattr(
+        run.storage,
+        "merge_archive",
+        lambda dataset, identity, incoming, **kw: captured.update(
+            {"dataset": dataset, "identity": identity, "incoming": incoming, "kw": kw}
+        ) or Path("/tmp/399376.json"),
+    )
+
+    paths = run.refresh_style_rotation_special_index_dataset("399376", "now-iso")
+
+    assert paths == [Path("/tmp/399376.json")]
+    assert captured["dataset"] == "index_eod"
+    assert captured["identity"] == {"index_code": "399376"}
+    assert captured["incoming"][0]["trdDt"] == "2026-08-08"
+    assert captured["incoming"][0]["pxClose"] == 3210.5
+    assert captured["kw"]["source"] == "akshare.stock_zh_a_hist_tx"
+
+
 # ---------- refresh_bond_dataset ----------
 
 
