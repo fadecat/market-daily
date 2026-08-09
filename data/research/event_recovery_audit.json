@@ -1,0 +1,1577 @@
+{
+  "执行结果": "已完成",
+  "数据证据": {
+    "假修复检查汇总": {
+      "总事件数": 162,
+      "20日内失效事件数": 21,
+      "60日内失效事件数": 45,
+      "120日内失效事件数": 64
+    },
+    "事件污染检查汇总": {
+      "总分组数": 12,
+      "风险分组数": 0
+    },
+    "假修复检查明细": [
+      {
+        "event_id": "000300:2002-01-04:2002-01-21",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.333431
+      },
+      {
+        "event_id": "000300:2002-06-28:2003-01-03",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.312842
+      },
+      {
+        "event_id": "000300:2003-04-15:2003-11-18",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.315704
+      },
+      {
+        "event_id": "000300:2004-04-06:2004-09-13",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.252495
+      },
+      {
+        "event_id": "000300:2004-11-22:2005-06-03",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.051973
+      },
+      {
+        "event_id": "000300:2005-09-19:2005-11-15",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.002403
+      },
+      {
+        "event_id": "000300:2006-07-03:2006-08-07",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.006946
+      },
+      {
+        "event_id": "399326:2006-06-01:2006-08-07",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.016513
+      },
+      {
+        "event_id": "930955:2006-07-12:2006-08-07",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.024359
+      },
+      {
+        "event_id": "930955:2007-05-29:2007-07-05",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.496495
+      },
+      {
+        "event_id": "000300:2007-10-16:2007-11-28",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.687978
+      },
+      {
+        "event_id": "399326:2007-10-31:2007-11-28",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.658776
+      },
+      {
+        "event_id": "930955:2007-09-18:2007-11-28",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.609004
+      },
+      {
+        "event_id": "931052:2007-10-16:2007-11-28",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.662975
+      },
+      {
+        "event_id": "930955:2008-01-15:2008-02-01",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.621444
+      },
+      {
+        "event_id": "000300:2008-01-14:2008-04-21",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.561348
+      },
+      {
+        "event_id": "399326:2008-01-14:2008-04-21",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.536993
+      },
+      {
+        "event_id": "930955:2008-03-06:2008-04-22",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.516851
+      },
+      {
+        "event_id": "931052:2008-01-15:2008-04-22",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.578846
+      },
+      {
+        "event_id": "931052:2008-05-21:2008-06-19",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.474898
+      },
+      {
+        "event_id": "930955:2008-05-21:2008-07-01",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.406612
+      },
+      {
+        "event_id": "000300:2008-05-21:2008-11-04",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.024934
+      },
+      {
+        "event_id": "399326:2008-05-21:2008-11-04",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.037247
+      },
+      {
+        "event_id": "930955:2008-07-28:2008-11-04",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.013162
+      },
+      {
+        "event_id": "931052:2008-07-24:2008-11-04",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.006914
+      },
+      {
+        "event_id": "399326:2008-12-10:2008-12-31",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.002379
+      },
+      {
+        "event_id": "930955:2009-02-16:2009-02-27",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.005185
+      },
+      {
+        "event_id": "000300:2009-08-03:2009-08-31",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.340341
+      },
+      {
+        "event_id": "399326:2009-08-04:2009-08-31",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.315083
+      },
+      {
+        "event_id": "930955:2009-08-04:2009-09-01",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.19119
+      },
+      {
+        "event_id": "931052:2009-08-05:2009-09-01",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.052899
+      },
+      {
+        "event_id": "399303:2010-01-19:2010-01-27",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.325773
+      },
+      {
+        "event_id": "931052:2010-01-18:2010-02-05",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.262409
+      },
+      {
+        "event_id": "399326:2009-12-07:2010-07-02",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.278219
+      },
+      {
+        "event_id": "000300:2009-12-07:2010-07-05",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.272541
+      },
+      {
+        "event_id": "399303:2010-04-12:2010-07-05",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.281613
+      },
+      {
+        "event_id": "930955:2010-04-14:2010-07-05",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.228148
+      },
+      {
+        "event_id": "931052:2010-04-22:2010-07-05",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.241234
+      },
+      {
+        "event_id": "930955:2010-11-08:2011-01-20",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.317719
+      },
+      {
+        "event_id": "000300:2010-11-08:2011-01-25",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.355787
+      },
+      {
+        "event_id": "399303:2010-11-10:2011-01-25",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.427668
+      },
+      {
+        "event_id": "931052:2010-11-10:2011-01-25",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.384333
+      },
+      {
+        "event_id": "399303:2011-03-14:2011-06-20",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.410915
+      },
+      {
+        "event_id": "399326:2011-03-01:2011-06-20",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.397091
+      },
+      {
+        "event_id": "931052:2011-03-09:2011-06-20",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.349216
+      },
+      {
+        "event_id": "399303:2011-07-18:2011-10-21",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.330262
+      },
+      {
+        "event_id": "000300:2011-04-13:2012-01-05",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.174536
+      },
+      {
+        "event_id": "930955:2011-04-18:2012-01-05",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.17135
+      },
+      {
+        "event_id": "931052:2011-07-15:2012-01-05",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.168206
+      },
+      {
+        "event_id": "399303:2011-11-17:2012-01-16",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.204985
+      },
+      {
+        "event_id": "399326:2011-07-18:2012-01-16",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.253614
+      },
+      {
+        "event_id": "399303:2012-03-13:2012-07-31",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.194775
+      },
+      {
+        "event_id": "000300:2012-05-07:2012-12-03",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.158498
+      },
+      {
+        "event_id": "399303:2012-09-12:2012-12-03",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.005354
+      },
+      {
+        "event_id": "399326:2012-05-07:2012-12-03",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.207048
+      },
+      {
+        "event_id": "930955:2012-05-07:2012-12-03",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.118885
+      },
+      {
+        "event_id": "931052:2012-03-13:2012-12-03",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.067652
+      },
+      {
+        "event_id": "399303:2013-05-30:2013-06-25",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.030889
+      },
+      {
+        "event_id": "399326:2013-05-28:2013-06-25",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.236929
+      },
+      {
+        "event_id": "931052:2013-05-30:2013-06-25",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.102936
+      },
+      {
+        "event_id": "000300:2013-02-06:2013-06-27",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.144899
+      },
+      {
+        "event_id": "980081:2013-02-08:2013-06-27",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.02025
+      },
+      {
+        "event_id": "930955:2013-02-18:2013-07-08",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.006212
+      },
+      {
+        "event_id": "931052:2013-10-14:2014-01-13",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.103098
+      },
+      {
+        "event_id": "980081:2013-12-10:2014-01-13",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.091404
+      },
+      {
+        "event_id": "930955:2013-12-10:2014-01-20",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.01732
+      },
+      {
+        "event_id": "000300:2013-09-12:2014-03-20",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.00543
+      },
+      {
+        "event_id": "399303:2014-02-18:2014-04-28",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.006293
+      },
+      {
+        "event_id": "931052:2014-02-19:2014-06-19",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 4e-06
+      },
+      {
+        "event_id": "399326:2013-10-21:2014-07-17",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.188147
+      },
+      {
+        "event_id": "930955:2015-01-07:2015-02-06",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.012216
+      },
+      {
+        "event_id": "980081:2015-01-07:2015-02-06",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.168032
+      },
+      {
+        "event_id": "000300:2015-06-08:2015-07-08",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.301297
+      },
+      {
+        "event_id": "399303:2015-06-12:2015-07-08",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.47031
+      },
+      {
+        "event_id": "399326:2015-06-12:2015-07-08",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.501432
+      },
+      {
+        "event_id": "930955:2015-06-12:2015-07-08",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.214419
+      },
+      {
+        "event_id": "931052:2015-06-12:2015-07-08",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.265922
+      },
+      {
+        "event_id": "980081:2015-06-12:2015-07-08",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.261339
+      },
+      {
+        "event_id": "930955:2015-08-17:2015-08-25",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.132017
+      },
+      {
+        "event_id": "980081:2015-08-13:2015-08-25",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.124368
+      },
+      {
+        "event_id": "000300:2015-08-10:2015-08-26",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.145612
+      },
+      {
+        "event_id": "399303:2015-08-17:2015-09-15",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.446069
+      },
+      {
+        "event_id": "399326:2015-08-10:2015-09-15",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.439141
+      },
+      {
+        "event_id": "931052:2015-08-17:2015-09-15",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.189613
+      },
+      {
+        "event_id": "000300:2015-12-22:2016-01-28",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.065297
+      },
+      {
+        "event_id": "399303:2015-12-30:2016-01-28",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.419295
+      },
+      {
+        "event_id": "930955:2015-12-22:2016-01-28",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.032875
+      },
+      {
+        "event_id": "931052:2015-12-22:2016-01-28",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.033703
+      },
+      {
+        "event_id": "980081:2015-12-23:2016-01-28",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.024305
+      },
+      {
+        "event_id": "399326:2015-12-22:2016-02-29",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.402688
+      },
+      {
+        "event_id": "399303:2016-04-15:2016-05-18",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.451661
+      },
+      {
+        "event_id": "399326:2016-04-14:2016-06-13",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.424038
+      },
+      {
+        "event_id": "399326:2016-09-06:2017-01-16",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.390546
+      },
+      {
+        "event_id": "399303:2016-11-22:2017-06-01",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.443423
+      },
+      {
+        "event_id": "399303:2017-10-10:2018-02-09",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.353988
+      },
+      {
+        "event_id": "399326:2017-11-13:2018-02-09",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.452824
+      },
+      {
+        "event_id": "399326:2018-03-15:2018-10-16",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.174146
+      },
+      {
+        "event_id": "399303:2018-05-22:2018-10-18",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.091094
+      },
+      {
+        "event_id": "930955:2018-01-26:2018-10-18",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.050467
+      },
+      {
+        "event_id": "931052:2018-01-24:2018-10-18",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.088801
+      },
+      {
+        "event_id": "000300:2018-01-24:2019-01-03",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.044526
+      },
+      {
+        "event_id": "399326:2018-11-16:2019-01-03",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.125859
+      },
+      {
+        "event_id": "980081:2018-02-02:2019-01-03",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.057228
+      },
+      {
+        "event_id": "000300:2019-04-19:2019-06-06",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.195163
+      },
+      {
+        "event_id": "399326:2019-04-03:2019-06-06",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.272043
+      },
+      {
+        "event_id": "931052:2019-04-09:2019-08-07",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.105838
+      },
+      {
+        "event_id": "399303:2019-04-19:2019-08-09",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.119193
+      },
+      {
+        "event_id": "980081:2019-04-10:2019-08-13",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.138779
+      },
+      {
+        "event_id": "399303:2019-09-16:2019-11-28",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.14628
+      },
+      {
+        "event_id": "000300:2020-01-13:2020-02-03",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.223709
+      },
+      {
+        "event_id": "931052:2020-01-14:2020-02-03",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.109878
+      },
+      {
+        "event_id": "980081:2020-01-09:2020-02-03",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.14596
+      },
+      {
+        "event_id": "000300:2020-03-05:2020-03-23",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.192541
+      },
+      {
+        "event_id": "399326:2020-02-25:2020-03-23",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.498113
+      },
+      {
+        "event_id": "930955:2019-04-17:2020-03-23",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.003448
+      },
+      {
+        "event_id": "931052:2020-03-05:2020-03-23",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.045152
+      },
+      {
+        "event_id": "980081:2020-03-05:2020-03-23",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.050018
+      },
+      {
+        "event_id": "399303:2020-03-05:2020-04-01",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.203896
+      },
+      {
+        "event_id": "399326:2020-08-03:2020-11-26",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.619563
+      },
+      {
+        "event_id": "930955:2020-07-09:2021-02-04",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.070325
+      },
+      {
+        "event_id": "399303:2020-08-18:2021-02-05",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.240386
+      },
+      {
+        "event_id": "399326:2021-02-10:2021-03-24",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.619024
+      },
+      {
+        "event_id": "931052:2021-05-27:2021-07-28",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.118187
+      },
+      {
+        "event_id": "980081:2021-05-10:2021-07-28",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.075283
+      },
+      {
+        "event_id": "930955:2021-05-12:2021-07-29",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.073088
+      },
+      {
+        "event_id": "399326:2021-06-28:2021-09-16",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.589161
+      },
+      {
+        "event_id": "399303:2021-09-15:2021-09-29",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.405995
+      },
+      {
+        "event_id": "931052:2021-09-13:2021-11-05",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.177135
+      },
+      {
+        "event_id": "930955:2021-09-13:2021-11-09",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.107054
+      },
+      {
+        "event_id": "980081:2021-09-13:2021-11-10",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.119786
+      },
+      {
+        "event_id": "931052:2022-01-19:2022-03-15",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": true,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.173746
+      },
+      {
+        "event_id": "399326:2021-12-14:2022-04-25",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.445325
+      },
+      {
+        "event_id": "000300:2021-02-10:2022-04-26",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.241675
+      },
+      {
+        "event_id": "399303:2022-01-04:2022-04-26",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.281423
+      },
+      {
+        "event_id": "980081:2022-04-14:2022-08-03",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.140766
+      },
+      {
+        "event_id": "399303:2022-08-18:2022-10-10",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.342019
+      },
+      {
+        "event_id": "399326:2022-07-04:2022-10-10",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.448655
+      },
+      {
+        "event_id": "000300:2022-07-04:2022-10-31",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.188849
+      },
+      {
+        "event_id": "930955:2022-04-06:2022-10-31",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.034225
+      },
+      {
+        "event_id": "931052:2022-04-14:2022-10-31",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.077403
+      },
+      {
+        "event_id": "980081:2022-09-09:2022-10-31",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.028693
+      },
+      {
+        "event_id": "399303:2023-04-17:2023-10-23",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.32789
+      },
+      {
+        "event_id": "980081:2023-05-08:2023-12-20",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.029799
+      },
+      {
+        "event_id": "930955:2023-05-08:2024-01-22",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.129529
+      },
+      {
+        "event_id": "000300:2023-01-30:2024-02-02",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.108793
+      },
+      {
+        "event_id": "399303:2023-11-20:2024-02-05",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.20407
+      },
+      {
+        "event_id": "399326:2023-02-01:2024-02-05",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.19815
+      },
+      {
+        "event_id": "931052:2023-05-08:2024-02-05",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.14215
+      },
+      {
+        "event_id": "399303:2024-03-21:2024-04-16",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.210299
+      },
+      {
+        "event_id": "399326:2024-03-18:2024-08-23",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.055455
+      },
+      {
+        "event_id": "399326:2024-10-08:2024-10-17",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.22714
+      },
+      {
+        "event_id": "399303:2024-12-12:2025-01-10",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.126117
+      },
+      {
+        "event_id": "399326:2024-11-13:2025-01-10",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.167346
+      },
+      {
+        "event_id": "000300:2024-10-08:2025-04-07",
+        "index": "000300",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.009674
+      },
+      {
+        "event_id": "399303:2025-03-18:2025-04-07",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.016959
+      },
+      {
+        "event_id": "931052:2024-10-08:2025-04-07",
+        "index": "931052",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.004459
+      },
+      {
+        "event_id": "980081:2024-10-08:2025-04-07",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.007532
+      },
+      {
+        "event_id": "399326:2025-02-21:2025-04-08",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.014519
+      },
+      {
+        "event_id": "399326:2025-10-29:2025-11-24",
+        "index": "399326",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": 0.031586
+      },
+      {
+        "event_id": "399303:2026-02-27:2026-03-23",
+        "index": "399303",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": true,
+        "120d_failed": true,
+        "post_event_max_drawdown": -0.194574
+      },
+      {
+        "event_id": "930955:2025-11-13:2026-06-30",
+        "index": "930955",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.04231
+      },
+      {
+        "event_id": "980081:2026-03-12:2026-06-30",
+        "index": "980081",
+        "end_method": "rebound_stability",
+        "20d_failed": false,
+        "60d_failed": false,
+        "120d_failed": false,
+        "post_event_max_drawdown": -0.017846
+      }
+    ],
+    "事件污染检查明细": [
+      {
+        "index": "000300",
+        "severity": "important",
+        "event_count": 20,
+        "median_recovery_days": 16.5,
+        "high_overlap_ratio": 0.052632,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "000300",
+        "severity": "major",
+        "event_count": 36,
+        "median_recovery_days": 20,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "399303",
+        "severity": "important",
+        "event_count": 25,
+        "median_recovery_days": 12,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "399303",
+        "severity": "major",
+        "event_count": 34,
+        "median_recovery_days": 19,
+        "high_overlap_ratio": 0.030303,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "399326",
+        "severity": "important",
+        "event_count": 36,
+        "median_recovery_days": 6.0,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "399326",
+        "severity": "major",
+        "event_count": 40,
+        "median_recovery_days": 19,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "930955",
+        "severity": "important",
+        "event_count": 28,
+        "median_recovery_days": 11.0,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "930955",
+        "severity": "major",
+        "event_count": 28,
+        "median_recovery_days": 20.5,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "931052",
+        "severity": "important",
+        "event_count": 23,
+        "median_recovery_days": 16,
+        "high_overlap_ratio": 0.090909,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "931052",
+        "severity": "major",
+        "event_count": 30,
+        "median_recovery_days": 19,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "980081",
+        "severity": "important",
+        "event_count": 19,
+        "median_recovery_days": 17,
+        "high_overlap_ratio": 0.055556,
+        "status": "可以作为方向性统计"
+      },
+      {
+        "index": "980081",
+        "severity": "major",
+        "event_count": 20,
+        "median_recovery_days": 21.5,
+        "high_overlap_ratio": 0.0,
+        "status": "可以作为方向性统计"
+      }
+    ]
+  },
+  "风险": [
+    "rebound_stability 结束规则后 60 日内仍存在重新失效事件。"
+  ],
+  "是否通过": "未完全通过"
+}
