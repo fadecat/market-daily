@@ -13,6 +13,8 @@ tmp-pytest/
 # 预览产物(忽略内容,保留目录)
 preview/*
 !preview/.gitkeep
+!preview/dividend_observation_930955.html
+data/research/style_rotation_preview.json
 
 # 临时图表与图片产物
 *.png

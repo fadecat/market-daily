@@ -118,13 +118,13 @@ def compose_sections(sections: Iterable[str]) -> str:
 
 # ---------- SMTP 配置与发送 ----------
 
-def load_email_config() -> dict[str, Any]:
-    recipients_raw = env.get("RECEIVER_EMAIL") or env.get("EMAIL_TO")
+def load_email_config(*, recipient_env_name: str = "RECEIVER_EMAIL") -> dict[str, Any]:
+    recipients_raw = env.get(recipient_env_name) or env.get("EMAIL_TO")
     recipients = [r.strip() for r in recipients_raw.replace(";", ",").split(",") if r.strip()]
     username = (env.get("SMTP_USER") or env.get("EMAIL_USER")).strip()
     password = (env.get("SMTP_PASS") or env.get("EMAIL_PASSWORD")).strip()
     if not recipients or not username or not password:
-        raise RuntimeError("邮件配置不完整,需要 RECEIVER_EMAIL/SMTP_USER/SMTP_PASS")
+        raise RuntimeError(f"邮件配置不完整,需要 {recipient_env_name}/SMTP_USER/SMTP_PASS")
     host = (env.get("EMAIL_SMTP_HOST") or DEFAULT_SMTP_HOST).strip() or DEFAULT_SMTP_HOST
     port = int(env.get("EMAIL_SMTP_PORT") or str(DEFAULT_SMTP_PORT))
     return {

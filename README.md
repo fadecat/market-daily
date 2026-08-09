@@ -44,6 +44,17 @@ python -m src.commodity.run
 # 本地预览(不发信,生成 preview/*.html)
 python -m src.preview.generate valuation
 
+# 红利观察研究预览
+# 拉最新归档 + 重建 research/email 两个预览
+python -m src.dividend_observation.refresh_local
+
+# 只用本地现有归档重建预览
+python -m src.dividend_observation.refresh_local --skip-archive
+
+# 仅单独重建 research JSON / HTML
+python -m src.research.dividend_observation_chart
+python -m src.research.dividend_observation_chart_preview
+
 # 数据校验
 python -m src.preview.verify
 ```

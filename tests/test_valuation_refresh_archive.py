@@ -121,8 +121,8 @@ def test_refresh_bond_dataset_empty_df_returns_empty(monkeypatch):
 
 
 def test_refresh_fx_dataset_cleans_and_merges(monkeypatch):
-    df = pd.DataFrame([{"日期": "2024-05-09", "最新价": "7.10", "代码": "USDCNH", "名称": "美元人民币"}])
-    monkeypatch.setattr(run.ak, "forex_hist_em", lambda symbol: df)
+    df = pd.DataFrame([{"日期": "2024-05-09", "市场价": "7.10", "代码": "USDCNH", "名称": "美元人民币"}])
+    monkeypatch.setattr(run.fetch, "fetch_fx_history_with_archive_fallback", lambda symbol="USDCNH": df)
     captured = {}
     monkeypatch.setattr(run.storage, "merge_archive",
                         lambda dataset, identity, incoming, **kw: captured.update(dict(dataset=dataset, kw=kw, incoming=incoming)) or Path("/fx.json"))
@@ -133,6 +133,14 @@ def test_refresh_fx_dataset_cleans_and_merges(monkeypatch):
     assert captured["kw"]["filename"] == "usd_cnh.json"
     # 最新价已转数值
     assert captured["incoming"][0]["最新价"] == 7.10
+
+
+def test_refresh_fx_dataset_archive_fallback_no_change_returns_empty(monkeypatch):
+    df = pd.DataFrame([{"日期": "2024-05-09", "市场价": 7.10, "代码": "USDCNH", "名称": "美元人民币"}])
+    monkeypatch.setattr(run.fetch, "fetch_fx_history_with_archive_fallback", lambda symbol="USDCNH": df)
+    monkeypatch.setattr(run.storage, "merge_archive", lambda *args, **kwargs: None)
+
+    assert run.refresh_fx_dataset("now-iso") == []
 
 
 # ---------- refresh_cb_index ----------

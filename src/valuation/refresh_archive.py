@@ -104,11 +104,13 @@ def refresh_bond_dataset(updated_at: str, lookback_years: int = 11) -> List[Path
 
 
 def refresh_fx_dataset(updated_at: str) -> List[Path]:
-    df = ak.forex_hist_em(symbol="USDCNH").copy()
+    df = fetch.fetch_fx_history_with_archive_fallback(symbol="USDCNH").copy()
     if df is None or getattr(df, "empty", True):
         return []
     df["日期"] = pd.to_datetime(df["日期"], errors="coerce")
-    df["最新价"] = pd.to_numeric(df["最新价"], errors="coerce")
+    df["最新价"] = pd.to_numeric(df.get("市场价"), errors="coerce")
+    keep_columns = [column for column in ["日期", "最新价", "代码", "名称"] if column in df.columns]
+    df = df[keep_columns]
     records = _df_to_records(df)
     path = storage.merge_archive(
         "fx",

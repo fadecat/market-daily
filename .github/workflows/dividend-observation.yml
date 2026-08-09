@@ -1,0 +1,33 @@
+name: 红利观察日报
+
+on:
+  schedule:
+    # UTC 11:20 = Asia/Shanghai 19:20，周一到周六固定发送
+    - cron: "20 11 * * 1-6"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python + CJK fonts
+        uses: ./.github/actions/setup-python-cjk
+
+      - name: 运行红利观察邮件
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
+          DIVIDEND_OBSERVATION_RECEIVER_EMAIL: ${{ vars.DIVIDEND_OBSERVATION_RECEIVER_EMAIL }}
+        run: python -m src.dividend_observation.run
