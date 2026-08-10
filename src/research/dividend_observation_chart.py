@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import date
 from math import isfinite
 from pathlib import Path
 from typing import Any, Callable, Sequence
@@ -17,6 +18,7 @@ DEFAULT_DATASET_PATH = REPO_ROOT / "data" / "research" / "value_growth_drawdown_
 DEFAULT_EVENT_STATE_MODEL_PATH = REPO_ROOT / "data" / "research" / "event_state_model.json"
 DEFAULT_OUTPUT_PATH = REPO_ROOT / "data" / "research" / "dividend_observation_930955.json"
 DEFAULT_STYLE_ROTATION_PAYLOAD_PATH = REPO_ROOT / "data" / "research" / "style_rotation_preview.json"
+DEFAULT_ESTIMATE_ROOT = REPO_ROOT / "data" / "research" / "index_valuation_estimates"
 
 INDEX_CODE = "930955"
 INDEX_NAME = "红利低波100"
@@ -42,6 +44,15 @@ def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _normalize_trade_date(value: Any) -> str | None:
+    if value is None:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10]).isoformat()
+    except ValueError:
+        return None
+
+
 def _load_records(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
@@ -59,7 +70,7 @@ def _load_index_price_series(
     path = archive_root / "index_eod" / f"{index_code}.json"
     points: list[tuple[str, float]] = []
     for row in _load_records(path):
-        trade_date = row.get("trdDt")
+        trade_date = _normalize_trade_date(row.get("trdDt"))
         close = _safe_float(row.get("pxClose"))
         if trade_date is None or close is None or close <= 0:
             continue
@@ -76,11 +87,34 @@ def _date_map(
 ) -> dict[str, dict[str, Any]]:
     mapping: dict[str, dict[str, Any]] = {}
     for row in _load_records(archive_root / folder / filename):
-        trade_date = row.get(date_key)
+        trade_date = _normalize_trade_date(row.get(date_key))
         if trade_date is None:
             continue
         mapping[str(trade_date)] = row
     return mapping
+
+
+def _estimate_by_date(index_code: str, estimate_root: Path) -> dict[str, dict[str, Any]]:
+    path = estimate_root / f"{index_code}.json"
+    if not path.exists():
+        return {}
+    try:
+        payload = _load_json(path)
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict) or str(payload.get("index_code")) != str(index_code):
+        return {}
+    records = payload.get("records") if isinstance(payload, dict) else None
+    if not isinstance(records, list):
+        return {}
+    estimates: dict[str, dict[str, Any]] = {}
+    for row in records:
+        if not isinstance(row, dict) or row.get("status") != "estimated":
+            continue
+        estimate_date = _normalize_trade_date(row.get("estimate_date"))
+        if estimate_date is not None and isinstance(row.get("estimates"), dict):
+            estimates[estimate_date] = row
+    return estimates
 
 
 def _rolling_peak_drawdown(
@@ -211,6 +245,7 @@ def _event_state_series(
 def build_dividend_observation_payload(
     *,
     archive_root: Path | str = DEFAULT_ARCHIVE_ROOT,
+    estimate_root: Path | str = DEFAULT_ESTIMATE_ROOT,
     dataset_path: Path | str = DEFAULT_DATASET_PATH,
     event_state_model_path: Path | str = DEFAULT_EVENT_STATE_MODEL_PATH,
     style_rotation_payload_path: Path | str = DEFAULT_STYLE_ROTATION_PAYLOAD_PATH,
@@ -225,6 +260,7 @@ def build_dividend_observation_payload(
     style_window_days: int | None = None,
 ) -> dict[str, Any]:
     root = Path(archive_root)
+    estimates_root = Path(estimate_root)
     dataset_file = Path(dataset_path)
     event_state_file = Path(event_state_model_path)
     style_rotation_file = Path(style_rotation_payload_path)
@@ -244,21 +280,46 @@ def build_dividend_observation_payload(
     valuation = _date_map(root, "index_valuation_percentile", f"{INDEX_CODE}.json", "trdDt")
     dividend = _date_map(root, "index_dividend_ratio", f"{INDEX_CODE}.json", "trdDt")
     bond = _date_map(root, "bond_10y", "china_10y.json", "日期")
+    estimate_by_date = _estimate_by_date(INDEX_CODE, estimates_root)
 
-    pe_values = [_safe_float((valuation.get(trade_date) or {}).get("pETtm")) for trade_date in dates]
-    pb_values = [_safe_float((valuation.get(trade_date) or {}).get("pBLf")) for trade_date in dates]
-
+    pe_values: list[float | None] = []
+    pb_values: list[float | None] = []
     dividend_spread_values: list[float | None] = []
     earnings_spread_values: list[float | None] = []
-    for trade_date, pe in zip(dates, pe_values):
+    estimate_used: list[dict[str, float] | None] = []
+    for trade_date in dates:
+        pe = _safe_float((valuation.get(trade_date) or {}).get("pETtm"))
+        pb = _safe_float((valuation.get(trade_date) or {}).get("pBLf"))
         dividend_yield = _safe_float((dividend.get(trade_date) or {}).get("dividendYield"))
         bond_10y = _safe_float((bond.get(trade_date) or {}).get("中国国债收益率10年"))
-        dividend_spread_values.append(
-            dividend_yield - bond_10y if dividend_yield is not None and bond_10y is not None else None
-        )
-        earnings_spread_values.append(
-            100.0 / pe - bond_10y if pe is not None and pe > 0 and bond_10y is not None else None
-        )
+        dividend_spread = dividend_yield - bond_10y if dividend_yield is not None and bond_10y is not None else None
+        earnings_spread = 100.0 / pe - bond_10y if pe is not None and pe > 0 and bond_10y is not None else None
+
+        estimate_values = (estimate_by_date.get(trade_date) or {}).get("estimates")
+        estimated = {
+            key: _safe_float(estimate_values.get(key))
+            for key in (
+                "pe_ttm",
+                "pb_lf",
+                "dividend_yield_spread",
+                "earnings_yield_spread",
+            )
+        } if isinstance(estimate_values, dict) else {}
+        official_complete = all(value is not None for value in (pe, pb, dividend_spread, earnings_spread))
+        estimate_complete = bool(estimated) and all(value is not None for value in estimated.values())
+        if not official_complete and estimate_complete:
+            pe = estimated["pe_ttm"]
+            pb = estimated["pb_lf"]
+            dividend_spread = estimated["dividend_yield_spread"]
+            earnings_spread = estimated["earnings_yield_spread"]
+            estimate_used.append({key: float(value) for key, value in estimated.items()})
+        else:
+            estimate_used.append(None)
+
+        pe_values.append(pe)
+        pb_values.append(pb)
+        dividend_spread_values.append(dividend_spread)
+        earnings_spread_values.append(earnings_spread)
 
     event_state = _event_state_series(
         dates=dates,
@@ -322,8 +383,7 @@ def build_dividend_observation_payload(
         "event_state": series["event_state"][latest_index] if latest_index is not None else None,
     }
 
-    return {
-        "meta": {
+    meta: dict[str, Any] = {
             "index_code": INDEX_CODE,
             "index_name": INDEX_NAME,
             "analysis_window_years": analysis_window_years,
@@ -334,7 +394,13 @@ def build_dividend_observation_payload(
                 "spread_days": spread_window_days,
                 "style_days": style_window_days,
             },
-        },
+    }
+    latest_estimate = estimate_used[latest_index] if latest_index is not None else None
+    if latest_estimate is not None:
+        meta["latest_estimate"] = {"date": dates[latest_index], **latest_estimate}
+
+    return {
+        "meta": meta,
         "series": series,
         "latest": latest,
     }

@@ -22,6 +22,331 @@ def _write_config(path: Path, *, analysis_window_years: int = 3, display_window_
     )
 
 
+def _write_estimate_overlay_inputs(archive: Path, estimate_root: Path) -> None:
+    _write(
+        archive / "index_eod" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "pxClose": 100.0},
+                {"trdDt": "2026-08-10", "pxClose": 110.0},
+            ]
+        },
+    )
+    _write(
+        archive / "index_valuation_percentile" / "930955.json",
+        {"records": [{"trdDt": "2026-08-07", "pETtm": 10.0, "pBLf": 1.0}]},
+    )
+    _write(
+        archive / "index_dividend_ratio" / "930955.json",
+        {"records": [{"trdDt": "2026-08-07", "dividendYield": 4.0}]},
+    )
+    _write(
+        archive / "bond_10y" / "china_10y.json",
+        [
+            {"日期": "2026-08-07", "中国国债收益率10年": 2.0},
+            {"日期": "2026-08-10", "中国国债收益率10年": 2.0},
+        ],
+    )
+    _write(
+        estimate_root / "930955.json",
+        {
+            "index_code": "930955",
+            "records": [
+                {
+                    "estimate_date": "2026-08-10",
+                    "status": "estimated",
+                    "estimates": {
+                        "pe_ttm": 11.0,
+                        "pb_lf": 1.1,
+                        "dividend_yield_spread": 2.2,
+                        "earnings_yield_spread": 7.4,
+                    },
+                }
+            ],
+        },
+    )
+
+
+def test_payload_uses_same_date_estimate_when_official_values_are_missing(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["latest"]["pe_ttm_percentile"] == 100.0
+    assert payload["latest"]["pb_lf_percentile"] == 100.0
+    assert payload["latest"]["dividend_yield_spread_percentile"] == 100.0
+    assert payload["latest"]["earnings_yield_spread_percentile"] == 50.0
+    assert payload["meta"]["latest_estimate"] == {
+        "date": "2026-08-10",
+        "pe_ttm": 11.0,
+        "pb_lf": 1.1,
+        "dividend_yield_spread": 2.2,
+        "earnings_yield_spread": 7.4,
+    }
+
+
+def test_payload_prefers_same_date_complete_official_values_over_estimate(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    _write(
+        archive / "index_valuation_percentile" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "pETtm": 10.0, "pBLf": 1.0},
+                {"trdDt": "2026-08-10", "pETtm": 9.0, "pBLf": 0.9},
+            ]
+        },
+    )
+    _write(
+        archive / "index_dividend_ratio" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "dividendYield": 4.0},
+                {"trdDt": "2026-08-10", "dividendYield": 4.5},
+            ]
+        },
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["latest"]["pe_ttm_percentile"] == 50.0
+    assert payload["latest"]["pb_lf_percentile"] == 50.0
+    assert payload["latest"]["dividend_yield_spread_percentile"] == 100.0
+    assert payload["latest"]["earnings_yield_spread_percentile"] == 100.0
+    assert "latest_estimate" not in payload["meta"]
+
+
+def test_payload_ignores_incomplete_or_wrong_date_estimate(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    _write(
+        estimate_root / "930955.json",
+        {
+            "index_code": "930955",
+            "records": [
+                {
+                    "estimate_date": "2026-08-09",
+                    "status": "estimated",
+                    "estimates": {
+                        "pe_ttm": 11.0,
+                        "pb_lf": 1.1,
+                        "dividend_yield_spread": 2.2,
+                        "earnings_yield_spread": 7.4,
+                    },
+                },
+                {
+                    "estimate_date": "2026-08-10",
+                    "status": "estimated",
+                    "estimates": {
+                        "pe_ttm": 11.0,
+                        "pb_lf": 1.1,
+                        "dividend_yield_spread": 2.2,
+                    },
+                },
+            ],
+        },
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["latest"]["pe_ttm_percentile"] is None
+    assert payload["latest"]["pb_lf_percentile"] is None
+    assert payload["latest"]["dividend_yield_spread_percentile"] is None
+    assert payload["latest"]["earnings_yield_spread_percentile"] is None
+    assert "latest_estimate" not in payload["meta"]
+
+
+def test_payload_ignores_estimate_ledger_for_a_different_index(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    _write(
+        estimate_root / "930955.json",
+        {
+            "index_code": "000300",
+            "records": [
+                {
+                    "estimate_date": "2026-08-10",
+                    "status": "estimated",
+                    "estimates": {
+                        "pe_ttm": 11.0,
+                        "pb_lf": 1.1,
+                        "dividend_yield_spread": 2.2,
+                        "earnings_yield_spread": 7.4,
+                    },
+                }
+            ],
+        },
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["latest"]["pe_ttm_percentile"] is None
+    assert "latest_estimate" not in payload["meta"]
+
+
+def test_payload_ignores_malformed_or_non_list_estimate_ledger(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    ledger_path = estimate_root / "930955.json"
+
+    ledger_path.write_text("{invalid json", encoding="utf-8")
+    malformed_payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+    _write(ledger_path, {"index_code": "930955", "records": {}})
+    non_list_payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    for payload in (malformed_payload, non_list_payload):
+        assert payload["latest"]["pe_ttm_percentile"] is None
+        assert "latest_estimate" not in payload["meta"]
+
+
+def test_payload_uses_estimate_as_a_unit_when_same_date_official_data_is_partial(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    _write(
+        archive / "index_valuation_percentile" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "pETtm": 10.0, "pBLf": 1.0},
+                {"trdDt": "2026-08-10", "pETtm": 9.0},
+            ]
+        },
+    )
+    _write(
+        archive / "index_dividend_ratio" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "dividendYield": 4.0},
+                {"trdDt": "2026-08-10", "dividendYield": 4.5},
+            ]
+        },
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["latest"]["pe_ttm_percentile"] == 100.0
+    assert payload["latest"]["pb_lf_percentile"] == 100.0
+    assert payload["latest"]["dividend_yield_spread_percentile"] == 100.0
+    assert payload["latest"]["earnings_yield_spread_percentile"] == 50.0
+    assert payload["meta"]["latest_estimate"]["pe_ttm"] == 11.0
+
+
+def test_payload_normalizes_archive_and_ledger_dates_to_iso_day(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    _write(
+        archive / "index_eod" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07T15:00:00", "pxClose": 100.0},
+                {"trdDt": "2026-08-10T15:00:00", "pxClose": 110.0},
+            ]
+        },
+    )
+    _write(
+        estimate_root / "930955.json",
+        {
+            "index_code": "930955",
+            "records": [
+                {
+                    "estimate_date": "2026-08-10T18:00:00",
+                    "status": "estimated",
+                    "estimates": {
+                        "pe_ttm": 11.0,
+                        "pb_lf": 1.1,
+                        "dividend_yield_spread": 2.2,
+                        "earnings_yield_spread": 7.4,
+                    },
+                }
+            ],
+        },
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert payload["series"]["dates"] == ["2026-08-07", "2026-08-10"]
+    assert payload["meta"]["latest_estimate"]["date"] == "2026-08-10"
+
+
 def test_build_dividend_observation_payload_emits_required_series(tmp_path):
     archive = tmp_path / "archive"
     dataset_path = tmp_path / "value_growth_drawdown_events.json"
