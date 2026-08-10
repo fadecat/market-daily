@@ -120,6 +120,7 @@ def _fetch_valuation_items(
             )
             if overlay is None:
                 raise ValueError("估算覆盖缺少所需归档数据")
+            item = overlay.item
             overlay_pe_histories[index_code] = overlay.pe_history
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {index_code or label} 估算覆盖失败,保留正式估值: {exc}")

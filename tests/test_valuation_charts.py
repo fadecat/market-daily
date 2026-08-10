@@ -70,6 +70,23 @@ def test_valuation_chart_uses_item_name_fallback(tmp_path):
     assert out is not None and out.exists()
 
 
+def test_valuation_chart_marks_estimated_latest_pe():
+    data = charts._prepare_valuation_data(
+        {
+            "index_code": "000300",
+            "estimate_meta": {"date": "2026-08-10", "status": "estimated"},
+        },
+        pe_history=_pe_history(),
+    )
+    assert data is not None
+    figure, axis = charts.plt.subplots()
+    try:
+        charts._draw_valuation_main(axis, data)
+        assert any("（预估）" in text.get_text() for text in axis.texts)
+    finally:
+        charts.plt.close(figure)
+
+
 # ---------- 汇率图 ----------
 
 

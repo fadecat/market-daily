@@ -147,6 +147,19 @@ def test_item_block_dividend_yield_archive_html_suffix():
     assert "(archive, 2024-05-07)" in block
 
 
+def test_item_block_marks_all_current_values_as_estimated():
+    item = _full_item()
+    item["estimate_meta"] = {"date": "2026-08-10", "status": "estimated"}
+
+    block = render.render_email_item_percentile_block(item)
+
+    assert block.count("（预估，2026-08-10）") == 5
+
+
+def test_item_block_does_not_mark_official_values_as_estimated():
+    assert "预估" not in render.render_email_item_percentile_block(_full_item())
+
+
 def test_item_block_no_metrics_returns_empty():
     item = {"index_code": "X", "index_name": "X", "index_valuation_metrics": {}}
     assert render.render_email_item_percentile_block(item) == ""

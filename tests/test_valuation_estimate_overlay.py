@@ -183,6 +183,8 @@ def test_apply_estimate_filters_nonfinite_valuation_and_dividend_history():
 def test_apply_from_archives_uses_archive_histories_and_returns_none_for_bad_data(tmp_path):
     archive = tmp_path / "archive"
     valuation, dividends, _bonds = _history()
+    valuation = valuation[valuation["date"] < pd.Timestamp(TARGET_DATE)]
+    dividends = dividends[dividends["date"] < pd.Timestamp(TARGET_DATE)]
     records = lambda frame, fields: [
         {"trdDt": row.date.strftime("%Y-%m-%d"), **{key: row[source] for key, source in fields.items()}}
         for _, row in frame.iterrows()
@@ -212,6 +214,28 @@ def test_apply_from_archives_uses_archive_histories_and_returns_none_for_bad_dat
     (archive / "index_dividend_ratio" / "931052.json").write_text(
         '{"records": []}', encoding="utf-8"
     )
+    assert apply_from_archives(
+        _item(), estimate=_estimate(), price_date=TARGET_DATE, archive_root=archive,
+        bond_history=pd.DataFrame({"date": [TARGET_DATE], "yield_pct": [2.0]}),
+    ) is None
+
+
+def test_apply_from_archives_keeps_official_same_day_values(tmp_path):
+    archive = tmp_path / "archive"
+    valuation, dividends, _bonds = _history()
+    records = lambda frame, fields: [
+        {"trdDt": row.date.strftime("%Y-%m-%d"), **{key: row[source] for key, source in fields.items()}}
+        for _, row in frame.iterrows()
+    ]
+    for dataset, payload in {
+        "index_valuation_percentile": records(valuation, {"pETtm": "pe_ttm", "pBLf": "pb_lf"}),
+        "index_dividend_ratio": records(dividends, {"dividendYield": "dividend_yield"}),
+        "index_eod": [{"trdDt": TARGET_DATE, "pxClose": 1.0}],
+    }.items():
+        path = archive / dataset / "931052.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(__import__("json").dumps({"records": payload}), encoding="utf-8")
+
     assert apply_from_archives(
         _item(), estimate=_estimate(), price_date=TARGET_DATE, archive_root=archive,
         bond_history=pd.DataFrame({"date": [TARGET_DATE], "yield_pct": [2.0]}),

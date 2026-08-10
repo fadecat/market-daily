@@ -7,6 +7,9 @@ from math import isfinite
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
+import pandas as pd
+
+from ..valuation import estimate_ledger
 from .dividend_observation_config import (
     DEFAULT_CONFIG_PATH,
     load_dividend_observation_window_config,
@@ -115,6 +118,34 @@ def _estimate_by_date(index_code: str, estimate_root: Path) -> dict[str, dict[st
         if estimate_date is not None and isinstance(row.get("estimates"), dict):
             estimates[estimate_date] = row
     return estimates
+
+
+def _ensure_latest_estimate(
+    *,
+    archive_root: Path,
+    estimate_root: Path,
+    dates: list[str],
+    bond: dict[str, dict[str, Any]],
+) -> None:
+    if not dates or dates[-1] in _estimate_by_date(INDEX_CODE, estimate_root):
+        return
+    bond_history = pd.DataFrame(
+        [
+            {"date": trade_date, "yield_pct": _safe_float(row.get("中国国债收益率10年"))}
+            for trade_date, row in bond.items()
+        ]
+    )
+    if bond_history.empty or bond_history["yield_pct"].isna().all():
+        return
+    try:
+        estimate_ledger.refresh_estimate_ledger(
+            INDEX_CODE,
+            archive_root=archive_root,
+            output_root=estimate_root,
+            bond_history=bond_history,
+        )
+    except (OSError, ValueError, TypeError):
+        return
 
 
 def _rolling_peak_drawdown(
@@ -280,6 +311,12 @@ def build_dividend_observation_payload(
     valuation = _date_map(root, "index_valuation_percentile", f"{INDEX_CODE}.json", "trdDt")
     dividend = _date_map(root, "index_dividend_ratio", f"{INDEX_CODE}.json", "trdDt")
     bond = _date_map(root, "bond_10y", "china_10y.json", "日期")
+    _ensure_latest_estimate(
+        archive_root=root,
+        estimate_root=estimates_root,
+        dates=dates,
+        bond=bond,
+    )
     estimate_by_date = _estimate_by_date(INDEX_CODE, estimates_root)
 
     pe_values: list[float | None] = []

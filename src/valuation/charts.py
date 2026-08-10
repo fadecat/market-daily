@@ -161,8 +161,11 @@ def _draw_valuation_main(ax, data: Dict) -> None:
     ]:
         ax.axhline(q, color=color, linestyle=(0, (5, 4)), linewidth=1.0, alpha=0.95, zorder=1)
 
+    estimate_meta = data["item"].get("estimate_meta")
+    estimated = isinstance(estimate_meta, dict) and estimate_meta.get("status") == "estimated"
+    latest_label = f"{pes.iloc[-1]:.2f}" + ("（预估）" if estimated else "")
     ax.annotate(
-        f"{pes.iloc[-1]:.2f}", xy=(dates.iloc[-1], pes.iloc[-1]), xytext=(6, 6),
+        latest_label, xy=(dates.iloc[-1], pes.iloc[-1]), xytext=(6, 6),
         textcoords="offset points", color=PALETTE["orange"],
         fontsize=FONT_SIZES["latest_label"], fontweight="bold",
     )

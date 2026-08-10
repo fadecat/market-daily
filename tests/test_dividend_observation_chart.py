@@ -96,6 +96,28 @@ def test_payload_uses_same_date_estimate_when_official_values_are_missing(tmp_pa
     }
 
 
+def test_payload_generates_missing_latest_estimate_from_local_archives(tmp_path):
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    _write_estimate_overlay_inputs(archive, estimate_root)
+    (estimate_root / "930955.json").unlink()
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    assert (estimate_root / "930955.json").exists()
+    assert payload["meta"]["latest_estimate"]["date"] == "2026-08-10"
+    assert payload["meta"]["latest_estimate"]["pe_ttm"] == 11.0
+
+
 def test_payload_prefers_same_date_complete_official_values_over_estimate(tmp_path):
     archive = tmp_path / "archive"
     estimate_root = tmp_path / "index_valuation_estimates"

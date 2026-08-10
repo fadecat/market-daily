@@ -119,6 +119,24 @@ def _archive_html_suffix(data_source: object, archive_latest_date: object) -> st
     )
 
 
+def _estimate_suffix(item: Dict) -> str:
+    meta = item.get("estimate_meta")
+    if not isinstance(meta, dict) or meta.get("status") != "estimated":
+        return ""
+    estimate_date = str(meta.get("date") or "").strip()
+    return f"（预估，{estimate_date}）" if estimate_date else "（预估）"
+
+
+def _estimate_html_suffix(item: Dict) -> str:
+    suffix = _estimate_suffix(item)
+    if not suffix:
+        return ""
+    return (
+        f'<span style="font-size:11px;color:{EMAIL_LABEL_COLOR};'
+        f'font-weight:500;margin-left:6px">{escape(suffix)}</span>'
+    )
+
+
 def _signed_percent(value: float) -> str:
     """带 Unicode 减号的百分比,正负号视觉对称。"""
     return f"{value:+.2f}%".replace("-", "−")
@@ -224,6 +242,7 @@ def _render_valuation_spread_row(item: Dict) -> str:
             f'<span style="font-size:22px;font-weight:700;color:{dy_color}">'
             f'{escape(f"{dy:.2f}%")}</span>'
             f'{_archive_html_suffix(item.get("index_dividend_yield_data_source"), item.get("index_dividend_yield_archive_latest_date"))}'
+            f"{_estimate_html_suffix(item)}"
         )
         specs.append(
             ("股息率", dy_main, dy_pct, dy_avg, lambda v: escape(f"{v:.2f}%"), dy_pct_color)
@@ -240,6 +259,7 @@ def _render_valuation_spread_row(item: Dict) -> str:
             f'<span style="font-size:22px;font-weight:700;color:{spread_color}">'
             f'{escape(_signed_percent(ebr))}</span>'
             f'{_archive_html_suffix(item.get("equity_bond_spread_data_source") or item.get("cn_10y_bond_yield_data_source"), item.get("equity_bond_spread_archive_latest_date") or item.get("cn_10y_bond_yield_archive_latest_date"))}'
+            f"{_estimate_html_suffix(item)}"
         )
         specs.append(
             (
@@ -261,6 +281,7 @@ def _render_valuation_spread_row(item: Dict) -> str:
             ratio_main = (
                 f'<span style="font-size:22px;font-weight:700;color:{ratio_color}">'
                 f'{escape(f"{ratio_cur:.2f}x")}</span>'
+                f"{_estimate_html_suffix(item)}"
             )
             specs.append(
                 (
@@ -329,7 +350,10 @@ def render_email_item_percentile_block(item: Dict) -> str:
             else td_num_style.replace(f"border-bottom:1px solid {EMAIL_BORDER_ROW};", "")
         )
         percentiles = metric.get("percentiles") if isinstance(metric.get("percentiles"), dict) else {}
-        current_cell = format_optional_number(metric.get("current"), decimals=2, strip=False)
+        current_cell = (
+            format_optional_number(metric.get("current"), decimals=2, strip=False)
+            + _estimate_suffix(item)
+        )
         if metric_name == "PE(TTM)":
             current_cell += _archive_suffix(
                 item.get("index_valuation_data_source"),

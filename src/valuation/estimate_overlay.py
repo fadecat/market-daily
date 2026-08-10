@@ -221,6 +221,23 @@ def _archive_history(records: list[dict[str, Any]], values: dict[str, str]) -> p
     return pd.DataFrame(rows, columns=["date", *values])
 
 
+def _has_complete_official_target(
+    valuation_rows: list[dict[str, Any]], dividend_rows: list[dict[str, Any]], target: str
+) -> bool:
+    has_valuation = any(
+        _date_text(row.get("trdDt", row.get("date"))) == target
+        and _number(row.get("pETtm"), positive=True) is not None
+        and _number(row.get("pBLf"), positive=True) is not None
+        for row in valuation_rows
+    )
+    has_dividend = any(
+        _date_text(row.get("trdDt", row.get("date"))) == target
+        and _number(row.get("dividendYield"), positive=True) is not None
+        for row in dividend_rows
+    )
+    return has_valuation and has_dividend
+
+
 def apply_from_archives(
     item: dict,
     *,
@@ -241,6 +258,8 @@ def apply_from_archives(
     dividend_rows = _safe_records(root / "index_dividend_ratio" / f"{code}.json")
     eod_rows = _safe_records(root / "index_eod" / f"{code}.json")
     if valuation_rows is None or dividend_rows is None or eod_rows is None:
+        return None
+    if _has_complete_official_target(valuation_rows, dividend_rows, target):
         return None
     has_target_close = any(
         _date_text(row.get("trdDt", row.get("date"))) == target
