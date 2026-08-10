@@ -74,7 +74,8 @@ def test_build_preview_html_contains_four_layers_and_payload():
     assert "临时修复" in html
     assert "showMaxLabel: true" in html
     assert "if (index === dates.length - 1)" not in html
-    assert html.count("grid: { left: 56, right: 56, top: 34, bottom: 42 }") == 2
+    assert html.count("grid: { left: 56, right: 56, top: 34, bottom: 42 }") == 1
+    assert "const estimateEndpointLabelGridRight = 56;" in html
     assert html.index('id="spread-chart"') < html.index('id="valuation-chart"')
     assert 'priceChart.group = "dividend-observation"' in html
     assert 'spreadChart.group = "dividend-observation"' in html
@@ -110,6 +111,98 @@ def test_build_preview_html_uses_generic_field_names_and_configured_display_wind
     assert "earnings_yield_spread_percentile_5y" not in html
     assert "style_rotation_spread_percentile_5y" not in html
     assert "const chartPalette =" not in html
+
+
+def test_preview_html_labels_latest_estimated_values_at_chart_edge():
+    payload = _payload()
+    payload["meta"]["latest_estimate"] = {
+        "date": "2026-01-02",
+        "pe_ttm": 9.12,
+        "pb_lf": 0.88,
+        "dividend_yield_spread": 2.72,
+        "earnings_yield_spread": 9.58,
+    }
+
+    html = build_preview_html(payload)
+
+    assert "（预估）" in html
+    assert "PE 9.12，分位" in html
+    assert "PB 0.88，分位" in html
+    assert "股息率差 2.72%，分位" in html
+    assert "盈利收益率差 9.58%，分位" in html
+    assert html.count("endLabel:") == 4
+    assert 'labelLayout: { moveOverlap: "shiftY" }' in html
+    assert "const estimateEndpointLabelGridRight = 188;" in html
+
+
+def test_preview_html_omits_estimate_endpoint_labels_without_matching_latest_estimate():
+    payload = _payload()
+    payload["meta"]["latest_estimate"] = {
+        "date": "2026-01-01",
+        "pe_ttm": 9.12,
+        "pb_lf": 0.88,
+        "dividend_yield_spread": 2.72,
+        "earnings_yield_spread": 9.58,
+    }
+
+    html = build_preview_html(payload)
+
+    assert "（预估）" not in html
+    assert "endLabel" not in html
+
+
+def test_preview_html_expands_only_estimated_valuation_and_spread_chart_margins():
+    payload = _payload()
+    payload["meta"]["latest_estimate"] = {
+        "date": "2026-01-02",
+        "pe_ttm": 9.12,
+        "pb_lf": 0.88,
+        "dividend_yield_spread": 2.72,
+        "earnings_yield_spread": 9.58,
+    }
+
+    html = build_preview_html(payload)
+
+    assert "function lineOption(title, rows, formatter, rightGridMargin = 56)" in html
+    assert '], value => value === null || value === undefined ? "-" : Number(value).toFixed(1) + "%", estimateEndpointLabelGridRight));' in html
+    style_chart = html[html.index('const styleChart'):]
+    assert "estimateEndpointLabelGridRight" not in style_chart
+
+
+def test_preview_html_omits_estimate_labels_when_final_percentile_is_missing():
+    payload = _payload()
+    payload["meta"]["latest_estimate"] = {
+        "date": "2026-01-02",
+        "pe_ttm": 9.12,
+        "pb_lf": 0.88,
+        "dividend_yield_spread": 2.72,
+        "earnings_yield_spread": 9.58,
+    }
+    payload["series"]["pe_ttm_percentile"][-1] = None
+
+    html = build_preview_html(payload)
+
+    assert "（预估）" not in html
+    assert "endLabel" not in html
+    assert "const estimateEndpointLabelGridRight = 56;" in html
+
+
+def test_preview_html_omits_estimate_labels_when_percentile_series_is_empty():
+    payload = _payload()
+    payload["meta"]["latest_estimate"] = {
+        "date": "2026-01-02",
+        "pe_ttm": 9.12,
+        "pb_lf": 0.88,
+        "dividend_yield_spread": 2.72,
+        "earnings_yield_spread": 9.58,
+    }
+    payload["series"]["pe_ttm_percentile"] = []
+
+    html = build_preview_html(payload)
+
+    assert "（预估）" not in html
+    assert "endLabel" not in html
+    assert "const estimateEndpointLabelGridRight = 56;" in html
 
 
 def test_build_display_payload_clips_all_series_to_recent_window():

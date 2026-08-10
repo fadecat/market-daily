@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from html import escape
 from pathlib import Path
 from typing import Any, Sequence
@@ -58,6 +59,49 @@ def _date_axis_config() -> str:
             hideOverlap: true
           }
         }"""
+
+
+def _estimated_endpoint_options(meta: dict[str, Any], series: dict[str, Any]) -> str:
+    latest_estimate = meta.get("latest_estimate")
+    dates = list(series.get("dates") or [])
+    if not isinstance(latest_estimate, dict) or not dates:
+        return "const estimateEndpointOptions = {};\n    const estimateEndpointLabelGridRight = 56;"
+    if latest_estimate.get("date") != dates[-1]:
+        return "const estimateEndpointOptions = {};\n    const estimateEndpointLabelGridRight = 56;"
+
+    label_specs = (
+        ("pe_ttm", "pe_ttm_percentile", "PE", ""),
+        ("pb_lf", "pb_lf_percentile", "PB", ""),
+        ("dividend_yield_spread", "dividend_yield_spread_percentile", "股息率差", "%"),
+        ("earnings_yield_spread", "earnings_yield_spread_percentile", "盈利收益率差", "%"),
+    )
+    formatted_values: list[tuple[str, str, str, str]] = []
+    for key, percentile_key, label, suffix in label_specs:
+        try:
+            value = float(latest_estimate[key])
+            percentile = float(series[percentile_key][-1])
+        except (IndexError, KeyError, TypeError, ValueError):
+            return "const estimateEndpointOptions = {};\n    const estimateEndpointLabelGridRight = 56;"
+        if not math.isfinite(value) or not math.isfinite(percentile):
+            return "const estimateEndpointOptions = {};\n    const estimateEndpointLabelGridRight = 56;"
+        formatted_values.append((key, label, _fmt_num(value), suffix))
+
+    options = ",\n".join(
+        f'''          {key}: {{
+            endLabel: {{
+              show: true,
+              formatter: function(params) {{
+                return "{label} {value}{suffix}，分位 " + Number(params.value).toFixed(1) + "%（预估）";
+              }}
+            }},
+            labelLayout: {{ moveOverlap: "shiftY" }}
+          }}'''
+        for key, label, value, suffix in formatted_values
+    )
+    return (
+        f"const estimateEndpointOptions = {{\n{options}\n        }};\n"
+        "    const estimateEndpointLabelGridRight = 188;"
+    )
 
 
 def build_display_payload(
@@ -122,6 +166,10 @@ def build_preview_html(
     analysis_window_years = _window_years(meta, "analysis_window_years", 3)
     display_window_years = _window_years(meta, "display_window_years", 3)
     payload_json = json.dumps(display_payload, ensure_ascii=False)
+    estimate_endpoint_options = _estimated_endpoint_options(
+        meta,
+        dict(display_payload.get("series") or {}),
+    )
 
     template = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -329,8 +377,9 @@ def build_preview_html(
     const analysisWindowYears = __ANALYSIS_WINDOW_YEARS__;
     const displayWindowYears = __DISPLAY_WINDOW_YEARS__;
     const dateAxis = __DATE_AXIS__;
+    __ESTIMATE_ENDPOINT_OPTIONS__
 
-    function lineOption(title, rows, formatter) {
+    function lineOption(title, rows, formatter, rightGridMargin = 56) {
       return {
         animationDuration: 400,
         tooltip: {
@@ -342,7 +391,7 @@ def build_preview_html(
           }
         },
         legend: { top: 0 },
-        grid: { left: 56, right: 56, top: 34, bottom: 42 },
+        grid: { left: 56, right: rightGridMargin, top: 34, bottom: 42 },
         xAxis: dateAxis,
         yAxis: { type: "value" },
         series: rows.map(row => ({
@@ -350,7 +399,8 @@ def build_preview_html(
           name: row.name,
           data: row.data,
           smooth: false,
-          showSymbol: false
+          showSymbol: false,
+          ...(row.endpointOptions || {})
         }))
       };
     }
@@ -424,16 +474,16 @@ def build_preview_html(
       const valuationChart = echarts.init(document.getElementById("valuation-chart"));
       valuationChart.group = "dividend-observation";
       valuationChart.setOption(lineOption("绝对定价", [
-        { name: "pe_ttm_percentile", data: series.pe_ttm_percentile || [] },
-        { name: "pb_lf_percentile", data: series.pb_lf_percentile || [] }
-      ], value => value === null || value === undefined ? "-" : Number(value).toFixed(1) + "%"));
+        { name: "pe_ttm_percentile", data: series.pe_ttm_percentile || [], endpointOptions: estimateEndpointOptions.pe_ttm },
+        { name: "pb_lf_percentile", data: series.pb_lf_percentile || [], endpointOptions: estimateEndpointOptions.pb_lf }
+      ], value => value === null || value === undefined ? "-" : Number(value).toFixed(1) + "%", estimateEndpointLabelGridRight));
 
       const spreadChart = echarts.init(document.getElementById("spread-chart"));
       spreadChart.group = "dividend-observation";
       spreadChart.setOption(lineOption("利率相对吸引力", [
-        { name: "dividend_yield_spread_percentile", data: series.dividend_yield_spread_percentile || [] },
-        { name: "earnings_yield_spread_percentile", data: series.earnings_yield_spread_percentile || [] }
-      ], value => value === null || value === undefined ? "-" : Number(value).toFixed(1) + "%"));
+        { name: "dividend_yield_spread_percentile", data: series.dividend_yield_spread_percentile || [], endpointOptions: estimateEndpointOptions.dividend_yield_spread },
+        { name: "earnings_yield_spread_percentile", data: series.earnings_yield_spread_percentile || [], endpointOptions: estimateEndpointOptions.earnings_yield_spread }
+      ], value => value === null || value === undefined ? "-" : Number(value).toFixed(1) + "%", estimateEndpointLabelGridRight));
 
       const styleChart = echarts.init(document.getElementById("style-chart"));
       styleChart.group = "dividend-observation";
@@ -471,6 +521,7 @@ def build_preview_html(
         )
         .replace("__LATEST_STATE__", escape(_state_label(latest.get("event_state"))))
         .replace("__DATE_AXIS__", _date_axis_config())
+        .replace("__ESTIMATE_ENDPOINT_OPTIONS__", estimate_endpoint_options)
         .replace("__PAYLOAD__", payload_json)
     )
 
