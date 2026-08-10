@@ -94,7 +94,11 @@ def _history_frame(
     for name in resolved:
         if name != "date":
             frame[name] = pd.to_numeric(frame[name], errors="coerce")
-    return frame.dropna().copy()
+    numeric_columns = [name for name in resolved if name != "date"]
+    finite_values = pd.Series(True, index=frame.index)
+    for name in numeric_columns:
+        finite_values &= frame[name].map(lambda value: _number(value) is not None)
+    return frame.dropna()[finite_values].copy()
 
 
 def _replace_target(frame: pd.DataFrame, target: pd.Timestamp, values: dict[str, float]) -> pd.DataFrame:

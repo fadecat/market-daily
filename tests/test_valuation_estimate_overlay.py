@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from math import isfinite
 from pathlib import Path
 
 import pandas as pd
@@ -154,6 +155,29 @@ def test_apply_estimate_discards_future_history_so_target_is_the_current_day():
     assert result is not None
     assert result.pe_history.iloc[-1]["date"] == pd.Timestamp(TARGET_DATE)
     assert result.item["equity_bond_spread"]["current"] == round(100 / 12 - 2.0, 4)
+
+
+def test_apply_estimate_filters_nonfinite_valuation_and_dividend_history():
+    valuation, dividends, bonds = _history()
+    valuation.loc[1, "pe_ttm"] = float("inf")
+    valuation.loc[2, "pb_lf"] = float("-inf")
+    dividends.loc[3, "dividend_yield"] = float("inf")
+
+    result = apply_estimate(
+        _item(), estimate=_estimate(), price_date=TARGET_DATE,
+        valuation_history=valuation, dividend_history=dividends, bond_history=bonds,
+    )
+
+    assert result is not None
+    assert all(isfinite(value) for value in result.pe_history["pe"])
+    assert all(
+        isfinite(value)
+        for value in result.item["index_valuation_metrics"]["PE(TTM)"]["percentiles"].values()
+    )
+    assert all(
+        isfinite(value)
+        for value in result.item["index_dividend_yield_percentiles"].values()
+    )
 
 
 def test_apply_from_archives_uses_archive_histories_and_returns_none_for_bad_data(tmp_path):
