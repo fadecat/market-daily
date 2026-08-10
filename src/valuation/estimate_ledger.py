@@ -1,12 +1,25 @@
 """Produce auditable index valuation estimates from the existing archives."""
 from __future__ import annotations
 
+import argparse
 import json
+import os
+import re
+import tempfile
+from datetime import datetime, timezone
 from math import isfinite
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Sequence
 
 import pandas as pd
+
+from ..common import storage
+from . import fetch
+
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_ARCHIVE_ROOT = storage.ARCHIVE_DIR
+DEFAULT_OUTPUT_ROOT = _REPO_ROOT / "data" / "research" / "index_valuation_estimates"
 
 
 def _safe_float(value: Any) -> float | None:
@@ -178,3 +191,141 @@ def build_estimate_records(
                 )
             )
     return results
+
+
+def _load_ledger_payload(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"estimate ledger must be a JSON object: {path}")
+    records = payload.get("records", [])
+    if not isinstance(records, list):
+        raise ValueError(f"estimate ledger records must be a list: {path}")
+    return payload
+
+
+def _validate_index_code(index_code: str) -> str:
+    code = str(index_code).strip()
+    if re.fullmatch(r"[0-9]{6}", code) is None:
+        raise ValueError("index_code must contain exactly six ASCII digits")
+    return code
+
+
+def _validate_existing_ledger_index_code(payload: dict[str, Any], index_code: str) -> None:
+    existing_code = str(payload.get("index_code") or "").strip()
+    if existing_code and existing_code != index_code:
+        raise ValueError(
+            f"existing ledger index_code {existing_code!r} does not match requested "
+            f"index_code {index_code!r}"
+        )
+
+
+def _merge_records(
+    existing: list[Any], incoming: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Overlay generated records while keeping future fields on an existing day."""
+    merged: dict[str, dict[str, Any]] = {}
+    without_date: list[dict[str, Any]] = []
+    for record in existing:
+        if not isinstance(record, dict):
+            continue
+        estimate_date = str(record.get("estimate_date") or "").strip()
+        if estimate_date:
+            merged[estimate_date] = record
+        else:
+            without_date.append(record)
+    for record in incoming:
+        estimate_date = str(record.get("estimate_date") or "").strip()
+        if not estimate_date:
+            continue
+        merged[estimate_date] = {**merged.get(estimate_date, {}), **record}
+    return without_date + [merged[date] for date in sorted(merged)]
+
+
+def _logical_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Exclude volatile write metadata when deciding whether a write is needed."""
+    return {key: value for key, value in payload.items() if key != "updated_at"}
+
+
+def _updated_at() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _upsert_and_write(
+    output_path: Path, index_code: str, incoming: list[dict[str, Any]]
+) -> bool:
+    existing = _load_ledger_payload(output_path)
+    _validate_existing_ledger_index_code(existing, index_code)
+    payload = dict(existing)
+    payload["schema_version"] = 1
+    payload["index_code"] = index_code
+    payload["records"] = _merge_records(existing.get("records", []), incoming)
+    payload["updated_at"] = _updated_at()
+
+    if existing and _logical_payload(payload) == _logical_payload(existing):
+        return False
+
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=output_path.parent,
+            prefix=f".{output_path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as temporary_file:
+            temporary_path = Path(temporary_file.name)
+            temporary_file.write(serialized)
+            temporary_file.flush()
+            os.fsync(temporary_file.fileno())
+        os.replace(temporary_path, output_path)
+        temporary_path = None
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
+    return True
+
+
+def refresh_estimate_ledger(
+    index_code: str,
+    *,
+    archive_root: Path | str = DEFAULT_ARCHIVE_ROOT,
+    output_root: Path | str = DEFAULT_OUTPUT_ROOT,
+    bond_history_fetcher: Callable[..., Any] = fetch.fetch_cn_10y_bond_history_with_archive_fallback,
+) -> bool:
+    """Build and persist one index's estimates, upserting by ``estimate_date``."""
+    code = _validate_index_code(index_code)
+    archive_path = Path(archive_root)
+    output_path = Path(output_root) / f"{code}.json"
+    _validate_existing_ledger_index_code(_load_ledger_payload(output_path), code)
+    fetched = bond_history_fetcher(archive_root=archive_path)
+    bond_history = fetched[0] if isinstance(fetched, tuple) else fetched
+    incoming = build_estimate_records(
+        code, archive_root=archive_path, bond_history=bond_history
+    )
+    return _upsert_and_write(Path(output_root) / f"{code}.json", code, incoming)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Generate estimate ledgers for the explicitly selected index codes."""
+    parser = argparse.ArgumentParser(description="生成指数估算账本")
+    parser.add_argument("--index-code", action="append", required=True)
+    parser.add_argument("--archive-root", type=Path, default=DEFAULT_ARCHIVE_ROOT)
+    parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
+    args = parser.parse_args(argv)
+    for code in dict.fromkeys(args.index_code):
+        refresh_estimate_ledger(
+            code,
+            archive_root=args.archive_root,
+            output_root=args.output_root,
+            bond_history_fetcher=fetch.fetch_cn_10y_bond_history_with_archive_fallback,
+        )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
