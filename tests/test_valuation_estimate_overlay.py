@@ -82,6 +82,7 @@ def test_apply_estimate_replaces_all_current_derived_values_and_appends_target_d
     }
     assert result.item["index_dividend_yield"] == 3.5
     assert result.item["index_dividend_yield_average_5y"] != 0.1
+    assert result.item["estimate_meta"] == {"date": TARGET_DATE, "status": "estimated"}
     assert result.item["equity_bond_ratio"] == round(100 / 12 - 2.0, 4)
     assert result.item["equity_bond_spread"]["current"] == round(100 / 12 - 2.0, 4)
     assert "ratio_current" in result.item["equity_bond_spread"]
@@ -109,6 +110,13 @@ def test_apply_estimate_requires_matching_complete_finite_estimate_and_same_day_
         _item(), estimate=_estimate(), price_date=TARGET_DATE,
         valuation_history=valuation, dividend_history=dividends,
         bond_history=bonds[bonds["date"] != pd.Timestamp(TARGET_DATE)],
+    ) is None
+
+    malformed_date = _estimate()
+    malformed_date["estimate_date"] = []
+    assert apply_estimate(
+        _item(), estimate=malformed_date, price_date=TARGET_DATE,
+        valuation_history=valuation, dividend_history=dividends, bond_history=bonds,
     ) is None
 
 
@@ -191,3 +199,16 @@ def test_latest_price_date_reads_real_independent_index_931052_archive():
 
     assert latest_price_date("931052", archive_root) == "2026-08-10"
     assert latest_price_date("../931052", archive_root) is None
+
+
+def test_archive_readers_return_none_for_json_dates_with_the_wrong_type(tmp_path):
+    archive = tmp_path / "archive"
+    eod = archive / "index_eod" / "931052.json"
+    eod.parent.mkdir(parents=True)
+    eod.write_text('{"records": [{"trdDt": [], "pxClose": 1.0}]}', encoding="utf-8")
+
+    assert latest_price_date("931052", archive) is None
+    assert apply_from_archives(
+        _item(), estimate=_estimate(), price_date=TARGET_DATE, archive_root=archive,
+        bond_history=pd.DataFrame({"date": [TARGET_DATE], "yield_pct": [2.0]}),
+    ) is None

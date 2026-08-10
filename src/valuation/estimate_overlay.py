@@ -48,8 +48,13 @@ def _number(value: Any, *, positive: bool = False) -> float | None:
 
 
 def _date(value: Any) -> pd.Timestamp | None:
-    parsed = pd.to_datetime(value, errors="coerce")
-    return None if pd.isna(parsed) else pd.Timestamp(parsed).normalize()
+    try:
+        parsed = pd.to_datetime(value, errors="coerce")
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if not isinstance(parsed, pd.Timestamp) or pd.isna(parsed):
+        return None
+    return parsed.normalize()
 
 
 def _date_text(value: Any) -> str | None:
@@ -179,6 +184,7 @@ def apply_estimate(
             "index_dividend_yield_date": price_date_text,
             "index_dividend_yield_percentiles": dividend_percentiles,
             "index_dividend_yield_average_5y": dividend_average,
+            "estimate_meta": {"date": price_date_text, "status": "estimated"},
             "equity_bond_ratio": round(100.0 / pe - bond_yield, 4),
             "equity_bond_spread": spread,
         }
