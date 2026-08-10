@@ -32,7 +32,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import yaml
 
 from ..common import alerts, email, env, storage
-from . import charts, fetch, guorn, metrics, render, style_rotation
+from . import charts, estimate_ledger, estimate_overlay, fetch, guorn, metrics, render, style_rotation
 from .dividend import render as dividend_render
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -78,6 +78,7 @@ def _fetch_valuation_items(
         print(f"[WARN] 10Y国债获取失败,股债收益差将不显示: {exc}")
 
     items: List[Dict[str, Any]] = []
+    overlay_pe_histories: Dict[str, Any] = {}
     for target in targets:
         label = target.get("name") or target.get("code") or ""
         try:
@@ -90,14 +91,46 @@ def _fetch_valuation_items(
             continue
         item: Dict[str, Any] = {"name": target.get("name"), "code": target.get("code")}
         item.update(metrics_dict)
-        if cn_10y_yield is not None:
+        index_code = str(item.get("index_code") or "").strip()
+        overlay = None
+        try:
+            if not index_code:
+                raise ValueError("缺少 index_code")
+            if cn_10y_bond_history is None or cn_10y_bond_history.empty:
+                raise ValueError("缺少可复用的 10Y 国债历史")
+            price_date = estimate_overlay.latest_price_date(index_code, storage.ARCHIVE_DIR)
+            if not price_date:
+                raise ValueError("缺少最新收盘价日期")
+            estimate_ledger.refresh_estimate_ledger(
+                index_code, bond_history=cn_10y_bond_history
+            )
+            estimate = estimate_ledger.load_estimate_record(
+                index_code,
+                price_date,
+                output_root=estimate_ledger.DEFAULT_OUTPUT_ROOT,
+            )
+            if estimate is None:
+                raise ValueError(f"缺少 {price_date} 的估算记录")
+            overlay = estimate_overlay.apply_from_archives(
+                item,
+                estimate=estimate,
+                price_date=price_date,
+                archive_root=storage.ARCHIVE_DIR,
+                bond_history=cn_10y_bond_history,
+            )
+            if overlay is None:
+                raise ValueError("估算覆盖缺少所需归档数据")
+            overlay_pe_histories[index_code] = overlay.pe_history
+        except Exception as exc:  # noqa: BLE001
+            print(f"[WARN] {index_code or label} 估算覆盖失败,保留正式估值: {exc}")
+        if overlay is None and cn_10y_yield is not None:
             metrics.attach_equity_bond_ratio(
                 item,
                 cn_10y_yield,
                 data_source=cn_10y_bond_meta.get("data_source") or "live",
                 archive_latest_date=cn_10y_bond_meta.get("archive_latest_date"),
             )
-        if cn_10y_bond_history is not None and not cn_10y_bond_history.empty:
+        if overlay is None and cn_10y_bond_history is not None and not cn_10y_bond_history.empty:
             metrics.attach_equity_bond_spread(item, cn_10y_bond_history)
         items.append(item)
 
@@ -107,7 +140,9 @@ def _fetch_valuation_items(
         if not code:
             continue
         try:
-            png_path = charts.generate_valuation_percentile_chart(item, work_dir)
+            png_path = charts.generate_valuation_percentile_chart(
+                item, work_dir, pe_history=overlay_pe_histories.get(code)
+            )
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {code} 估值分位图生成失败,片段不带图: {exc}")
             continue

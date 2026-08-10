@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -131,6 +132,154 @@ def test_fetch_valuation_items_bond_failure_continues(monkeypatch, tmp_path):
     monkeypatch.setattr(run.charts, "generate_valuation_percentile_chart", lambda item, d, **k: None)
     items, _ = run._fetch_valuation_items(targets, tmp_path)
     assert len(items) == 1  # 国债失败不中止
+
+
+def test_fetch_valuation_items_uses_actual_index_code_for_etf_estimate_overlay(monkeypatch, tmp_path):
+    """ETF 的配置代码不能替代其已解析出的底层指数代码。"""
+    bond_history = _fake_bond_history()
+    overlay = SimpleNamespace(pe_history="estimated-pe-history")
+    calls = {"latest": [], "refresh": [], "load": [], "apply": [], "charts": []}
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch, "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(
+        run.fetch, "fetch_target_index_metrics", lambda target: _fake_metrics("931052", "2024-05-10")
+    )
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: pytest.fail("overlay 应跳过常规股债比"))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: pytest.fail("overlay 应跳过常规股债收益差"))
+    monkeypatch.setattr(
+        run,
+        "estimate_ledger",
+        SimpleNamespace(
+            DEFAULT_OUTPUT_ROOT=tmp_path / "ledger",
+            refresh_estimate_ledger=lambda code, **kwargs: calls["refresh"].append((code, kwargs)),
+            load_estimate_record=lambda code, estimate_date, **kwargs: calls["load"].append((code, estimate_date, kwargs)) or {"estimate_date": estimate_date},
+        ),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        run,
+        "estimate_overlay",
+        SimpleNamespace(
+            latest_price_date=lambda code, archive_root: calls["latest"].append((code, archive_root)) or "2024-05-10",
+            apply_from_archives=lambda item, **kwargs: calls["apply"].append((item, kwargs)) or overlay,
+        ),
+        raising=False,
+    )
+    fake_png = tmp_path / "chart.png"
+    fake_png.write_bytes(b"PNG")
+    monkeypatch.setattr(
+        run.charts,
+        "generate_valuation_percentile_chart",
+        lambda item, directory, **kwargs: calls["charts"].append((item, kwargs)) or fake_png,
+    )
+
+    items, chart_paths = run._fetch_valuation_items(
+        [{"name": "ETF", "code": "512040", "type": "valuation"}], tmp_path
+    )
+
+    assert items[0]["index_code"] == "931052"
+    assert calls["latest"][0][0] == "931052"
+    assert calls["refresh"] == [("931052", {"bond_history": bond_history})]
+    assert calls["load"] == [("931052", "2024-05-10", {"output_root": tmp_path / "ledger"})]
+    assert calls["apply"][0][1]["price_date"] == "2024-05-10"
+    assert calls["apply"][0][1]["bond_history"] is bond_history
+    assert calls["charts"] == [(items[0], {"pe_history": "estimated-pe-history"})]
+    assert chart_paths == {"931052": fake_png}
+
+
+def test_fetch_valuation_items_estimate_failure_keeps_item_and_continues(monkeypatch, tmp_path, capsys):
+    """单项估算失败只回退该项，后续指数仍可使用覆盖结果。"""
+    bond_history = _fake_bond_history()
+    overlay = SimpleNamespace(pe_history="second-overlay-history")
+    attached = []
+    chart_histories = []
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch, "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda target: _fake_metrics(target["code"]))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda item, *a, **k: attached.append(("ratio", item["index_code"])))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda item, *a, **k: attached.append(("spread", item["index_code"])))
+    monkeypatch.setattr(
+        run,
+        "estimate_ledger",
+        SimpleNamespace(
+            DEFAULT_OUTPUT_ROOT=tmp_path / "ledger",
+            refresh_estimate_ledger=lambda *a, **k: None,
+            load_estimate_record=lambda code, estimate_date, **kwargs: {"estimate_date": estimate_date},
+        ),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        run,
+        "estimate_overlay",
+        SimpleNamespace(
+            latest_price_date=lambda code, archive_root: "2024-05-10",
+            apply_from_archives=lambda item, **kwargs: (_ for _ in ()).throw(RuntimeError("overlay unavailable"))
+            if item["index_code"] == "000300" else overlay,
+        ),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        run.charts,
+        "generate_valuation_percentile_chart",
+        lambda item, directory, **kwargs: chart_histories.append((item["index_code"], kwargs.get("pe_history"))) or None,
+    )
+
+    items, _ = run._fetch_valuation_items(
+        [{"name": "失败项", "code": "000300"}, {"name": "成功项", "code": "000905"}], tmp_path
+    )
+
+    assert [item["index_code"] for item in items] == ["000300", "000905"]
+    assert attached == [("ratio", "000300"), ("spread", "000300")]
+    assert chart_histories == [("000300", None), ("000905", "second-overlay-history")]
+    assert "[WARN] 000300 估算覆盖失败" in capsys.readouterr().out
+
+
+def test_fetch_valuation_items_without_estimate_record_preserves_normal_path(monkeypatch, tmp_path):
+    """账本尚无同日记录时，维持原有股债字段和默认图表取数。"""
+    bond_history = _fake_bond_history()
+    attached = []
+    chart_histories = []
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch, "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda target: _fake_metrics(target["code"]))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda item, *a, **k: attached.append("ratio"))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda item, *a, **k: attached.append("spread"))
+    monkeypatch.setattr(
+        run,
+        "estimate_ledger",
+        SimpleNamespace(
+            DEFAULT_OUTPUT_ROOT=tmp_path / "ledger",
+            refresh_estimate_ledger=lambda *a, **k: None,
+            load_estimate_record=lambda *a, **k: None,
+        ),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        run,
+        "estimate_overlay",
+        SimpleNamespace(latest_price_date=lambda *a, **k: "2024-05-10", apply_from_archives=lambda *a, **k: pytest.fail("无账本记录不应应用覆盖")),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        run.charts,
+        "generate_valuation_percentile_chart",
+        lambda item, directory, **kwargs: chart_histories.append(kwargs.get("pe_history")) or None,
+    )
+
+    items, _ = run._fetch_valuation_items([{"name": "常规项", "code": "000300"}], tmp_path)
+
+    assert len(items) == 1
+    assert attached == ["ratio", "spread"]
+    assert chart_histories == [None]
 
 
 # ---------- _build_extra_sections ----------
