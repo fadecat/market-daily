@@ -212,6 +212,40 @@ def _validate_index_code(index_code: str) -> str:
     return code
 
 
+def load_estimate_record(
+    index_code: str,
+    estimate_date: str,
+    output_root: Path | str = DEFAULT_OUTPUT_ROOT,
+) -> dict[str, Any] | None:
+    """Safely load one valid estimate record without modifying its ledger."""
+    try:
+        code = _validate_index_code(index_code)
+    except ValueError:
+        return None
+
+    try:
+        payload = json.loads(
+            (Path(output_root) / f"{code}.json").read_text(encoding="utf-8")
+        )
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return None
+
+    if not isinstance(payload, dict) or payload.get("index_code") != code:
+        return None
+    records = payload.get("records")
+    if not isinstance(records, list):
+        return None
+
+    for record in records:
+        if (
+            isinstance(record, dict)
+            and record.get("estimate_date") == estimate_date
+            and isinstance(record.get("estimates"), dict)
+        ):
+            return record
+    return None
+
+
 def _validate_existing_ledger_index_code(payload: dict[str, Any], index_code: str) -> None:
     existing_code = str(payload.get("index_code") or "").strip()
     if existing_code and existing_code != index_code:
@@ -295,6 +329,7 @@ def refresh_estimate_ledger(
     *,
     archive_root: Path | str = DEFAULT_ARCHIVE_ROOT,
     output_root: Path | str = DEFAULT_OUTPUT_ROOT,
+    bond_history: pd.DataFrame | None = None,
     bond_history_fetcher: Callable[..., Any] = fetch.fetch_cn_10y_bond_history_with_archive_fallback,
 ) -> bool:
     """Build and persist one index's estimates, upserting by ``estimate_date``."""
@@ -302,8 +337,9 @@ def refresh_estimate_ledger(
     archive_path = Path(archive_root)
     output_path = Path(output_root) / f"{code}.json"
     _validate_existing_ledger_index_code(_load_ledger_payload(output_path), code)
-    fetched = bond_history_fetcher(archive_root=archive_path)
-    bond_history = fetched[0] if isinstance(fetched, tuple) else fetched
+    if bond_history is None:
+        fetched = bond_history_fetcher(archive_root=archive_path)
+        bond_history = fetched[0] if isinstance(fetched, tuple) else fetched
     incoming = build_estimate_records(
         code, archive_root=archive_path, bond_history=bond_history
     )

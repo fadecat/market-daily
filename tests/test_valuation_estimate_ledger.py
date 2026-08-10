@@ -222,6 +222,83 @@ def test_refresh_estimate_ledger_does_not_rewrite_unchanged_content(tmp_path):
     assert os.stat(output).st_mtime_ns == before_mtime
 
 
+def test_refresh_estimate_ledger_uses_supplied_bond_history_without_fetching(tmp_path):
+    archive = tmp_path / "archive"
+    _write_estimate_inputs(archive)
+    bonds = pd.DataFrame(
+        {"date": pd.to_datetime(["2026-08-10"]), "yield_pct": [1.7074]}
+    )
+
+    changed = refresh_estimate_ledger(
+        "930955",
+        archive_root=archive,
+        output_root=tmp_path / "estimates",
+        bond_history=bonds,
+        bond_history_fetcher=lambda **_: pytest.fail("supplied history must not fetch data"),
+    )
+
+    assert changed is True
+
+
+def test_load_estimate_record_returns_matching_estimate(tmp_path):
+    output_root = tmp_path / "estimates"
+    record = {
+        "estimate_date": "2026-08-10",
+        "status": "estimated",
+        "estimates": {"pe_ttm": 8.862534},
+    }
+    _write_json(
+        output_root / "930955.json",
+        {"schema_version": 1, "index_code": "930955", "records": [record]},
+    )
+
+    assert ledger.load_estimate_record("930955", "2026-08-10", output_root) == record
+
+
+@pytest.mark.parametrize(
+    "index_code, estimate_date, payload",
+    [
+        ("bad", "2026-08-10", None),
+        ("930955", "2026-08-10", []),
+        ("930955", "2026-08-10", {"index_code": "930955", "records": {}}),
+        ("930955", "2026-08-10", {"index_code": "000300", "records": []}),
+        (
+            "930955",
+            "2026-08-10",
+            {"index_code": "930955", "records": [{"estimate_date": "2026-08-09", "estimates": {}}]},
+        ),
+        (
+            "930955",
+            "2026-08-10",
+            {"index_code": "930955", "records": [{"estimate_date": "2026-08-10", "estimates": []}]},
+        ),
+    ],
+)
+def test_load_estimate_record_returns_none_for_invalid_input_or_payload(
+    tmp_path, index_code, estimate_date, payload
+):
+    output_root = tmp_path / "estimates"
+    if payload is not None:
+        _write_json(output_root / "930955.json", payload)
+
+    assert ledger.load_estimate_record(index_code, estimate_date, output_root) is None
+
+
+def test_load_estimate_record_returns_none_for_invalid_json_or_read_error(monkeypatch, tmp_path):
+    output_root = tmp_path / "estimates"
+    output = output_root / "930955.json"
+    output.parent.mkdir(parents=True)
+    output.write_text("{", encoding="utf-8")
+
+    assert ledger.load_estimate_record("930955", "2026-08-10", output_root) is None
+
+    def raise_os_error(*_args, **_kwargs):
+        raise OSError("unreadable")
+
+    monkeypatch.setattr(Path, "read_text", raise_os_error)
+    assert ledger.load_estimate_record("930955", "2026-08-10", output_root) is None
+
+
 def test_main_writes_only_requested_index(monkeypatch, tmp_path):
     archive = tmp_path / "archive"
     _write_estimate_inputs(archive, "930955")
