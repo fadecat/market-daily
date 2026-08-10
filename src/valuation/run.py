@@ -15,11 +15,11 @@
 - 所有 section 共用同一 tempdir(work_dir),图须存活到 ``send_email`` 读图完成,故发信在
   ``with`` 块内。
 
-板块级静默退出守卫(迁移计划 L27,沿用 cb_three_low/rotation 思路提升到板块级):估值核心的
-``index_valuation_date`` 是最权威的「今日有无新估值数据」信号(节假日所有 section 均无新数据)。
-``data/state/valuation.json`` 存 ``last_valuation_date``,若本次估值基准日 == 上次则静默退出
-(return 0);发信成功后才更新 state。估值核心整板失败(无 valuation_date)时不静默,照常发
-尽力而为的邮件。``--preview`` 不走守卫。
+板块级静默退出守卫(防同日重复发送):``data/state/valuation.json`` 存 ``last_send_date``,若今日已发过
+则静默退出(return 0);发信成功后才更新 state。守卫按**发送日期**(北京今日)判断,不按估值基准日--
+指数 PE 估值为 T-1,交易日基准日不变,但国债收益率/汇率图等辅 section 为 T+0 当日数据,若按估值基准日
+gate 会误吞这些当日数据。15:31 首跑后 19:11 兜底因 last_send_date 命中而跳过;首跑失败时兜底补发。
+``--preview`` 不走守卫。
 """
 from __future__ import annotations
 
@@ -222,22 +222,21 @@ def _cid_to_data_uri(html: str, inline_images: Dict[str, str]) -> str:
 def run_send() -> int:
     """聚合 5 section + 发邮件。tempdir 须存活到 send_email 读图完成,故发信在 with 块内。"""
     prev = storage.load_state(STATE_NAME, default={}) or {}
+    today = fetch.now_in_beijing().strftime("%Y-%m-%d")
+    # 防同日重复:今日已发过则跳过(15:31 首跑后 19:11 兜底命中跳过)
+    if prev.get("last_send_date") == today:
+        print(f"[INFO] 今日已发信({today}),跳过")
+        return 0
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             bundle = _build_bundle(Path(tmpdir))
-
-            # 板块级守卫:估值基准日未更新(节假日)-> 静默退出
-            valuation_date = bundle.get("valuation_date", "")
-            if valuation_date and valuation_date == prev.get("last_valuation_date"):
-                print(f"[INFO] 估值基准日未更新({valuation_date}),跳过邮件")
-                return 0
 
             subject = _build_subject(bundle)
             ok = email.send_email(
                 subject, bundle["html"], inline_images=bundle["inline_images"] or None
             )
-            if ok and valuation_date:
-                storage.save_state(STATE_NAME, {"last_valuation_date": valuation_date})
+            if ok:
+                storage.save_state(STATE_NAME, {"last_send_date": today})
             return 0 if ok else 1
     except Exception as exc:  # noqa: BLE001
         alerts.notify_alert("市场估值板块运行失败", str(exc))

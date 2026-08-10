@@ -35,7 +35,7 @@ _REPORT_PATH = _PREVIEW_DIR / "verify_report.md"
 
 # (state 名, 中文标签, 必需键)
 _STATE_SPECS: list[tuple[str, str, tuple[str, ...]]] = [
-    ("valuation", "市场估值", ("last_valuation_date",)),
+    ("valuation", "市场估值", ("last_send_date",)),
     ("etf_rotation_20d", "资产轮动ETF", ("holdings_history", "portfolio_nav", "next_holding")),
     ("cb_three_low", "转债三低轮动", ("holdings_history",)),
     ("cctda_coal_daily", "煤炭日报", ("article_url", "sent_at")),
@@ -296,8 +296,8 @@ def run_all(
 def _state_detail(state: Any) -> str:
     if not isinstance(state, dict):
         return "缺失"
-    if "last_valuation_date" in state:
-        return f"last_valuation_date={state['last_valuation_date']}"
+    if "last_send_date" in state:
+        return f"last_send_date={state['last_send_date']}"
     if "holdings_history" in state:
         return f"{len(state.get('holdings_history') or [])}条 nav={state.get('portfolio_nav', state.get('nav', ''))}"
     if "article_url" in state:

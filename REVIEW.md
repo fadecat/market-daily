@@ -99,7 +99,7 @@
 - 集思录账密登录/cookie 复用、东财 cookie 懒读、巨潮 bundle 级退避重试均移植正确。
 
 **数据备份**
-- 【高】P0-1 fx 归档翻倍(见上)。state(`last_valuation_date`)、guorn_meta 快照(content_hash 不包信封,兼容旧 9 份)、cninfo manifest/日期双写、content_hash 去重均正确。
+- 【高】P0-1 fx 归档翻倍(见上)。state(`last_send_date`)、guorn_meta 快照(content_hash 不包信封,兼容旧 9 份)、cninfo manifest/日期双写、content_hash 去重均正确。
 - 【中】`valuation.yml:47` 提交步骤只 `git add -A data/state data/archive`,东财补充池实时抓巨潮写的 `data/cninfo/` 从不提交 -> 新入池股票每天重复实时抓(限流风险)。建议提交步骤加 `data/cninfo`(与 cninfo_backup.yml 一致)。
 - 【低】`dividend/cninfo_cache.py:38,204` `is_snapshot_fresh`/`CNINFO_CACHE_MAX_AGE_DAYS` 在 src 内无调用方(死代码 + 误导配置)。
 - 【低】`cninfo_backup.py:152-204` 默认 backup 模式是写 `data/dividend_universe` 的唯一入口,但 workflow 只跑 `--warmup`/`--retry`,`data/dividend_universe` 自迁移后停止更新(非回归,遗留死路径)。

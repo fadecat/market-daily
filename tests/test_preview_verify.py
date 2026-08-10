@@ -20,20 +20,20 @@ def _write(path: Path, obj) -> Path:
 
 
 def test_state_missing():
-    assert verify.check_state("valuation", "市场估值", ("last_valuation_date",), None) == [
+    assert verify.check_state("valuation", "市场估值", ("last_send_date",), None) == [
         "市场估值(valuation) 状态缺失"
     ]
 
 
 def test_state_valuation_ok():
-    state = {"last_valuation_date": "2026-08-05"}
-    assert verify.check_state("valuation", "市场估值", ("last_valuation_date",), state) == []
+    state = {"last_send_date": "2026-08-05"}
+    assert verify.check_state("valuation", "市场估值", ("last_send_date",), state) == []
 
 
 def test_state_valuation_missing_key():
     state = {}
-    issues = verify.check_state("valuation", "市场估值", ("last_valuation_date",), state)
-    assert any("缺少 last_valuation_date" in i for i in issues)
+    issues = verify.check_state("valuation", "市场估值", ("last_send_date",), state)
+    assert any("缺少 last_send_date" in i for i in issues)
 
 
 def test_state_rotation_empty_history():
@@ -206,7 +206,7 @@ def _make_tree(tmp_path: Path) -> tuple[Path, Path, Path]:
     archive = tmp_path / "archive"
     preview = tmp_path / "preview"
 
-    _write(state / "valuation.json", {"last_valuation_date": "2026-08-05"})
+    _write(state / "valuation.json", {"last_send_date": "2026-08-05"})
     _write(
         state / "etf_rotation_20d.json",
         {
@@ -308,7 +308,7 @@ def test_run_all_missing_archive_dir(tmp_path):
 
 def test_build_report_all_pass():
     results = [
-        verify.CheckResult("状态快照", "市场估值(valuation)", True, "last_valuation_date=2026-08-05"),
+        verify.CheckResult("状态快照", "市场估值(valuation)", True, "last_send_date=2026-08-05"),
         verify.CheckResult("归档日期连续性", "bond_10y", False, "", ["bond_10y 末尾日期 2026-07-20 过期"]),
     ]
     md = verify.build_report(results, TODAY)
