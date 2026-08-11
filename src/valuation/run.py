@@ -59,6 +59,13 @@ def load_valuation_config(config_path: str = str(DEFAULT_CONFIG_PATH)) -> List[D
 # ---------- 主 section:估值核心 ----------
 
 
+def _has_complete_official_values(item: Dict[str, Any], price_date: str) -> bool:
+    return (
+        str(item.get("index_valuation_date") or "").strip() == price_date
+        and str(item.get("index_dividend_yield_date") or "").strip() == price_date
+    )
+
+
 def _fetch_valuation_items(
     targets: List[Dict[str, Any]], work_dir: Path
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Path]]:
@@ -101,27 +108,28 @@ def _fetch_valuation_items(
             price_date = estimate_overlay.latest_price_date(index_code, storage.ARCHIVE_DIR)
             if not price_date:
                 raise ValueError("缺少最新收盘价日期")
-            estimate_ledger.refresh_estimate_ledger(
-                index_code, bond_history=cn_10y_bond_history
-            )
-            estimate = estimate_ledger.load_estimate_record(
-                index_code,
-                price_date,
-                output_root=estimate_ledger.DEFAULT_OUTPUT_ROOT,
-            )
-            if estimate is None:
-                raise ValueError(f"缺少 {price_date} 的估算记录")
-            overlay = estimate_overlay.apply_from_archives(
-                item,
-                estimate=estimate,
-                price_date=price_date,
-                archive_root=storage.ARCHIVE_DIR,
-                bond_history=cn_10y_bond_history,
-            )
-            if overlay is None:
-                raise ValueError("估算覆盖缺少所需归档数据")
-            item = overlay.item
-            overlay_pe_histories[index_code] = overlay.pe_history
+            if not _has_complete_official_values(item, price_date):
+                estimate_ledger.refresh_estimate_ledger(
+                    index_code, bond_history=cn_10y_bond_history
+                )
+                estimate = estimate_ledger.load_estimate_record(
+                    index_code,
+                    price_date,
+                    output_root=estimate_ledger.DEFAULT_OUTPUT_ROOT,
+                )
+                if estimate is None:
+                    raise ValueError(f"缺少 {price_date} 的估算记录")
+                overlay = estimate_overlay.apply_from_archives(
+                    item,
+                    estimate=estimate,
+                    price_date=price_date,
+                    archive_root=storage.ARCHIVE_DIR,
+                    bond_history=cn_10y_bond_history,
+                )
+                if overlay is None:
+                    raise ValueError("估算覆盖缺少所需归档数据")
+                item = overlay.item
+                overlay_pe_histories[index_code] = overlay.pe_history
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {index_code or label} 估算覆盖失败,保留正式估值: {exc}")
         if overlay is None and cn_10y_yield is not None:

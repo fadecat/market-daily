@@ -226,6 +226,32 @@ def test_fetch_valuation_items_uses_estimated_item_for_email_and_chart(monkeypat
     assert chart_items == [(estimated_item, {"pe_history": "estimated-pe-history"})]
 
 
+def test_fetch_valuation_items_skips_estimate_when_official_values_match_latest_close(monkeypatch, tmp_path):
+    bond_history = _fake_bond_history()
+    official_item = _fake_metrics("930955", "2026-08-10")
+    official_item["index_dividend_yield_date"] = "2026-08-10"
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch,
+        "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda target: official_item)
+    monkeypatch.setattr(run.estimate_overlay, "latest_price_date", lambda *a, **k: "2026-08-10")
+    monkeypatch.setattr(run.estimate_ledger, "refresh_estimate_ledger", lambda *a, **k: pytest.fail("official data must not refresh an estimate"))
+    monkeypatch.setattr(run.estimate_ledger, "load_estimate_record", lambda *a, **k: pytest.fail("official data must not load an estimate"))
+    monkeypatch.setattr(run.estimate_overlay, "apply_from_archives", lambda *a, **k: pytest.fail("official data must not apply an estimate"))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: None)
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: None)
+    monkeypatch.setattr(run.charts, "generate_valuation_percentile_chart", lambda *a, **k: None)
+
+    items, _ = run._fetch_valuation_items(
+        [{"name": "红利低波", "code": "930955", "type": "valuation"}], tmp_path
+    )
+
+    assert items == [{"name": "红利低波", "code": "930955", **official_item}]
+
+
 def test_fetch_valuation_items_estimate_failure_keeps_item_and_continues(monkeypatch, tmp_path, capsys):
     """单项估算失败只回退该项，后续指数仍可使用覆盖结果。"""
     bond_history = _fake_bond_history()
