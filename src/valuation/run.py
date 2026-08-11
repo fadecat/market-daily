@@ -15,11 +15,8 @@
 - 所有 section 共用同一 tempdir(work_dir),图须存活到 ``send_email`` 读图完成,故发信在
   ``with`` 块内。
 
-板块级静默退出守卫(防同日重复发送):``data/state/valuation.json`` 存 ``last_send_date``,若今日已发过
-则静默退出(return 0);发信成功后才更新 state。守卫按**发送日期**(北京今日)判断,不按估值基准日--
-指数 PE 估值为 T-1,交易日基准日不变,但国债收益率/汇率图等辅 section 为 T+0 当日数据,若按估值基准日
-gate 会误吞这些当日数据。15:31 首跑后 19:11 兜底因 last_send_date 命中而跳过;首跑失败时兜底补发。
-``--preview`` 不走守卫。
+市场估值不做同日发送守卫：只要手动或定时任务成功运行，都会发送一封新邮件。这样同日的
+集思录、东财、汇率等辅助区块更新可以继续投递。``--preview`` 始终只生成 HTML，不发送邮件。
 """
 from __future__ import annotations
 
@@ -38,9 +35,6 @@ from .dividend import render as dividend_render
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = _REPO_ROOT / "config" / "valuation.yaml"
 DEFAULT_PREVIEW_PATH = _REPO_ROOT / "preview" / "valuation.html"
-
-STATE_NAME = "valuation"
-
 
 # ---------- 配置 ----------
 
@@ -265,12 +259,6 @@ def _cid_to_data_uri(html: str, inline_images: Dict[str, str]) -> str:
 
 def run_send() -> int:
     """聚合 5 section + 发邮件。tempdir 须存活到 send_email 读图完成,故发信在 with 块内。"""
-    prev = storage.load_state(STATE_NAME, default={}) or {}
-    today = fetch.now_in_beijing().strftime("%Y-%m-%d")
-    # 防同日重复:今日已发过则跳过(15:31 首跑后 19:11 兜底命中跳过)
-    if prev.get("last_send_date") == today:
-        print(f"[INFO] 今日已发信({today}),跳过")
-        return 0
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             bundle = _build_bundle(Path(tmpdir))
@@ -279,8 +267,6 @@ def run_send() -> int:
             ok = email.send_email(
                 subject, bundle["html"], inline_images=bundle["inline_images"] or None
             )
-            if ok:
-                storage.save_state(STATE_NAME, {"last_send_date": today})
             return 0 if ok else 1
     except Exception as exc:  # noqa: BLE001
         alerts.notify_alert("市场估值板块运行失败", str(exc))

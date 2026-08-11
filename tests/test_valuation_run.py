@@ -439,7 +439,7 @@ def test_cid_to_data_uri_replaces_cids(tmp_path):
     assert "data:image/png;base64," in out and "cid:foo" not in out
 
 
-# ---------- run_send(静默守卫) ----------
+# ---------- run_send ----------
 
 
 def _mock_bundle(monkeypatch, valuation_date, html="<html></html>", imgs=None):
@@ -454,68 +454,32 @@ def _mock_today(monkeypatch, date_str):
     monkeypatch.setattr(run.fetch, "now_in_beijing", lambda: datetime.datetime(y, m, d))
 
 
-def test_run_send_same_day_silent_exit(monkeypatch, tmp_path):
+def test_run_send_sends_even_if_state_marks_today_as_sent(monkeypatch, tmp_path):
     _mock_bundle(monkeypatch, "2024-05-10")
     _mock_today(monkeypatch, "2024-05-10")
-    monkeypatch.setattr(run.storage, "load_state", lambda name, default=None: {"last_send_date": "2024-05-10"})
+    monkeypatch.setattr(run.storage, "load_state", lambda *args, **kwargs: pytest.fail("must not read send state"))
     sent = []
-    monkeypatch.setattr(run.email, "send_email", lambda *a, **k: sent.append(k) or True)
-    saved = []
-    monkeypatch.setattr(run.storage, "save_state", lambda name, obj: saved.append((name, obj)))
+    monkeypatch.setattr(run.email, "send_email", lambda subject, *a, **k: sent.append(subject) or True)
+    monkeypatch.setattr(run.storage, "save_state", lambda *args, **kwargs: pytest.fail("must not write send state"))
+
     assert run.run_send() == 0
-    assert sent == []  # 今日已发,未发信
-    assert saved == []  # 未存 state
+    assert sent == ["市场估值日报 2024-05-10"]
 
 
-def test_run_send_new_day_sends_and_saves(monkeypatch, tmp_path):
-    _mock_bundle(monkeypatch, "2024-05-10", imgs={"cid": "/x.png"})
-    _mock_today(monkeypatch, "2024-05-10")
-    monkeypatch.setattr(run.storage, "load_state", lambda name, default=None: {"last_send_date": "2024-05-09"})
-    sent = []
-    monkeypatch.setattr(run.email, "send_email", lambda subject, html, **k: sent.append(subject) or True)
-    saved = []
-    monkeypatch.setattr(run.storage, "save_state", lambda name, obj: saved.append((name, obj)))
-    assert run.run_send() == 0
-    assert sent == ["市场估值日报 2024-05-10"]  # 标题仍用估值基准日
-    assert saved == [("valuation", {"last_send_date": "2024-05-10"})]
-
-
-def test_run_send_first_run_no_state_sends(monkeypatch, tmp_path):
-    _mock_bundle(monkeypatch, "2024-05-10")
-    _mock_today(monkeypatch, "2024-05-10")
-    monkeypatch.setattr(run.storage, "load_state", lambda name, default=None: default or {})
-    sent = []
-    monkeypatch.setattr(run.email, "send_email", lambda *a, **k: sent.append(1) or True)
-    saved = []
-    monkeypatch.setattr(run.storage, "save_state", lambda name, obj: saved.append(obj))
-    assert run.run_send() == 0
-    assert len(sent) == 1
-    assert saved == [{"last_send_date": "2024-05-10"}]
-
-
-def test_run_send_no_valuation_date_still_sends_and_saves(monkeypatch, tmp_path):
-    # 估值核心失败(无 valuation_date)-> 守卫不看 valuation_date,照常发信并存 today
+def test_run_send_no_valuation_date_still_sends(monkeypatch, tmp_path):
     _mock_bundle(monkeypatch, "")
     _mock_today(monkeypatch, "2024-05-10")
-    monkeypatch.setattr(run.storage, "load_state", lambda name, default=None: {"last_send_date": "2024-05-09"})
     sent = []
     monkeypatch.setattr(run.email, "send_email", lambda *a, **k: sent.append(1) or True)
-    saved = []
-    monkeypatch.setattr(run.storage, "save_state", lambda name, obj: saved.append(obj))
     assert run.run_send() == 0
     assert len(sent) == 1
-    assert saved == [{"last_send_date": "2024-05-10"}]  # 无 valuation_date 也存 today
 
 
 def test_run_send_send_failure_returns_1(monkeypatch, tmp_path):
     _mock_bundle(monkeypatch, "2024-05-10")
     _mock_today(monkeypatch, "2024-05-10")
-    monkeypatch.setattr(run.storage, "load_state", lambda name, default=None: {})
     monkeypatch.setattr(run.email, "send_email", lambda *a, **k: False)
-    saved = []
-    monkeypatch.setattr(run.storage, "save_state", lambda name, obj: saved.append(obj))
     assert run.run_send() == 1
-    assert saved == []  # 发信失败不存 state
 
 
 # ---------- run_preview ----------
