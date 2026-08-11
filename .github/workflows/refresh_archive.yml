@@ -2,6 +2,8 @@ name: 归档刷新
 
 on:
   schedule:
+    # UTC 23:00 (周日-周四) = Asia/Shanghai 次日 07:00,补齐隔夜更新的估值/国债等归档
+    - cron: "0 23 * * 0-4"
     # UTC 07:15 = Asia/Shanghai 15:15(收盘后、板块日报前),刷新估值/国债/汇率/转债指数归档供板块回退读取
     - cron: "15 7 * * 1-5"
   workflow_dispatch:
