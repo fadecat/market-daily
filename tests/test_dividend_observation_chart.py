@@ -1,10 +1,14 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from src.research.dividend_observation_chart import (
+    _fill_bond_same_day_backup,
     build_dividend_observation_payload,
     main,
 )
+from src.valuation import fetch as valuation_fetch
 
 
 def _write(path: Path, payload) -> None:
@@ -65,6 +69,94 @@ def _write_estimate_overlay_inputs(archive: Path, estimate_root: Path) -> None:
             ],
         },
     )
+
+
+@pytest.fixture(autouse=True)
+def _stub_bond_backup(monkeypatch):
+    """默认关闭中债网备份联网;需要时由具体用例覆盖。"""
+    monkeypatch.setattr(valuation_fetch, "fetch_chinabond_10y_latest", lambda **kw: (None, None))
+
+
+def test_fill_bond_backup_injects_chinabond_when_archive_lags(monkeypatch):
+    monkeypatch.setattr(valuation_fetch, "fetch_chinabond_10y_latest", lambda **kw: ("2026-08-11", 1.7161))
+    bond = {"2026-08-08": {"日期": "2026-08-08", "中国国债收益率10年": 1.70}}
+    _fill_bond_same_day_backup(bond, ["2026-08-08", "2026-08-11"])
+    assert bond["2026-08-11"]["中国国债收益率10年"] == 1.7161
+
+
+def test_fill_bond_backup_noop_when_archive_has_today(monkeypatch):
+    calls = {"n": 0}
+
+    def fake(**kw):
+        calls["n"] += 1
+        return ("2026-08-11", 1.7161)
+
+    monkeypatch.setattr(valuation_fetch, "fetch_chinabond_10y_latest", fake)
+    bond = {"2026-08-11": {"日期": "2026-08-11", "中国国债收益率10年": 1.72}}
+    _fill_bond_same_day_backup(bond, ["2026-08-11"])
+    assert calls["n"] == 0
+    assert bond["2026-08-11"]["中国国债收益率10年"] == 1.72
+
+
+def test_fill_bond_backup_skips_when_chinabond_date_mismatches(monkeypatch):
+    monkeypatch.setattr(valuation_fetch, "fetch_chinabond_10y_latest", lambda **kw: ("2026-08-10", 1.7161))
+    bond = {"2026-08-08": {"日期": "2026-08-08", "中国国债收益率10年": 1.70}}
+    _fill_bond_same_day_backup(bond, ["2026-08-08", "2026-08-11"])
+    assert "2026-08-11" not in bond
+
+
+def test_payload_fills_bond_backup_so_latest_spread_is_not_none(tmp_path, monkeypatch):
+    """端到端:归档国债滞后最新交易日时,中债网当日备份补上 08-10 国债,
+    使 _ensure_latest_estimate 能为 08-10 生成预估(国债不跨日补齐,缺当天即不生成)。
+
+    无备份时 08-10 无国债 -> 不生成预估 -> meta 无 latest_estimate;
+    有备份时用中债网 1.7161 -> 生成预估,且利差反映 1.7161 而非归档滞后值 2.0。
+    """
+    archive = tmp_path / "archive"
+    estimate_root = tmp_path / "index_valuation_estimates"
+    # 指数行情到 08-10;估值/股息只到 08-07 -> 08-10 需要预估
+    _write(
+        archive / "index_eod" / "930955.json",
+        {
+            "records": [
+                {"trdDt": "2026-08-07", "pxClose": 100.0},
+                {"trdDt": "2026-08-10", "pxClose": 110.0},
+            ]
+        },
+    )
+    _write(
+        archive / "index_valuation_percentile" / "930955.json",
+        {"records": [{"trdDt": "2026-08-07", "pETtm": 10.0, "pBLf": 1.0}]},
+    )
+    _write(
+        archive / "index_dividend_ratio" / "930955.json",
+        {"records": [{"trdDt": "2026-08-07", "dividendYield": 4.0}]},
+    )
+    # 归档国债滞后:只有 08-07,缺最新交易日 08-10
+    _write(
+        archive / "bond_10y" / "china_10y.json",
+        [{"日期": "2026-08-07", "中国国债收益率10年": 2.0}],
+    )
+    monkeypatch.setattr(
+        valuation_fetch, "fetch_chinabond_10y_latest", lambda **kw: ("2026-08-10", 1.7161)
+    )
+
+    payload = build_dividend_observation_payload(
+        archive_root=archive,
+        estimate_root=estimate_root,
+        dataset_path=tmp_path / "events.json",
+        event_state_model_path=tmp_path / "states.json",
+        drawdown_window_days=2,
+        valuation_window_days=2,
+        spread_window_days=2,
+        style_window_days=2,
+    )
+
+    latest_estimate = payload["meta"].get("latest_estimate")
+    assert latest_estimate is not None
+    assert latest_estimate["date"] == "2026-08-10"
+    # 4.0/1.1 - 1.7161 ≈ 1.920264;只有用到中债网 1.7161 才是这个值(归档 2.0 会得 1.636364)
+    assert latest_estimate["dividend_yield_spread"] == pytest.approx(1.920264)
 
 
 def test_payload_uses_same_date_estimate_when_official_values_are_missing(tmp_path):

@@ -9,7 +9,7 @@ from typing import Any, Callable, Sequence
 
 import pandas as pd
 
-from ..valuation import estimate_ledger
+from ..valuation import estimate_ledger, fetch
 from .dividend_observation_config import (
     DEFAULT_CONFIG_PATH,
     load_dividend_observation_window_config,
@@ -118,6 +118,18 @@ def _estimate_by_date(index_code: str, estimate_root: Path) -> dict[str, dict[st
         if estimate_date is not None and isinstance(row.get("estimates"), dict):
             estimates[estimate_date] = row
     return estimates
+
+
+def _fill_bond_same_day_backup(
+    bond: dict[str, dict[str, Any]], dates: list[str]
+) -> None:
+    """归档 10Y 国债滞后时,用中债网当日备份补最新交易日一行(仅内存,不写归档)。"""
+    if not dates or dates[-1] in bond:
+        return
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest()
+    if cb_yield is None or cb_date != dates[-1]:
+        return
+    bond[cb_date] = {"日期": cb_date, "中国国债收益率10年": cb_yield}
 
 
 def _ensure_latest_estimate(
@@ -311,6 +323,7 @@ def build_dividend_observation_payload(
     valuation = _date_map(root, "index_valuation_percentile", f"{INDEX_CODE}.json", "trdDt")
     dividend = _date_map(root, "index_dividend_ratio", f"{INDEX_CODE}.json", "trdDt")
     bond = _date_map(root, "bond_10y", "china_10y.json", "日期")
+    _fill_bond_same_day_backup(bond, dates)
     _ensure_latest_estimate(
         archive_root=root,
         estimate_root=estimates_root,

@@ -107,6 +107,7 @@ def attach_equity_bond_ratio(
     bond_yield: float,
     data_source: str = "live",
     archive_latest_date: Optional[str] = None,
+    bond_backup_date: Optional[str] = None,
 ) -> None:
     """用当前 PE 与 10Y 国债收益率算单点股债收益差,写回 item。"""
     pe_metric = get_index_valuation_metric(item, "PE(TTM)")
@@ -119,6 +120,7 @@ def attach_equity_bond_ratio(
     item["cn_10y_bond_yield"] = bond_yield
     item["cn_10y_bond_yield_data_source"] = data_source
     item["cn_10y_bond_yield_archive_latest_date"] = archive_latest_date if data_source == "archive" else None
+    item["cn_10y_bond_yield_backup_date"] = bond_backup_date
 
 
 def attach_equity_bond_spread(item: Dict, bond_history: pd.DataFrame) -> None:

@@ -77,15 +77,19 @@ def test_attach_equity_bond_ratio_computes():
     assert item["cn_10y_bond_yield"] == 3.0
     assert item["cn_10y_bond_yield_data_source"] == "live"
     assert item["cn_10y_bond_yield_archive_latest_date"] is None
+    assert item["cn_10y_bond_yield_backup_date"] is None
 
 
 def test_attach_equity_bond_ratio_archive_source():
     item = {"index_valuation_metrics": {"PE(TTM)": {"current": "12.5"}}}
-    metrics.attach_equity_bond_ratio(item, 2.5, data_source="archive", archive_latest_date="2026-01-01")
+    metrics.attach_equity_bond_ratio(
+        item, 2.5, data_source="archive", archive_latest_date="2026-01-01", bond_backup_date="2026-08-11"
+    )
     # (1/12.5)*100 - 2.5 = 8.0 - 2.5 = 5.5
     assert item["equity_bond_ratio"] == 5.5
     assert item["cn_10y_bond_yield_data_source"] == "archive"
     assert item["cn_10y_bond_yield_archive_latest_date"] == "2026-01-01"
+    assert item["cn_10y_bond_yield_backup_date"] == "2026-08-11"
 
 
 def test_attach_equity_bond_ratio_no_metric_no_change():

@@ -685,17 +685,86 @@ def resolve_target_index_code(target: Dict) -> str:
 # ---------- 10Y 国债 ----------
 
 
-def fetch_cn_10y_bond_yield() -> Optional[float]:
+_CHINABOND_CURVE_NAME = "中债国债收益率曲线"
+
+# 模块级缓存:按天 key 缓存中债网当日备份结果,run.py 的 yield/history 两次调用共享一次请求。
+# 进程级,run 结束即清(不跨 run 残留);失败不缓存,保证同进程可重试。
+_CHINABOND_CACHE: Dict[str, Tuple[Optional[str], Optional[float]]] = {}
+
+
+def _bond_date_str(value: Any) -> Optional[str]:
+    """归一化国债日期为 'YYYY-MM-DD' 字符串;无法解析返回 None。"""
+    if value is None:
+        return None
     try:
-        start = (datetime.now(BEIJING_TZ) - timedelta(days=30)).strftime("%Y%m%d")
+        ts = pd.Timestamp(value)
+    except (TypeError, ValueError):
+        return None
+    return ts.strftime("%Y-%m-%d") if pd.notna(ts) else None
+
+
+def fetch_chinabond_10y_latest(
+    lookback_days: int = 15,
+    now: Optional[datetime] = None,
+) -> Tuple[Optional[str], Optional[float]]:
+    """中债网(chinabond)10Y 国债当日备份源。
+
+    返回最近一条 ``(date_str 'YYYY-MM-DD', yield_pct)``;接口失败或无数据返回 ``(None, None)``。
+    仅作为东方财富滞后时的当日补充,不写入归档。
+    """
+    try:
+        moment = now or datetime.now(BEIJING_TZ)
+        key = moment.strftime("%Y-%m-%d")
+        if key in _CHINABOND_CACHE:
+            return _CHINABOND_CACHE[key]
+        end = moment.strftime("%Y%m%d")
+        start = (moment - timedelta(days=lookback_days)).strftime("%Y%m%d")
+        df = ak.bond_china_yield(start_date=start, end_date=end)
+        if getattr(df, "empty", True):
+            return None, None
+        if "曲线名称" in df.columns:
+            df = df[df["曲线名称"] == _CHINABOND_CURVE_NAME]
+        if df.empty or "10年" not in df.columns or "日期" not in df.columns:
+            return None, None
+        df = df[["日期", "10年"]].dropna().sort_values("日期")
+        if df.empty:
+            return None, None
+        last = df.iloc[-1]
+        result = (_bond_date_str(last["日期"]), float(last["10年"]))
+        # 仅请求成功(日期、收益率均非 None)才缓存;失败不缓存以便同进程重试
+        if result[0] is not None and result[1] is not None:
+            _CHINABOND_CACHE[key] = result
+        return result
+    except Exception as exc:  # noqa: BLE001
+        print(f"[WARN] 中债网10Y国债备份获取失败: {exc}")
+        return None, None
+
+
+def fetch_cn_10y_bond_yield(now: Optional[datetime] = None) -> Optional[float]:
+    """东方财富 10Y 国债收益率;当其最新日期早于今天时,用中债网当日备份补足。"""
+    moment = now or datetime.now(BEIJING_TZ)
+    today = moment.strftime("%Y-%m-%d")
+    em_date: Optional[str] = None
+    em_yield: Optional[float] = None
+    try:
+        start = (moment - timedelta(days=30)).strftime("%Y%m%d")
         df = ak.bond_zh_us_rate(start_date=start)
-        if _CN_10Y_BOND_YIELD_COL not in df.columns:
-            return None
-        series = df[_CN_10Y_BOND_YIELD_COL].dropna()
-        return float(series.iloc[-1]) if not series.empty else None
+        if _CN_10Y_BOND_YIELD_COL in df.columns and "日期" in df.columns:
+            # 同行对齐 dropna + 按日期排序,避免"日期列有今天、10Y 列还是 NaN(部分发布)"
+            # 时取到昨天的收益率配上今天的日期,从而误判已新鲜、跳过中债网备份。
+            clean = df.dropna(subset=[_CN_10Y_BOND_YIELD_COL, "日期"]).sort_values("日期")
+            if not clean.empty:
+                last = clean.iloc[-1]
+                em_yield = float(last[_CN_10Y_BOND_YIELD_COL])
+                em_date = _bond_date_str(last["日期"])
     except Exception as exc:  # noqa: BLE001
         print(f"[WARN] 10年期国债收益率获取失败: {exc}")
-        return None
+    if em_date is not None and em_date >= today:
+        return em_yield
+    cb_date, cb_yield = fetch_chinabond_10y_latest(now=moment)
+    if cb_yield is not None and cb_date is not None and (em_date is None or cb_date > em_date):
+        return cb_yield
+    return em_yield
 
 
 def fetch_cn_10y_bond_history(lookback_years: int = 11) -> pd.DataFrame:
@@ -711,25 +780,44 @@ def fetch_cn_10y_bond_history(lookback_years: int = 11) -> pd.DataFrame:
     return result.dropna().sort_values("date").reset_index(drop=True)
 
 
+def _append_chinabond_backup(
+    history: pd.DataFrame, now: datetime
+) -> Tuple[pd.DataFrame, Optional[str]]:
+    """若历史最新日期早于今天,用中债网当日备份补一行 10Y 国债;返回 (历史, 备份日期)。"""
+    if history.empty:
+        return history, None
+    latest_ts = history["date"].iloc[-1]
+    if pd.isna(latest_ts):
+        return history, None
+    latest_str = pd.Timestamp(latest_ts).strftime("%Y-%m-%d")
+    if latest_str >= now.strftime("%Y-%m-%d"):
+        return history, None
+    cb_date, cb_yield = fetch_chinabond_10y_latest(now=now)
+    if cb_yield is None or cb_date is None or cb_date <= latest_str:
+        return history, None
+    new_row = pd.DataFrame({"date": [pd.Timestamp(cb_date)], "yield_pct": [cb_yield]})
+    history = pd.concat([history, new_row], ignore_index=True)
+    return history.sort_values("date").reset_index(drop=True), cb_date
+
+
 def fetch_cn_10y_bond_history_with_archive_fallback(
     lookback_years: int = 11,
     archive_root: Path = storage.ARCHIVE_DIR,
     now: Optional[datetime] = None,
 ) -> Tuple[pd.DataFrame, Dict[str, Optional[str]]]:
+    moment = now or datetime.now(BEIJING_TZ)
     try:
         live_df = (
             fetch_cn_10y_bond_history()
             if lookback_years == 11
             else fetch_cn_10y_bond_history(lookback_years=lookback_years)
         )
-        return live_df, {
-            "data_source": "live",
-            "archive_latest_date": None,
-        }
+        result = live_df
+        meta: Dict[str, Optional[str]] = {"data_source": "live", "archive_latest_date": None}
     except Exception as live_exc:  # noqa: BLE001
         records = load_archive_records("bond_10y", archive_root=archive_root)
         latest_date = _get_latest_record_date(records, ("日期", "date"))
-        if not latest_date or not is_archive_fresh(latest_date, now=now):
+        if not latest_date or not is_archive_fresh(latest_date, now=moment):
             raise live_exc
         df = pd.DataFrame(records)
         if _CN_10Y_BOND_YIELD_COL not in df.columns or "日期" not in df.columns:
@@ -742,7 +830,10 @@ def fetch_cn_10y_bond_history_with_archive_fallback(
         if result.empty:
             raise live_exc
         print(f"[WARN] 10年期国债历史实时接口失败,已回退归档 -> {live_exc}")
-        return result, {"data_source": "archive", "archive_latest_date": latest_date}
+        meta = {"data_source": "archive", "archive_latest_date": latest_date}
+    result, backup_date = _append_chinabond_backup(result, moment)
+    meta["bond_backup_date"] = backup_date
+    return result, meta
 
 
 # ---------- 汇率 ----------

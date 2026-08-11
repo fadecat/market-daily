@@ -132,6 +132,7 @@ def _fetch_valuation_items(
                 cn_10y_yield,
                 data_source=cn_10y_bond_meta.get("data_source") or "live",
                 archive_latest_date=cn_10y_bond_meta.get("archive_latest_date"),
+                bond_backup_date=cn_10y_bond_meta.get("bond_backup_date"),
             )
         if overlay is None and cn_10y_bond_history is not None and not cn_10y_bond_history.empty:
             metrics.attach_equity_bond_spread(item, cn_10y_bond_history)

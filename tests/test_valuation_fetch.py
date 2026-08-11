@@ -6,6 +6,7 @@ tmp_path 归档 fixture 覆盖。符号/解析/归档新鲜度/多源回退/聚�
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -13,6 +14,14 @@ import pandas as pd
 import pytest
 
 from src.valuation import fetch
+
+
+@pytest.fixture(autouse=True)
+def _clear_chinabond_cache():
+    """模块级 _CHINABOND_CACHE 跨用例残留会假绿:每用例前后清空。"""
+    fetch._CHINABOND_CACHE.clear()
+    yield
+    fetch._CHINABOND_CACHE.clear()
 
 
 # ---------- 符号 / DataFrame 小工具 ----------
@@ -378,9 +387,13 @@ def test_bond_history_fallback_to_archive(monkeypatch, tmp_path):
         [{"日期": "2026-08-04", "中国国债收益率10年": 1.71}, {"日期": "2026-08-03", "中国国债收益率10年": 1.70}],
     )
     monkeypatch.setattr(fetch, "fetch_cn_10y_bond_history", lambda lookback_years=11: (_ for _ in ()).throw(RuntimeError("net")))
-    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(archive_root=tmp_path)
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", lambda **kw: (None, None))
+    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(
+        archive_root=tmp_path, now=datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    )
     assert meta["data_source"] == "archive"
     assert meta["archive_latest_date"] == "2026-08-04"
+    assert meta["bond_backup_date"] is None
     assert len(df) == 2
     assert df["yield_pct"].iloc[-1] == 1.71
 
@@ -388,9 +401,168 @@ def test_bond_history_fallback_to_archive(monkeypatch, tmp_path):
 def test_bond_history_live_success(monkeypatch, tmp_path):
     live_df = pd.DataFrame({"date": pd.to_datetime(["2026-08-04"]), "yield_pct": [1.71]})
     monkeypatch.setattr(fetch, "fetch_cn_10y_bond_history", lambda lookback_years=11: live_df)
-    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(archive_root=tmp_path)
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", lambda **kw: (None, None))
+    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(
+        archive_root=tmp_path, now=datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    )
     assert meta["data_source"] == "live"
+    assert meta["bond_backup_date"] is None
     assert len(df) == 1
+
+
+def test_bond_history_appends_chinabond_backup_when_live_lags(monkeypatch, tmp_path):
+    live_df = pd.DataFrame({"date": pd.to_datetime(["2026-08-04"]), "yield_pct": [1.70]})
+    monkeypatch.setattr(fetch, "fetch_cn_10y_bond_history", lambda lookback_years=11: live_df)
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", lambda **kw: ("2026-08-05", 1.7161))
+    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(
+        archive_root=tmp_path, now=datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    )
+    assert meta["data_source"] == "live"
+    assert meta["bond_backup_date"] == "2026-08-05"
+    assert len(df) == 2
+    assert df["date"].iloc[-1] == pd.Timestamp("2026-08-05")
+    assert df["yield_pct"].iloc[-1] == 1.7161
+
+
+def test_bond_history_skips_backup_when_live_has_today(monkeypatch, tmp_path):
+    live_df = pd.DataFrame({"date": pd.to_datetime(["2026-08-05"]), "yield_pct": [1.7161]})
+    monkeypatch.setattr(fetch, "fetch_cn_10y_bond_history", lambda lookback_years=11: live_df)
+    calls = {"n": 0}
+
+    def fake_backup(**kw):
+        calls["n"] += 1
+        return ("2026-08-05", 1.7161)
+
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", fake_backup)
+    df, meta = fetch.fetch_cn_10y_bond_history_with_archive_fallback(
+        archive_root=tmp_path, now=datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    )
+    assert len(df) == 1
+    assert meta["bond_backup_date"] is None
+    assert calls["n"] == 0
+
+
+def test_bond_yield_uses_chinabond_backup_when_eastmoney_lags(monkeypatch):
+    em_df = pd.DataFrame({"日期": ["2026-08-04"], "中国国债收益率10年": [1.70]})
+    monkeypatch.setattr(fetch.ak, "bond_zh_us_rate", lambda start_date: em_df)
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", lambda **kw: ("2026-08-05", 1.7161))
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    assert fetch.fetch_cn_10y_bond_yield(now=moment) == 1.7161
+
+
+def test_bond_yield_keeps_eastmoney_when_already_today(monkeypatch):
+    em_df = pd.DataFrame({"日期": ["2026-08-05"], "中国国债收益率10年": [1.72]})
+    monkeypatch.setattr(fetch.ak, "bond_zh_us_rate", lambda start_date: em_df)
+    calls = {"n": 0}
+
+    def fake_backup(**kw):
+        calls["n"] += 1
+        return ("2026-08-05", 1.7161)
+
+    monkeypatch.setattr(fetch, "fetch_chinabond_10y_latest", fake_backup)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    assert fetch.fetch_cn_10y_bond_yield(now=moment) == 1.72
+    assert calls["n"] == 0
+
+
+def test_fetch_chinabond_10y_latest_filters_curve_and_picks_latest(monkeypatch):
+    """直测中债网解析:多条曲线混在一起时,只取中债国债收益率曲线的 10年 列最新一行。"""
+    df = pd.DataFrame(
+        {
+            "曲线名称": [
+                "中债国债收益率曲线",
+                "中债国债收益率曲线",
+                "中债企业债收益率曲线(AAA)",
+                "中债企业债收益率曲线(AAA)",
+            ],
+            "日期": ["2026-08-04", "2026-08-05", "2026-08-04", "2026-08-05"],
+            "10年": [1.70, 1.7161, 2.10, 2.11],
+        }
+    )
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", lambda start_date, end_date: df)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest(now=moment)
+    assert cb_date == "2026-08-05"
+    assert cb_yield == 1.7161
+
+
+def test_fetch_chinabond_10y_latest_returns_none_on_empty(monkeypatch):
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", lambda start_date, end_date: pd.DataFrame())
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest()
+    assert cb_date is None and cb_yield is None
+
+
+def test_fetch_chinabond_10y_latest_no_curve_name_column(monkeypatch):
+    """df 无"曲线名称"列 -> 跳过曲线过滤分支,直接取最新一行;不崩且取到值。"""
+    df = pd.DataFrame(
+        {"日期": ["2026-08-04", "2026-08-05"], "10年": [1.70, 1.7161]}
+    )
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", lambda start_date, end_date: df)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest(now=moment)
+    assert cb_date == "2026-08-05"
+    assert cb_yield == 1.7161
+
+
+def test_fetch_chinabond_10y_latest_missing_10y_column(monkeypatch):
+    """df 缺"10年"列 -> 返回 (None, None),且失败不写缓存。"""
+    df = pd.DataFrame(
+        {"曲线名称": ["中债国债收益率曲线"], "日期": ["2026-08-05"], "5年": [1.50]}
+    )
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", lambda start_date, end_date: df)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest(now=moment)
+    assert cb_date is None and cb_yield is None
+    assert "2026-08-05" not in fetch._CHINABOND_CACHE
+
+
+def test_fetch_chinabond_10y_latest_drops_nan_yield(monkeypatch):
+    """df"10年"列含 NaN 行 -> dropna 跳过 NaN,只取非 NaN 最新行。"""
+    df = pd.DataFrame(
+        {
+            "曲线名称": ["中债国债收益率曲线"] * 3,
+            "日期": ["2026-08-03", "2026-08-04", "2026-08-05"],
+            "10年": [1.69, float("nan"), 1.7161],
+        }
+    )
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", lambda start_date, end_date: df)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    cb_date, cb_yield = fetch.fetch_chinabond_10y_latest(now=moment)
+    assert cb_date == "2026-08-05"
+    assert cb_yield == 1.7161
+
+
+def test_fetch_chinabond_10y_latest_cache_shares_within_same_day(monkeypatch):
+    """同一天(同 key)第二次调用命中缓存,不再请求 ak -> run.py 的 yield/history 共享一次请求。"""
+    df = pd.DataFrame({"曲线名称": ["中债国债收益率曲线"], "日期": ["2026-08-05"], "10年": [1.7161]})
+    calls = {"n": 0}
+
+    def fake_ak(start_date, end_date):
+        calls["n"] += 1
+        return df
+
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", fake_ak)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    r1 = fetch.fetch_chinabond_10y_latest(now=moment)
+    r2 = fetch.fetch_chinabond_10y_latest(now=moment)
+    assert r1 == r2 == ("2026-08-05", 1.7161)
+    assert calls["n"] == 1  # 第二次命中缓存,未再请求
+
+
+def test_fetch_chinabond_10y_latest_failure_not_cached_so_retry_possible(monkeypatch):
+    """失败不缓存:第一次空,第二次换有效 df 仍能取到值(同进程可重试)。"""
+    state = {"empty": True}
+
+    def fake_ak(start_date, end_date):
+        if state["empty"]:
+            state["empty"] = False
+            return pd.DataFrame()
+        return pd.DataFrame({"曲线名称": ["中债国债收益率曲线"], "日期": ["2026-08-05"], "10年": [1.7161]})
+
+    monkeypatch.setattr(fetch.ak, "bond_china_yield", fake_ak)
+    moment = datetime(2026, 8, 5, 16, 0, tzinfo=fetch.BEIJING_TZ)
+    assert fetch.fetch_chinabond_10y_latest(now=moment) == (None, None)
+    assert fetch.fetch_chinabond_10y_latest(now=moment) == ("2026-08-05", 1.7161)
 
 
 # ---------- archive fallback: fx ----------
