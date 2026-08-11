@@ -62,6 +62,9 @@ DEFAULT_INDEX_DIVIDEND_YIELD_URL_TEMPLATE = (
     "https://cdn.efunds.com.cn/etf-net/index_dividend_ratio_{index_code}.json"
 )
 DEFAULT_INDEX_EOD_PRICE_URL_TEMPLATE = "https://cdn.efunds.com.cn/etf-net/index_eod_price_{index_code}.json"
+# 备用当日行情源（尚未接入）：
+# https://www.etf.com.cn/api/etf-api-service/index-quotes/quote?symbol={index_code}&lastTimestamp=
+# 用于获取指数当日价格与涨跌，不作为 EOD 归档或估值计算的数据源。
 DEFAULT_INDEX_VALUATION_PERCENTILE_URL_TEMPLATE = (
     "https://cdn.efunds.com.cn/etf-net/index_valuation_percentile_{index_code}.json"
 )
