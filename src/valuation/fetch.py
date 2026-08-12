@@ -62,9 +62,9 @@ DEFAULT_INDEX_DIVIDEND_YIELD_URL_TEMPLATE = (
     "https://cdn.efunds.com.cn/etf-net/index_dividend_ratio_{index_code}.json"
 )
 DEFAULT_INDEX_EOD_PRICE_URL_TEMPLATE = "https://cdn.efunds.com.cn/etf-net/index_eod_price_{index_code}.json"
-# 备用当日行情源（尚未接入）：
-# https://www.etf.com.cn/api/etf-api-service/index-quotes/quote?symbol={index_code}&lastTimestamp=
-# 用于获取指数当日价格与涨跌，不作为 EOD 归档或估值计算的数据源。
+DEFAULT_INDEX_QUOTE_URL_TEMPLATE = (
+    "https://www.etf.com.cn/api/etf-api-service/index-quotes/quote?symbol={index_code}&lastTimestamp="
+)
 DEFAULT_INDEX_VALUATION_PERCENTILE_URL_TEMPLATE = (
     "https://cdn.efunds.com.cn/etf-net/index_valuation_percentile_{index_code}.json"
 )
@@ -575,6 +575,39 @@ def fetch_index_eod_price_data(code: str, start_date: str, end_date: str, url: s
     if clipped.empty:
         raise ValueError(f"指数 EOD 价格在区间 {start_date}-{end_date} 内无数据")
     return clipped
+
+
+def fetch_latest_index_close_with_archive_fallback(
+    index_code: str, archive_root: Path = storage.ARCHIVE_DIR
+) -> Dict[str, object]:
+    """Return the newest close, preferring the real-time quote over the EOD archive."""
+    digits = extract_index_digits(index_code)
+    if not digits:
+        raise ValueError(f"无法识别追踪指数代码: {index_code}")
+    try:
+        response = requests.get(
+            DEFAULT_INDEX_QUOTE_URL_TEMPLATE.format(index_code=digits), timeout=15
+        )
+        response.raise_for_status()
+        payload = response.json()
+        quote = payload.get("data", {}).get("latestQuote", {}) if isinstance(payload, dict) else {}
+        date = parse_optional_date(quote.get("date")) if isinstance(quote, dict) else None
+        close = parse_float(quote.get("lastPrice")) if isinstance(quote, dict) else None
+        if date is None or close is None or close <= 0:
+            raise ValueError("实时指数报价缺少有效日期或收盘价")
+        return {"date": date.strftime("%Y-%m-%d"), "close": close, "data_source": "live"}
+    except Exception as live_exc:  # noqa: BLE001
+        records = load_archive_records("index_eod", index_code=digits, archive_root=archive_root)
+        latest: tuple[pd.Timestamp, float] | None = None
+        for row in records:
+            date = parse_optional_date(row.get("trdDt", row.get("date")))
+            close = parse_float(row.get("pxClose", row.get("close")))
+            if date is not None and close is not None and close > 0 and (latest is None or date > latest[0]):
+                latest = (date, close)
+        if latest is None:
+            raise RuntimeError(f"实时指数报价失败且归档无有效收盘价: {digits} -> {live_exc}") from live_exc
+        print(f"[WARN] 实时指数报价失败,已回退归档: {digits} -> {live_exc}")
+        return {"date": latest[0].strftime("%Y-%m-%d"), "close": latest[1], "data_source": "archive"}
 
 
 # ---------- 指数估值分位 ----------

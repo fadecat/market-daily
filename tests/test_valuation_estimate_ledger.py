@@ -114,6 +114,36 @@ def test_builder_skips_date_without_same_day_bond(tmp_path):
     ) == []
 
 
+def test_builder_uses_runtime_close_missing_from_archive(tmp_path):
+    archive = tmp_path / "archive"
+    _write_archive(
+        archive / "index_eod" / "931233.json",
+        [{"trdDt": "2026-08-10", "pxClose": 100.0}],
+    )
+    _write_archive(
+        archive / "index_valuation_percentile" / "931233.json",
+        [{"trdDt": "2026-08-10", "pETtm": 10.0, "pBLf": 1.0}],
+    )
+    _write_archive(
+        archive / "index_dividend_ratio" / "931233.json",
+        [{"trdDt": "2026-08-10", "dividendYield": 4.0}],
+    )
+    bonds = pd.DataFrame(
+        {"date": pd.to_datetime(["2026-08-10", "2026-08-11"]), "yield_pct": [1.7074, 1.7161]}
+    )
+
+    rows = build_estimate_records(
+        "931233",
+        archive_root=archive,
+        bond_history=bonds,
+        latest_close={"date": "2026-08-11", "close": 120.0},
+    )
+
+    assert [row["estimate_date"] for row in rows] == ["2026-08-11"]
+    assert rows[0]["inputs"]["estimate_close"] == 120.0
+    assert rows[0]["estimates"]["pe_ttm"] == 12.0
+
+
 def test_builder_uses_independent_valuation_and_dividend_bases(tmp_path):
     archive = tmp_path / "archive"
     _write_archive(

@@ -159,7 +159,11 @@ def _estimate_row(
 
 
 def build_estimate_records(
-    index_code: str, *, archive_root: Path | str, bond_history: pd.DataFrame
+    index_code: str,
+    *,
+    archive_root: Path | str,
+    bond_history: pd.DataFrame,
+    latest_close: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Build one estimate for each price day lacking complete official inputs.
 
@@ -169,6 +173,11 @@ def build_estimate_records(
     """
     root = Path(archive_root)
     prices = _load_price_map(index_code, root)
+    if isinstance(latest_close, dict):
+        latest_date = _date_string(latest_close.get("date"))
+        latest_price = _safe_float(latest_close.get("close"))
+        if latest_date and latest_price is not None and latest_price > 0:
+            prices[latest_date] = latest_price
     valuations = _load_valuation_map(index_code, root)
     dividends = _load_dividend_map(index_code, root)
     bonds = _bond_map(bond_history)
@@ -331,6 +340,7 @@ def refresh_estimate_ledger(
     output_root: Path | str = DEFAULT_OUTPUT_ROOT,
     bond_history: pd.DataFrame | None = None,
     bond_history_fetcher: Callable[..., Any] = fetch.fetch_cn_10y_bond_history_with_archive_fallback,
+    latest_close: dict[str, Any] | None = None,
 ) -> bool:
     """Build and persist one index's estimates, upserting by ``estimate_date``."""
     code = _validate_index_code(index_code)
@@ -341,7 +351,7 @@ def refresh_estimate_ledger(
         fetched = bond_history_fetcher(archive_root=archive_path)
         bond_history = fetched[0] if isinstance(fetched, tuple) else fetched
     incoming = build_estimate_records(
-        code, archive_root=archive_path, bond_history=bond_history
+        code, archive_root=archive_path, bond_history=bond_history, latest_close=latest_close
     )
     return _upsert_and_write(Path(output_root) / f"{code}.json", code, incoming)
 

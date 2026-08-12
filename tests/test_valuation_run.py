@@ -147,6 +147,8 @@ def test_fetch_valuation_items_uses_actual_index_code_for_etf_estimate_overlay(m
     monkeypatch.setattr(
         run.fetch, "fetch_target_index_metrics", lambda target: _fake_metrics("931052", "2024-05-10")
     )
+    runtime_close = {"date": "2024-05-10", "close": 100.0, "data_source": "archive"}
+    monkeypatch.setattr(run.fetch, "fetch_latest_index_close_with_archive_fallback", lambda *a, **k: runtime_close)
     monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: pytest.fail("overlay 应跳过常规股债比"))
     monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: pytest.fail("overlay 应跳过常规股债收益差"))
     monkeypatch.setattr(
@@ -181,8 +183,8 @@ def test_fetch_valuation_items_uses_actual_index_code_for_etf_estimate_overlay(m
     )
 
     assert items[0]["index_code"] == "931052"
-    assert calls["latest"][0][0] == "931052"
-    assert calls["refresh"] == [("931052", {"bond_history": bond_history})]
+    assert calls["latest"] == []
+    assert calls["refresh"] == [("931052", {"bond_history": bond_history, "latest_close": runtime_close})]
     assert calls["load"] == [("931052", "2024-05-10", {"output_root": tmp_path / "ledger"})]
     assert calls["apply"][0][1]["price_date"] == "2024-05-10"
     assert calls["apply"][0][1]["bond_history"] is bond_history
@@ -226,6 +228,42 @@ def test_fetch_valuation_items_uses_estimated_item_for_email_and_chart(monkeypat
     assert chart_items == [(estimated_item, {"pe_history": "estimated-pe-history"})]
 
 
+def test_fetch_valuation_items_passes_realtime_close_to_estimate(monkeypatch, tmp_path):
+    bond_history = _fake_bond_history()
+    overlay = SimpleNamespace(item=_fake_metrics("931233", "2026-08-12"), pe_history="estimated-pe-history")
+    runtime_close = {"date": "2026-08-12", "close": 1140.986, "data_source": "live"}
+    calls = {}
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch,
+        "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda target: _fake_metrics("931233", "2026-08-11"))
+    monkeypatch.setattr(run.fetch, "fetch_latest_index_close_with_archive_fallback", lambda *a, **k: runtime_close)
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: pytest.fail("must use overlay"))
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: pytest.fail("must use overlay"))
+    monkeypatch.setattr(
+        run.estimate_ledger,
+        "refresh_estimate_ledger",
+        lambda code, **kwargs: calls.setdefault("refresh", (code, kwargs)),
+    )
+    monkeypatch.setattr(run.estimate_ledger, "load_estimate_record", lambda *a, **k: {"estimate_date": "2026-08-12"})
+    monkeypatch.setattr(
+        run.estimate_overlay,
+        "apply_from_archives",
+        lambda item, **kwargs: calls.setdefault("apply", kwargs) and overlay,
+    )
+    monkeypatch.setattr(run.charts, "generate_valuation_percentile_chart", lambda *a, **k: None)
+
+    items, _ = run._fetch_valuation_items([{"name": "港股通央企红利", "code": "931233"}], tmp_path)
+
+    assert items == [overlay.item]
+    assert calls["refresh"] == ("931233", {"bond_history": bond_history, "latest_close": runtime_close})
+    assert calls["apply"]["price_date"] == "2026-08-12"
+    assert calls["apply"]["latest_close"] == runtime_close
+
+
 def test_fetch_valuation_items_skips_estimate_when_official_values_match_latest_close(monkeypatch, tmp_path):
     bond_history = _fake_bond_history()
     official_item = _fake_metrics("930955", "2026-08-10")
@@ -237,7 +275,11 @@ def test_fetch_valuation_items_skips_estimate_when_official_values_match_latest_
         lambda *a, **k: (bond_history, {"data_source": "live", "archive_latest_date": None}),
     )
     monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda target: official_item)
-    monkeypatch.setattr(run.estimate_overlay, "latest_price_date", lambda *a, **k: "2026-08-10")
+    monkeypatch.setattr(
+        run.fetch,
+        "fetch_latest_index_close_with_archive_fallback",
+        lambda *a, **k: {"date": "2026-08-10", "close": 100.0, "data_source": "archive"},
+    )
     monkeypatch.setattr(run.estimate_ledger, "refresh_estimate_ledger", lambda *a, **k: pytest.fail("official data must not refresh an estimate"))
     monkeypatch.setattr(run.estimate_ledger, "load_estimate_record", lambda *a, **k: pytest.fail("official data must not load an estimate"))
     monkeypatch.setattr(run.estimate_overlay, "apply_from_archives", lambda *a, **k: pytest.fail("official data must not apply an estimate"))

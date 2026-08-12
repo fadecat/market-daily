@@ -112,6 +112,56 @@ def test_build_index_eod_price_url():
     assert "index_eod_price_000300" in fetch.build_index_eod_price_url("000300")
 
 
+def test_fetch_latest_index_close_prefers_realtime_quote(monkeypatch, tmp_path):
+    _write_archive(
+        tmp_path / "index_eod" / "931233.json",
+        [{"trdDt": "2026-08-11", "pxClose": 1148.5547}],
+    )
+    monkeypatch.setattr(
+        fetch.requests,
+        "get",
+        lambda *args, **kwargs: type(
+            "Response",
+            (),
+            {
+                "raise_for_status": lambda self: None,
+                "json": lambda self: {
+                    "data": {
+                        "latestQuote": {
+                            "date": 20260812,
+                            "lastPrice": 1140.986,
+                        }
+                    }
+                },
+            },
+        )(),
+    )
+
+    result = fetch.fetch_latest_index_close_with_archive_fallback(
+        "931233", archive_root=tmp_path
+    )
+
+    assert result == {"date": "2026-08-12", "close": 1140.986, "data_source": "live"}
+
+
+def test_fetch_latest_index_close_falls_back_to_archive_when_realtime_quote_fails(monkeypatch, tmp_path):
+    _write_archive(
+        tmp_path / "index_eod" / "931233.json",
+        [{"trdDt": "2026-08-11", "pxClose": 1148.5547}],
+    )
+    monkeypatch.setattr(
+        fetch.requests,
+        "get",
+        lambda *args, **kwargs: (_ for _ in ()).throw(requests.RequestException("quote down")),
+    )
+
+    result = fetch.fetch_latest_index_close_with_archive_fallback(
+        "931233", archive_root=tmp_path
+    )
+
+    assert result == {"date": "2026-08-11", "close": 1148.5547, "data_source": "archive"}
+
+
 def test_valuation_target_extracts_index_code_from_detail_url():
     target = {
         "type": "valuation",
@@ -251,8 +301,8 @@ def test_get_latest_record_date():
 
 
 def test_is_archive_fresh_within_7_days():
-    # now 默认北京时间今天;2026-08-04 距 2026-08-06 = 2 天 -> fresh
-    assert fetch.is_archive_fresh("2026-08-04") is True
+    now = datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    assert fetch.is_archive_fresh("2026-08-04", now=now) is True
 
 
 def test_is_archive_fresh_stale():
@@ -335,7 +385,9 @@ def test_fetch_index_detail_uses_url(monkeypatch):
 
 def test_dividend_yield_live_success(monkeypatch, tmp_path):
     monkeypatch.setattr(fetch, "fetch_json_response", lambda n, u: _div_rows())
-    out = fetch.fetch_index_dividend_yield_with_archive_fallback("000300", archive_root=tmp_path)
+    out = fetch.fetch_index_dividend_yield_with_archive_fallback(
+        "000300", archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    )
     assert out["data_source"] == "live"
     assert out["archive_latest_date"] is None
     assert out["index_dividend_yield"] == 2.53
@@ -347,7 +399,9 @@ def test_dividend_yield_fallback_to_fresh_archive(monkeypatch, tmp_path):
         [{"trdDt": "2026-08-04", "dividendYield": 2.5, "trdCode": "000300"}],
     )
     monkeypatch.setattr(fetch, "fetch_json_response", lambda n, u: (_ for _ in ()).throw(RuntimeError("net")))
-    out = fetch.fetch_index_dividend_yield_with_archive_fallback("000300", archive_root=tmp_path)
+    out = fetch.fetch_index_dividend_yield_with_archive_fallback(
+        "000300", archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    )
     assert out["data_source"] == "archive"
     assert out["archive_latest_date"] == "2026-08-04"
     assert out["index_dividend_yield"] == 2.5
@@ -372,7 +426,9 @@ def test_valuation_percentile_fallback_to_archive(monkeypatch, tmp_path):
         [{"trdDt": "2026-08-04", "pETtm": 12.5, "pETtm5Y": 35.0}],
     )
     monkeypatch.setattr(fetch, "fetch_json_response", lambda n, u: (_ for _ in ()).throw(RuntimeError("net")))
-    out = fetch.fetch_index_valuation_percentile_with_archive_fallback("000300", archive_root=tmp_path)
+    out = fetch.fetch_index_valuation_percentile_with_archive_fallback(
+        "000300", archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    )
     assert out["data_source"] == "archive"
     assert out["index_valuation_date"] == "2026-08-04"
     assert out["index_valuation_metrics"]["PE(TTM)"]["current"] == 12.5
@@ -577,7 +633,9 @@ def test_fx_fallback_to_archive(monkeypatch, tmp_path):
     monkeypatch.setattr(fetch.ak, "currency_boc_safe", lambda: (_ for _ in ()).throw(RuntimeError("safe")))
     monkeypatch.setattr(fetch.ak, "forex_hist_em", lambda symbol: (_ for _ in ()).throw(RuntimeError("em")))
     monkeypatch.setattr(fetch.alerts, "run_with_retry", lambda name, fn: fn())  # 跳过重试包装
-    df = fetch.fetch_fx_history_with_archive_fallback(archive_root=tmp_path)
+    df = fetch.fetch_fx_history_with_archive_fallback(
+        archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    )
     assert len(df) == 1
     assert df["市场价"].iloc[-1] == 7.15
 
@@ -599,7 +657,9 @@ def test_pe_history_fallback_to_archive(monkeypatch, tmp_path):
         [{"trdDt": "2026-08-03", "pETtm": 12.0}, {"trdDt": "2026-08-04", "pETtm": 12.5}],
     )
     monkeypatch.setattr(fetch, "fetch_index_pe_history", lambda code, url="": (_ for _ in ()).throw(RuntimeError("net")))
-    df, meta = fetch.fetch_index_pe_history_with_archive_fallback("000300", archive_root=tmp_path)
+    df, meta = fetch.fetch_index_pe_history_with_archive_fallback(
+        "000300", archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
+    )
     assert meta["data_source"] == "archive"
     assert len(df) == 2
     assert df["pe"].iloc[-1] == 12.5

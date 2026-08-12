@@ -99,12 +99,15 @@ def _fetch_valuation_items(
                 raise ValueError("缺少 index_code")
             if cn_10y_bond_history is None or cn_10y_bond_history.empty:
                 raise ValueError("缺少可复用的 10Y 国债历史")
-            price_date = estimate_overlay.latest_price_date(index_code, storage.ARCHIVE_DIR)
+            latest_close = fetch.fetch_latest_index_close_with_archive_fallback(
+                index_code, archive_root=storage.ARCHIVE_DIR
+            )
+            price_date = str(latest_close.get("date") or "").strip()
             if not price_date:
                 raise ValueError("缺少最新收盘价日期")
             if not _has_complete_official_values(item, price_date):
                 estimate_ledger.refresh_estimate_ledger(
-                    index_code, bond_history=cn_10y_bond_history
+                    index_code, bond_history=cn_10y_bond_history, latest_close=latest_close
                 )
                 estimate = estimate_ledger.load_estimate_record(
                     index_code,
@@ -119,6 +122,7 @@ def _fetch_valuation_items(
                     price_date=price_date,
                     archive_root=storage.ARCHIVE_DIR,
                     bond_history=cn_10y_bond_history,
+                    latest_close=latest_close,
                 )
                 if overlay is None:
                     raise ValueError("估算覆盖缺少所需归档数据")

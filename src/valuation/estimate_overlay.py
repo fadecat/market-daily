@@ -245,6 +245,7 @@ def apply_from_archives(
     price_date: str,
     archive_root: Path | str,
     bond_history: pd.DataFrame,
+    latest_close: dict[str, Any] | None = None,
 ) -> EstimateOverlay | None:
     """Load local valuation, dividend and EOD archives before applying an estimate."""
     if not isinstance(item, dict):
@@ -266,6 +267,11 @@ def apply_from_archives(
         and (_number(row.get("pxClose", row.get("close")), positive=True) is not None)
         for row in eod_rows
     )
+    if isinstance(latest_close, dict):
+        has_target_close = has_target_close or (
+            _date_text(latest_close.get("date")) == target
+            and _number(latest_close.get("close"), positive=True) is not None
+        )
     if not has_target_close:
         return None
     return apply_estimate(
