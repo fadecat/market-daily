@@ -2,6 +2,8 @@ name: 市场估值日报
 
 on:
   schedule:
+    # UTC 00:00 (周日-周五) = Asia/Shanghai 次日 08:00,发送早间市场估值日报
+    - cron: "0 0 * * 0-5"
     # UTC 07:31 = Asia/Shanghai 15:31(收盘后);分钟错开避开 GitHub 整点拥堵,且与其它板块错峰提交
     - cron: "31 7 * * 1-5"
     # UTC 11:11 = Asia/Shanghai 19:11 晚间兜底补发(同日已发则 state 跳过)
