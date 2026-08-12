@@ -759,7 +759,7 @@ def test_fetch_style_rotation_special_index_history_from_tencent(monkeypatch):
     }
 
 
-def test_fetch_index_data_special_index_prefers_archive(monkeypatch, tmp_path):
+def test_fetch_index_data_special_index_prefers_tencent_live_over_archive(monkeypatch, tmp_path):
     _write_archive(
         tmp_path / "index_eod" / "399376.json",
         [{"trdDt": "2026-08-08", "pxClose": 111.0}, {"trdDt": "2026-08-09", "pxClose": 112.0}],
@@ -767,7 +767,26 @@ def test_fetch_index_data_special_index_prefers_archive(monkeypatch, tmp_path):
     monkeypatch.setattr(
         fetch,
         "fetch_style_rotation_special_index_history",
-        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("should not fetch live")),
+        lambda *args, **kwargs: pd.DataFrame(
+            {"date": pd.to_datetime(["2026-08-08", "2026-08-09"]), "close": [121.0, 122.0]}
+        ),
+    )
+
+    frame = fetch.fetch_index_data("399376", "20260801", "20260809", archive_root=tmp_path)
+
+    assert list(frame["date"].dt.strftime("%Y-%m-%d")) == ["2026-08-08", "2026-08-09"]
+    assert frame["close"].iloc[-1] == 122.0
+
+
+def test_fetch_index_data_special_index_falls_back_to_archive_when_tencent_fails(monkeypatch, tmp_path):
+    _write_archive(
+        tmp_path / "index_eod" / "399376.json",
+        [{"trdDt": "2026-08-08", "pxClose": 111.0}, {"trdDt": "2026-08-09", "pxClose": 112.0}],
+    )
+    monkeypatch.setattr(
+        fetch,
+        "fetch_style_rotation_special_index_history",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("tencent down")),
     )
 
     frame = fetch.fetch_index_data("399376", "20260801", "20260809", archive_root=tmp_path)

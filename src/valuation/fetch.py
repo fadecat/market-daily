@@ -1079,15 +1079,21 @@ def fetch_index_data(
     archive_root: Path = storage.ARCHIVE_DIR,
 ) -> pd.DataFrame:
     if is_style_rotation_special_index(code):
-        archived = _load_index_eod_archive_frame(code, start_date, end_date, archive_root=archive_root)
-        if not archived.empty:
-            print(f"[INFO] 风格指数数据来源: archive ({extract_index_digits(code)})")
-            return archived
-
-        live = fetch_style_rotation_special_index_history(code, start_date, end_date)
-        if not live.empty:
-            print(f"[INFO] 风格指数数据来源: tencent live ({extract_index_digits(code)})")
-            return live
+        try:
+            live = fetch_style_rotation_special_index_history(code, start_date, end_date)
+            if not live.empty:
+                print(f"[INFO] 风格指数数据来源: tencent live ({extract_index_digits(code)})")
+                return live
+            raise ValueError("腾讯行情返回空数据")
+        except Exception as live_exc:  # noqa: BLE001
+            archived = _load_index_eod_archive_frame(code, start_date, end_date, archive_root=archive_root)
+            if not archived.empty:
+                print(
+                    f"[WARN] 风格指数腾讯行情失败,已回退归档: "
+                    f"{extract_index_digits(code)} -> {live_exc}"
+                )
+                return archived
+            raise live_exc
 
     errors: List[str] = []
 
