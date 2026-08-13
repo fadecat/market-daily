@@ -27,6 +27,9 @@ except ImportError:  # pragma: no cover
 AES_KEY = "397151C04723421F"
 LOGIN_URL = "https://www.jisilu.cn/webapi/account/login_process/"
 ETF_LIST_URL = "https://www.jisilu.cn/data/etf/etf_list/"
+GOLD_LIST_URL = "https://www.jisilu.cn/data/etf/gold_list/"
+QDII_LIST_E_URL = "https://www.jisilu.cn/data/qdii/qdii_list/E"
+QDII_LIST_L_URL = "https://www.jisilu.cn/data/qdii/qdii_list/L"
 
 LOGIN_HEADERS = {
     "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -76,7 +79,7 @@ def apply_cookie_string(session: requests.Session, cookie_str: str) -> None:
 
 def _build_etf_list_params() -> dict[str, str]:
     timestamp_ms = str(int(time.time() * 1000))
-    return {"___jsl": f"LST___t={timestamp_ms}", "volume": "", "unit_total": "25", "rp": "25"}
+    return {"___jsl": f"LST___t={timestamp_ms}", "rp": "25"}
 
 
 def login_jisilu(
@@ -149,22 +152,56 @@ def get_cookie(username: Optional[str] = None, password: Optional[str] = None) -
     return cookie
 
 
-def fetch_etf_list(cookie_str: str, session: Optional[requests.Session] = None) -> dict:
-    """用 cookie 拉取集思录 ETF 列表。"""
+def fetch_jisilu_list(
+    url: str, cookie_str: str, session: Optional[requests.Session] = None
+) -> dict:
+    """用 cookie 拉取集思录列表接口(etf_list/gold_list/qdii_list 等),返回原始 json。"""
     if not cookie_str:
-        logger.error("Cookie 为空,无法请求 ETF 列表")
+        logger.error("Cookie 为空,无法请求集思录列表: %s", url)
         return {}
     request_session = session or requests.Session()
     apply_cookie_string(request_session, cookie_str)
     try:
         response = request_session.get(
-            ETF_LIST_URL, headers=ETF_LIST_HEADERS, params=_build_etf_list_params(), timeout=10
+            url, headers=ETF_LIST_HEADERS, params=_build_etf_list_params(), timeout=10
         )
         response.raise_for_status()
         return response.json()
     except Exception as exc:  # pragma: no cover
-        logger.exception("请求 ETF 列表异常: %s", exc)
+        logger.exception("请求集思录列表异常(%s): %s", url, exc)
         return {}
     finally:
         if session is None:
+            request_session.close()
+
+
+def fetch_etf_list(cookie_str: str, session: Optional[requests.Session] = None) -> dict:
+    """用 cookie 拉取集思录 ETF 列表(向后兼容)。"""
+    return fetch_jisilu_list(ETF_LIST_URL, cookie_str, session)
+
+
+# 实时列表接口:股票ETF / 黄金ETF / QDII(ETF+LOF),覆盖资产轮动全部标的。
+# etf/gold 列表日期字段为 last_dt;qdii 列表为 price_dt(last_dt 恒 None)。
+REALTIME_LIST_URLS = [ETF_LIST_URL, GOLD_LIST_URL, QDII_LIST_E_URL, QDII_LIST_L_URL]
+
+
+def fetch_realtime_lists(
+    cookie_str: str, session: Optional[requests.Session] = None
+) -> list[dict]:
+    """合并拉取股票ETF/黄金ETF/QDII 实时列表,按 fund_id 去重,返回 cell 字典列表。"""
+    own_session = session is None
+    request_session = session or requests.Session()
+    apply_cookie_string(request_session, cookie_str)
+    seen: dict[str, dict] = {}
+    try:
+        for url in REALTIME_LIST_URLS:
+            payload = fetch_jisilu_list(url, cookie_str, request_session)
+            for row in payload.get("rows", []):
+                cell = row.get("cell", {}) if isinstance(row, dict) else {}
+                fid = str(cell.get("fund_id", "")).strip()
+                if fid and fid not in seen:
+                    seen[fid] = cell
+        return list(seen.values())
+    finally:
+        if own_session:
             request_session.close()

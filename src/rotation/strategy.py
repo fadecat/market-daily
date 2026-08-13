@@ -111,16 +111,21 @@ def fetch_detail_history(
 def fetch_etf_list_realtime(
     cookie: str, session: requests.Session
 ) -> Dict[str, Dict[str, Any]]:
-    payload = jl.fetch_etf_list(cookie, session=session)
+    """合并拉股票ETF/黄金ETF/QDII 实时列表,返回 {code: {price, last_dt, last_time}}。
+
+    etf/gold 日期字段 last_dt;qdii 为 price_dt(last_dt 恒 None),统一取
+    last_dt or price_dt 作为 last_dt。
+    """
+    cells = jl.fetch_realtime_lists(cookie, session=session)
     result: Dict[str, Dict[str, Any]] = {}
-    for row in payload.get("rows", []):
-        cell = row.get("cell", {}) if isinstance(row, dict) else {}
+    for cell in cells:
         fid = str(cell.get("fund_id", "")).strip()
         if not fid:
             continue
+        last_dt = str(cell.get("last_dt") or cell.get("price_dt") or "").strip()
         result[fid] = {
             "price": parse_float(cell.get("price")),
-            "last_dt": str(cell.get("last_dt", "")).strip(),
+            "last_dt": last_dt,
             "last_time": str(cell.get("last_time", "")).strip(),
         }
     return result
@@ -152,25 +157,30 @@ def load_universe_prices(
 
     realtime = fetch_etf_list_realtime(cookie, session)
 
-    # ETF detail_hists 通常滞后一日，用 etf_list 实时价补当日收盘价
+    # detail_hists 通常滞后一日，用实时列表(etf/gold/qdii)补当日收盘价，eastmoney 兜底
     if latest_date:
+        missing_codes: List[str] = []
         for target in universe:
             code = target["code"]
-            if target["jisilu_category"] != "etf":
-                continue
             if latest_date in price_series.get(code, {}):
                 continue
             rt = realtime.get(code)
             if rt and rt.get("last_dt") == latest_date and rt.get("price") is not None:
                 price_series.setdefault(code, {})[latest_date] = rt["price"]
-                logger.info("etf_list 补价 %s @ %s = %s", code, latest_date, rt["price"])
-            else:
-                em = etf_data.fetch_close_series(code)
-                if latest_date in em:
-                    price_series.setdefault(code, {})[latest_date] = em[latest_date]
-                    logger.info("eastmoney 补价 %s @ %s = %s", code, latest_date, em[latest_date])
-                else:
-                    logger.warning("%s 缺当日收盘价，将前填充", code)
+                logger.info("实时列表补价 %s @ %s = %s", code, latest_date, rt["price"])
+                continue
+            em = etf_data.fetch_close_series(code)
+            if latest_date in em:
+                price_series.setdefault(code, {})[latest_date] = em[latest_date]
+                logger.info("eastmoney 补价 %s @ %s = %s", code, latest_date, em[latest_date])
+                continue
+            logger.warning("%s 缺当日收盘价，将前填充", code)
+            missing_codes.append(code)
+        if missing_codes:
+            alerts.notify_alert(
+                "资产轮动板块",
+                f"以下标的当日收盘价缺失,已前填充(次日回看重算纠正): {', '.join(missing_codes)}",
+            )
 
     price_frame = build_aligned_frame(price_series)
     nav_frame = build_aligned_frame(nav_series)
@@ -289,6 +299,40 @@ def backfill(
     )
 
 
+REPLAY_BACKLOOK = 2  # 续跑时回看重算最近 2 天,纠正补价 ffill 导致的 daily_return=0
+
+
+def _incremental_replay(
+    state: Dict[str, Any],
+    price_frame: pd.DataFrame,
+    nav_frame: pd.DataFrame,
+    universe_codes: List[str],
+    fallback_code: str,
+    lookback: int,
+    latest_date: str,
+) -> Tuple[List[Dict[str, Any]], float, str]:
+    """增量续跑:回看重算最近 REPLAY_BACKLOOK 天 + 新增交易日,覆盖 history 末尾。
+
+    防止某天补价失败被 ffill 成 0 后固化--次日跑时用最新价重算最近几天纠正。
+    anchor=回看窗口前一条 history[-(BACKLOOK+1)];start_nav=anchor.nav;
+    replay_forward 从 anchor.date+1 产出 entries,按 date 去重覆盖 history 末尾(非追加)。
+    """
+    history: List[Dict[str, Any]] = state.get("holdings_history", [])
+    last_date = state["last_run_date"]
+    anchor_date, anchor_nav = last_date, state.get("portfolio_nav", 1.0)
+    if len(history) > REPLAY_BACKLOOK:
+        cand = history[-(REPLAY_BACKLOOK + 1)]
+        if cand.get("date") in price_frame.index:
+            anchor_date, anchor_nav = cand["date"], cand.get("nav", anchor_nav)
+    start_idx = int(price_frame.index.get_loc(anchor_date))
+    entries, nav, next_holding = replay_forward(
+        price_frame, nav_frame, universe_codes, fallback_code, lookback, start_idx, anchor_nav
+    )
+    new_dates = {e["date"] for e in entries}
+    state["holdings_history"] = [e for e in history if e["date"] not in new_dates] + entries
+    return entries, nav, next_holding
+
+
 # ----------------------------- 状态持久化 --------------------------------- #
 def load_state() -> Optional[Dict[str, Any]]:
     return storage.load_state(STATE_NAME)
@@ -364,16 +408,14 @@ def run_strategy(
             logger.info("无新交易日（最新 %s <= 上次 %s），跳过", latest_date, last_date)
             return state
         if last_date in price_frame.index:
-            start_idx = int(price_frame.index.get_loc(last_date))
-            entries, nav, next_holding = replay_forward(
-                price_frame, nav_frame, universe_codes, fallback_code, lookback, start_idx, state["portfolio_nav"]
+            entries, nav, next_holding = _incremental_replay(
+                state, price_frame, nav_frame, universe_codes, fallback_code, lookback, latest_date
             )
-            state["holdings_history"].extend(entries)
             state["last_run_date"] = latest_date
             state["portfolio_nav"] = round(nav, 6)
             state["next_holding"] = next_holding
             state["updated_at"] = now_in_beijing().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info("新增 %d 个交易日，组合净值 %.4f，次日持仓 %s", len(entries), nav, next_holding)
+            logger.info("回看重算 %d 个交易日，组合净值 %.4f，次日持仓 %s", len(entries), nav, next_holding)
         else:
             resume_nav = state.get("portfolio_nav", initial_nav)
             logger.warning(
