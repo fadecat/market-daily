@@ -404,15 +404,21 @@ def run_strategy(
         logger.info("回填完成：%d 个交易日，组合净值 %.4f，次日持仓 %s", len(entries), nav, next_holding)
     else:
         last_date = state["last_run_date"]
-        if latest_date <= last_date:
-            logger.info("无新交易日（最新 %s <= 上次 %s），跳过", latest_date, last_date)
+        if latest_date < last_date:
+            logger.info("最新日期 %s 早于上次 %s，跳过", latest_date, last_date)
             return state
         if last_date in price_frame.index:
+            old_nav = state.get("portfolio_nav")
             entries, nav, next_holding = _incremental_replay(
                 state, price_frame, nav_frame, universe_codes, fallback_code, lookback, latest_date
             )
+            nav_round = round(nav, 6)
+            # 同日重跑且净值未变(已纠正或无新数据):不写盘,避免噪音 commit
+            if nav_round == old_nav and latest_date == last_date:
+                logger.info("回看重算确认净值未变(%.4f)，跳过写盘", nav)
+                return state
             state["last_run_date"] = latest_date
-            state["portfolio_nav"] = round(nav, 6)
+            state["portfolio_nav"] = nav_round
             state["next_holding"] = next_holding
             state["updated_at"] = now_in_beijing().strftime("%Y-%m-%d %H:%M:%S")
             logger.info("回看重算 %d 个交易日，组合净值 %.4f，次日持仓 %s", len(entries), nav, next_holding)
