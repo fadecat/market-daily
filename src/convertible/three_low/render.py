@@ -271,7 +271,7 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
   </table>
 
   <div style="margin:8px 0"><b>组合净值 vs 集思录等权指数</b><br></div>
-  <div style="margin:8px 0;text-align:center"><img src="cid:{chart_cid}" alt="nav chart" style="max-width:100%;height:auto" /></div>
+  <div style="margin:8px 0"><img src="cid:{chart_cid}" alt="nav chart" style="width:100%;max-width:100%;height:auto;display:block" /></div>
 
   <div style="margin:8px 0"><b>历史持仓（近 20 日）</b><br></div>
   <table style="border-collapse:collapse;font-size:13px;width:100%;margin:8px 0">
@@ -307,7 +307,7 @@ def build_preview_html(report: Dict[str, Any], chart_path: Optional[Path] = None
         )
     else:
         fragment = fragment.replace(
-            f'<div style="margin:8px 0;text-align:center"><img src="cid:{NAV_CHART_CID}" alt="nav chart" style="max-width:100%;height:auto" /></div>',
+            f'<div style="margin:8px 0"><img src="cid:{NAV_CHART_CID}" alt="nav chart" style="width:100%;max-width:100%;height:auto;display:block" /></div>',
             '<p style="color:#aaa;font-size:12px">(净值图未生成)</p>',
         )
     return f"""<!DOCTYPE html>

@@ -1,6 +1,8 @@
 """可转债三低轮动 测试(纯函数,不触网)。"""
 from __future__ import annotations
 
+import datetime as dt
+import struct
 import sys
 from pathlib import Path
 
@@ -213,6 +215,47 @@ def test_build_email_html_contains_key_blocks():
     assert "三低排名" in html
     assert "历史持仓" in html
     assert "次日持仓（" not in html  # 独立次日持仓表已删,持仓并入三低排名(✓列)
+
+
+def test_email_nav_chart_stretches_to_table_width():
+    html = render.build_email_html(_sample_report(), charts.NAV_CHART_CID)
+    assert (
+        f'<div style="margin:8px 0"><img src="cid:{charts.NAV_CHART_CID}" alt="nav chart" '
+        'style="width:100%;max-width:100%;height:auto;display:block" /></div>'
+    ) in html
+    assert 'text-align:center"><img' not in html
+
+
+def _png_size(path):
+    data = Path(path).read_bytes()
+    assert data[:8] == b"\x89PNG\r\n\x1a\n"
+    return struct.unpack(">II", data[16:24])
+
+
+def test_generate_nav_chart_email_size(tmp_path):
+    chart_path = tmp_path / "nav.png"
+    history = _sample_history()
+    benchmark = [
+        {"date": entry["date"], "strategy_return": entry["nav"] - 1.0,
+         "benchmark_return": (entry["nav"] - 1.0) / 2}
+        for entry in history
+    ]
+    charts.generate_nav_chart(history, chart_path, benchmark=benchmark)
+    assert _png_size(chart_path) == (1680, 630)
+
+
+def test_nav_chart_x_axis_padding_adapts_to_history_span():
+    short_pad = charts._x_axis_padding(dt.date(2026, 8, 8), dt.date(2026, 8, 14))
+    long_pad = charts._x_axis_padding(dt.date(2025, 8, 14), dt.date(2026, 8, 14))
+    assert short_pad == dt.timedelta(days=1)
+    assert dt.timedelta(days=10) <= long_pad <= dt.timedelta(days=12)
+
+
+def test_nav_chart_long_history_uses_month_ticks_and_hides_markers():
+    assert charts._x_date_format(dt.date(2026, 1, 1), dt.date(2026, 8, 14)) == "%m-%d"
+    assert charts._x_date_format(dt.date(2024, 8, 14), dt.date(2026, 8, 14)) == "%Y-%m"
+    assert charts._marker_for_count(60) == "o"
+    assert charts._marker_for_count(61) is None
 
 
 def test_build_preview_html_without_chart():

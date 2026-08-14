@@ -22,17 +22,36 @@ NAV_CHART_CID = "cb_three_low_nav_chart"
 COLOR_STRATEGY = "#d93025"  # 策略 红
 COLOR_BENCHMARK = "#2c7be5"  # 基准 蓝
 COLOR_DRAWDOWN = "#f59e0b"  # 回撤区间 橙
+FIG_SIZE = (12, 4.5)  # 邮件宽图:跟随正文表格宽度缩放
+FIG_DPI = 140
+MARKER_MAX_POINTS = 60
+MONTH_TICK_MIN_DAYS = 370
 
 
 def _parse_date(value: str) -> dt.date:
     return dt.date.fromisoformat(str(value)[:10])
 
 
+def _x_axis_padding(d_min: dt.date, d_max: dt.date) -> dt.timedelta:
+    """按历史跨度留边界;数据积累期不再强制补成 20 天。"""
+    return max(dt.timedelta(days=1), (d_max - d_min) * 0.03)
+
+
+def _x_date_format(d_min: dt.date, d_max: dt.date) -> str:
+    """短跨度显示月-日;超过约一年显示年-月,避免重复标签。"""
+    return "%Y-%m" if (d_max - d_min).days >= MONTH_TICK_MIN_DAYS else "%m-%d"
+
+
+def _marker_for_count(point_count: int) -> Optional[str]:
+    """短历史保留数据点;长历史隐藏圆点,避免曲线糊成一条粗线。"""
+    return "o" if point_count <= MARKER_MAX_POINTS else None
+
+
 def generate_nav_chart(
     history: List[Dict[str, Any]],
     output_path: Path,
     *,
-    title: str = "可转债三低轮动 组合净值",
+    title: str = "成立以来组合净值 vs 集思录等权指数",
     benchmark: Optional[List[Dict[str, Any]]] = None,
     drawdown: Optional[Dict[str, Any]] = None,
 ) -> Path:
@@ -45,15 +64,16 @@ def generate_nav_chart(
     """
     fonts.apply_cjk(plt)
 
-    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
 
     if benchmark:
         dates = [_parse_date(p["date"]) for p in benchmark]
         strategy_pct = [p["strategy_return"] * 100 for p in benchmark]
         benchmark_pct = [p["benchmark_return"] * 100 for p in benchmark]
-        ax.plot(dates, strategy_pct, color=COLOR_STRATEGY, linewidth=2, marker="o",
+        marker = _marker_for_count(len(dates))
+        ax.plot(dates, strategy_pct, color=COLOR_STRATEGY, linewidth=2, marker=marker,
                 markersize=3, label="三低轮动", zorder=3)
-        ax.plot(dates, benchmark_pct, color=COLOR_BENCHMARK, linewidth=1.5, marker="o",
+        ax.plot(dates, benchmark_pct, color=COLOR_BENCHMARK, linewidth=1.5, marker=marker,
                 markersize=2.5, alpha=0.9, label="集思录等权", zorder=2)
         ax.axhline(0.0, color="#9aa0a6", linewidth=1, linestyle="--")
         ax.legend(loc="upper left", frameon=False, fontsize=10)
@@ -63,7 +83,8 @@ def generate_nav_chart(
         dates = [_parse_date(e["date"]) for e in points]
         navs = [float(e["nav"]) for e in points]
         if dates:
-            ax.plot(dates, navs, color=COLOR_STRATEGY, linewidth=2, marker="o", markersize=3)
+            marker = _marker_for_count(len(dates))
+            ax.plot(dates, navs, color=COLOR_STRATEGY, linewidth=2, marker=marker, markersize=3)
             ax.fill_between(
                 dates, 1.0, navs, where=[v >= 1.0 for v in navs],
                 color=COLOR_STRATEGY, alpha=0.08, interpolate=True,
@@ -106,16 +127,16 @@ def generate_nav_chart(
     ax.grid(True, linestyle=":", alpha=0.4)
     if dates:
         d_min, d_max = min(dates), max(dates)
-        # 数据跨度太小时向两侧补齐,保证刻度落在"日"级以上,标签不重复堆叠
-        pad = max(dt.timedelta(days=10) - (d_max - d_min) / 2, dt.timedelta(0))
+        pad = _x_axis_padding(d_min, d_max)
         ax.set_xlim(d_min - pad, d_max + pad)
         if len(set(dates)) < 10:  # 数据积累期提示
             ax.text(0.5, 0.03, f"数据积累中(已 {len(set(dates))} 个交易日)",
                     transform=ax.transAxes, ha="center", fontsize=9, color="#9aa0a6")
     ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=3, maxticks=8))
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d"))
+    date_format = _x_date_format(min(dates), max(dates)) if dates else "%m-%d"
+    ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=130)
+    fig.savefig(output_path, dpi=FIG_DPI)
     plt.close(fig)
     return output_path
