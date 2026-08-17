@@ -408,13 +408,13 @@ def _combine_archive_meta(*metas: Optional[Dict[str, Optional[str]]]) -> Dict[st
 # ---------- 通用 JSON 取数 ----------
 
 
-def fetch_json_response(name: str, url: str) -> object:
+def fetch_json_response(name: str, url: str, *, timeout: float = 15, retries: int = 3) -> object:
     def _fetch() -> object:
-        response = requests.get(url, headers=DEFAULT_HEADERS, timeout=15)
+        response = requests.get(url, headers=DEFAULT_HEADERS, timeout=timeout)
         response.raise_for_status()  # 5xx 也要进重试,放在 run_with_retry 里
         return response.json()
 
-    return alerts.run_with_retry(name, _fetch)
+    return alerts.run_with_retry(name, _fetch, retries=retries)
 
 
 # ---------- 指数详情 ----------

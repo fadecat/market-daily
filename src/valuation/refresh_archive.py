@@ -71,7 +71,8 @@ def _df_to_records(df: pd.DataFrame) -> List[Dict]:
 
 def refresh_index_dataset(dataset: str, builder: Callable[[str], str], index_code: str, updated_at: str) -> List[Path]:
     url = builder(index_code)
-    payload = fetch.fetch_json_response(dataset, url)
+    # cdn.efunds.com.cn 边缘节点偶发不健康(海外机房尤甚),拉长超时与重试窗口
+    payload = fetch.fetch_json_response(dataset, url, timeout=30, retries=4)
     if not isinstance(payload, list):
         raise ValueError(f"{dataset} 响应非列表: {type(payload).__name__}")
     records = [row for row in payload if isinstance(row, dict)]
