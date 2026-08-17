@@ -408,9 +408,19 @@ def _combine_archive_meta(*metas: Optional[Dict[str, Optional[str]]]) -> Dict[st
 # ---------- 通用 JSON 取数 ----------
 
 
-def fetch_json_response(name: str, url: str, *, timeout: float = 15, retries: int = 3) -> object:
+def fetch_json_response(
+    name: str, url: str, *, timeout: float = 15, retries: int = 3, cache_bust_on_retry: bool = False
+) -> object:
+    attempt = {"n": 0}
+
     def _fetch() -> object:
-        response = requests.get(url, headers=DEFAULT_HEADERS, timeout=timeout)
+        attempt["n"] += 1
+        request_url = url
+        if cache_bust_on_retry and attempt["n"] > 1:
+            # 重试绕过 CDN 缓存:海外边缘偶发把对象的 502 缓存住,原 URL 一直 502
+            sep = "&" if "?" in url else "?"
+            request_url = f"{url}{sep}_={attempt['n']}"
+        response = requests.get(request_url, headers=DEFAULT_HEADERS, timeout=timeout)
         response.raise_for_status()  # 5xx 也要进重试,放在 run_with_retry 里
         return response.json()
 
