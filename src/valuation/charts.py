@@ -8,6 +8,9 @@
   - 估值图只需 PE 历史时序(index_code/name 来自已取好的估值 item,不再重复拉 metrics)。
     ``pe_history`` 可由 run.py 预取(``fetch.fetch_index_pe_history_with_archive_fallback``)
     传入;为 None 时本函数自取(带归档回退)。
+  - 估值图可叠股债收益差右轴:``bond_history`` 传入 10Y 国债历史
+    (``fetch.fetch_cn_10y_bond_history_with_archive_fallback``,date/yield_pct)即画,
+    缺省或样本不足则不画,不影响 PE 主图。
   - 汇率图 ``fx_history`` 可预取(``fetch.fetch_fx_history_with_archive_fallback``)传入;
     为 None 时自取。
 - ``md.*`` -> ``fetch.*``;``now_in_beijing`` 自 ``fetch`` 导入。
@@ -47,6 +50,7 @@ PALETTE = {
     "background": "#ffffff",
     "orange": "#ed7c2b",
     "line": "#ed7c2b",
+    "spread": "#3a6ea5",
     "text_primary": "#1f1f1f",
     "text_muted": "#8a8a8a",
     "grid": "#f0f0f0",
@@ -99,8 +103,31 @@ def _build_history_frame(
     return pe_df, "使用全历史窗口(5Y 数据不足)"
 
 
+def _build_spread_frame(
+    history: pd.DataFrame, bond_history: Optional[pd.DataFrame]
+) -> Optional[pd.DataFrame]:
+    """由展示窗口内的 PE 历史 + 10Y 国债历史算股债收益差序列(1/PE − 10Y国债)。
+
+    口径与 ``metrics.compute_equity_bond_spread_percentiles`` 一致。国债历史缺失 /
+    样本不足 20 返回 None(图上不画利差)。
+    """
+    if bond_history is None or bond_history.empty:
+        return None
+    bond_df = bond_history.copy()
+    bond_df["date"] = pd.to_datetime(bond_df["date"], errors="coerce")
+    bond_df["yield_pct"] = pd.to_numeric(bond_df["yield_pct"], errors="coerce")
+    bond_df = bond_df.dropna(subset=["date", "yield_pct"])
+    merged = pd.merge(history[["date", "pe"]], bond_df[["date", "yield_pct"]], on="date", how="inner").dropna()
+    if len(merged) < 20:
+        return None
+    merged["spread"] = (1.0 / merged["pe"]) * 100.0 - merged["yield_pct"]
+    return merged[["date", "spread"]].sort_values("date").reset_index(drop=True)
+
+
 def _prepare_valuation_data(
-    item: Dict, pe_history: Optional[pd.DataFrame] = None
+    item: Dict,
+    pe_history: Optional[pd.DataFrame] = None,
+    bond_history: Optional[pd.DataFrame] = None,
 ) -> Optional[Dict]:
     index_code = str(
         item.get("index_code") or resolve_target_index_code(item) or item.get("code") or ""
@@ -120,6 +147,7 @@ def _prepare_valuation_data(
     return {
         "item": chart_item,
         "history": history,
+        "spread_history": _build_spread_frame(history, bond_history),
         "q30": q30,
         "q50": q50,
         "q70": q70,
@@ -217,6 +245,50 @@ def _draw_valuation_main(ax, data: Dict) -> None:
         label.set_color(PALETTE["text_muted"])
 
 
+def _draw_spread_overlay(ax, data: Dict) -> None:
+    """在 PE 分位图上叠股债收益差(右轴蓝线)。无利差序列时静默跳过。"""
+    spread_history = data.get("spread_history")
+    if spread_history is None or len(spread_history) < 20:
+        return
+    dates = pd.to_datetime(spread_history["date"])
+    spreads = spread_history["spread"].astype(float)
+    latest_spread = float(spreads.iloc[-1])
+
+    ax.text(
+        0.47, 1.00, f"股债利差{latest_spread:.2f}%", transform=ax.transAxes,
+        fontsize=FONT_SIZES["legend"], color=PALETTE["spread"], ha="left", va="baseline",
+    )
+
+    ax2 = ax.twinx()
+    ax2.plot(
+        dates, spreads, color=PALETTE["spread"], linewidth=1.0, alpha=0.9,
+        solid_joinstyle="round", solid_capstyle="round",
+    )
+    ax2.annotate(
+        f"{latest_spread:.2f}%", xy=(dates.iloc[-1], latest_spread), xytext=(6, -14),
+        textcoords="offset points", color=PALETTE["spread"],
+        fontsize=FONT_SIZES["latest_label"], fontweight="bold",
+    )
+
+    spread_min = float(spreads.min())
+    spread_max = float(spreads.max())
+    if spread_min == spread_max:
+        spread_min -= 1
+        spread_max += 1
+    ax2.set_ylim(spread_min * 0.9, spread_max * 1.1)
+    ax2.set_yticks(np.linspace(spread_min, spread_max, 5))
+    ax2.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
+    ax2.grid(False)
+    ax2.spines["top"].set_visible(False)
+    ax2.spines["left"].set_visible(False)
+    ax2.spines["bottom"].set_visible(False)
+    ax2.spines["right"].set_color(PALETTE["spread"])
+    ax2.spines["right"].set_linewidth(0.8)
+    ax2.tick_params(axis="y", which="both", length=0, colors=PALETTE["spread"])
+    for label in ax2.get_yticklabels():
+        label.set_fontsize(FONT_SIZES["y_tick"])
+
+
 def _draw_valuation_footer(ax, data: Dict) -> None:
     ax.set_axis_off()
     text = f"数据源:易方达估值中心 + 指数详情接口 · 生成时间 {now_in_beijing().strftime('%Y-%m-%d %H:%M')}"
@@ -234,19 +306,24 @@ def generate_valuation_percentile_chart(
     output_dir: Path,
     *,
     pe_history: Optional[pd.DataFrame] = None,
+    bond_history: Optional[pd.DataFrame] = None,
 ) -> Optional[Path]:
-    """生成 PE 走势分位图。``item`` 为已取好的估值项(含 index_code/name);
-    ``pe_history`` 可预取传入,为 None 则自取(带归档回退)。数据不足返回 None。
+    """生成 PE 走势分位图(有国债历史时叠股债收益差右轴)。``item`` 为已取好的估值项
+    (含 index_code/name);``pe_history`` 可预取传入,为 None 则自取(带归档回退);
+    ``bond_history`` 为 10Y 国债历史(``date``/``yield_pct``),缺省则不画利差。
+    数据不足返回 None。
     """
-    data = _prepare_valuation_data(item, pe_history=pe_history)
+    data = _prepare_valuation_data(item, pe_history=pe_history, bond_history=bond_history)
     if data is None:
         return None
 
     apply_cjk(plt)
     fig = plt.figure(figsize=FIGURE_SIZE, dpi=FIGURE_DPI, facecolor=PALETTE["background"])
-    chart_ax = fig.add_axes(AX_BOUNDS["chart"])
+    # 右轴要放利差刻度,主图比 AX_BOUNDS 略窄
+    chart_ax = fig.add_axes([0.07, 0.16, 0.85, 0.70])
     footer_ax = fig.add_axes(AX_BOUNDS["footer"])
     _draw_valuation_main(chart_ax, data)
+    _draw_spread_overlay(chart_ax, data)
     _draw_valuation_footer(footer_ax, data)
 
     output_dir.mkdir(parents=True, exist_ok=True)

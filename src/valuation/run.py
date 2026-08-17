@@ -149,7 +149,10 @@ def _fetch_valuation_items(
             continue
         try:
             png_path = charts.generate_valuation_percentile_chart(
-                item, work_dir, pe_history=overlay_pe_histories.get(code)
+                item,
+                work_dir,
+                pe_history=overlay_pe_histories.get(code),
+                bond_history=cn_10y_bond_history,
             )
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {code} 估值分位图生成失败,片段不带图: {exc}")
