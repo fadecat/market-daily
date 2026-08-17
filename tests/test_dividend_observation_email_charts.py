@@ -42,6 +42,7 @@ class _FakeAxis:
     def __init__(self):
         self.plot_calls = []
         self.fill_calls = []
+        self.annotate_calls = []
         self.legend_kwargs = None
         self.ylabel = None
         self.ylim = None
@@ -88,6 +89,10 @@ class _FakeAxis:
     def text(self, *args, **kwargs):
         return None
 
+    def annotate(self, text, **kwargs):
+        self.annotate_calls.append({"text": text, **kwargs})
+        return None
+
     def tick_params(self, *args, **kwargs):
         return None
 
@@ -116,10 +121,12 @@ def test_price_chart_uses_thin_lines_and_light_fill(monkeypatch, tmp_path):
     result = charts._safe_render_price_chart(_payload(), tmp_path / "price.png")
 
     assert result.image_path is not None
-    assert primary_axis.plot_calls[0]["linewidth"] == 1.0
-    assert secondary_axis.plot_calls[0]["linewidth"] == 1.0
+    assert primary_axis.plot_calls[0]["linewidth"] == charts.LINE_WIDTH
+    assert secondary_axis.plot_calls[0]["linewidth"] == charts.LINE_WIDTH
     assert secondary_axis.fill_calls[0]["alpha"] <= 0.05
     assert primary_axis.xticks is not None
+    assert [call["text"] for call in primary_axis.annotate_calls] == ["99"]
+    assert [call["text"] for call in secondary_axis.annotate_calls] == ["-1.0%"]
 
 
 def test_percentile_charts_use_thin_lines(monkeypatch, tmp_path):
@@ -146,6 +153,7 @@ def test_percentile_charts_use_thin_lines(monkeypatch, tmp_path):
     )
 
     assert result.image_path is not None
-    assert axis.plot_calls[0]["linewidth"] == 1.0
-    assert axis.plot_calls[1]["linewidth"] == 1.0
+    assert axis.plot_calls[0]["linewidth"] == charts.LINE_WIDTH
+    assert axis.plot_calls[1]["linewidth"] == charts.LINE_WIDTH
     assert axis.xticks is not None
+    assert [call["text"] for call in axis.annotate_calls] == ["70.0%", "65.0%"]

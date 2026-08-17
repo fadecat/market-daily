@@ -58,12 +58,12 @@ def _state_label(value: str | None) -> str:
     return STATE_LABELS.get(value, value)
 
 
-def _render_card_grid(latest: dict) -> str:
+def _render_card_grid(latest: dict, years: int, index_code: str) -> str:
     return (
-        '<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px">'
-        f'{_render_card("最新日期", escape(str(latest.get("date") or "-")), "观察对象 930955")}'
-        f'{_render_card("近窗回撤", escape(_fmt_pct(latest.get("drawdown_peak"))), f"最新收盘 {escape(_fmt_num(latest.get('index_close')))}")}'
-        f'{_render_card("绝对估值", "PE " + escape(_fmt_pct(latest.get("pe_ttm_percentile"), scale_100=False)), "PB " + escape(_fmt_pct(latest.get("pb_lf_percentile"), scale_100=False)))}'
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px">'
+        f'{_render_card("最新日期", escape(str(latest.get("date") or "-")), "观察对象 " + escape(index_code))}'
+        f'{_render_card(f"距近{years}年高点", escape(_fmt_pct(latest.get("drawdown_peak"))), f"最新收盘 {escape(_fmt_num(latest.get('index_close')))}")}'
+        f'{_render_card("绝对估值", "PE分位 " + escape(_fmt_pct(latest.get("pe_ttm_percentile"), scale_100=False)), "PB分位 " + escape(_fmt_pct(latest.get("pb_lf_percentile"), scale_100=False)))}'
         f'{_render_card("当前状态", escape(_state_label(latest.get("event_state"))), "风格挤压 " + escape(_fmt_pct(latest.get("style_rotation_spread_percentile"), scale_100=False)))}'
         "</div>"
     )
@@ -71,9 +71,9 @@ def _render_card_grid(latest: dict) -> str:
 
 def _render_card(label: str, value: str, meta: str) -> str:
     return (
-        '<div style="padding:16px;border-radius:18px;border:1px solid rgba(23,33,43,0.10);background:rgba(255,255,255,0.72)">'
+        '<div style="min-width:0;padding:16px;border-radius:18px;border:1px solid rgba(23,33,43,0.10);background:rgba(255,255,255,0.72)">'
         f'<div style="font-size:12px;color:#667085;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">{label}</div>'
-        f'<div style="font-size:30px;line-height:1.05;font-weight:700;color:#17212b">{value}</div>'
+        f'<div style="white-space:nowrap;font-size:clamp(20px,5vw,30px);line-height:1.05;font-weight:700;color:#17212b">{value}</div>'
         f'<div style="margin-top:8px;font-size:13px;color:#667085">{meta}</div>'
         "</div>"
     )
@@ -143,10 +143,9 @@ def _build_html(
         "<body style=\"margin:0;color:#17212b;font-family:'Avenir Next','Microsoft YaHei','PingFang SC',sans-serif;background:radial-gradient(circle at top left, rgba(170,106,22,0.10), transparent 30%), linear-gradient(180deg, #f7f2ea 0%, #f3efe7 100%)\">"
         '<div style="max-width:1360px;margin:0 auto;padding:32px 18px 56px">'
         '<section style="background:rgba(255,255,255,0.82);border:1px solid rgba(23,33,43,0.10);border-radius:24px;box-shadow:0 18px 40px rgba(23,33,43,0.10);padding:28px;margin-bottom:18px">'
-        '<div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#667085;margin-bottom:12px">Observation Preview</div>'
         f"<h1 style=\"margin:0;font-size:clamp(28px,4vw,44px);line-height:1.05;font-family:Georgia,'STSong',serif\">红利观察图 · {escape(str(meta.get('index_name') or '红利低波100'))}</h1>"
-        f"<p style=\"margin:12px 0 0;color:#667085;line-height:1.7;max-width:70ch\">这是一张围绕 {escape(str(meta.get('index_name') or '红利低波100'))}({escape(str(meta.get('index_code') or '930955'))}) 的本地研究观察页。它只展示价格位置、绝对定价、利率相对吸引力、风格挤压和修复状态，不输出买卖建议。</p>"
-        f"{_render_card_grid(latest)}"
+        f"<p style=\"margin:12px 0 0;color:#667085;line-height:1.7;max-width:70ch\">围绕 {escape(str(meta.get('index_name') or '红利低波100'))}({escape(str(meta.get('index_code') or '930955'))})，本页只展示价格位置、绝对定价、利率相对吸引力、风格挤压和修复状态，不输出买卖建议。</p>"
+        f"{_render_card_grid(latest, display_years, str(meta.get('index_code') or '930955'))}"
         "</section>"
         f"{''.join(sections)}"
         "</div></body></html>"

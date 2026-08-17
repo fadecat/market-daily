@@ -30,7 +30,7 @@ PALETTE = {
     "text_muted": "#6b7685",
     "text_primary": "#2b2f33",
 }
-LINE_WIDTH = 1.0
+LINE_WIDTH = 1.4
 FILL_ALPHA = 0.04
 SERIES_LABELS = {
     "index_close": "指数点位",
@@ -104,7 +104,7 @@ def _date_tick_indexes(dates: list[dt.date], *, tick_count: int = 6) -> list[int
     return sorted(indexes)
 
 
-def _apply_date_axis_style(ax: plt.Axes, dates: list[dt.date]) -> None:
+def _apply_date_axis_style(ax: plt.Axes, dates: list[dt.date], *, right_pad_frac: float = 0.02) -> None:
     if not dates:
         return
     tick_indexes = _date_tick_indexes(dates)
@@ -114,14 +114,42 @@ def _apply_date_axis_style(ax: plt.Axes, dates: list[dt.date]) -> None:
         dates[index].strftime("%Y-%m-%d") if index == last_index else dates[index].strftime("%Y-%m")
         for index in tick_indexes
     ]
-    right_padding_days = max(6, round(max((dates[-1] - dates[0]).days, 1) * 0.02))
+    right_padding_days = max(6, round(max((dates[-1] - dates[0]).days, 1) * right_pad_frac))
     ax.set_xticks(tick_dates, labels=tick_labels)
     ax.set_xlim(dates[0], dates[-1] + dt.timedelta(days=right_padding_days))
 
 
+def _annotate_endpoint(
+    ax: plt.Axes,
+    dates: list[dt.date],
+    values: list[float],
+    color: str,
+    formatter,
+    *,
+    dy_points: float = 0.0,
+) -> None:
+    ax.annotate(
+        formatter(values[-1]),
+        xy=(dates[-1], values[-1]),
+        xytext=(6, dy_points),
+        textcoords="offset points",
+        ha="left",
+        va="center",
+        fontsize=12,
+        fontweight="bold",
+        color=color,
+    )
+
+
+def _percentile_label_offsets(first: float, second: float, *, threshold: float = 6.0) -> tuple[float, float]:
+    if abs(first - second) >= threshold:
+        return 0.0, 0.0
+    return (9.0, -9.0) if first >= second else (-9.0, 9.0)
+
+
 def _base_axis() -> tuple[plt.Figure, plt.Axes]:
     fonts.apply_cjk(plt)
-    fig, ax = plt.subplots(figsize=(10, 3.15))
+    fig, ax = plt.subplots(figsize=(10, 3.6))
     fig.patch.set_facecolor(PALETTE["background"])
     ax.set_facecolor(PALETTE["background"])
     ax.grid(True, axis="y", color=PALETTE["grid"], linewidth=0.7, alpha=1.0)
@@ -132,7 +160,7 @@ def _base_axis() -> tuple[plt.Figure, plt.Axes]:
     ax.spines["left"].set_linewidth(0.8)
     ax.spines["bottom"].set_color(PALETTE["spine"])
     ax.spines["bottom"].set_linewidth(0.8)
-    ax.tick_params(axis="both", which="both", length=0, labelsize=9, colors=PALETTE["text_muted"])
+    ax.tick_params(axis="both", which="both", length=0, labelsize=12, colors=PALETTE["text_muted"])
     return fig, ax
 
 
@@ -142,7 +170,7 @@ def _safe_render_price_chart(payload: dict[str, Any], output_path: Path) -> Char
         return _empty_result(PRICE_CHART_CID)
     prices, drawdowns = columns
     fig, ax = _base_axis()
-    _apply_date_axis_style(ax, dates)
+    _apply_date_axis_style(ax, dates, right_pad_frac=0.09)
     price_line = ax.plot(
         dates,
         prices,
@@ -150,6 +178,7 @@ def _safe_render_price_chart(payload: dict[str, Any], output_path: Path) -> Char
         linewidth=LINE_WIDTH,
         label=SERIES_LABELS["index_close"],
     )[0]
+    _annotate_endpoint(ax, dates, prices, PALETTE["primary"], lambda v: f"{v:,.0f}")
     ax.set_ylabel("")
     ax2 = ax.twinx()
     drawdown_line = ax2.plot(
@@ -166,7 +195,8 @@ def _safe_render_price_chart(payload: dict[str, Any], output_path: Path) -> Char
     ax2.spines["left"].set_visible(False)
     ax2.spines["right"].set_color(PALETTE["spine"])
     ax2.spines["right"].set_linewidth(0.8)
-    ax2.tick_params(axis="y", which="both", length=0, labelsize=9, colors=PALETTE["text_muted"])
+    ax2.tick_params(axis="y", which="both", length=0, labelsize=12, colors=PALETTE["text_muted"])
+    _annotate_endpoint(ax2, dates, drawdowns, PALETTE["danger"], lambda v: f"{v * 100:.1f}%")
     ax.legend(
         [price_line, drawdown_line],
         [SERIES_LABELS["index_close"], SERIES_LABELS["drawdown_peak"]],
@@ -174,7 +204,7 @@ def _safe_render_price_chart(payload: dict[str, Any], output_path: Path) -> Char
         bbox_to_anchor=(0.0, 1.02),
         ncol=2,
         frameon=False,
-        fontsize=10,
+        fontsize=13,
         handlelength=1.4,
         handletextpad=0.5,
         columnspacing=1.0,
@@ -199,7 +229,7 @@ def _safe_render_two_line_chart(
         return _empty_result(cid)
     left_values, right_values = columns
     fig, ax = _base_axis()
-    _apply_date_axis_style(ax, dates)
+    _apply_date_axis_style(ax, dates, right_pad_frac=0.09)
     left_line = ax.plot(
         dates,
         left_values,
@@ -214,6 +244,9 @@ def _safe_render_two_line_chart(
         linewidth=LINE_WIDTH,
         label=SERIES_LABELS.get(right_key, right_key),
     )[0]
+    left_dy, right_dy = _percentile_label_offsets(left_values[-1], right_values[-1])
+    _annotate_endpoint(ax, dates, left_values, PALETTE["primary"], lambda v: f"{v:.1f}%", dy_points=left_dy)
+    _annotate_endpoint(ax, dates, right_values, PALETTE["secondary"], lambda v: f"{v:.1f}%", dy_points=right_dy)
     ax.set_ylabel("")
     ax.set_ylim(0, 100)
     legend = ax.legend(
@@ -223,7 +256,7 @@ def _safe_render_two_line_chart(
         bbox_to_anchor=(0.0, 1.02),
         ncol=2,
         frameon=False,
-        fontsize=10,
+        fontsize=13,
         handlelength=1.4,
         handletextpad=0.5,
         columnspacing=1.0,
@@ -247,7 +280,7 @@ def _safe_render_single_line_chart(
         return _empty_result(cid)
     values = columns[0]
     fig, ax = _base_axis()
-    _apply_date_axis_style(ax, dates)
+    _apply_date_axis_style(ax, dates, right_pad_frac=0.09)
     line = ax.plot(
         dates,
         values,
@@ -255,6 +288,7 @@ def _safe_render_single_line_chart(
         linewidth=LINE_WIDTH,
         label=SERIES_LABELS.get(series_key, series_key),
     )[0]
+    _annotate_endpoint(ax, dates, values, PALETTE["style"], lambda v: f"{v:.1f}%")
     ax.set_ylabel("")
     ax.set_ylim(0, 100)
     legend = ax.legend(
@@ -264,7 +298,7 @@ def _safe_render_single_line_chart(
         bbox_to_anchor=(0.0, 1.02),
         ncol=1,
         frameon=False,
-        fontsize=10,
+        fontsize=13,
         handlelength=1.4,
         handletextpad=0.5,
         columnspacing=1.0,

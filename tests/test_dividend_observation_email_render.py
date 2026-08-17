@@ -38,8 +38,14 @@ def test_build_preview_html_embeds_base64_sources():
     assert "利率相对吸引力" in html
     assert "近2年高点" in html
     assert "近3年滚动高点" in html
-    assert "本地研究观察页" in html
+    assert "auto-fit" in html
+    assert "PE分位" in html
+    assert "PB分位" in html
+    assert "距近2年高点" in html
+    assert "本地研究观察页" not in html
     assert "邮件版观察页" not in html
+    assert "Observation Preview" not in html
+    assert "OBSERVATION PREVIEW" not in html
 
 
 def test_build_email_html_uses_cid_and_failure_placeholder():
@@ -54,4 +60,4 @@ def test_build_email_html_uses_cid_and_failure_placeholder():
 
     assert 'src="cid:price"' in html
     assert "该图暂无数据" in html
-    assert "近窗回撤" in html
+    assert "距近2年高点" in html
