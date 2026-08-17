@@ -68,6 +68,7 @@ def _fetch_valuation_items(
     10Y 国债循环外取一次(``fetch_cn_10y_bond_yield`` + ``fetch_cn_10y_bond_history_with_archive_fallback``),
     失败仅 WARN,股债收益差/比值字段缺但不中止。单标 fetch 失败/空 -> 跳过该标的不中止。
     返回 ``(valuation_items, chart_paths)``;chart_paths 以 ``index_code``(回退 ``code``)为 key。
+    PE 分位图是否叠股债利差右轴由 target 的 ``spread_overlay`` 开关决定(config/valuation.yaml)。
     """
     cn_10y_yield: Optional[float] = None
     cn_10y_bond_history = None
@@ -91,6 +92,7 @@ def _fetch_valuation_items(
             print(f"[WARN] {label} 估值指标为空,跳过")
             continue
         item: Dict[str, Any] = {"name": target.get("name"), "code": target.get("code")}
+        item["spread_overlay"] = bool(target.get("spread_overlay"))
         item.update(metrics_dict)
         index_code = str(item.get("index_code") or "").strip()
         overlay = None
@@ -152,7 +154,7 @@ def _fetch_valuation_items(
                 item,
                 work_dir,
                 pe_history=overlay_pe_histories.get(code),
-                bond_history=cn_10y_bond_history,
+                bond_history=cn_10y_bond_history if item.get("spread_overlay") else None,
             )
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {code} 估值分位图生成失败,片段不带图: {exc}")

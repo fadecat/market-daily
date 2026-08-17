@@ -5,6 +5,7 @@
 #   code                 标的代码(用于归档命名/展示)
 #   index_detail_url     易方达 efunds/etf.com.cn 指数详情接口(PE/PB/股息率)
 #   index_dividend_yield_url  可选,独立股息率 JSON(覆盖 detail 接口)
+#   spread_overlay         可选,true 时 PE 分位图叠股债利差右轴(缺省不画)
 
 targets:
 
@@ -21,12 +22,14 @@ targets:
   - name: "红利低波动100"
     code: "930955"
     type: "valuation"
+    spread_overlay: true
     index_detail_url: "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode=930955"
     index_dividend_yield_url: "https://cdn.efunds.com.cn/etf-net/index_dividend_ratio_930955.json"
 
   - name: "沪深300"
     code: "000300"
     type: "valuation"
+    spread_overlay: true
     index_detail_url: "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode=000300"
 
   - name: "国证2000"
