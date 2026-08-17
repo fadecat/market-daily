@@ -120,6 +120,10 @@ def _query_cninfo(stock_name: str) -> List[Dict[str, Any]]:
 
 SSE_URL = "https://sns.sseinfo.com/qasearchFullText.do"
 
+# SSE 熔断:连续失败达到阈值后跳过本轮剩余查询(防 IP 限流时持续撞击延长封禁)
+_SSE_CONSECUTIVE_FAILURE_LIMIT = 3
+_sse_consecutive_failures = 0
+
 
 def _parse_sse_date(text: str) -> Any:
     """解析上证 e 互动的日期文本,如 '2026年03月04日 14:08' 或 '昨天 15:36'。"""
@@ -138,7 +142,11 @@ def _parse_sse_date(text: str) -> Any:
 
 
 def _query_sse(stock_name: str) -> List[Dict[str, Any]]:
-    """查询上证 e 互动问答。"""
+    """查询上证 e 互动问答。连续失败触发熔断,本轮剩余查询直接跳过。"""
+    global _sse_consecutive_failures
+    if _sse_consecutive_failures >= _SSE_CONSECUTIVE_FAILURE_LIMIT:
+        return []
+
     today = now_in_beijing()
     sdate = (today - timedelta(days=7)).strftime("%Y-%m-%d")
     edate = today.strftime("%Y-%m-%d")
@@ -162,7 +170,17 @@ def _query_sse(stock_name: str) -> List[Dict[str, Any]]:
         resp.raise_for_status()
         return resp.text
 
-    html = alerts.run_with_retry("irm_sse_qa", _post)
+    try:
+        html = alerts.run_with_retry("irm_sse_qa", _post)
+    except Exception:
+        _sse_consecutive_failures += 1
+        if _sse_consecutive_failures == _SSE_CONSECUTIVE_FAILURE_LIMIT:
+            print(
+                f"[irm_query] SSE 连续 {_sse_consecutive_failures} 次失败,本轮跳过剩余 SSE 查询"
+                "(疑似 sns.sseinfo.com 限流,待封禁解除后下轮运行恢复)"
+            )
+        raise
+    _sse_consecutive_failures = 0
 
     # 解析 HTML:按 m_feed_item 分块
     cutoff = seven_days_ago()

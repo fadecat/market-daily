@@ -23,6 +23,11 @@ logger = logging.getLogger(__name__)
 
 def is_retryable_error(exc: Exception) -> bool:
     """判断异常是否值得重试(网络/超时/5xx 等)。"""
+    # 4xx(除 408/429)是请求本身被拒,重试无意义还可能延长对端封禁
+    if isinstance(exc, requests.exceptions.HTTPError):
+        status = exc.response.status_code if exc.response is not None else None
+        if status is not None and 400 <= status < 500 and status not in (408, 429):
+            return False
     if isinstance(exc, requests.exceptions.RequestException):
         return True
     if httpx is not None and isinstance(exc, httpx.HTTPError):
