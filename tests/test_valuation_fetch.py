@@ -342,7 +342,7 @@ class _FakeResp:
 
 
 def test_fetch_json_response_ok(monkeypatch):
-    monkeypatch.setattr(fetch.requests, "get", lambda url, timeout=15: _FakeResp({"k": 1}))
+    monkeypatch.setattr(fetch.requests, "get", lambda url, timeout=15, headers=None: _FakeResp({"k": 1}))
     assert fetch.fetch_json_response("n", "http://x") == {"k": 1}
 
 
@@ -351,7 +351,7 @@ def test_fetch_json_response_retries(monkeypatch):
 
     calls = {"n": 0}
 
-    def flaky(url, timeout=15):
+    def flaky(url, timeout=15, headers=None):
         calls["n"] += 1
         if calls["n"] < 2:
             raise real_requests.exceptions.Timeout("boom")

@@ -1,0 +1,2 @@
+# JSON 归档/状态统一 LF,避免 Windows 本地写入 CRLF 污染 diff(CI 与本地产物一致)
+*.json text eol=lf

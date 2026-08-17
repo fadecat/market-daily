@@ -55,6 +55,11 @@ except ImportError:  # pragma: no cover
 
 BEIJING_TZ = timezone(timedelta(hours=8))
 
+# cdn.efunds.com.cn 等 CDN 对默认 python-requests UA 易限流(超时/502),统一带浏览器头
+DEFAULT_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+}
+
 DEFAULT_TICKFLOW_FREE_BASE_URL = "https://free-api.tickflow.org"
 DEFAULT_TICKFLOW_DAILY_COUNT = 500
 DEFAULT_INDEX_DETAIL_URL_TEMPLATE = "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode={index_code}"
@@ -404,9 +409,12 @@ def _combine_archive_meta(*metas: Optional[Dict[str, Optional[str]]]) -> Dict[st
 
 
 def fetch_json_response(name: str, url: str) -> object:
-    response = alerts.run_with_retry(name, lambda: requests.get(url, timeout=15))
-    response.raise_for_status()
-    return response.json()
+    def _fetch() -> object:
+        response = requests.get(url, headers=DEFAULT_HEADERS, timeout=15)
+        response.raise_for_status()  # 5xx 也要进重试,放在 run_with_retry 里
+        return response.json()
+
+    return alerts.run_with_retry(name, _fetch)
 
 
 # ---------- 指数详情 ----------
@@ -934,10 +942,15 @@ def fetch_fx_history_with_archive_fallback(
 
 def fetch_index_pe_history(index_code: str, url: str = "") -> pd.DataFrame:
     url = url or DEFAULT_INDEX_VALUATION_PERCENTILE_URL_TEMPLATE.format(index_code=index_code)
-    resp = alerts.run_with_retry("index_pe_history", lambda: requests.get(url, timeout=15))
-    resp.raise_for_status()
+
+    def _fetch() -> object:
+        resp = requests.get(url, headers=DEFAULT_HEADERS, timeout=15)
+        resp.raise_for_status()  # 5xx 也要进重试,放在 run_with_retry 里
+        return resp.json()
+
+    payload = alerts.run_with_retry("index_pe_history", _fetch)
     records = []
-    for row in resp.json():
+    for row in payload:
         dt = str(row.get("trdDt") or "").strip()
         pe = parse_float(row.get("pETtm"))
         if dt and pe is not None and pe > 0:

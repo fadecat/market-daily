@@ -33,6 +33,11 @@ def _dumps(obj: Any) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=2, default=_json_default) + "\n"
 
 
+def _write_text(path: Path, text: str) -> None:
+    """统一 LF 写盘:Windows 文本模式会把 \\n 翻译成 \\r\\n,污染归档 diff。"""
+    path.write_text(text, encoding="utf-8", newline="\n")
+
+
 def content_hash(obj: Any) -> str:
     """对对象算稳定 hash(排序键 + ISO 日期),用于内容去重。"""
     return hashlib.sha256(
@@ -56,7 +61,7 @@ def load_state(name: str, default: Any = None) -> Any:
 def save_state(name: str, obj: Any) -> None:
     path = state_path(name)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(_dumps(obj), encoding="utf-8")
+    _write_text(path, _dumps(obj))
 
 
 # ---------- 带 content_hash 的快照 ----------
@@ -77,7 +82,7 @@ def save_snapshot(path: str | Path, obj: Any, *, meta: Optional[Dict[str, Any]] 
     if meta:
         payload.update(meta)
     payload["data"] = obj
-    path.write_text(_dumps(payload), encoding="utf-8")
+    _write_text(path, _dumps(payload))
     return True
 
 
@@ -146,7 +151,7 @@ def write_archive_file(
     serialized = _dumps(payload)
     if output_path.exists() and output_path.read_text(encoding="utf-8") == serialized:
         return False
-    output_path.write_text(serialized, encoding="utf-8")
+    _write_text(output_path, serialized)
     return True
 
 
