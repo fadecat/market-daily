@@ -62,7 +62,14 @@ jobs:
           else
             git commit -m "chore: 巨潮财报缓存快照"
             # 刷新 racy stat:python 刚写完文件就与 commit 同秒时,git 按 stat 误判"未暂存变更"
-            git status --porcelain > /dev/null
-            git pull --rebase origin main
+            git status
+            if ! git pull --rebase origin main; then
+              echo "=== pull --rebase 失败,诊断工作区 ==="
+              git status
+              git diff-files --name-status
+              git update-index --refresh || true
+              git diff HEAD --stat
+              exit 1
+            fi
             git push
           fi
