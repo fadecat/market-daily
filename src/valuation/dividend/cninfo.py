@@ -19,6 +19,14 @@ DATA20_BASE_URL = "https://www.cninfo.com.cn/data20"
 HEAD_STRIP_URL = f"{DATA20_BASE_URL}/companyOverview/getHeadStripData"
 COMPANY_INFO_URL = f"{DATA20_BASE_URL}/companyOverview/getCompanyInfo"
 FIELD_DICTIONARY_PATH = Path(__file__).with_name("cninfo_financial_field_dictionary.json")
+# 巨潮对 python-requests 默认 UA + 数据中心 IP 更敏感,带浏览器 UA 降低软限流概率
+REQUEST_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    ),
+    "Referer": "https://www.cninfo.com.cn/",
+}
 PERIOD_SUFFIXES = {
     "year": "-12-31",
     "three": "-09-30",
@@ -48,7 +56,7 @@ STATEMENT_CONFIG = {
 
 
 def _get_json(url: str, params: dict[str, Any], timeout: int = 30) -> dict[str, Any]:
-    response = requests.get(url, params=params, timeout=timeout)
+    response = requests.get(url, params=params, headers=REQUEST_HEADERS, timeout=timeout)
     response.raise_for_status()
     payload = response.json()
     if payload.get("code") != 200:

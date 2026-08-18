@@ -32,7 +32,8 @@ DEFAULT_TIMEZONE = "Asia/Shanghai"
 # CI 运行在美区 runner,巨潮资讯对境外/高频请求偶发返回不完整数据,
 # 这里对「抓取 bundle + 派生指标」整体重试,每次都会重新校验归母净利润行。
 CNINFO_FETCH_MAX_ATTEMPTS = max(1, int(env.get("CNINFO_FETCH_MAX_RETRIES", "3") or "3"))
-CNINFO_FETCH_BACKOFF_SECONDS = max(0.0, float(env.get("CNINFO_FETCH_BACKOFF_SECONDS", "2") or "2"))
+# 默认 10s(线性 10/20s):巨潮对高频 IP 软限流(200 + 空 records),2s 级退避必撞墙
+CNINFO_FETCH_BACKOFF_SECONDS = max(0.0, float(env.get("CNINFO_FETCH_BACKOFF_SECONDS", "10") or "10"))
 
 
 def _normalize_stock_code(stock_code: str) -> str:
