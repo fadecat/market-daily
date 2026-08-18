@@ -57,8 +57,6 @@ jobs:
             echo "no state/archive/cninfo changes, skip commit"
           else
             git commit -m "chore: 市场估值 state/archive/cninfo 快照"
-            # 刷新 racy stat:python 刚写完文件就与 commit 同秒时,git 按 stat 误判"未暂存变更"
-            git status --porcelain > /dev/null
             git pull --rebase origin main
             git push
           fi

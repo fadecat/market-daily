@@ -43,8 +43,6 @@ jobs:
             echo "no archive changes, skip commit"
           else
             git commit -m "chore: refresh 归档快照(估值/国债/汇率/转债指数)"
-            # 刷新 racy stat:python 刚写完文件就与 commit 同秒时,git 按 stat 误判"未暂存变更"
-            git status --porcelain > /dev/null
             git pull --rebase origin main
             git push
           fi
