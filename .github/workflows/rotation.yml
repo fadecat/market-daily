@@ -46,6 +46,6 @@ jobs:
             echo "no state changes, skip commit"
           else
             git commit -m "chore: 资产轮动 state 快照"
-            git pull --rebase origin main
+            git pull --rebase -X theirs origin main  # 快照 commit:与并发推送冲突时以本轮新数据为准
             git push
           fi

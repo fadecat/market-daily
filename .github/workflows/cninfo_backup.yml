@@ -61,6 +61,6 @@ jobs:
             echo "no cninfo changes, skip commit"
           else
             git commit -m "chore: 巨潮财报缓存快照"
-            git pull --rebase origin main
+            git pull --rebase -X theirs origin main  # 快照 commit:与并发推送冲突时以本轮新数据为准
             git push
           fi
