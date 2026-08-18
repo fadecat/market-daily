@@ -62,8 +62,9 @@ ETF_LIST_HEADERS = {
 logger = logging.getLogger(__name__)
 
 SESSION_STATE_NAME = "jisilu_session"
-# 首页 HTML 登录态标记:已登录页面含退出链接,匿名页面只含登录链接
-_LOGGED_IN_MARKER = "account/logout"
+# 首页 HTML 登录态标记:已登录页面有 <a href="https://www.jisilu.cn/logout/">退出</a>,
+# 匿名页面只有登录链接(实测:账号退出链接为 /logout/,不是 /account/logout/)
+_LOGGED_IN_MARKER = "jisilu.cn/logout/"
 _SESSION_TIMEZONE = "Asia/Shanghai"
 
 
