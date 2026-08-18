@@ -186,13 +186,16 @@ def get_cookie(username: Optional[str] = None, password: Optional[str] = None) -
     cached = _load_cached_session_cookie()
     if cached and _probe_session_cookie(cached):
         logger.info("复用落盘的集思录会话(免登录)")
+        print("[集思录] 复用落盘会话 cookie(免登录)")
         return cached
     if cached:
         logger.info("落盘的集思录会话已失效,重新账密登录")
+        print("[集思录] 落盘会话已失效,重新账密登录")
     cookie = login_jisilu(username, password)
     if not cookie:
         raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
     _save_session_cookie(cookie)
+    print("[集思录] 账密登录成功,会话 cookie 已落盘")
     return cookie
 
 
