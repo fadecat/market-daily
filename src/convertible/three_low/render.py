@@ -194,17 +194,18 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
     ranking_rows = []
     for item in report.get("ranking", []):
         bg = "background:#eef5ff" if item.get("selected") else ""
+        td = "padding:6px 10px;border-bottom:1px solid #eee;white-space:nowrap"
         ranking_rows.append(
             f"<tr style='{bg}'>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{escape(str(item.get('rank', '')))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee'>{escape(str(item.get('name', '')))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee'>{escape(str(item.get('code', '')))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('price'))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('dblow'))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('premium_rt'))}%</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('curr_iss_amt'))}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:right'>{_fmt_num(item.get('total_score'), 1)}</td>"
-            f"<td style='padding:6px 10px;border-bottom:1px solid #eee;text-align:center'>{'✓' if item.get('selected') else ''}</td></tr>"
+            f"<td style='{td};text-align:right'>{escape(str(item.get('rank', '')))}</td>"
+            f"<td style='{td}'>{escape(str(item.get('name', '')))}</td>"
+            f"<td style='{td}'>{escape(str(item.get('code', '')))}</td>"
+            f"<td style='{td};text-align:right'>{_fmt_num(item.get('price'))}</td>"
+            f"<td style='{td};text-align:right'>{_fmt_num(item.get('dblow'))}</td>"
+            f"<td style='{td};text-align:right'>{_fmt_num(item.get('premium_rt'))}%</td>"
+            f"<td style='{td};text-align:right'>{_fmt_num(item.get('curr_iss_amt'))}</td>"
+            f"<td style='{td};text-align:right'>{_fmt_num(item.get('total_score'), 1)}</td>"
+            f"<td style='{td};text-align:center'>{'✓' if item.get('selected') else ''}</td></tr>"
         )
     ranking_html = "\n".join(ranking_rows) if ranking_rows else "<tr><td colspan='9'>无数据</td></tr>"
 
