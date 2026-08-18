@@ -241,15 +241,8 @@ def get_enterprise_nature(c: Dict[str, Any], nature_map: Optional[Dict[str, str]
 
 # ── 共享数据通路 ──────────────────────────────────────────────────────────────
 def login() -> requests.Session:
-    """集思录账密登录,返回已带 cookie 的 Session。"""
-    username = env.require("JISILU_USERNAME")
-    password = env.require("JISILU_PASSWORD")
-    cookie = jl.login_jisilu(username, password)
-    if not cookie:
-        raise RuntimeError("集思录登录失败")
-    session = requests.Session()
-    jl.apply_cookie_string(session, cookie)
-    return session
+    """返回已带 cookie 的 Session(复用落盘会话,失效才账密登录)。"""
+    return jl.make_session()
 
 
 def fetch_and_filter(

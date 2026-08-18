@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/cninfo data/dividend_universe
+          git add -A data/cninfo data/dividend_universe data/state
           if git diff --cached --quiet; then
             echo "no cninfo changes, skip commit"
           else

@@ -467,11 +467,7 @@ def run_strategy(
 
     own_session = False
     if cookie is None or session is None:
-        username = env.require("JISILU_USERNAME")
-        password = env.require("JISILU_PASSWORD")
-        cookie = jl.login_jisilu(username, password)
-        if not cookie:
-            raise RuntimeError("集思录登录失败")
+        cookie = jl.get_cookie()  # 复用落盘会话,失效才账密登录;失败抛 RuntimeError
         session = requests.Session()
         jl.apply_cookie_string(session, cookie)
         own_session = True

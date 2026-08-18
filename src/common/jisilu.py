@@ -3,6 +3,12 @@
 替代旧仓库的 ``JISILU_COOKIE`` / 硬编码 cookie 方案。登录用 AES-ECB 加密账密,
 返回 cookie 字符串。板块代码用 ``make_session()`` 一行拿到已登录的 requests.Session。
 
+会话复用:集思录按账号限制日登录次数(超限报"登录次数过多,请1天后再试"),
+而 CI 多 workflow + 本地开发共用同一账号,每次运行都重新登录会把额度耗光。
+登录成功后 cookie 落盘 ``data/state/jisilu_session.json``(git 持久化,CI 跨 run 共享),
+下次先探活(首页登录态标记)再复用,失效才重新登录——正常一天只登录一次。
+注意:数据接口大多匿名可用,不能拿列表接口当探针。
+
 依赖:pycryptodome(提供 ``Crypto.Cipher.AES``)。
 """
 from __future__ import annotations
@@ -10,11 +16,13 @@ from __future__ import annotations
 import binascii
 import logging
 import time
+from datetime import datetime
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 import requests
 
-from . import alerts, env
+from . import alerts, env, storage
 
 try:
     from Crypto.Cipher import AES
@@ -26,6 +34,7 @@ except ImportError:  # pragma: no cover
 
 AES_KEY = "397151C04723421F"
 LOGIN_URL = "https://www.jisilu.cn/webapi/account/login_process/"
+HOME_URL = "https://www.jisilu.cn/"
 ETF_LIST_URL = "https://www.jisilu.cn/data/etf/etf_list/"
 GOLD_LIST_URL = "https://www.jisilu.cn/data/etf/gold_list/"
 QDII_LIST_E_URL = "https://www.jisilu.cn/data/qdii/qdii_list/E"
@@ -51,6 +60,43 @@ ETF_LIST_HEADERS = {
 }
 
 logger = logging.getLogger(__name__)
+
+SESSION_STATE_NAME = "jisilu_session"
+# 首页 HTML 登录态标记:已登录页面含退出链接,匿名页面只含登录链接
+_LOGGED_IN_MARKER = "account/logout"
+_SESSION_TIMEZONE = "Asia/Shanghai"
+
+
+def _load_cached_session_cookie() -> str:
+    state = storage.load_state(SESSION_STATE_NAME) or {}
+    return str(state.get("cookie") or "")
+
+
+def _save_session_cookie(cookie_str: str) -> None:
+    storage.save_state(
+        SESSION_STATE_NAME,
+        {
+            "cookie": cookie_str,
+            "saved_at": datetime.now(ZoneInfo(_SESSION_TIMEZONE)).isoformat(timespec="seconds"),
+        },
+    )
+
+
+def _probe_session_cookie(cookie_str: str) -> bool:
+    """探活落盘 cookie:拉首页看登录态标记。任何异常按失效处理(回退重新登录)。"""
+    session = requests.Session()
+    apply_cookie_string(session, cookie_str)
+    try:
+        response = session.get(
+            HOME_URL, headers={"User-Agent": LOGIN_HEADERS["User-Agent"]}, timeout=10
+        )
+        response.raise_for_status()
+        return _LOGGED_IN_MARKER in response.text
+    except Exception:  # noqa: BLE001
+        logger.exception("集思录会话探活异常,按失效处理")
+        return False
+    finally:
+        session.close()
 
 
 def jslencode(text: str) -> str:
@@ -131,25 +177,33 @@ def login_jisilu(
             request_session.close()
 
 
+def get_cookie(username: Optional[str] = None, password: Optional[str] = None) -> str:
+    """返回可用的集思录 cookie 字符串(给需要手动带 Cookie header 的接口)。
+
+    优先复用 ``data/state/jisilu_session.json`` 落盘的会话(探活通过才用,
+    避免消耗日登录额度);失效/不存在才账密登录,成功后落盘。失败抛 RuntimeError。
+    """
+    cached = _load_cached_session_cookie()
+    if cached and _probe_session_cookie(cached):
+        logger.info("复用落盘的集思录会话(免登录)")
+        return cached
+    if cached:
+        logger.info("落盘的集思录会话已失效,重新账密登录")
+    cookie = login_jisilu(username, password)
+    if not cookie:
+        raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
+    _save_session_cookie(cookie)
+    return cookie
+
+
 def make_session(
     username: Optional[str] = None,
     password: Optional[str] = None,
 ) -> requests.Session:
-    """登录集思录并返回已塞 cookie 的 Session。登录失败抛 RuntimeError。"""
-    cookie = login_jisilu(username, password)
-    if not cookie:
-        raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
+    """返回已塞 cookie 的 Session(复用落盘会话,逻辑同 ``get_cookie``)。失败抛 RuntimeError。"""
     session = requests.Session()
-    apply_cookie_string(session, cookie)
+    apply_cookie_string(session, get_cookie(username, password))
     return session
-
-
-def get_cookie(username: Optional[str] = None, password: Optional[str] = None) -> str:
-    """登录并返回 cookie 字符串(给需要手动带 Cookie header 的接口)。失败抛 RuntimeError。"""
-    cookie = login_jisilu(username, password)
-    if not cookie:
-        raise RuntimeError("集思录登录失败,请检查网络或 JISILU_USERNAME/JISILU_PASSWORD(网络异常详见日志)")
-    return cookie
 
 
 def fetch_jisilu_list(
