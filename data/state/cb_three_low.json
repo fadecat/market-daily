@@ -1,12 +1,12 @@
 {
   "strategy": "cb_three_low",
-  "last_run_date": "2026-08-18",
-  "portfolio_nav": 0.985457,
+  "last_run_date": "2026-08-19",
+  "portfolio_nav": 0.973925,
   "initial_nav": 1.0,
   "target_count": 10,
   "hold_tolerance": 5,
-  "last_snapshot_signature": "e0e8b1fa5878745e7a14b3f2acf7996f",
-  "updated_at": "2026-08-18 16:08:25",
+  "last_snapshot_signature": "1823bf530273c84ffbece6502ea3f9fc",
+  "updated_at": "2026-08-19 21:00:25",
   "holdings_history": [
     {
       "date": "2026-08-08",
@@ -1885,6 +1885,241 @@
           "dblow": 189.15,
           "premium_rt": 51.56,
           "curr_iss_amt": 2.998
+        }
+      ]
+    },
+    {
+      "date": "2026-08-19",
+      "holdings": [
+        {
+          "code": "123189",
+          "name": "晓鸣转债",
+          "price": 142.519,
+          "rank": 1
+        },
+        {
+          "code": "118016",
+          "name": "京源转债",
+          "price": 156.82,
+          "rank": 2
+        },
+        {
+          "code": "118007",
+          "name": "山石转债",
+          "price": 139.257,
+          "rank": 5
+        },
+        {
+          "code": "123199",
+          "name": "山河转债",
+          "price": 144.5,
+          "rank": 6
+        },
+        {
+          "code": "123171",
+          "name": "共同转债",
+          "price": 132.37,
+          "rank": 7
+        },
+        {
+          "code": "123209",
+          "name": "聚隆转债",
+          "price": 162.19,
+          "rank": 8
+        },
+        {
+          "code": "123222",
+          "name": "博俊转债",
+          "price": 150.098,
+          "rank": 9
+        },
+        {
+          "code": "113681",
+          "name": "镇洋转债",
+          "price": 139.703,
+          "rank": 10
+        },
+        {
+          "code": "113695",
+          "name": "华辰转债",
+          "price": 147.276,
+          "rank": 11
+        },
+        {
+          "code": "113686",
+          "name": "泰瑞转债",
+          "price": 150.831,
+          "rank": 15
+        }
+      ],
+      "nav": 0.973925,
+      "prev_nav": 0.985457,
+      "daily_return": -0.011702,
+      "selection": [
+        {
+          "code": "123189",
+          "name": "晓鸣转债",
+          "price": 142.519,
+          "rank": 1,
+          "total_score": 340.0,
+          "selected": true,
+          "dblow": 168.08,
+          "premium_rt": 25.56,
+          "curr_iss_amt": 3.286
+        },
+        {
+          "code": "118016",
+          "name": "京源转债",
+          "price": 156.82,
+          "rank": 2,
+          "total_score": 340.0,
+          "selected": true,
+          "dblow": 187.38,
+          "premium_rt": 30.56,
+          "curr_iss_amt": 1.675
+        },
+        {
+          "code": "123160",
+          "name": "泰福转债",
+          "price": 157.323,
+          "rank": 3,
+          "total_score": 333.0,
+          "selected": false,
+          "dblow": 187.93,
+          "premium_rt": 30.61,
+          "curr_iss_amt": 2.315
+        },
+        {
+          "code": "127078",
+          "name": "优彩转债",
+          "price": 150.501,
+          "rank": 4,
+          "total_score": 325.0,
+          "selected": false,
+          "dblow": 169.46,
+          "premium_rt": 18.96,
+          "curr_iss_amt": 4.158
+        },
+        {
+          "code": "118007",
+          "name": "山石转债",
+          "price": 139.257,
+          "rank": 5,
+          "total_score": 325.0,
+          "selected": true,
+          "dblow": 178.6,
+          "premium_rt": 39.34,
+          "curr_iss_amt": 2.671
+        },
+        {
+          "code": "123199",
+          "name": "山河转债",
+          "price": 144.5,
+          "rank": 6,
+          "total_score": 316.0,
+          "selected": true,
+          "dblow": 181.82,
+          "premium_rt": 37.32,
+          "curr_iss_amt": 3.197
+        },
+        {
+          "code": "123171",
+          "name": "共同转债",
+          "price": 132.37,
+          "rank": 7,
+          "total_score": 311.0,
+          "selected": true,
+          "dblow": 171.85,
+          "premium_rt": 39.48,
+          "curr_iss_amt": 3.799
+        },
+        {
+          "code": "123209",
+          "name": "聚隆转债",
+          "price": 162.19,
+          "rank": 8,
+          "total_score": 310.0,
+          "selected": true,
+          "dblow": 199.4,
+          "premium_rt": 37.21,
+          "curr_iss_amt": 1.672
+        },
+        {
+          "code": "123222",
+          "name": "博俊转债",
+          "price": 150.098,
+          "rank": 9,
+          "total_score": 307.0,
+          "selected": true,
+          "dblow": 191.68,
+          "premium_rt": 41.58,
+          "curr_iss_amt": 2.438
+        },
+        {
+          "code": "113681",
+          "name": "镇洋转债",
+          "price": 139.703,
+          "rank": 10,
+          "total_score": 306.0,
+          "selected": true,
+          "dblow": 152.02,
+          "premium_rt": 12.32,
+          "curr_iss_amt": 5.476
+        },
+        {
+          "code": "113695",
+          "name": "华辰转债",
+          "price": 147.276,
+          "rank": 11,
+          "total_score": 303.0,
+          "selected": true,
+          "dblow": 178.02,
+          "premium_rt": 30.74,
+          "curr_iss_amt": 4.597
+        },
+        {
+          "code": "118044",
+          "name": "赛特转债",
+          "price": 148.19,
+          "rank": 12,
+          "total_score": 298.0,
+          "selected": false,
+          "dblow": 184.05,
+          "premium_rt": 35.86,
+          "curr_iss_amt": 4.42
+        },
+        {
+          "code": "113646",
+          "name": "永吉转债",
+          "price": 160.836,
+          "rank": 13,
+          "total_score": 296.0,
+          "selected": false,
+          "dblow": 204.38,
+          "premium_rt": 43.54,
+          "curr_iss_amt": 1.372
+        },
+        {
+          "code": "113631",
+          "name": "皖天转债",
+          "price": 137.271,
+          "rank": 14,
+          "total_score": 295.0,
+          "selected": false,
+          "dblow": 156.74,
+          "premium_rt": 19.47,
+          "curr_iss_amt": 5.958
+        },
+        {
+          "code": "113686",
+          "name": "泰瑞转债",
+          "price": 150.831,
+          "rank": 15,
+          "total_score": 295.0,
+          "selected": true,
+          "dblow": 191.63,
+          "premium_rt": 40.8,
+          "curr_iss_amt": 3.363
         }
       ]
     }
