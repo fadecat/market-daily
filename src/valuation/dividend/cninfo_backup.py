@@ -51,6 +51,9 @@ DATA_DIRNAME = "data"
 DIVIDEND_UNIVERSE_DIRNAME = "dividend_universe"
 # 全量预热:每只之间间隔多少秒,低速率避免巨潮限流。
 CNINFO_WARMUP_DELAY_SECONDS = max(0.0, float(env.get("CNINFO_WARMUP_DELAY_SECONDS", "4") or "4"))
+# 单轮抓取的墙钟预算(秒):超过后停止开新标的,干净退出、剩余留待下轮 --retry,
+# 避免个别卡死标的把整轮拖到 workflow timeout(30min)被强杀、已抓成果也丢。
+CNINFO_TIME_BUDGET_SECONDS = max(0.0, float(env.get("CNINFO_TIME_BUDGET_SECONDS", "1500") or "1500"))
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 
@@ -225,6 +228,9 @@ def build_warmup_summary(result: dict[str, Any]) -> str:
         f"成功 {result.get('success_count', 0)} 只",
         f"失败 {result.get('failed_count', 0)} 只",
     ]
+    skipped_count = int(result.get("skipped_count", 0) or 0)
+    if skipped_count:
+        lines.append(f"预算收摊,留待下轮 {skipped_count} 只")
     shard_label = str(result.get("shard_label") or "").strip()
     if shard_label:
         lines.insert(5, f"分片 {shard_label}")
@@ -267,6 +273,7 @@ def run_incremental_warmup(
     delay_seconds: float = CNINFO_WARMUP_DELAY_SECONDS,
     max_attempts: int = CNINFO_FETCH_MAX_ATTEMPTS,
     backoff_seconds: float = CNINFO_FETCH_BACKOFF_SECONDS,
+    time_budget_seconds: float = CNINFO_TIME_BUDGET_SECONDS,
     fetched_at: str | None = None,
     only_not_checked_today: bool = False,
     shard_index: int | None = None,
@@ -361,8 +368,18 @@ def run_incremental_warmup(
 
     successes: list[dict[str, Any]] = []
     failures: list[dict[str, Any]] = []
+    skipped: list[dict[str, str]] = []
     batch_start_perf = time.perf_counter()
     for index, item in enumerate(selected, 1):
+        if time_budget_seconds and index > 1:
+            elapsed = time.perf_counter() - batch_start_perf
+            if elapsed >= time_budget_seconds:
+                skipped = selected[index - 1:]
+                print(
+                    f"[预算收摊] 已耗时 {elapsed:g}s >= 预算 {time_budget_seconds:g}s,"
+                    f"剩余 {len(skipped)} 只留待下轮重试"
+                )
+                break
         item_start_perf = time.perf_counter()
         stock_code = item["stock_code"]
         stock_name = item["stock_name"]
@@ -421,9 +438,10 @@ def run_incremental_warmup(
         "shard_label": shard_label,
         "batch_size": max_per_run if max_per_run else len(work),
         "selected_count": len(selected),
-        "remaining_count": max(0, len(work) - len(selected)),
+        "remaining_count": max(0, len(work) - len(successes) - len(failures)),
         "success_count": len(successes),
         "failed_count": len(failures),
+        "skipped_count": len(skipped),
         "warnings": warnings,
         "selected": selected,
         "successes": successes,
@@ -448,6 +466,7 @@ def _failed_warmup_result(error: str, mode: str) -> dict[str, Any]:
         "selected_count": 0,
         "success_count": 0,
         "failed_count": 0,
+        "skipped_count": 0,
         "warnings": [],
         "successes": [],
         "failures": [],

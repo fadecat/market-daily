@@ -162,6 +162,17 @@ def test_warmup_max_per_run(monkeypatch):
     assert result["selected_count"] == 1 and result["remaining_count"] == 1
 
 
+def test_warmup_time_budget_stops_early(monkeypatch):
+    _stub_warmup(monkeypatch)
+    result = cb.run_incremental_warmup(
+        stock_code_whitelist={"000001", "000002"}, delay_seconds=0, time_budget_seconds=1e-9,
+        fetched_at="2024-05-10T15:30:00+08:00")
+    # 预算即刻用尽:只抓第 1 只,第 2 只留待下轮
+    assert result["success_count"] == 1 and result["skipped_count"] == 1
+    assert result["remaining_count"] == 1
+    assert "留待下轮 1 只" in cb.build_warmup_summary(result)
+
+
 def test_warmup_all_fail(monkeypatch):
     def boom(*a, **k):
         raise RuntimeError("cninfo down")
