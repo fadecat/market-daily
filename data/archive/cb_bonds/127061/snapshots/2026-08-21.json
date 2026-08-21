@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-21",
+  "bond_id": "127061",
+  "bond_nm": "美锦转债",
+  "stock_id": "000723",
+  "stock_nm": "美锦能源",
+  "convert_price": "3.47",
+  "adjust_clause_text": "当公司 A 股股票在任意连续三十个交易日中至少有十五个交易日的收盘价低于当期转股价格的 85%时注：转股价下修是否可以低于每股净资产？ 仅会员可见",
+  "adjust_trigger_price": "2.950",
+  "last_adjust_date": "2026-07-17",
+  "trigger_hit_days_30": 0,
+  "trigger_required_days": 15,
+  "trigger_window_days": 30,
+  "trigger_observed_days": 26,
+  "trigger_total_days_30": 26,
+  "display_text": "0/15 | 30",
+  "source_updated_at": "2026-08-21"
+}
