@@ -1,11 +1,11 @@
 {
   "strategy": "etf_rotation_20d",
   "last_run_date": "2026-08-24",
-  "portfolio_nav": 0.866951,
+  "portfolio_nav": 0.86695,
   "next_holding": "159934",
   "initial_nav": 1.0,
   "lookback_days": 20,
-  "updated_at": "2026-08-24 15:06:12",
+  "updated_at": "2026-08-24 16:22:59",
   "holdings_history": [
     {
       "date": "2026-06-09",
@@ -1208,7 +1208,7 @@
     {
       "date": "2026-08-21",
       "holding": "159934",
-      "nav": 0.850898,
+      "nav": 0.850897,
       "prev_nav": 0.83684,
       "daily_return": 0.016798,
       "signals": {
@@ -1233,8 +1233,8 @@
     {
       "date": "2026-08-24",
       "holding": "159934",
-      "nav": 0.866951,
-      "prev_nav": 0.850898,
+      "nav": 0.86695,
+      "prev_nav": 0.850897,
       "daily_return": 0.018866,
       "signals": {
         "512040": 0.019312,
