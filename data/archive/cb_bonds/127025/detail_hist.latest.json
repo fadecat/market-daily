@@ -5,6 +5,32 @@
       "id": "127025",
       "cell": {
         "bond_id": "127025",
+        "last_chg_dt": "2026-08-31",
+        "ytm_rt": "1.54%",
+        "premium_rt": "281.50%",
+        "convert_value": "27.71",
+        "price": "105.710",
+        "volume": "3345.13",
+        "stock_volume": 316493,
+        "sprice": "3.58",
+        "curr_iss_amt": "17.764",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "-",
+        "amt_change": "-",
+        "turnover_rt": "1.78"
+      }
+    },
+    {
+      "id": "127025",
+      "cell": {
+        "bond_id": "127025",
         "last_chg_dt": "2026-08-28",
         "ytm_rt": "1.35%",
         "premium_rt": "273.25%",
@@ -754,35 +780,9 @@
         "amt_change": "-",
         "turnover_rt": "3.17"
       }
-    },
-    {
-      "id": "127025",
-      "cell": {
-        "bond_id": "127025",
-        "last_chg_dt": "2026-07-20",
-        "ytm_rt": "1.26%",
-        "premium_rt": "272.81%",
-        "convert_value": "28.33",
-        "price": "105.611",
-        "volume": "8210.11",
-        "stock_volume": 777280,
-        "sprice": "3.66",
-        "curr_iss_amt": "17.764",
-        "cflg": "Y",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "回购注销  转股价由12.910调整为12.920",
-        "amt_change": "-",
-        "turnover_rt": "4.38"
-      }
     }
   ],
   "total": 30,
   "bond_id": "127025",
-  "fetched_at": "2026-08-29"
+  "fetched_at": "2026-08-31"
 }
