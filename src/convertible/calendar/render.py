@@ -33,11 +33,17 @@ def build_section_html(
             if code:
                 event_line = f"{event_line} ({code})"
             industry_name = str(event.get("industry") or "").strip()
-            if industry_name:
-                event_line = f"{event_line} [{industry_name}]"
             stock_price = str(event.get("stock_price") or "").strip()
-            if stock_price:
-                event_line = f"{event_line} 正股价 {stock_price}"
-            lines.append(event_line)
+            if industry_name or stock_price:
+                # 行业/价格放独立属性行:避免单行过长,手机窄屏把「正股价」等词折断
+                attrs = []
+                if industry_name:
+                    attrs.append(industry_name)
+                if stock_price:
+                    attrs.append(f"正股价 {stock_price}")
+                lines.append(event_line)
+                lines.append(f"\u3000<font color=\"comment\">{' · '.join(attrs)}</font>")
+            else:
+                lines.append(event_line)
         lines.append("")
     return email.render_markdown("\n".join(lines).strip())
