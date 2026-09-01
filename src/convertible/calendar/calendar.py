@@ -1,8 +1,11 @@
 """集思录日历下修提醒 数据层。
 
 按规则(qtype + 时间窗)拉集思录日历(公开接口,无需登录),归一化、去重,
-按 title_keywords 过滤命中事件。移植自 monitor_jisilu_calendar.py 的数据逻辑部分:
-去掉 webhook 推送与 os 依赖,fetch 包 common.alerts.run_with_retry。
+按 title_keywords 过滤命中事件。另含「同意注册转债」数据源:复用
+valuation.dividend.cb_reference.fetch_pending_cb_rows 拉集思录 pre_list(待发转债,
+需登录),过滤 progress_nm 含"同意注册"的行,归一化为同构事件。移植自
+monitor_jisilu_calendar.py 的数据逻辑部分:去掉 webhook 推送与 os 依赖,
+fetch 包 common.alerts.run_with_retry。
 """
 from __future__ import annotations
 
@@ -13,6 +16,8 @@ import requests
 import yaml
 
 from ...common import alerts
+from ...valuation.dividend import cb_reference
+from .. import industry
 
 
 BEIJING_TZ = timezone(timedelta(hours=8))
@@ -249,3 +254,62 @@ def format_event_time(event_time: Optional[datetime]) -> str:
     if event_time is None:
         return "日期未知"
     return event_time.astimezone(BEIJING_TZ).strftime("%Y-%m-%d")
+
+
+# —— 同意注册转债(集思录 pre_list 待发转债,需登录) ——
+
+REGISTERED_PROGRESS_KEYWORD = "同意注册"
+
+
+def load_registered_monitor(config_path: str) -> Dict:
+    """读取 yaml 中 registered_cb_monitor 配置块;缺省返回空 dict(不启用)。"""
+    with open(config_path, "r", encoding="utf-8") as file:
+        data = yaml.safe_load(file) or {}
+    monitor = data.get("registered_cb_monitor") or {}
+    return monitor if isinstance(monitor, dict) else {}
+
+
+def fetch_registered_cb_events(cookie: str, session: Optional[requests.Session] = None) -> List[Dict]:
+    """拉 pre_list,过滤 progress_nm 含「同意注册」的行,归一化为日历事件结构。
+
+    同意注册阶段尚无 bond_nm/bond_id,故 title 用「正股名 同意注册」,code 用正股代码。
+    附加工业(查待发行业缓存,缺失时增量 backfill 详情页)与正股价格(pre_list.price)。
+    """
+    rows = cb_reference.fetch_pending_cb_rows(cookie, session=session)
+    # 增量补行业缓存(首次全抓,之后只抓新出现的 stock_id)
+    stock_ids = [str(r.get("cell", {}).get("stock_id") or "").strip() for r in rows]
+    stock_ids = [sid for sid in stock_ids if sid]
+    try:
+        industry.backfill_pending_industries(cookie, stock_ids, session=session)
+    except Exception as exc:  # noqa: BLE001
+        print(f"[WARN] 待发转债行业增量补抓失败,按缓存兜底: {exc}")
+
+    events: List[Dict] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        cell = row.get("cell") if isinstance(row.get("cell"), dict) else row
+        progress = cb_reference.normalize_progress_text(cell.get("progress_nm"))
+        if REGISTERED_PROGRESS_KEYWORD not in progress:
+            continue
+        stock_nm = str(cell.get("stock_nm") or "").strip()
+        stock_id = str(cell.get("stock_id") or "").strip()
+        if not stock_nm:
+            continue
+        pending_ind = industry.pending_industry_of(stock_id)
+        events.append(
+            {
+                "id": stock_id,
+                "code": stock_id,
+                "title": f"{stock_nm} {REGISTERED_PROGRESS_KEYWORD}",
+                "event_time": parse_event_datetime(cell.get("progress_dt")),
+                "description": (
+                    cb_reference.normalize_progress_text(cell.get("progress_full")) or progress
+                ),
+                "industry": (pending_ind or {}).get("l1_name") or "未分类",
+                "stock_price": str(cell.get("price") or "").strip(),
+                "url": "",
+                "raw": row,
+            }
+        )
+    return dedupe_events(events)

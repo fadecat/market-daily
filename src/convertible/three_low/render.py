@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..index_chart import history as cb_index_history
+from .. import industry
 from . import strategy
 from .charts import NAV_CHART_CID
 
@@ -195,19 +196,24 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
     for item in report.get("ranking", []):
         bg = "background:#eef5ff" if item.get("selected") else ""
         td = "padding:6px 10px;border-bottom:1px solid #eee;white-space:nowrap"
+        stock_cell = item.get("stock_nm") or "-"
+        stock_price = _fmt_num(item.get("stock_price"))
         ranking_rows.append(
             f"<tr style='{bg}'>"
             f"<td style='{td};text-align:right'>{escape(str(item.get('rank', '')))}</td>"
             f"<td style='{td}'>{escape(str(item.get('name', '')))}</td>"
             f"<td style='{td}'>{escape(str(item.get('code', '')))}</td>"
             f"<td style='{td};text-align:right'>{_fmt_num(item.get('price'))}</td>"
+            f"<td style='{td}'>{escape(stock_cell)}</td>"
+            f"<td style='{td};text-align:right'>{stock_price}</td>"
+            f"<td style='{td}'>{escape(industry.l1_name_of(item.get('sw_cd')))}</td>"
             f"<td style='{td};text-align:right'>{_fmt_num(item.get('dblow'))}</td>"
             f"<td style='{td};text-align:right'>{_fmt_num(item.get('premium_rt'))}%</td>"
             f"<td style='{td};text-align:right'>{_fmt_num(item.get('curr_iss_amt'))}</td>"
             f"<td style='{td};text-align:right'>{_fmt_num(item.get('total_score'), 1)}</td>"
             f"<td style='{td};text-align:center'>{'✓' if item.get('selected') else ''}</td></tr>"
         )
-    ranking_html = "\n".join(ranking_rows) if ranking_rows else "<tr><td colspan='9'>无数据</td></tr>"
+    ranking_html = "\n".join(ranking_rows) if ranking_rows else "<tr><td colspan='12'>无数据</td></tr>"
 
     # 历史持仓表(移动友好:窄列指标行 + 全宽 chip 行,两行一天)
     full_history = report.get("history", [])
@@ -260,6 +266,9 @@ def build_email_html(report: Dict[str, Any], chart_cid: str) -> str:
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">名称</th>
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">代码</th>
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">收盘价</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">正股</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">正股价</th>
+      <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:left">行业</th>
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">双低</th>
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">溢价率</th>
       <th style="padding:6px 10px;border-bottom:2px solid #333;background:#f0f0f0;font-weight:bold;white-space:nowrap;text-align:right">规模(亿)</th>

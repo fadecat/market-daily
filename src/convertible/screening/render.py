@@ -9,13 +9,14 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 
 from ...common import email
+from .. import industry
 from .archive import get_cb_adjust_days_text
 from .strategy import is_force_redeem_triggered, load_enterprise_nature_map
 
 
 CB_EMAIL_HEADERS = [
     "#", "转债", "价格", "溢价率", "规模",
-    "评级", "剩余年限", "到期收益率", "正股(价)", "下修",
+    "评级", "剩余年限", "到期收益率", "正股(价)", "行业", "下修",
 ]
 
 
@@ -115,6 +116,7 @@ def _cb_email_row(
         f'{c.get("year_left", "--")}年',
         _cb_email_ytm(c.get("ytm_rt")),
         f'{c.get("stock_nm", "--")} {_cb_email_sprice(c.get("sprice"))}',
+        str(industry.l1_name_of(c.get("sw_cd"))),
         get_cb_adjust_days_text(c, archive_map),
     ]
     spec: dict = {"cells": cells}

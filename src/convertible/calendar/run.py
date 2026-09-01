@@ -12,7 +12,7 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from ...common import alerts, email
+from ...common import alerts, email, jisilu as jl
 from . import calendar, render
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -23,7 +23,9 @@ DEFAULT_PREVIEW_PATH = _REPO_ROOT / "preview" / "convertible_calendar.html"
 def build_section(work_dir: Path) -> Optional[Dict[str, Any]]:
     """遍历所有规则 -> 拉日历(共享缓存) -> 关键词过滤 -> 聚合为一个 section。
 
-    无命中事件返回 None。日历接口公开,无需登录。
+    日历接口公开,无需登录;「同意注册转债」复用集思录 pre_list(需登录,
+    common.jisilu.get_cookie),失败告警后跳过该块,不影响日历事件。
+    无命中事件返回 None。
     """
     rules = calendar.load_calendar_rules(str(DEFAULT_CONFIG_PATH))
     if not rules:
@@ -54,6 +56,19 @@ def build_section(work_dir: Path) -> Optional[Dict[str, Any]]:
         matched = calendar.filter_events_by_keywords(cache[cache_key], keywords)
         if matched:
             matched_rules.append({"rule_name": name, "events": matched})
+
+    # 同意注册转债提醒(pre_list 数据源,需登录)
+    registered_cfg = calendar.load_registered_monitor(str(DEFAULT_CONFIG_PATH))
+    if registered_cfg and registered_cfg.get("enabled", True):
+        try:
+            cookie = jl.get_cookie()
+            registered_events = calendar.fetch_registered_cb_events(cookie)
+        except Exception as exc:  # noqa: BLE001
+            alerts.notify_alert("集思录同意注册转债拉取失败", str(exc))
+            registered_events = []
+        if registered_events:
+            rule_name = str(registered_cfg.get("name", "")).strip() or "同意注册转债提醒"
+            matched_rules.append({"rule_name": rule_name, "events": registered_events})
 
     if not matched_rules:
         print("[INFO] 日历无命中事件,跳过 section")

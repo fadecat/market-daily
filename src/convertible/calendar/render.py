@@ -32,6 +32,12 @@ def build_section_html(
             code = str(event.get("code", "")).strip()
             if code:
                 event_line = f"{event_line} ({code})"
+            industry_name = str(event.get("industry") or "").strip()
+            if industry_name:
+                event_line = f"{event_line} [{industry_name}]"
+            stock_price = str(event.get("stock_price") or "").strip()
+            if stock_price:
+                event_line = f"{event_line} 正股价 {stock_price}"
             lines.append(event_line)
         lines.append("")
     return email.render_markdown("\n".join(lines).strip())

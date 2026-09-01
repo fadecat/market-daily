@@ -417,6 +417,9 @@ def selection_snapshot(
             "rank": r.get("rank"),
             "total_score": round(to_float(r.get("total_score"), 0.0) or 0.0, 2),
             "selected": code in held_codes,
+            "sw_cd": str(bond_field(r, "sw_cd") or "").strip(),
+            "stock_nm": str(bond_field(r, "stock_nm") or "").strip(),
+            "stock_price": to_float(bond_field(r, "sprice")),
         }
         for f in factors:
             item[f["field"]] = to_float(bond_field(r, f["field"]))

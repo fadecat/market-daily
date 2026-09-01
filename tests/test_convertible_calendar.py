@@ -102,6 +102,9 @@ def test_load_calendar_rules_reads_yaml():
     assert rules[0]["name"] == "下修股东会提醒"
     assert "下修股东会" in rules[0]["title_keywords"]
     assert "webhook_env" not in rules[0]  # 已去掉 webhook_env
+    # 窗口须为 current_to_lookahead:事件日期未过(含今天)持续显示,过了自动退出;
+    # next_month 会漏掉本月内即将发生的事件
+    assert rules[0]["window"] == "current_to_lookahead"
 
 
 def test_build_section_html_renders_events():
@@ -116,3 +119,96 @@ def test_build_section_html_renders_events():
     assert "128001" in html
     # 企业微信方言 <font color="warning"> 应被 render_markdown 转成 span
     assert "color:#D93026" in html
+
+
+def test_load_registered_monitor_reads_yaml():
+    config_path = REPO_ROOT / "config" / "cb_calendar.yaml"
+    monitor = calendar.load_registered_monitor(str(config_path))
+    assert monitor.get("name") == "同意注册转债提醒"
+    assert monitor.get("enabled") is True
+
+
+def test_fetch_registered_cb_events_filters_and_normalizes(monkeypatch):
+    def fake_rows(cookie, session=None, timestamp_ms=None):
+        assert cookie == "test-cookie"
+        return [
+            {"cell": {"stock_id": "300727", "stock_nm": "润禾材料",
+                      "progress_nm": "同意注册", "progress_dt": "2026-08-27",
+                      "progress_full": "证监会同意注册", "bond_id": "", "bond_nm": None,
+                      "price": "30.02"}},
+            {"cell": {"stock_id": "600000", "stock_nm": "五洲交通",
+                      "progress_nm": "同意注册", "progress_dt": "2026-08-21",
+                      "bond_id": "", "bond_nm": None, "price": "9.5"}},
+            # 非注册状态应被过滤
+            {"cell": {"stock_id": "600001", "stock_nm": "某某股份",
+                      "progress_nm": "交易所受理", "progress_dt": "2026-08-01"}},
+            # 与第一条重复(同正股同时点)应去重
+            {"cell": {"stock_id": "300727", "stock_nm": "润禾材料",
+                      "progress_nm": "同意注册", "progress_dt": "2026-08-27",
+                      "bond_id": "", "bond_nm": None, "price": "30.02"}},
+        ]
+
+    monkeypatch.setattr(calendar.cb_reference, "fetch_pending_cb_rows", fake_rows)
+    monkeypatch.setattr(calendar.industry, "backfill_pending_industries", lambda *a, **k: {})
+    monkeypatch.setattr(
+        calendar.industry, "pending_industry_of",
+        lambda sid: {"l1_name": "基础化工" if sid == "300727" else "交通运输"},
+    )
+    events = calendar.fetch_registered_cb_events("test-cookie")
+    assert len(events) == 2
+    assert events[0]["title"] == "润禾材料 同意注册"
+    assert events[0]["code"] == "300727"
+    assert events[0]["event_time"].strftime("%Y-%m-%d") == "2026-08-27"
+    assert events[0]["description"] == "证监会同意注册"
+    assert events[0]["industry"] == "基础化工"
+    assert events[0]["stock_price"] == "30.02"
+    assert events[1]["title"] == "五洲交通 同意注册"
+    assert events[1]["industry"] == "交通运输"
+
+
+def test_fetch_registered_cb_events_ignores_bad_rows(monkeypatch):
+    def fake_rows(cookie, session=None, timestamp_ms=None):
+        return [
+            {"cell": {"stock_id": "", "stock_nm": "", "progress_nm": "同意注册"}},  # 无正股名 -> 丢弃
+            {"not_cell": 1},  # 结构异常 -> 丢弃
+        ]
+
+    monkeypatch.setattr(calendar.cb_reference, "fetch_pending_cb_rows", fake_rows)
+    monkeypatch.setattr(calendar.industry, "backfill_pending_industries", lambda *a, **k: {})
+    assert calendar.fetch_registered_cb_events("test-cookie") == []
+
+
+def test_build_section_includes_registered_events(monkeypatch, tmp_path):
+    from src.convertible.calendar import run as calendar_run
+
+    monkeypatch.setattr(calendar_run.calendar, "fetch_calendar_events", lambda *a, **k: [])
+    monkeypatch.setattr(calendar_run.jl, "get_cookie", lambda *a, **k: "test-cookie")
+    monkeypatch.setattr(
+        calendar_run.calendar,
+        "fetch_registered_cb_events",
+        lambda cookie, **k: [
+            {"title": "润禾材料 同意注册",
+             "event_time": datetime(2026, 8, 27, tzinfo=BEIJING_TZ), "code": "300727"},
+        ],
+    )
+    section = calendar_run.build_section(tmp_path)
+    assert section is not None
+    assert "同意注册转债提醒" in section["html"]
+    assert "润禾材料 同意注册" in section["html"]
+
+
+def test_build_section_skips_registered_when_disabled(monkeypatch, tmp_path):
+    from src.convertible.calendar import run as calendar_run
+
+    monkeypatch.setattr(calendar_run.calendar, "fetch_calendar_events", lambda *a, **k: [])
+    monkeypatch.setattr(
+        calendar_run.calendar, "load_registered_monitor",
+        lambda *a, **k: {"name": "同意注册转债提醒", "enabled": False},
+    )
+
+    def should_not_call(*a, **k):
+        raise AssertionError("enabled=false 时不应拉取同意注册数据")
+
+    monkeypatch.setattr(calendar_run.jl, "get_cookie", should_not_call)
+    monkeypatch.setattr(calendar_run.calendar, "fetch_registered_cb_events", should_not_call)
+    assert calendar_run.build_section(tmp_path) is None

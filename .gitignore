@@ -34,6 +34,7 @@ datacache/
 .codex_tmp/
 .codex/
 .worktrees/
+.workbuddy/
 
 # 注意:data/ 下的 json(state/archive/cninfo/cb_bonds/dividend_universe/cb_index_history.json)
 # 靠 git commit 持久化,不被忽略,需正常跟踪。

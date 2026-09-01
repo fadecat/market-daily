@@ -1,11 +1,18 @@
 # 集思录日历下修提醒配置
 # 按规则拉集思录日历(qtype + 时间窗),用 title_keywords 过滤命中事件,
 # 聚合为一个 section 片段随转债行情邮件发出(原 webhook 推送已改为 SMTP)。
-# window: next_month(下月整月)/ current_to_lookahead(今日起 lookahead_days 天)
+# window: next_month(下月整月)/ current_to_lookahead(今日0点起 lookahead_days 天)
+# 下修股东会用 current_to_lookahead:事件日期未过(含今天)就持续显示,过了自动退出窗口。
 calendar_monitors:
   - name: "下修股东会提醒"
     qtype: "CNV"
-    window: "next_month"
+    window: "current_to_lookahead"
     title_keywords:
       - "下修股东会"
     lookahead_days: 45
+
+# 同意注册转债提醒(数据源:集思录 pre_list 待发转债,progress_nm='同意注册';需登录,
+# 走 common.jisilu.get_cookie)。enabled=false 时跳过该块。
+registered_cb_monitor:
+  name: "同意注册转债提醒"
+  enabled: true
