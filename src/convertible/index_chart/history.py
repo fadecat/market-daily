@@ -9,7 +9,7 @@
 - load_history 会对旧记录的原始字段名做一次性归一(mid_price->median_price 等),
   无需单独迁移脚本;首次 refresh 后文件即收敛为干净名。
 
-cb_index 页面无需登录,裸 GET。
+cb_index 页面需登录态,复用 common.jisilu.make_session()(落盘 cookie 探活,失效才账密登录)。
 """
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
-from ...common import alerts, storage
+from ...common import alerts, jisilu as jl, storage
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 ARCHIVE_PATH = _REPO_ROOT / "data" / "cb_index_history.json"
@@ -47,12 +47,17 @@ JISILU_FIELD_MAP: Dict[str, str] = {
 
 
 def fetch_page(url: str = JISILU_CB_INDEX_URL) -> str:
-    resp = alerts.run_with_retry(
-        "cb_index.fetch_page",
-        lambda: requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT),
-    )
-    resp.raise_for_status()
-    return resp.text
+    """抓取 cb_index 页面 HTML(需登录态,复用 common.jisilu 会话)。"""
+    session = jl.make_session()
+    try:
+        resp = alerts.run_with_retry(
+            "cb_index.fetch_page",
+            lambda: session.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT),
+        )
+        resp.raise_for_status()
+        return resp.text
+    finally:
+        session.close()
 
 
 def parse_jisilu(body: str) -> List[Dict[str, str]]:
