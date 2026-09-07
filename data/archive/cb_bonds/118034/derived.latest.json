@@ -1,17 +1,17 @@
 {
   "bond_id": "118034",
   "bond_nm": "晶能转债",
-  "trigger_price": "5.397",
-  "last_adjust_date": "",
-  "last_adjust_from_price": "",
-  "last_adjust_to_price": "",
-  "window_start_date": "2026-07-27",
-  "window_end_date": "2026-09-04",
-  "trigger_hit_days_30": 30,
+  "trigger_price": "3.706",
+  "last_adjust_date": "2026-09-07",
+  "last_adjust_from_price": "6.350",
+  "last_adjust_to_price": "4.360",
+  "window_start_date": "2026-09-07",
+  "window_end_date": "2026-09-07",
+  "trigger_hit_days_30": 0,
   "trigger_required_days": 15,
   "trigger_window_days": 30,
-  "trigger_observed_days": 30,
-  "trigger_total_days_30": 30,
-  "display_text": "15/15 | 30",
-  "updated_at": "2026-09-04"
+  "trigger_observed_days": 1,
+  "trigger_total_days_30": 1,
+  "display_text": "0/15 | 30",
+  "updated_at": "2026-09-07"
 }
