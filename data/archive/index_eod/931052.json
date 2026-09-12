@@ -1,7 +1,7 @@
 {
   "source": "https://cdn.efunds.com.cn/etf-net/index_eod_price_931052.json",
   "index_code": "931052",
-  "updated_at": "2026-09-10T19:59:45.730002+08:00",
+  "updated_at": "2026-09-12T08:53:13.966535+08:00",
   "records": [
     {
       "pctChg1D": null,
@@ -28022,6 +28022,12 @@
       "pxClose": 3535.2789,
       "trdCode": "931052",
       "trdDt": "2026-09-10"
+    },
+    {
+      "pctChg1D": -1.59304829,
+      "pxClose": 3478.9602,
+      "trdCode": "931052",
+      "trdDt": "2026-09-11"
     }
   ]
 }
