@@ -5,6 +5,32 @@
       "id": "113049",
       "cell": {
         "bond_id": "113049",
+        "last_chg_dt": "2026-09-22",
+        "ytm_rt": "1.04%",
+        "premium_rt": "191.21%",
+        "convert_value": "36.47",
+        "price": "106.217",
+        "volume": "4454.39",
+        "stock_volume": 419560,
+        "sprice": "14.13",
+        "curr_iss_amt": "34.950",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "-",
+        "amt_change": "-",
+        "turnover_rt": "1.20"
+      }
+    },
+    {
+      "id": "113049",
+      "cell": {
+        "bond_id": "113049",
         "last_chg_dt": "2026-09-21",
         "ytm_rt": "0.98%",
         "premium_rt": "193.19%",
@@ -754,35 +780,9 @@
         "amt_change": "-",
         "turnover_rt": "3.23"
       }
-    },
-    {
-      "id": "113049",
-      "cell": {
-        "bond_id": "113049",
-        "last_chg_dt": "2026-08-11",
-        "ytm_rt": "-1.06%",
-        "premium_rt": "168.10%",
-        "convert_value": "40.26",
-        "price": "107.948",
-        "volume": "2424.15",
-        "stock_volume": 224540,
-        "sprice": "15.59",
-        "curr_iss_amt": "34.950",
-        "cflg": "Y",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "股票激励计划  转股价由38.830调整为38.720",
-        "amt_change": "-",
-        "turnover_rt": "0.64"
-      }
     }
   ],
   "total": 30,
   "bond_id": "113049",
-  "fetched_at": "2026-09-21"
+  "fetched_at": "2026-09-22"
 }
