@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-24",
+  "bond_id": "127027",
+  "bond_nm": "能化转债",
+  "stock_id": "000552",
+  "stock_nm": "甘肃能化",
+  "convert_price": "2.93",
+  "adjust_clause_text": "当公司股票在任意连续30个交易日中有15个交易日的收盘价低于当期转股价格的85%时注：转股价下修是否可以低于每股净资产？ 仅会员可见",
+  "adjust_trigger_price": "2.490",
+  "last_adjust_date": "",
+  "trigger_hit_days_30": 4,
+  "trigger_required_days": 15,
+  "trigger_window_days": 30,
+  "trigger_observed_days": 30,
+  "trigger_total_days_30": 30,
+  "display_text": "4/15 | 30",
+  "source_updated_at": "2026-09-24"
+}
