@@ -1,9 +1,9 @@
 {
   "stock_code": "601688",
   "stock_name": "华泰证券",
-  "report_date": "2026-10-03T00:00:00.000+00:00",
-  "fetched_at": "2026-10-06T07:07:17+08:00",
-  "content_hash": "sha256:daeb0b09d87a94aa53a7e487e4f2261dfc9a627e4ac126f2773fc32b990fad66",
+  "report_date": null,
+  "fetched_at": "2026-10-12T08:26:02+08:00",
+  "content_hash": "sha256:003b4f64964edcea1a8624d917eac1071b99c2782998588312b96b9bd2f5c9d6",
   "bundle": {
     "company": {
       "stock_code": "601688",
@@ -14,13 +14,13 @@
       "sign": 3
     },
     "head_strip": {
-      "report_date": "2026-10-03T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.0
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-03T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.0
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-03T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 7307818106,
         "F021N": 7306758106,
-        "F005N": 1.0,
-        "ENDDATE": "2026-10-03T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

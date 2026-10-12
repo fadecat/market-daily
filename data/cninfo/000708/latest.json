@@ -1,26 +1,26 @@
 {
   "stock_code": "000708",
   "stock_name": "中信特钢",
-  "report_date": "2026-10-03T00:00:00.000+00:00",
-  "fetched_at": "2026-10-06T07:07:17+08:00",
-  "content_hash": "sha256:09313f7c565572dfc61806cd1f8adb9aa19ee0f3cda33c89e97008fe9f9fa4a9",
+  "report_date": null,
+  "fetched_at": "2026-10-12T08:26:02+08:00",
+  "content_hash": "sha256:4d0bd7fb7ed4db0a7964a6871876adef9c6a0b93676c52a3230b5e2303fbc54a",
   "bundle": {
     "company": {
       "stock_code": "000708",
       "sec_name": "中信特钢",
-      "org_name": "中信泰富特钢集团股份有限公司",
+      "org_name": "中信特钢集团股份有限公司",
       "org_short_name": "zxtg",
       "market_code": "012002",
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-03T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-03T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-03T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 6312270939.3,
         "F020N": 5047159056,
         "F021N": 5047136556,
-        "F005N": 0.18,
-        "ENDDATE": "2026-10-03T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
