@@ -2,8 +2,8 @@
   "stock_code": "001286",
   "stock_name": "陕西能源",
   "report_date": null,
-  "fetched_at": "2026-09-22T08:00:17+08:00",
-  "content_hash": "sha256:b9a827e17be95f4523b450524301731140aa3b2037df8fe2dcc9c0d7105648dd",
+  "fetched_at": "2026-10-12T23:00:37+08:00",
+  "content_hash": "sha256:152befba813bc9e1116766970251630844b877eeba33dc56adc3187eca692e7d",
   "bundle": {
     "company": {
       "stock_code": "001286",
@@ -32,7 +32,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1350000000
+          "value": 3750000000
         },
         {
           "field": "F041N",
@@ -100,7 +100,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1350000000
+          "value": 3750000000
         },
         "负债率": {
           "field": "F041N",
@@ -160,7 +160,7 @@
         "F115N": 196337759.86,
         "F111N": 2035168243.77,
         "F020N": 3750000000,
-        "F021N": 1350000000,
+        "F021N": 3750000000,
         "F005N": null,
         "ENDDATE": null
       }
