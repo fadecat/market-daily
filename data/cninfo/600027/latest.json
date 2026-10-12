@@ -1,9 +1,9 @@
 {
   "stock_code": "600027",
   "stock_name": "华电国际",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:835b96de8a0cd7050783efd1eaab2162caa6d2f47a23beb5e8976668e39bec65",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:e2dd9efa8c01e450695ff22c9f72fa1668817724ee8ec131d697769d0776def5",
   "bundle": {
     "company": {
       "stock_code": "600027",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.12
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.12
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 10896423000.0,
         "F020N": 9894540584,
         "F021N": 9215677327,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.12,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

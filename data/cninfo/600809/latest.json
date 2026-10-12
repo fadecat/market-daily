@@ -1,9 +1,9 @@
 {
   "stock_code": "600809",
   "stock_name": "山西汾酒",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:be34b60b28887874faf2d0500c382412547f96b4fe6cfb03ad44a3c741bffef5",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:8c499421f5e02ad70b96b3c7d178c58436fe6ab42fa15d19a869fce73cf16e8d",
   "bundle": {
     "company": {
       "stock_code": "600809",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.02
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.02
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 308729.64,
         "F020N": 1219964222,
         "F021N": 1219964222,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.02,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

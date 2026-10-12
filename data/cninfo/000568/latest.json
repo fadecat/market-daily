@@ -1,9 +1,9 @@
 {
   "stock_code": "000568",
   "stock_name": "泸州老窖",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:f886e44e9ade9ee1d417a49546849508b3cedc12b1dd87151b6be1d322c74464",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:715d50153b0788ad75e148f494bdfb75ade28921d90bc718195c2161897e23fc",
   "bundle": {
     "company": {
       "stock_code": "000568",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.17
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.17
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 22775760.83,
         "F020N": 1471901463,
         "F021N": 1471160662,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.17,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

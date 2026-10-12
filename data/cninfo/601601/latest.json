@@ -1,9 +1,9 @@
 {
   "stock_code": "601601",
   "stock_name": "中国太保",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:44962245d95ac8518a3ea605e27f54a4e9664b9d3f6ceaf5cfd72e9dca0be3ef",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:e0ad78508f13ee250fa563b0cb0305e7a5bcc201c8b65f4049e6a498e266d29d",
   "bundle": {
     "company": {
       "stock_code": "601601",
@@ -14,13 +14,13 @@
       "sign": 4
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.13
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.13
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 6845041455,
         "F021N": 6845041455,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.13,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

@@ -1,9 +1,9 @@
 {
   "stock_code": "605599",
   "stock_name": "菜百股份",
-  "report_date": null,
-  "fetched_at": "2026-10-12T04:53:59+08:00",
-  "content_hash": "sha256:39f32743a26f43d75a610d8889ee3886beb53a65e92612ee24590076cf071a6d",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:d16c0439a174ba5e15910110a83643a5fe6dc6f6410b24aae6af7377caf6c038",
   "bundle": {
     "company": {
       "stock_code": "605599",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 8.68
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 8.68
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 189786791.94,
         "F020N": 777777800,
         "F021N": 777777800,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 8.68,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

@@ -1,9 +1,9 @@
 {
   "stock_code": "000786",
   "stock_name": "北新建材",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:f761d5ff81ba5ac3fc2b0a017e51839bcc80a969d8506832cccd89bcd0c14a3b",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:cd3514462855bdc008264bd3ffc554009b59bcd99ab57f5ac79e87da7b4930b5",
   "bundle": {
     "company": {
       "stock_code": "000786",
@@ -14,19 +14,19 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 3.31
         },
         {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1702236042
+          "value": 1697823974
         },
         {
           "field": "F021N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,13 +88,13 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 3.31
         },
         "总股本": {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1702236042
+          "value": 1697823974
         },
         "流通股本": {
           "field": "F021N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -159,10 +159,10 @@
         "F041N": 24.345,
         "F115N": 2389865950.34,
         "F111N": 5773230426.59,
-        "F020N": 1702236042,
+        "F020N": 1697823974,
         "F021N": 1689507842,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 3.31,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

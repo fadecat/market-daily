@@ -1,9 +1,9 @@
 {
   "stock_code": "600012",
   "stock_name": "皖通高速",
-  "report_date": null,
-  "fetched_at": "2026-10-12T04:53:59+08:00",
-  "content_hash": "sha256:f7d25ff8c20aeba769841e18071b83f334cb9a72ed84b6e017ff2b312d6ed54a",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T07:34:59+08:00",
+  "content_hash": "sha256:c5a2992fd313b21e1abf6f0856ace42320882c75f4ff3bbb90e50143eed11a95",
   "bundle": {
     "company": {
       "stock_code": "600012",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.23
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.23
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 1165600000,
         "F021N": 1165600000,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.23,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
