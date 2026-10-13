@@ -1,9 +1,9 @@
 {
   "stock_code": "601577",
   "stock_name": "长沙银行",
-  "report_date": null,
-  "fetched_at": "2026-10-12T08:26:02+08:00",
-  "content_hash": "sha256:0244c9449a4d014e885d79b87e053109de8c1253ff086f2a5486dfd714688444",
+  "report_date": "2026-10-10T00:00:00.000+00:00",
+  "fetched_at": "2026-10-13T22:55:10+08:00",
+  "content_hash": "sha256:e0067d4c6d8475c138fb58a9affa26e6e7b92cd513b75232e0afe93e1e064056",
   "bundle": {
     "company": {
       "stock_code": "601577",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-10T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 4.42
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 4.42
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-10T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 4021553754,
         "F021N": 4021553754,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 4.42,
+        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
