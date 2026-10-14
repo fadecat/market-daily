@@ -92,6 +92,64 @@ def test_fetch_valuation_items_happy_path(monkeypatch, tmp_path):
     assert chart_paths["000300"] == fake_png
 
 
+def test_fetch_valuation_items_emits_pb_chart_only_when_enabled(monkeypatch, tmp_path):
+    """pb_chart 开关决定是否有第二张 PB 图(key 为 ``code:pb``)。"""
+    targets = [
+        {"name": "A", "code": "000300", "type": "valuation", "pb_chart": True},
+        {"name": "B", "code": "000905", "type": "valuation"},
+    ]
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch, "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (_fake_bond_history(), {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: None)
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: None)
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda t: _fake_metrics(t["code"]))
+
+    calls = []
+    counter = {"n": 0}
+
+    def fake_chart(item, directory, **kwargs):
+        calls.append((item["index_code"], kwargs.get("metric", "pe")))
+        counter["n"] += 1
+        png = directory / f"chart_{counter['n']}.png"
+        png.write_bytes(b"PNG")
+        return png
+
+    monkeypatch.setattr(run.charts, "generate_valuation_percentile_chart", fake_chart)
+
+    _, chart_paths = run._fetch_valuation_items(targets, tmp_path)
+    assert set(chart_paths.keys()) == {"000300", "000300:pb", "000905"}
+    assert calls == [("000300", "pe"), ("000300", "pb"), ("000905", "pe")]
+
+
+def test_fetch_valuation_items_pb_failure_does_not_drop_pe_chart(monkeypatch, tmp_path):
+    """PB 图画失败只丢 PB;PE 图必须照常进 chart_paths。"""
+    targets = [{"name": "A", "code": "000300", "type": "valuation", "pb_chart": True}]
+    monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
+    monkeypatch.setattr(
+        run.fetch, "fetch_cn_10y_bond_history_with_archive_fallback",
+        lambda *a, **k: (_fake_bond_history(), {"data_source": "live", "archive_latest_date": None}),
+    )
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_ratio", lambda *a, **k: None)
+    monkeypatch.setattr(run.metrics, "attach_equity_bond_spread", lambda *a, **k: None)
+    monkeypatch.setattr(run.fetch, "fetch_target_index_metrics", lambda t: _fake_metrics(t["code"]))
+
+    fake_png = tmp_path / "pe.png"
+    fake_png.write_bytes(b"PNG")
+
+    def fake_chart(item, directory, **kwargs):
+        if kwargs.get("metric") == "pb":
+            raise RuntimeError("pb render boom")
+        return fake_png
+
+    monkeypatch.setattr(run.charts, "generate_valuation_percentile_chart", fake_chart)
+
+    _, chart_paths = run._fetch_valuation_items(targets, tmp_path)
+    assert chart_paths == {"000300": fake_png}
+
+
 def test_fetch_valuation_items_skips_failed_and_empty(monkeypatch, tmp_path):
     targets = [{"name": "A", "code": "000300", "type": "valuation"},
                {"name": "B", "code": "FAIL", "type": "valuation"},
@@ -137,7 +195,11 @@ def test_fetch_valuation_items_bond_failure_continues(monkeypatch, tmp_path):
 def test_fetch_valuation_items_uses_actual_index_code_for_etf_estimate_overlay(monkeypatch, tmp_path):
     """ETF 的配置代码不能替代其已解析出的底层指数代码。"""
     bond_history = _fake_bond_history()
-    overlay = SimpleNamespace(item=_fake_metrics("931052"), pe_history="estimated-pe-history")
+    overlay = SimpleNamespace(
+        item=_fake_metrics("931052"),
+        pe_history="estimated-pe-history",
+        pb_history="estimated-pb-history",
+    )
     calls = {"latest": [], "refresh": [], "load": [], "apply": [], "charts": []}
     monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
     monkeypatch.setattr(
@@ -196,7 +258,11 @@ def test_fetch_valuation_items_uses_estimated_item_for_email_and_chart(monkeypat
     bond_history = _fake_bond_history()
     estimated_item = _fake_metrics("931052", "2026-08-10")
     estimated_item["estimate_meta"] = {"date": "2026-08-10", "status": "estimated"}
-    overlay = SimpleNamespace(item=estimated_item, pe_history="estimated-pe-history")
+    overlay = SimpleNamespace(
+        item=estimated_item,
+        pe_history="estimated-pe-history",
+        pb_history="estimated-pb-history",
+    )
     chart_items = []
     monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
     monkeypatch.setattr(
@@ -230,7 +296,11 @@ def test_fetch_valuation_items_uses_estimated_item_for_email_and_chart(monkeypat
 
 def test_fetch_valuation_items_passes_realtime_close_to_estimate(monkeypatch, tmp_path):
     bond_history = _fake_bond_history()
-    overlay = SimpleNamespace(item=_fake_metrics("931233", "2026-08-12"), pe_history="estimated-pe-history")
+    overlay = SimpleNamespace(
+        item=_fake_metrics("931233", "2026-08-12"),
+        pe_history="estimated-pe-history",
+        pb_history="estimated-pb-history",
+    )
     runtime_close = {"date": "2026-08-12", "close": 1140.986, "data_source": "live"}
     calls = {}
     monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)
@@ -297,7 +367,11 @@ def test_fetch_valuation_items_skips_estimate_when_official_values_match_latest_
 def test_fetch_valuation_items_estimate_failure_keeps_item_and_continues(monkeypatch, tmp_path, capsys):
     """单项估算失败只回退该项，后续指数仍可使用覆盖结果。"""
     bond_history = _fake_bond_history()
-    overlay = SimpleNamespace(item=_fake_metrics("000905"), pe_history="second-overlay-history")
+    overlay = SimpleNamespace(
+        item=_fake_metrics("000905"),
+        pe_history="second-overlay-history",
+        pb_history="second-pb-history",
+    )
     attached = []
     chart_histories = []
     monkeypatch.setattr(run.fetch, "fetch_cn_10y_bond_yield", lambda: 2.5)

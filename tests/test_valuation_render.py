@@ -375,3 +375,31 @@ def test_assemble_inline_images_excludes_extra_section_images():
     )
     assert "cid:fx_usd_cny_vs_mid_10y" in html  # html 含 fx img
     assert imgs == {"equity_bond_000300": "/tmp/pe.png"}  # 但 imgs 不含 fx
+
+
+def test_assemble_renders_pb_chart_after_pe_chart():
+    """开了 PB 图的指数:两张图都要输出,且 PB 紧跟在 PE 之后。"""
+    html, imgs = render.assemble_email_html(
+        current_time=datetime(2024, 5, 10, 9, 30),
+        valuation_items=[_full_item()],
+        chart_paths={"000300": "/tmp/pe.png", "000300:pb": "/tmp/pb.png"},
+        extra_sections=[],
+    )
+    assert imgs == {
+        "equity_bond_000300": "/tmp/pe.png",
+        "equity_bond_pb_000300": "/tmp/pb.png",
+    }
+    assert html.index("cid:equity_bond_000300") < html.index("cid:equity_bond_pb_000300")
+    assert html.count("<img src=\"cid:equity_bond") == 2
+
+
+def test_assemble_without_pb_chart_emits_single_image():
+    """未开 PB 图时输出保持原样(只有一张图)。"""
+    html, imgs = render.assemble_email_html(
+        current_time=datetime(2024, 5, 10, 9, 30),
+        valuation_items=[_full_item()],
+        chart_paths={"000300": "/tmp/pe.png"},
+        extra_sections=[],
+    )
+    assert imgs == {"equity_bond_000300": "/tmp/pe.png"}
+    assert "cid:equity_bond_pb_000300" not in html

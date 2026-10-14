@@ -656,13 +656,44 @@ def test_pe_history_fallback_to_archive(monkeypatch, tmp_path):
         tmp_path / "index_valuation_percentile" / "000300.json",
         [{"trdDt": "2026-08-03", "pETtm": 12.0}, {"trdDt": "2026-08-04", "pETtm": 12.5}],
     )
-    monkeypatch.setattr(fetch, "fetch_index_pe_history", lambda code, url="": (_ for _ in ()).throw(RuntimeError("net")))
+    monkeypatch.setattr(
+        fetch,
+        "fetch_index_valuation_metric_history",
+        lambda code, metric="pe", url="": (_ for _ in ()).throw(RuntimeError("net")),
+    )
     df, meta = fetch.fetch_index_pe_history_with_archive_fallback(
         "000300", archive_root=tmp_path, now=datetime(2026, 8, 6, tzinfo=fetch.BEIJING_TZ)
     )
     assert meta["data_source"] == "archive"
     assert len(df) == 2
     assert df["pe"].iloc[-1] == 12.5
+
+
+def test_pb_history_reads_pblf_field(monkeypatch, tmp_path):
+    """PB 历史取的是同一个接口的 pBLf 字段(与 PE 的 pETtm 并列)。"""
+    def fake_get(url, headers=None, timeout=None):
+        class _Resp:
+            @staticmethod
+            def raise_for_status():
+                return None
+
+            @staticmethod
+            def json():
+                return [
+                    {"trdDt": "2026-08-03", "pETtm": 12.0, "pBLf": 1.20},
+                    {"trdDt": "2026-08-04", "pETtm": 12.5, "pBLf": 1.25},
+                ]
+        return _Resp()
+
+    monkeypatch.setattr(fetch.requests, "get", fake_get)
+    df = fetch.fetch_index_valuation_metric_history("000300", metric="pb")
+    assert list(df.columns) == ["date", "pb"]
+    assert float(df["pb"].iloc[-1]) == 1.25
+
+
+def test_unknown_valuation_metric_history_raises():
+    with pytest.raises(ValueError, match="不支持的估值历史指标"):
+        fetch.fetch_index_valuation_metric_history("000300", metric="ps")
 
 
 # ---------- fetch_target_index_metrics (编排) ----------

@@ -6,6 +6,15 @@
 #   index_detail_url     易方达 efunds/etf.com.cn 指数详情接口(PE/PB/股息率)
 #   index_dividend_yield_url  可选,独立股息率 JSON(覆盖 detail 接口)
 #   spread_overlay         可选,true 时 PE 分位图叠股债利差右轴(缺省不画)
+#   pb_chart               可选,true 时在 PE 分位图之后再出一张 PB 走势图(缺省不出)。
+#                          是否开启的判据是 PE 与 PB 的 5 年水平相关:相关越低,PB 的
+#                          分位标尺越能提供 PE 给不了的独立信息。当前开启三个:
+#                            930709 香港证券指数  corr≈0.35 —— 隐含 ROE(PB/PE)处 5 年
+#                              极高位(分位≈100%),低 PE 分位是"高盈利造成的便宜幻觉",
+#                              PB 才是中性刻度,周期股尤其需要。
+#                            000300 沪深300       corr≈0.73
+#                            399303 国证2000       corr≈0.79
+#                          其余指数 corr≥0.92,PB 图与 PE 图信息高度重合,暂不开启。
 
 targets:
 
@@ -30,11 +39,13 @@ targets:
     code: "000300"
     type: "valuation"
     spread_overlay: true
+    pb_chart: true
     index_detail_url: "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode=000300"
 
   - name: "国证2000"
     code: "399303"
     type: "valuation"
+    pb_chart: true
     index_detail_url: "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode=399303"
 
   - name: "深证成长40指数"
@@ -50,4 +61,5 @@ targets:
   - name: "香港证券指数"
     code: "930709"
     type: "valuation"
+    pb_chart: true
     index_detail_url: "https://www.etf.com.cn/api/etf-api-service/index/detail?indexCode=930709"

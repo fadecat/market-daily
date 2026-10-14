@@ -67,8 +67,10 @@ def _fetch_valuation_items(
 
     10Y 国债循环外取一次(``fetch_cn_10y_bond_yield`` + ``fetch_cn_10y_bond_history_with_archive_fallback``),
     失败仅 WARN,股债收益差/比值字段缺但不中止。单标 fetch 失败/空 -> 跳过该标的不中止。
-    返回 ``(valuation_items, chart_paths)``;chart_paths 以 ``index_code``(回退 ``code``)为 key。
-    PE 分位图是否叠股债利差右轴由 target 的 ``spread_overlay`` 开关决定(config/valuation.yaml)。
+    返回 ``(valuation_items, chart_paths)``;chart_paths 以 ``index_code``(回退 ``code``)为 key,
+    PB 图额外用 ``f"{code}:pb"`` 作为第二个 key(见 ``render.equity_bond_pb_chart_cid``)。
+    PE 分位图是否叠股债利差右轴由 target 的 ``spread_overlay`` 开关决定;是否额外出一张
+    PB 走势图由 ``pb_chart`` 开关决定(两者都读自 config/valuation.yaml)。
     """
     cn_10y_yield: Optional[float] = None
     cn_10y_bond_history = None
@@ -81,6 +83,7 @@ def _fetch_valuation_items(
 
     items: List[Dict[str, Any]] = []
     overlay_pe_histories: Dict[str, Any] = {}
+    overlay_pb_histories: Dict[str, Any] = {}
     for target in targets:
         label = target.get("name") or target.get("code") or ""
         try:
@@ -93,6 +96,7 @@ def _fetch_valuation_items(
             continue
         item: Dict[str, Any] = {"name": target.get("name"), "code": target.get("code")}
         item["spread_overlay"] = bool(target.get("spread_overlay"))
+        item["pb_chart"] = bool(target.get("pb_chart"))
         item.update(metrics_dict)
         index_code = str(item.get("index_code") or "").strip()
         overlay = None
@@ -130,6 +134,7 @@ def _fetch_valuation_items(
                     raise ValueError("估算覆盖缺少所需归档数据")
                 item = overlay.item
                 overlay_pe_histories[index_code] = overlay.pe_history
+                overlay_pb_histories[index_code] = overlay.pb_history
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {index_code or label} 估算覆盖失败,保留正式估值: {exc}")
         if overlay is None and cn_10y_yield is not None:
@@ -158,9 +163,24 @@ def _fetch_valuation_items(
             )
         except Exception as exc:  # noqa: BLE001
             print(f"[WARN] {code} 估值分位图生成失败,片段不带图: {exc}")
-            continue
+            png_path = None
         if png_path:
             chart_paths[code] = png_path
+
+        if not item.get("pb_chart"):
+            continue
+        try:
+            pb_png_path = charts.generate_valuation_percentile_chart(
+                item,
+                work_dir,
+                metric="pb",
+                pe_history=overlay_pb_histories.get(code),
+            )
+        except Exception as exc:  # noqa: BLE001
+            print(f"[WARN] {code} PB 估值分位图生成失败,片段不带图: {exc}")
+            pb_png_path = None
+        if pb_png_path:
+            chart_paths[f"{code}:pb"] = pb_png_path
     return items, chart_paths
 
 

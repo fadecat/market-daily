@@ -1,4 +1,4 @@
-"""市场估值板块图表:估值分位(PE 走势)图 + 汇率图。
+"""市场估值板块图表:估值分位(PE / PB 走势)图 + 汇率图。
 
 移植自 ``prototype_valuation_percentile_chart.py`` 与 ``prototype_fx_chart.py``。渲染
 (PALETTE / AX_BOUNDS / _draw_*)保持原样;改动:
@@ -11,6 +11,10 @@
   - 估值图可叠股债收益差右轴:``bond_history`` 传入 10Y 国债历史
     (``fetch.fetch_cn_10y_bond_history_with_archive_fallback``,date/yield_pct)即画,
     缺省或样本不足则不画,不影响 PE 主图。
+  - 估值图支持 PE / PB 两种指标(``metric`` 参数,见 ``VALUATION_METRICS``):原 ``PE走势``
+    输出文件名不变,新增 ``PB走势``(文件名带 ``_pb`` 前缀)。两者同源,均取自
+    index_valuation_percentile 接口,只是取值字段不同(``pETtm`` / ``pBLf``)。
+    股债收益差右轴只对 PE 有意义(1/PE − 10Y国债),PB 图不叠。
   - 汇率图 ``fx_history`` 可预取(``fetch.fetch_fx_history_with_archive_fallback``)传入;
     为 None 时自取。
 - ``md.*`` -> ``fetch.*``;``now_in_beijing`` 自 ``fetch`` 导入。
@@ -33,7 +37,7 @@ import pandas as pd
 from ..common.fonts import apply_cjk
 from .fetch import (
     fetch_fx_history_with_archive_fallback,
-    fetch_index_pe_history_with_archive_fallback,
+    fetch_index_valuation_metric_history_with_archive_fallback,
     now_in_beijing,
     resolve_target_index_code,
 )
@@ -68,13 +72,22 @@ FONT_SIZES = {
     "footer": 9,
 }
 
+# 估值分位图可画的指标。``column`` 是历史 DataFrame 的取值列名,``title`` 是图左上角标题。
+# 股债收益差右轴只对 PE 有意义(1/PE − 10Y国债),PB 图不画。
+VALUATION_METRICS: Dict[str, Dict[str, str]] = {
+    "pe": {"column": "pe", "title": "PE走势"},
+    "pb": {"column": "pb", "title": "PB走势"},
+}
 
-# ---------- 估值分位(PE 走势)图 ----------
+
+# ---------- 估值分位(PE / PB 走势)图 ----------
 
 
 def _build_history_frame(
-    item: Dict, pe_history: Optional[pd.DataFrame] = None
+    item: Dict, pe_history: Optional[pd.DataFrame] = None, metric: str = "pe"
 ) -> Tuple[pd.DataFrame, Optional[str]]:
+    spec = VALUATION_METRICS.get(metric) or VALUATION_METRICS["pe"]
+    column = spec["column"]
     index_code = str(item.get("index_code") or item.get("code") or "").strip()
     valuation_url = str(
         item.get("index_valuation_percentile_source")
@@ -83,24 +96,26 @@ def _build_history_frame(
     ).strip()
 
     if pe_history is None:
-        pe_df, _meta = fetch_index_pe_history_with_archive_fallback(index_code, url=valuation_url)
+        hist_df, _meta = fetch_index_valuation_metric_history_with_archive_fallback(
+            index_code, metric=metric, url=valuation_url
+        )
     else:
-        pe_df = pe_history
+        hist_df = pe_history
 
-    pe_df = pe_df.dropna(subset=["date", "pe"]).copy()
-    pe_df["date"] = pd.to_datetime(pe_df["date"], errors="coerce")
-    pe_df["pe"] = pd.to_numeric(pe_df["pe"], errors="coerce")
-    pe_df = pe_df.dropna(subset=["date", "pe"])
-    pe_df = pe_df[pe_df["pe"] > 0].sort_values("date").reset_index(drop=True)
-    if len(pe_df) < 20:
-        return pd.DataFrame(columns=["date", "pe"]), None
+    hist_df = hist_df.dropna(subset=["date", column]).copy()
+    hist_df["date"] = pd.to_datetime(hist_df["date"], errors="coerce")
+    hist_df[column] = pd.to_numeric(hist_df[column], errors="coerce")
+    hist_df = hist_df.dropna(subset=["date", column])
+    hist_df = hist_df[hist_df[column] > 0].sort_values("date").reset_index(drop=True)
+    if len(hist_df) < 20:
+        return pd.DataFrame(columns=["date", column]), None
 
-    latest_date = pd.Timestamp(pe_df["date"].iloc[-1])
+    latest_date = pd.Timestamp(hist_df["date"].iloc[-1])
     cutoff = latest_date - pd.DateOffset(years=5)
-    history_5y = pe_df[pe_df["date"] >= cutoff].copy().reset_index(drop=True)
+    history_5y = hist_df[hist_df["date"] >= cutoff].copy().reset_index(drop=True)
     if len(history_5y) >= 20:
         return history_5y, None
-    return pe_df, "使用全历史窗口(5Y 数据不足)"
+    return hist_df, "使用全历史窗口(5Y 数据不足)"
 
 
 def _build_spread_frame(
@@ -128,7 +143,10 @@ def _prepare_valuation_data(
     item: Dict,
     pe_history: Optional[pd.DataFrame] = None,
     bond_history: Optional[pd.DataFrame] = None,
+    metric: str = "pe",
 ) -> Optional[Dict]:
+    spec = VALUATION_METRICS.get(metric) or VALUATION_METRICS["pe"]
+    column = spec["column"]
     index_code = str(
         item.get("index_code") or resolve_target_index_code(item) or item.get("code") or ""
     ).strip()
@@ -139,29 +157,34 @@ def _prepare_valuation_data(
     if not chart_item.get("index_name"):
         chart_item["index_name"] = str(item.get("name") or index_code).strip()
 
-    history, footnote = _build_history_frame(chart_item, pe_history=pe_history)
+    history, footnote = _build_history_frame(chart_item, pe_history=pe_history, metric=metric)
     if len(history) < 20:
         return None
 
-    q30, q50, q70 = [float(value) for value in history["pe"].quantile([0.3, 0.5, 0.7]).tolist()]
+    quantile_values = history[column].quantile([0.3, 0.5, 0.7]).tolist()
+    q30, q50, q70 = [float(value) for value in quantile_values]
     return {
         "item": chart_item,
         "history": history,
-        "spread_history": _build_spread_frame(history, bond_history),
+        "spread_history": _build_spread_frame(history, bond_history) if column == "pe" else None,
         "q30": q30,
         "q50": q50,
         "q70": q70,
         "footnote": footnote,
+        "metric": metric,
+        "column": column,
+        "title": spec["title"],
     }
 
 
 def _draw_valuation_main(ax, data: Dict) -> None:
     history = data["history"]
+    column = data["column"]
     dates = pd.to_datetime(history["date"])
-    pes = history["pe"].astype(float)
+    values = history[column].astype(float)
 
     ax.text(
-        0.00, 1.08, "PE走势", transform=ax.transAxes,
+        0.00, 1.08, data["title"], transform=ax.transAxes,
         fontsize=FONT_SIZES["main_title"], fontweight="bold",
         color=PALETTE["text_primary"], ha="left", va="baseline",
     )
@@ -179,7 +202,7 @@ def _draw_valuation_main(ax, data: Dict) -> None:
     )
 
     ax.plot(
-        dates, pes, color=PALETTE["orange"], linewidth=1.2,
+        dates, values, color=PALETTE["orange"], linewidth=1.2,
         solid_joinstyle="round", solid_capstyle="round",
     )
     for q, color in [
@@ -191,9 +214,9 @@ def _draw_valuation_main(ax, data: Dict) -> None:
 
     estimate_meta = data["item"].get("estimate_meta")
     estimated = isinstance(estimate_meta, dict) and estimate_meta.get("status") == "estimated"
-    latest_label = f"{pes.iloc[-1]:.2f}" + ("（预估）" if estimated else "")
+    latest_label = f"{values.iloc[-1]:.2f}" + ("（预估）" if estimated else "")
     ax.annotate(
-        latest_label, xy=(dates.iloc[-1], pes.iloc[-1]), xytext=(6, 6),
+        latest_label, xy=(dates.iloc[-1], values.iloc[-1]), xytext=(6, 6),
         textcoords="offset points", color=PALETTE["orange"],
         fontsize=FONT_SIZES["latest_label"], fontweight="bold",
     )
@@ -208,13 +231,14 @@ def _draw_valuation_main(ax, data: Dict) -> None:
     ax.spines["bottom"].set_linewidth(0.8)
     ax.tick_params(axis="both", which="both", length=0, colors=PALETTE["text_muted"])
 
-    pe_min = float(pes.min())
-    pe_max = float(pes.max())
-    if pe_min == pe_max:
-        pe_min -= 1
-        pe_max += 1
-    ax.set_ylim(pe_min * 0.985, pe_max * 1.015)
-    ax.set_yticks(np.linspace(pe_min, pe_max, 5))
+    value_min = float(values.min())
+    value_max = float(values.max())
+    if value_min == value_max:
+        pad = max(abs(value_max) * 0.05, 0.01)
+        value_min -= pad
+        value_max += pad
+    ax.set_ylim(value_min * 0.985, value_max * 1.015)
+    ax.set_yticks(np.linspace(value_min, value_max, 5))
     ax.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
     for label in ax.get_yticklabels():
         label.set_fontsize(FONT_SIZES["y_tick"])
@@ -305,15 +329,26 @@ def generate_valuation_percentile_chart(
     item: Dict,
     output_dir: Path,
     *,
+    metric: str = "pe",
     pe_history: Optional[pd.DataFrame] = None,
     bond_history: Optional[pd.DataFrame] = None,
 ) -> Optional[Path]:
-    """生成 PE 走势分位图(有国债历史时叠股债收益差右轴)。``item`` 为已取好的估值项
-    (含 index_code/name);``pe_history`` 可预取传入,为 None 则自取(带归档回退);
-    ``bond_history`` 为 10Y 国债历史(``date``/``yield_pct``),缺省则不画利差。
-    数据不足返回 None。
+    """生成估值走势分位图(``metric`` 取 ``VALUATION_METRICS`` 的键,默认 ``pe``)。
+
+    ``data["title"]`` 与取值列由 metric 决定:``pe`` -> PE走势 / ``pb`` -> PB走势。
+    30/50/70 分位线按展示窗口(默认近 5 年)重算,与接口自带的分位字段口径可能略有差异。
+
+    ``item`` 为已取好的估值项(含 index_code/name);``pe_history`` 可预取传入
+    (列名为该 metric 的 column),为 None 则自取(带归档回退);``bond_history`` 为 10Y
+    国债历史(``date``/``yield_pct``),缺省则不画利差——且股债利差右轴**只对 PE 画图**,
+    PB 图即使传了 bond_history 也不叠。数据不足返回 None。
     """
-    data = _prepare_valuation_data(item, pe_history=pe_history, bond_history=bond_history)
+    if metric not in VALUATION_METRICS:
+        print(f"[WARN] 未知估值走势指标 {metric!r},降级为 pe")
+        metric = "pe"
+    data = _prepare_valuation_data(
+        item, pe_history=pe_history, bond_history=bond_history, metric=metric
+    )
     if data is None:
         return None
 
@@ -328,7 +363,10 @@ def generate_valuation_percentile_chart(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     index_code = str(data["item"].get("index_code") or data["item"].get("code") or "").strip()
-    output_path = output_dir / f"valuation_percentile_{index_code}.png"
+    slug = f"valuation_percentile_{index_code}"
+    if metric != "pe":
+        slug = f"valuation_percentile_{metric}_{index_code}"
+    output_path = output_dir / f"{slug}.png"
     fig.savefig(output_path, dpi=FIGURE_DPI, facecolor=PALETTE["background"], edgecolor="none")
     plt.close(fig)
     return output_path

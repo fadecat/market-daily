@@ -947,10 +947,29 @@ def fetch_fx_history_with_archive_fallback(
     raise RuntimeError("; ".join(errors) if errors else "汇率数据获取失败")
 
 
-# ---------- 指数 PE 历史 ----------
+# ---------- 指数估值历史(PE / PB) ----------
 
 
-def fetch_index_pe_history(index_code: str, url: str = "") -> pd.DataFrame:
+VALUATION_HISTORY_METRICS: Dict[str, Dict[str, str]] = {
+    "pe": {"column": "pe", "source_field": "pETtm", "endpoint": "index_pe_history", "label": "PE"},
+    "pb": {"column": "pb", "source_field": "pBLf", "endpoint": "index_pb_history", "label": "PB"},
+}
+
+
+def fetch_index_valuation_metric_history(
+    index_code: str, metric: str = "pe", url: str = ""
+) -> pd.DataFrame:
+    """拉取单个估值指标的历史序列(date + 该指标列)。
+
+    ``metric`` 取 ``VALUATION_HISTORY_METRICS`` 的键(``pe`` / ``pb``)。两者同源:
+    均为 ``index_valuation_percentile`` 接口每日一条记录,只是取值字段不同
+    (``pETtm`` / ``pBLf``)。返回 DataFrame 的取值列名为该 metric 的 column。
+    """
+    spec = VALUATION_HISTORY_METRICS.get(metric)
+    if spec is None:
+        raise ValueError(f"不支持的估值历史指标: {metric}")
+    column = spec["column"]
+    source_field = spec["source_field"]
     url = url or DEFAULT_INDEX_VALUATION_PERCENTILE_URL_TEMPLATE.format(index_code=index_code)
 
     def _fetch() -> object:
@@ -958,27 +977,34 @@ def fetch_index_pe_history(index_code: str, url: str = "") -> pd.DataFrame:
         resp.raise_for_status()  # 5xx 也要进重试,放在 run_with_retry 里
         return resp.json()
 
-    payload = alerts.run_with_retry("index_pe_history", _fetch)
+    payload = alerts.run_with_retry(spec["endpoint"], _fetch)
     records = []
     for row in payload:
         dt = str(row.get("trdDt") or "").strip()
-        pe = parse_float(row.get("pETtm"))
-        if dt and pe is not None and pe > 0:
-            records.append({"date": pd.to_datetime(dt), "pe": pe})
+        value = parse_float(row.get(source_field))
+        if dt and value is not None and value > 0:
+            records.append({"date": pd.to_datetime(dt), column: value})
     if not records:
-        return pd.DataFrame(columns=["date", "pe"])
+        return pd.DataFrame(columns=["date", column])
     return pd.DataFrame(records).sort_values("date").reset_index(drop=True)
 
 
-def fetch_index_pe_history_with_archive_fallback(
+def fetch_index_valuation_metric_history_with_archive_fallback(
     index_code: str,
+    metric: str = "pe",
     url: str = "",
     archive_root: Path = storage.ARCHIVE_DIR,
     now: Optional[datetime] = None,
 ) -> Tuple[pd.DataFrame, Dict[str, Optional[str]]]:
+    """``fetch_index_valuation_metric_history`` 的归档回退版。实时失败且归档新鲜时降级。"""
+    spec = VALUATION_HISTORY_METRICS.get(metric)
+    if spec is None:
+        raise ValueError(f"不支持的估值历史指标: {metric}")
+    column = spec["column"]
+    source_field = spec["source_field"]
     try:
         return (
-            fetch_index_pe_history(index_code, url=url),
+            fetch_index_valuation_metric_history(index_code, metric=metric, url=url),
             {"data_source": "live", "archive_latest_date": None},
         )
     except Exception as live_exc:  # noqa: BLE001
@@ -988,21 +1014,39 @@ def fetch_index_pe_history_with_archive_fallback(
         latest_date = _get_latest_record_date(records, ("trdDt", "date"))
         if not latest_date or not is_archive_fresh(latest_date, now=now):
             raise live_exc
-        pe_records = []
+        value_records = []
         for row in records:
             trade_date = parse_optional_date(row.get("trdDt"))
-            pe = parse_float(row.get("pETtm"))
-            if trade_date is not None and pe is not None and pe > 0:
-                pe_records.append({"date": trade_date, "pe": pe})
-        pe_df = (
-            pd.DataFrame(pe_records).sort_values("date").reset_index(drop=True)
-            if pe_records
-            else pd.DataFrame(columns=["date", "pe"])
+            value = parse_float(row.get(source_field))
+            if trade_date is not None and value is not None and value > 0:
+                value_records.append({"date": trade_date, column: value})
+        history_df = (
+            pd.DataFrame(value_records).sort_values("date").reset_index(drop=True)
+            if value_records
+            else pd.DataFrame(columns=["date", column])
         )
-        if pe_df.empty:
+        if history_df.empty:
             raise live_exc
-        print(f"[WARN] 指数PE历史实时接口失败,已回退归档: {index_code} -> {live_exc}")
-        return pe_df, {"data_source": "archive", "archive_latest_date": latest_date}
+        label = spec["label"]
+        print(f"[WARN] 指数{label}历史实时接口失败,已回退归档: {index_code} -> {live_exc}")
+        return history_df, {"data_source": "archive", "archive_latest_date": latest_date}
+
+
+def fetch_index_pe_history(index_code: str, url: str = "") -> pd.DataFrame:
+    """原名兼容,等价于 ``fetch_index_valuation_metric_history(metric="pe")``。"""
+    return fetch_index_valuation_metric_history(index_code, metric="pe", url=url)
+
+
+def fetch_index_pe_history_with_archive_fallback(
+    index_code: str,
+    url: str = "",
+    archive_root: Path = storage.ARCHIVE_DIR,
+    now: Optional[datetime] = None,
+) -> Tuple[pd.DataFrame, Dict[str, Optional[str]]]:
+    """原名兼容,等价于 PE 历史的归档回退版。"""
+    return fetch_index_valuation_metric_history_with_archive_fallback(
+        index_code, metric="pe", url=url, archive_root=archive_root, now=now
+    )
 
 
 # ---------- 目标估值指标聚合 ----------

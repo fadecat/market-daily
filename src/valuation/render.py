@@ -70,6 +70,20 @@ def equity_bond_chart_cid(code: str) -> str:
     return f"equity_bond_{code}"
 
 
+def equity_bond_pb_chart_cid(code: str) -> str:
+    """单只指数 PB 分位图的 cid(可选的第二张图)。"""
+    return f"equity_bond_pb_{code}"
+
+
+def _chart_image_row(cid: str, alt: str) -> str:
+    return (
+        f'<tr><td style="padding:14px 0 0 0">'
+        f'<img src="cid:{escape(cid)}" alt="{escape(alt)}" '
+        f'style="width:100%;max-width:100%;height:auto;display:block">'
+        f"</td></tr>"
+    )
+
+
 # ---------- 格式化工具 ----------
 
 
@@ -616,13 +630,15 @@ def assemble_email_html(
             + ``metrics.attach_equity_bond_*``)。从中提取估值基准日 / 10Y 国债,并渲染每个
             item 的 PE/PB 分位区块 + 紧随的 PE 分位图。
         chart_paths: ``{index_code: PE 分位图 Path}``,由 ``run.py`` 经
-            ``charts.generate_valuation_percentile_chart`` 生成。有图则在该 item 区块后插
-            ``<img src="cid:equity_bond_{code}">``。
+        ``charts.generate_valuation_percentile_chart`` 生成;若某指数还开了 PB 图,会有第二个
+        key ``f"{index_code}:pb"``。有图则在该 item 区块后依次插 PE / PB 两张
+        ``<img src="cid:...">``(cid 分别为 ``equity_bond_{code}`` / ``equity_bond_pb_{code}``)。
         extra_sections: 额外 ``<tr>`` 卡片行片段列表(高股息/果仁/风格轮动/汇率图),按
             传入顺序追加在估值核心之后、页脚之前。
 
-    返回 ``(html, inline_images)``。``inline_images`` 仅含估值核心的 per-item PE 分位图
-    (cid=``equity_bond_{code}``);汇率图/风格轮动/果仁/高股息等额外 section 的内嵌图由
+    返回 ``(html, inline_images)``。``inline_images`` 仅含估值核心的 per-item 分位图
+    (PE: cid=``equity_bond_{code}``;开了 PB 图时再含 cid=``equity_bond_pb_{code}``);
+    汇率图/风格轮动/果仁/高股息等额外 section 的内嵌图由
     调用方(``run.py``)各自累积后与本次返回值合并,再传给 ``common.email.send_email``。
     """
     now_str = escape((current_time or now_in_beijing()).strftime("%Y-%m-%d %H:%M"))
@@ -654,6 +670,9 @@ def assemble_email_html(
         chart_path = chart_paths.get(code) if code else None
         if chart_path:
             inline_images[equity_bond_chart_cid(code)] = str(chart_path)
+        pb_chart_path = chart_paths.get(f"{code}:pb") if code else None
+        if pb_chart_path:
+            inline_images[equity_bond_pb_chart_cid(code)] = str(pb_chart_path)
 
     divider = (
         f'<tr><td style="padding:24px 28px 0 28px">'
@@ -667,12 +686,10 @@ def assemble_email_html(
         code = block_codes[i]
         chart_path = chart_paths.get(code) if code else None
         if chart_path:
-            card_rows.append(
-                f'<tr><td style="padding:14px 0 0 0">'
-                f'<img src="cid:{escape(equity_bond_chart_cid(code))}" alt="估值分位走势图" '
-                f'style="width:100%;max-width:100%;height:auto;display:block">'
-                f"</td></tr>"
-            )
+            card_rows.append(_chart_image_row(equity_bond_chart_cid(code), "PE 分位走势图"))
+        pb_chart_path = chart_paths.get(f"{code}:pb") if code else None
+        if pb_chart_path:
+            card_rows.append(_chart_image_row(equity_bond_pb_chart_cid(code), "PB 分位走势图"))
         if i < len(blocks) - 1:
             card_rows.append(divider)
 

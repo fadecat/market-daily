@@ -7,7 +7,7 @@ caller.
 from __future__ import annotations
 
 from copy import deepcopy
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 from math import isfinite
 from pathlib import Path
@@ -31,10 +31,15 @@ _VALUATION_WINDOWS: tuple[tuple[str, object], ...] = (
 
 @dataclass(frozen=True)
 class EstimateOverlay:
-    """A replacement email item and the corresponding PE series for charts."""
+    """A replacement email item plus the matching PE / PB series for charts.
+
+    ``pe_history`` / ``pb_history`` 均为 ``date + 单指标列`` 的 DataFrame,且都已把
+    ``price_date`` 那一行替换成估算值,两张图的末点因此落在同一天。
+    """
 
     item: dict
     pe_history: pd.DataFrame
+    pb_history: pd.DataFrame = field(default_factory=pd.DataFrame)
 
 
 def _number(value: Any, *, positive: bool = False) -> float | None:
@@ -172,6 +177,7 @@ def apply_estimate(
     dividends = _replace_target(dividends, target, {"dividend_yield": dividend})
     bonds = _replace_target(bonds, target, {"yield_pct": bond_yield})
     pe_history = valuations[["date", "pe"]].copy()
+    pb_history = valuations[["date", "pb"]].copy()
     spread = compute_equity_bond_spread_percentiles(pe_history, bonds[["date", "yield_pct"]])
     dividend_percentiles, dividend_average = _dividend_values(dividends, dividend, target)
 
@@ -193,7 +199,7 @@ def apply_estimate(
             "equity_bond_spread": spread,
         }
     )
-    return EstimateOverlay(item=replacement, pe_history=pe_history)
+    return EstimateOverlay(item=replacement, pe_history=pe_history, pb_history=pb_history)
 
 
 def _safe_records(path: Path) -> list[dict[str, Any]] | None:
