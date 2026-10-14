@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "index_code": "931233",
+  "records": [
+    {
+      "estimate_date": "2026-10-14",
+      "status": "estimated",
+      "inputs": {
+        "estimate_close": 1213.818,
+        "valuation_price_factor": 1.000536,
+        "dividend_price_factor": 1.000536,
+        "valuation_base": {
+          "date": "2026-10-13",
+          "close": 1213.1683,
+          "pe_ttm": 7.3577,
+          "pb_lf": 0.7057
+        },
+        "dividend_base": {
+          "date": "2026-10-13",
+          "close": 1213.1683,
+          "dividend_yield": 5.2838
+        },
+        "bond_10y": {
+          "date": "2026-10-14",
+          "yield_pct": 1.6516
+        }
+      },
+      "estimates": {
+        "pe_ttm": 7.36164,
+        "pb_lf": 0.706078,
+        "dividend_yield": 5.280972,
+        "dividend_yield_spread": 3.629372,
+        "earnings_yield_spread": 11.932329
+      }
+    }
+  ],
+  "updated_at": "2026-10-14T16:26:01.708905+00:00"
+}
