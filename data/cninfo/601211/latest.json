@@ -2,8 +2,8 @@
   "stock_code": "601211",
   "stock_name": "国泰海通",
   "report_date": null,
-  "fetched_at": "2026-10-15T17:05:12+08:00",
-  "content_hash": "sha256:79bd6a3d51d37274158989b7c41fb9dc6833163808ce252a005d50940fc02b2e",
+  "fetched_at": "2026-10-16T07:38:48+08:00",
+  "content_hash": "sha256:8df783ab99a025703c11f645c17cea5027aaf82dd6a0b9dcb7d66f0d93af67d2",
   "bundle": {
     "company": {
       "stock_code": "601211",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 14075298100
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13449124024
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 14075298100
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13449124024
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 84.492,
         "F115N": 4052356186.0,
         "F111N": null,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 14075298100,
+        "F021N": 13449124024,
         "F005N": null,
         "ENDDATE": null
       }

@@ -2,8 +2,8 @@
   "stock_code": "600096",
   "stock_name": "云天化",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-15T17:05:12+08:00",
-  "content_hash": "sha256:42de21e1fbbb99acb1c80e7659c9cd7716fcefed5759716b6c87abf092d2250d",
+  "fetched_at": "2026-10-16T07:38:48+08:00",
+  "content_hash": "sha256:c08f112ff6dcf8308d27d10c5b15ad6bb8294bc581046390457f447e23c18064",
   "bundle": {
     "company": {
       "stock_code": "600096",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 1822990731
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 1822990731
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 1822990731
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 1822990731
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 47.481,
         "F115N": 86713377.25,
         "F111N": 521244685.56,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 1822990731,
+        "F021N": 1822990731,
         "F005N": 0.05,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

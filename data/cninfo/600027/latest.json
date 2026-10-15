@@ -2,8 +2,8 @@
   "stock_code": "600027",
   "stock_name": "华电国际",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-15T17:05:12+08:00",
-  "content_hash": "sha256:fcfee759cb457572c7a3702689facb94d9338c3cda2760012c2015a359c665d3",
+  "fetched_at": "2026-10-16T07:38:48+08:00",
+  "content_hash": "sha256:e2dd9efa8c01e450695ff22c9f72fa1668817724ee8ec131d697769d0776def5",
   "bundle": {
     "company": {
       "stock_code": "600027",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 9894540584
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 9215677327
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 9894540584
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 9215677327
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 60.677,
         "F115N": 373940000.0,
         "F111N": 10896423000.0,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 9894540584,
+        "F021N": 9215677327,
         "F005N": 0.12,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

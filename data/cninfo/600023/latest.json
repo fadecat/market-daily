@@ -2,8 +2,8 @@
   "stock_code": "600023",
   "stock_name": "浙能电力",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-15T17:05:12+08:00",
-  "content_hash": "sha256:9dcc7573a2c8910e1b4597cf37c3274b683ef27e8a4c67c512cd0da6e019ad35",
+  "fetched_at": "2026-10-16T07:38:48+08:00",
+  "content_hash": "sha256:a491ddafd7ec74cebe94a32705316abe20ab5d62907def9404d0078e18b714f1",
   "bundle": {
     "company": {
       "stock_code": "600023",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 13408732749
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13408732749
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 13408732749
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13408732749
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 44.742,
         "F115N": 280838973.75,
         "F111N": 8539027343.1,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 13408732749,
+        "F021N": 13408732749,
         "F005N": 0.18,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
