@@ -2,8 +2,8 @@
   "stock_code": "600926",
   "stock_name": "杭州银行",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:b455cb0a50358f40d0c1529f1a4a9e49bb9e38f59cd58de1def4ae95f17959e4",
+  "fetched_at": "2026-10-15T17:05:12+08:00",
+  "content_hash": "sha256:f7d7a9455f3e0e79eb40be13eb9b936fce2475facb660b72f2c156970aab8976",
   "bundle": {
     "company": {
       "stock_code": "600926",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7249002548
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7249002548
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7249002548
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7249002548
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 92.958,
         "F115N": null,
         "F111N": null,
-        "F020N": 7249002548,
-        "F021N": 7249002548,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.72,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

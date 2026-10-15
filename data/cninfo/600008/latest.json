@@ -2,8 +2,8 @@
   "stock_code": "600008",
   "stock_name": "首创环保",
   "report_date": null,
-  "fetched_at": "2026-09-14T06:20:12+08:00",
-  "content_hash": "sha256:a19ecc76b24c66780b01d6b0928c4cfa1782a8373697c8209be3a0f85d01f5f4",
+  "fetched_at": "2026-10-15T17:05:12+08:00",
+  "content_hash": "sha256:10d39405abd2cd363048921251dc7d5e4e8e96d943a8d79279383f2a0f97a257",
   "bundle": {
     "company": {
       "stock_code": "600008",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7340590677
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7340590677
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7340590677
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7340590677
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 62.97,
         "F115N": 364981419.21,
         "F111N": 18130452262.35,
-        "F020N": 7340590677,
-        "F021N": 7340590677,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

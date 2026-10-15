@@ -2,8 +2,8 @@
   "stock_code": "601997",
   "stock_name": "贵阳银行",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:7a7175d7509e87b59019de3b8630d352a3043dfc8f0887d7adde47760d46ec5e",
+  "fetched_at": "2026-10-15T17:05:12+08:00",
+  "content_hash": "sha256:a319dbc82067274ad4ec73d41365c27eb00be254eec5ca648c88e520a3276386",
   "bundle": {
     "company": {
       "stock_code": "601997",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3656198076
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3656198076
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3656198076
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3656198076
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 90.514,
         "F115N": null,
         "F111N": null,
-        "F020N": 3656198076,
-        "F021N": 3656198076,
+        "F020N": null,
+        "F021N": null,
         "F005N": 10.85,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

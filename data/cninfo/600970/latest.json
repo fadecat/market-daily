@@ -2,8 +2,8 @@
   "stock_code": "600970",
   "stock_name": "中材国际",
   "report_date": null,
-  "fetched_at": "2026-09-14T06:20:12+08:00",
-  "content_hash": "sha256:578b78806a570f5353184e70953b5f6c57091a631c7948c7f8ec9be86b2bb621",
+  "fetched_at": "2026-10-15T17:05:12+08:00",
+  "content_hash": "sha256:3f021dcceded307eb22c64a636bc6543d9430c1cb587bef6bd04130027ba184d",
   "bundle": {
     "company": {
       "stock_code": "600970",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2621812924
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2621812924
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2621812924
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2621812924
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 62.026,
         "F115N": 664534486.99,
         "F111N": 12263975941.27,
-        "F020N": 2621812924,
-        "F021N": 2621812924,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }
