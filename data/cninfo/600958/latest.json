@@ -2,8 +2,8 @@
   "stock_code": "600958",
   "stock_name": "东方证券",
   "report_date": null,
-  "fetched_at": "2026-09-14T03:18:52+08:00",
-  "content_hash": "sha256:3638a480c6289465bb75e41313369c95792531835bcf2fd73702c09d6212b280",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:2cdb7f45c1465a5efa89b2a19c0e0b1c1d30a75c2595e8753d6626a46c75236e",
   "bundle": {
     "company": {
       "stock_code": "600958",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7469482864
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7469482864
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7469482864
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7469482864
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 84.665,
         "F115N": 32135375.1,
         "F111N": null,
-        "F020N": 7469482864,
-        "F021N": 7469482864,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

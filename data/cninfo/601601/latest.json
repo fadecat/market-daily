@@ -2,8 +2,8 @@
   "stock_code": "601601",
   "stock_name": "中国太保",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:e0ad78508f13ee250fa563b0cb0305e7a5bcc201c8b65f4049e6a498e266d29d",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:1ecae5ec35976283f3cf3febff1b420bb753058fb2c1ea0a8ed2dbcade142aa1",
   "bundle": {
     "company": {
       "stock_code": "601601",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 6845041455
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6845041455
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 6845041455
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6845041455
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 89.301,
         "F115N": 1357000000.0,
         "F111N": null,
-        "F020N": 6845041455,
-        "F021N": 6845041455,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.13,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

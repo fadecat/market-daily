@@ -2,8 +2,8 @@
   "stock_code": "601166",
   "stock_name": "兴业银行",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:930aa18f0916ffc91d3ce82914517337efddd326d8ae403c49ed625e2f5b6e1d",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:0418f0e44f1a617f3e729e495a71ba5833efea7bc5ee374dee1439862e5ee50b",
   "bundle": {
     "company": {
       "stock_code": "601166",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 21162865509
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 21162865509
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 21162865509
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 21162865509
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 91.617,
         "F115N": 532000000.0,
         "F111N": null,
-        "F020N": 21162865509,
-        "F021N": 21162865509,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.51,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

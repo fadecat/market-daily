@@ -2,8 +2,8 @@
   "stock_code": "600612",
   "stock_name": "老凤祥",
   "report_date": null,
-  "fetched_at": "2026-09-14T06:20:12+08:00",
-  "content_hash": "sha256:978feec119f95d776aa4f306afc701a41bab848e1edddbb5dc02da1b16de3e37",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:bac204bdc8ff618f1d06385e36f0503604240d489f18b7ededaadd2a3dc7e964",
   "bundle": {
     "company": {
       "stock_code": "600612",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 317109630
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 317109630
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 317109630
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 317109630
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 28.014,
         "F115N": null,
         "F111N": 894035705.36,
-        "F020N": 317109630,
-        "F021N": 317109630,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

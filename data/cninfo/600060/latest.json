@@ -2,8 +2,8 @@
   "stock_code": "600060",
   "stock_name": "海信视像",
   "report_date": null,
-  "fetched_at": "2026-09-22T08:00:17+08:00",
-  "content_hash": "sha256:da3f17a3bce30a1792e5cf79e504dc94ef4dfa228b209b69aa9548b9af6e0bf4",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:504cee213bcc764871795232b08a3ac60629292597038f1cbc85f5a28d4efa45",
   "bundle": {
     "company": {
       "stock_code": "600060",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1304972254
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1304972254
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1304972254
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1304972254
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 42.112,
         "F115N": 885432794.32,
         "F111N": 5826711525.16,
-        "F020N": 1304972254,
-        "F021N": 1304972254,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

@@ -2,8 +2,8 @@
   "stock_code": "601326",
   "stock_name": "秦港股份",
   "report_date": null,
-  "fetched_at": "2026-09-14T03:18:52+08:00",
-  "content_hash": "sha256:f5c1b32b65cac631ae435d76a057e8509a68d6e2798791f840d7b1992a4291e2",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:237f543d5b2b7fea4a5eb8e393a4ff6a499d277233eaa7d0a81b7f16a42fce18",
   "bundle": {
     "company": {
       "stock_code": "601326",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4757559000
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4757559000
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4757559000
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4757559000
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 22.665,
         "F115N": null,
         "F111N": 327087036.71,
-        "F020N": 4757559000,
-        "F021N": 4757559000,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

@@ -2,8 +2,8 @@
   "stock_code": "601128",
   "stock_name": "常熟银行",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:8e581b8805fcebefc159db754ef1d4a1d02eff4c5fcfeb82a8aa3cb30b5469c6",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:43650656faefc798769b1dfc79f5e5bd156a5ac4b37188e87b327739c1ef2975",
   "bundle": {
     "company": {
       "stock_code": "601128",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3648180574
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3648180574
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3648180574
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3648180574
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 91.647,
         "F115N": 42785000.0,
         "F111N": null,
-        "F020N": 3648180574,
-        "F021N": 3648180574,
+        "F020N": null,
+        "F021N": null,
         "F005N": 1.42,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

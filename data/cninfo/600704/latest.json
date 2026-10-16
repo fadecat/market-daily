@@ -2,8 +2,8 @@
   "stock_code": "600704",
   "stock_name": "物产中大",
   "report_date": null,
-  "fetched_at": "2026-09-14T06:20:12+08:00",
-  "content_hash": "sha256:852eca3ea0963e308d91757a7aa0036e0327486cb933089b9a4a3bb236e413d5",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:902fc2b56371ed39ea5160f88cc4ab9faa34b47ca8ae8e1929ccfa9b9ed3db05",
   "bundle": {
     "company": {
       "stock_code": "600704",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 5171179890
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 5171179890
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 5171179890
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 5171179890
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 72.48,
         "F115N": 4047733598.77,
         "F111N": 21239782366.16,
-        "F020N": 5171179890,
-        "F021N": 5171179890,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

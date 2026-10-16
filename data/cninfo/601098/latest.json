@@ -2,8 +2,8 @@
   "stock_code": "601098",
   "stock_name": "中南传媒",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-14T11:36:02+08:00",
-  "content_hash": "sha256:7402cf57ce6b9c85cfd99304bf2277cad3269cde1371a177a8f4ea15467c1646",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:a5aa1db9139796758c2ac2bd13a81a07e3cc4416b26528365ac742559292edad",
   "bundle": {
     "company": {
       "stock_code": "601098",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1796000000
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1796000000
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1796000000
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1796000000
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 35.967,
         "F115N": 62385078.58,
         "F111N": 1874267714.38,
-        "F020N": 1796000000,
-        "F021N": 1796000000,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.78,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

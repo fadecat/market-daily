@@ -2,8 +2,8 @@
   "stock_code": "601318",
   "stock_name": "中国平安",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:331a44d9b98da49c05e5327ecfc0a4b4cb4667c04334b4742ce711ab54a3fd85",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:fc76a36befbd4890922a87a5b1fff5cdea12b1534e29e4a8ee579723bc12ff36",
   "bundle": {
     "company": {
       "stock_code": "601318",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 10660065083
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 10660065083
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 10660065083
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 10660065083
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 89.832,
         "F115N": 37969000000.0,
         "F111N": null,
-        "F020N": 10660065083,
-        "F021N": 10660065083,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.22,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

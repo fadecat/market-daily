@@ -2,8 +2,8 @@
   "stock_code": "601577",
   "stock_name": "长沙银行",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T22:55:10+08:00",
-  "content_hash": "sha256:e0067d4c6d8475c138fb58a9affa26e6e7b92cd513b75232e0afe93e1e064056",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:6edfc1f7b55adc0ea90238bd5f2ce494168c46e24849a7bbe194321e515a9fbf",
   "bundle": {
     "company": {
       "stock_code": "601577",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4021553754
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4021553754
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4021553754
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4021553754
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 93.565,
         "F115N": null,
         "F111N": null,
-        "F020N": 4021553754,
-        "F021N": 4021553754,
+        "F020N": null,
+        "F021N": null,
         "F005N": 4.42,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

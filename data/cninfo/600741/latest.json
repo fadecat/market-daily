@@ -2,8 +2,8 @@
   "stock_code": "600741",
   "stock_name": "华域汽车",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:e0ef93dfd7fef743d5d76ec6073b4f991fb7dbbd88b1ef7161ebdfc3a549c936",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:3acf5f16a01c0c9dfa8a306f6928086f1c93fe529ab9a65d397b120d144091e4",
   "bundle": {
     "company": {
       "stock_code": "600741",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3152723984
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3152723984
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3152723984
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3152723984
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 64.097,
         "F115N": 781115081.73,
         "F111N": 50022677982.61,
-        "F020N": 3152723984,
-        "F021N": 3152723984,
+        "F020N": null,
+        "F021N": null,
         "F005N": 1.61,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }

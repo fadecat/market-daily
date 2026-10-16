@@ -2,8 +2,8 @@
   "stock_code": "605599",
   "stock_name": "菜百股份",
   "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-13T07:34:59+08:00",
-  "content_hash": "sha256:d16c0439a174ba5e15910110a83643a5fe6dc6f6410b24aae6af7377caf6c038",
+  "fetched_at": "2026-10-16T16:54:45+08:00",
+  "content_hash": "sha256:3f5ab04425e477b56baaf3cfb3e634b459ad6cca715243cff98b337a1b8ef83d",
   "bundle": {
     "company": {
       "stock_code": "605599",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 777777800
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 777777800
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 777777800
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 777777800
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 49.511,
         "F115N": null,
         "F111N": 189786791.94,
-        "F020N": 777777800,
-        "F021N": 777777800,
+        "F020N": null,
+        "F021N": null,
         "F005N": 8.68,
         "ENDDATE": "2026-10-10T00:00:00.000+00:00"
       }
