@@ -2,8 +2,8 @@
   "stock_code": "600415",
   "stock_name": "小商品城",
   "report_date": null,
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:4f77cad61d7854ed209ec0e6e57a62275b765a1b8dc8df15a849417c04d3c321",
+  "fetched_at": "2026-10-19T06:23:04+08:00",
+  "content_hash": "sha256:6e41a3b331247195d4f886f7585998303463f877a3f2b08f4c395a1ef141daae",
   "bundle": {
     "company": {
       "stock_code": "600415",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 5483559226
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 5483559226
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 5483559226
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 5483559226
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 48.611,
         "F115N": 284916367.87,
         "F111N": 404730199.98,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 5483559226,
+        "F021N": 5483559226,
         "F005N": null,
         "ENDDATE": null
       }

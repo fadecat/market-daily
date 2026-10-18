@@ -1,9 +1,9 @@
 {
   "stock_code": "601166",
   "stock_name": "兴业银行",
-  "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:0418f0e44f1a617f3e729e495a71ba5833efea7bc5ee374dee1439862e5ee50b",
+  "report_date": null,
+  "fetched_at": "2026-10-19T06:23:04+08:00",
+  "content_hash": "sha256:30a59e89bf8baf52715f5ae954f5358fedf2d0f4b788bcd814aab5189e9856e7",
   "bundle": {
     "company": {
       "stock_code": "601166",
@@ -14,25 +14,25 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": "2026-10-10T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.51
+          "value": null
         },
         {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 21162865954
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 21162865954
         },
         {
           "field": "F041N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,19 +88,19 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.51
+          "value": null
         },
         "总股本": {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 21162865954
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 21162865954
         },
         "负债率": {
           "field": "F041N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -159,10 +159,10 @@
         "F041N": 91.617,
         "F115N": 532000000.0,
         "F111N": null,
-        "F020N": null,
-        "F021N": null,
-        "F005N": 0.51,
-        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
+        "F020N": 21162865954,
+        "F021N": 21162865954,
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

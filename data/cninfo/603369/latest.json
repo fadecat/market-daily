@@ -2,8 +2,8 @@
   "stock_code": "603369",
   "stock_name": "今世缘",
   "report_date": null,
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:e158fd6a9cd3cc6a6673e49ea86163e74d34fe513d7eb33c6d795bcb2d98ca3c",
+  "fetched_at": "2026-10-19T06:23:04+08:00",
+  "content_hash": "sha256:fac7a8172a78b9a98062d595c3aa0b40dad0ca0f2cbb8dc90417e7a992d2c7ce",
   "bundle": {
     "company": {
       "stock_code": "603369",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 1246800037
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 1246800037
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 1246800037
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 1246800037
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 33.726,
         "F115N": null,
         "F111N": 46943257.04,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 1246800037,
+        "F021N": 1246800037,
         "F005N": null,
         "ENDDATE": null
       }
