@@ -2,8 +2,8 @@
   "stock_code": "600018",
   "stock_name": "上港集团",
   "report_date": null,
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:cfd025848481715d8cb1b000b76c0b8cf3c547887e322a5fa8b83033c44344f4",
+  "fetched_at": "2026-10-19T03:22:45+08:00",
+  "content_hash": "sha256:f007c3faf17895f3635ede699602bb8017ee9d1c64913987f6ac2169586832d0",
   "bundle": {
     "company": {
       "stock_code": "600018",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 23279960504
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 23278320278
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 23279960504
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 23278320278
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 31.549,
         "F115N": 362504741.28,
         "F111N": 5529269738.26,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 23279960504,
+        "F021N": 23278320278,
         "F005N": null,
         "ENDDATE": null
       }

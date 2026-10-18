@@ -2,8 +2,8 @@
   "stock_code": "600999",
   "stock_name": "招商证券",
   "report_date": null,
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:2cbf5c26cc2197012739a6baf8a2bb0f5371f61a69deebb0a64792b79d984032",
+  "fetched_at": "2026-10-19T03:22:45+08:00",
+  "content_hash": "sha256:6e8f6a82b7bb8a3e9ed030e757e0b76c388d699ad26d22d92efb8485e026a0bd",
   "bundle": {
     "company": {
       "stock_code": "600999",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 7422005272
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 7422005272
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 7422005272
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 7422005272
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 83.38,
         "F115N": 9670605.55,
         "F111N": null,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 7422005272,
+        "F021N": 7422005272,
         "F005N": null,
         "ENDDATE": null
       }

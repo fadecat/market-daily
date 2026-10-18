@@ -1,9 +1,9 @@
 {
   "stock_code": "600483",
   "stock_name": "福能股份",
-  "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:52f1c286ef3206b20668d219159bd78dd1421a9e458328e05ecf442d58aa4a9d",
+  "report_date": null,
+  "fetched_at": "2026-10-19T03:22:45+08:00",
+  "content_hash": "sha256:21aa2e63e102ed91018a179ba0d7a72501a88ab2db814639488d869fc2bfe513",
   "bundle": {
     "company": {
       "stock_code": "600483",
@@ -14,25 +14,25 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-10T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.95
+          "value": null
         },
         {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2780148290
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2780148290
         },
         {
           "field": "F041N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,19 +88,19 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.95
+          "value": null
         },
         "总股本": {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2780148290
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2780148290
         },
         "负债率": {
           "field": "F041N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -159,10 +159,10 @@
         "F041N": 40.945,
         "F115N": 70584170.73,
         "F111N": 5894534543.1,
-        "F020N": null,
-        "F021N": null,
-        "F005N": 0.95,
-        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
+        "F020N": 2780148290,
+        "F021N": 2780148290,
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

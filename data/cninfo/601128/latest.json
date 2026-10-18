@@ -1,9 +1,9 @@
 {
   "stock_code": "601128",
   "stock_name": "常熟银行",
-  "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-16T16:54:45+08:00",
-  "content_hash": "sha256:43650656faefc798769b1dfc79f5e5bd156a5ac4b37188e87b327739c1ef2975",
+  "report_date": null,
+  "fetched_at": "2026-10-19T03:22:45+08:00",
+  "content_hash": "sha256:e0f69054456db2b6c8b19d943ae4db35406e9b96e327e40204797155657f7a4a",
   "bundle": {
     "company": {
       "stock_code": "601128",
@@ -14,25 +14,25 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": "2026-10-10T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.42
+          "value": null
         },
         {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 3648180574
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 3648180574
         },
         {
           "field": "F041N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,19 +88,19 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.42
+          "value": null
         },
         "总股本": {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 3648180574
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 3648180574
         },
         "负债率": {
           "field": "F041N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -159,10 +159,10 @@
         "F041N": 91.647,
         "F115N": 42785000.0,
         "F111N": null,
-        "F020N": null,
-        "F021N": null,
-        "F005N": 1.42,
-        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
+        "F020N": 3648180574,
+        "F021N": 3648180574,
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

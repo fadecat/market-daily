@@ -1,9 +1,9 @@
 {
   "stock_code": "000783",
   "stock_name": "长江证券",
-  "report_date": "2026-10-10T00:00:00.000+00:00",
-  "fetched_at": "2026-10-15T07:51:08+08:00",
-  "content_hash": "sha256:ed1c7429bc9a0f37a7986e668b94f365dfde990d0ef3b998a2b00c7f0e9cb1fe",
+  "report_date": null,
+  "fetched_at": "2026-10-19T03:22:45+08:00",
+  "content_hash": "sha256:f3c774c681f7266cd12b2a90c0e16b1b8c4f0fda8b937a1081ba9b5d06223270",
   "bundle": {
     "company": {
       "stock_code": "000783",
@@ -14,13 +14,13 @@
       "sign": 3
     },
     "head_strip": {
-      "report_date": "2026-10-10T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 8.35
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 8.35
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-10T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 5530072948,
         "F021N": 5530072948,
-        "F005N": 8.35,
-        "ENDDATE": "2026-10-10T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
