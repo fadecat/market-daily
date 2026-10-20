@@ -1,9 +1,9 @@
 {
   "stock_code": "000001",
   "stock_name": "平安银行",
-  "report_date": null,
-  "fetched_at": "2026-10-19T06:23:04+08:00",
-  "content_hash": "sha256:87132d46e4f195a9b826268010812d0ede570dad01faf56d0a1073c9c166a74d",
+  "report_date": "2026-10-17T00:00:00.000+00:00",
+  "fetched_at": "2026-10-20T09:03:32+08:00",
+  "content_hash": "sha256:e8324a4d9eb479ea3d3f179bba026e7379e3f3a60f521806e6f4452a300b6619",
   "bundle": {
     "company": {
       "stock_code": "000001",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-17T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.13
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.13
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 19405918198,
         "F021N": 19405684991,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.13,
+        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

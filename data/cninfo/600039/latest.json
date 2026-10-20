@@ -1,9 +1,9 @@
 {
   "stock_code": "600039",
   "stock_name": "四川路桥",
-  "report_date": null,
-  "fetched_at": "2026-10-19T06:23:04+08:00",
-  "content_hash": "sha256:dc9e128221dd5c431d48306b56176f8c903014c5f832320cd920bb813b1472cc",
+  "report_date": "2026-10-17T00:00:00.000+00:00",
+  "fetched_at": "2026-10-20T09:03:32+08:00",
+  "content_hash": "sha256:de841fc2aec89bbd786c038737cdbd5560a4f560257405c985d93685719ccf4c",
   "bundle": {
     "company": {
       "stock_code": "600039",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-17T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 10.51
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 10.51
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 36407517780.54,
         "F020N": 8695590645,
         "F021N": 8695590645,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 10.51,
+        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

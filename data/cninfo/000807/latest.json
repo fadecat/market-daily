@@ -1,9 +1,9 @@
 {
   "stock_code": "000807",
   "stock_name": "云铝股份",
-  "report_date": null,
-  "fetched_at": "2026-10-19T06:23:04+08:00",
-  "content_hash": "sha256:c9141f3387c50c9758c230c470b2d6ff7bc3d738a7c7b580ebc14535d1d839af",
+  "report_date": "2026-10-17T00:00:00.000+00:00",
+  "fetched_at": "2026-10-20T09:03:32+08:00",
+  "content_hash": "sha256:1869fece6d4ed2f163886a2b1d04ee366949805d46dc1c187cca614b8dca1958",
   "bundle": {
     "company": {
       "stock_code": "000807",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-17T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.07
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.07
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-17T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 1303110319.91,
         "F020N": 3467957405,
         "F021N": 3467904076,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.07,
+        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
