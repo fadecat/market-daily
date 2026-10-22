@@ -2,8 +2,8 @@
   "stock_code": "002091",
   "stock_name": "江苏国泰",
   "report_date": null,
-  "fetched_at": "2026-09-28T19:35:16+08:00",
-  "content_hash": "sha256:4160e7e1cec2a2e285d5a3f85bc661068d6a19dc9abb802c2b906e6d7f7355fa",
+  "fetched_at": "2026-10-22T17:56:34+08:00",
+  "content_hash": "sha256:3a8abd1fa6ffd9814ccbab8789d4621698bb6da7738f31e45266630bd9bf56ba",
   "bundle": {
     "company": {
       "stock_code": "002091",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1627729094
+          "value": 1627729502
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1602373431
+          "value": 1602373839
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1627729094
+          "value": 1627729502
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1602373431
+          "value": 1602373839
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 50.423,
         "F115N": 4088228.44,
         "F111N": 7920597175.01,
-        "F020N": 1627729094,
-        "F021N": 1602373431,
+        "F020N": 1627729502,
+        "F021N": 1602373839,
         "F005N": null,
         "ENDDATE": null
       }
