@@ -2,8 +2,8 @@
   "stock_code": "002142",
   "stock_name": "宁波银行",
   "report_date": null,
-  "fetched_at": "2026-10-19T03:22:45+08:00",
-  "content_hash": "sha256:cd04d7655916d6c5f353c1956cbd3cf7e3a47acf0be8a41862f2a8afba9680c5",
+  "fetched_at": "2026-10-23T17:51:18+08:00",
+  "content_hash": "sha256:e64bed4d77c8e6f96de4ede7c0673bda0a94541bf26e6deaa39286906897791c",
   "bundle": {
     "company": {
       "stock_code": "002142",
@@ -32,7 +32,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6603205271
+          "value": 6603208859
         },
         {
           "field": "F041N",
@@ -100,7 +100,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6603205271
+          "value": 6603208859
         },
         "负债率": {
           "field": "F041N",
@@ -160,7 +160,7 @@
         "F115N": 293000000.0,
         "F111N": null,
         "F020N": 6603590792,
-        "F021N": 6603205271,
+        "F021N": 6603208859,
         "F005N": null,
         "ENDDATE": null
       }
