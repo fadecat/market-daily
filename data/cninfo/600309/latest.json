@@ -1,9 +1,9 @@
 {
   "stock_code": "600309",
   "stock_name": "万华化学",
-  "report_date": "2026-10-17T00:00:00.000+00:00",
-  "fetched_at": "2026-10-20T09:03:32+08:00",
-  "content_hash": "sha256:b0819ab9341dffdd93f0e68f8fe165912390fa91b9b7c1fbceb4eed32e636748",
+  "report_date": null,
+  "fetched_at": "2026-10-26T03:30:51+08:00",
+  "content_hash": "sha256:50225638e3ea826bfa58fe8e761d016141b3900762ea00db53b7a5bd0f0272ef",
   "bundle": {
     "company": {
       "stock_code": "600309",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-17T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 4.14
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 4.14
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 19605226089.4,
         "F020N": 3130471626,
         "F021N": 3130471626,
-        "F005N": 4.14,
-        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

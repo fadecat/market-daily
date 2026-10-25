@@ -1,9 +1,9 @@
 {
   "stock_code": "600323",
   "stock_name": "瀚蓝环境",
-  "report_date": "2026-10-17T00:00:00.000+00:00",
-  "fetched_at": "2026-10-23T07:57:44+08:00",
-  "content_hash": "sha256:2c1ab1d4a1c95062c19b0840bfbcb89078ada1c95f51c034d85b59bcb11fb9b6",
+  "report_date": null,
+  "fetched_at": "2026-10-26T03:30:51+08:00",
+  "content_hash": "sha256:a9a37dbf78d1d61e0d08ea2d1da579b0fc506dabbcd3e1e49f3531178a8cc28f",
   "bundle": {
     "company": {
       "stock_code": "600323",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-17T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.07
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.07
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 9346488885.73,
         "F020N": 815347146,
         "F021N": 815347146,
-        "F005N": 0.07,
-        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
