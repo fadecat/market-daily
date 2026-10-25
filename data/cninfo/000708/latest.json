@@ -1,9 +1,9 @@
 {
   "stock_code": "000708",
   "stock_name": "中信特钢",
-  "report_date": "2026-10-17T00:00:00.000+00:00",
-  "fetched_at": "2026-10-23T07:57:44+08:00",
-  "content_hash": "sha256:b7db2354e754fb2f56cb4841271f69e2c31434358b28f7a3dde0f98b82e65f9f",
+  "report_date": null,
+  "fetched_at": "2026-10-26T06:27:05+08:00",
+  "content_hash": "sha256:4ebf79ad73748c3d17b8e204ea0ec390417e1d20cfea3069f1299afc3aabaa44",
   "bundle": {
     "company": {
       "stock_code": "000708",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-17T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 9260129093.91,
         "F020N": 5047159056,
         "F021N": 5047136556,
-        "F005N": 0.18,
-        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

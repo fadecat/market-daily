@@ -1,9 +1,9 @@
 {
   "stock_code": "600023",
   "stock_name": "浙能电力",
-  "report_date": "2026-10-17T00:00:00.000+00:00",
-  "fetched_at": "2026-10-20T05:25:18+08:00",
-  "content_hash": "sha256:15d4fe37544fd118a2a1da00c50ce4ea16bbe952a261358a7eadee277c4a9916",
+  "report_date": null,
+  "fetched_at": "2026-10-26T06:27:05+08:00",
+  "content_hash": "sha256:de51171f219bc85538dac57d9ce3777446f3ebc1b4e727e3939a1bb985c321c0",
   "bundle": {
     "company": {
       "stock_code": "600023",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-17T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.18
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 8539027343.1,
         "F020N": 13408732749,
         "F021N": 13408732749,
-        "F005N": 0.18,
-        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

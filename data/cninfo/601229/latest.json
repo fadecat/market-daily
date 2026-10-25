@@ -1,9 +1,9 @@
 {
   "stock_code": "601229",
   "stock_name": "上海银行",
-  "report_date": "2026-10-17T00:00:00.000+00:00",
-  "fetched_at": "2026-10-21T17:56:30+08:00",
-  "content_hash": "sha256:45f3e63e444a154a8ccbd6951cad1f49abb366a06c862427610c16a04b2b9257",
+  "report_date": null,
+  "fetched_at": "2026-10-26T06:27:05+08:00",
+  "content_hash": "sha256:97c676f1e3ee87fadab2df194fb4d0b4cdb422ad05f891c55df155d4855a9099",
   "bundle": {
     "company": {
       "stock_code": "601229",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": "2026-10-17T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.35
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.35
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-17T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 14317174642,
         "F021N": 14317174642,
-        "F005N": 1.35,
-        "ENDDATE": "2026-10-17T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
