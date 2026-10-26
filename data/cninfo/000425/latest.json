@@ -1,9 +1,9 @@
 {
   "stock_code": "000425",
   "stock_name": "徐工机械",
-  "report_date": null,
-  "fetched_at": "2026-10-21T07:47:03+08:00",
-  "content_hash": "sha256:f2b179087298aacbfb983bef1a6dc7e8e0a9943180e6a9a9b7188ada3f99512e",
+  "report_date": "2026-10-24T00:00:00.000+00:00",
+  "fetched_at": "2026-10-26T12:10:39+08:00",
+  "content_hash": "sha256:6d6b2365b1675dc11b33b1ce18cceeb621a13458840a56c19ca7cb3443266ce6",
   "bundle": {
     "company": {
       "stock_code": "000425",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-24T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 2.52
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 2.52
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 47482871298.17,
         "F020N": 11711210449,
         "F021N": 8999488510,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 2.52,
+        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
