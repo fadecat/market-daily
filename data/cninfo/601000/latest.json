@@ -1,9 +1,9 @@
 {
   "stock_code": "601000",
   "stock_name": "唐山港",
-  "report_date": null,
-  "fetched_at": "2026-10-26T06:27:05+08:00",
-  "content_hash": "sha256:ca58d4d5288becc8441d3dc5a9ad2c79e21ee5547c9062d9afac2952e7311e85",
+  "report_date": "2026-10-24T00:00:00.000+00:00",
+  "fetched_at": "2026-10-27T05:33:11+08:00",
+  "content_hash": "sha256:e4e86e166ab80ce6bdb24fc49200dac92ba8a8a2e868a733c222bef63c916d30",
   "bundle": {
     "company": {
       "stock_code": "601000",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-24T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.12
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.12
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 342988328.79,
         "F020N": 5925928614,
         "F021N": 5925928614,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 1.12,
+        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
