@@ -1,9 +1,9 @@
 {
   "stock_code": "600926",
   "stock_name": "杭州银行",
-  "report_date": null,
-  "fetched_at": "2026-10-26T06:27:05+08:00",
-  "content_hash": "sha256:33d1eebf10d2fe49d0d03ebe54a4f904795378a06a5e2349ee1303f3935b0028",
+  "report_date": "2026-10-24T00:00:00.000+00:00",
+  "fetched_at": "2026-10-27T09:25:32+08:00",
+  "content_hash": "sha256:cfc434b0bb8e5de45391a5bd9f45f06c1afc4c89f8062b0ca97d5882b3de5219",
   "bundle": {
     "company": {
       "stock_code": "600926",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-24T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.72
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.72
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 7249002548,
         "F021N": 7249002548,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.72,
+        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

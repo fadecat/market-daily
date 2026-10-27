@@ -1,9 +1,9 @@
 {
   "stock_code": "600036",
   "stock_name": "招商银行",
-  "report_date": null,
-  "fetched_at": "2026-10-26T06:27:05+08:00",
-  "content_hash": "sha256:1513aae1e646bfc3ddbd3ecc7ad5098b340ce040f295d33d4b6c3eecd0c1291e",
+  "report_date": "2026-10-24T00:00:00.000+00:00",
+  "fetched_at": "2026-10-27T09:25:32+08:00",
+  "content_hash": "sha256:b4423a0cfd4ddf3de788cc93e823f0197f291c6e660a13ac90d28f137dfc11a2",
   "bundle": {
     "company": {
       "stock_code": "600036",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-24T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.34
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.34
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 20628944429,
         "F021N": 20628944429,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.34,
+        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
