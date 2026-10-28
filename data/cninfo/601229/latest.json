@@ -1,9 +1,9 @@
 {
   "stock_code": "601229",
   "stock_name": "上海银行",
-  "report_date": null,
-  "fetched_at": "2026-10-26T06:27:05+08:00",
-  "content_hash": "sha256:97c676f1e3ee87fadab2df194fb4d0b4cdb422ad05f891c55df155d4855a9099",
+  "report_date": "2026-10-24T00:00:00.000+00:00",
+  "fetched_at": "2026-10-28T19:11:11+08:00",
+  "content_hash": "sha256:aff28bcfac661caca499547992250f12c6dd7a5a29f0e0ad88d78a3cdd4ad47c",
   "bundle": {
     "company": {
       "stock_code": "601229",
@@ -14,25 +14,25 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-24T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.35
         },
         {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 14317174642
+          "value": 14343457430
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 14317174642
+          "value": 14343457430
         },
         {
           "field": "F041N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,19 +88,19 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.35
         },
         "总股本": {
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 14317174642
+          "value": 14343457430
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 14317174642
+          "value": 14343457430
         },
         "负债率": {
           "field": "F041N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-24T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -159,10 +159,10 @@
         "F041N": 92.158,
         "F115N": null,
         "F111N": null,
-        "F020N": 14317174642,
-        "F021N": 14317174642,
-        "F005N": null,
-        "ENDDATE": null
+        "F020N": 14343457430,
+        "F021N": 14343457430,
+        "F005N": 1.35,
+        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

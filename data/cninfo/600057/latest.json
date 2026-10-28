@@ -2,8 +2,8 @@
   "stock_code": "600057",
   "stock_name": "厦门象屿",
   "report_date": null,
-  "fetched_at": "2026-10-22T17:56:40+08:00",
-  "content_hash": "sha256:6598eb440235209d3bfef85e57b2a9e6d604db9597affb0e3e5d73006fee791d",
+  "fetched_at": "2026-10-28T19:11:11+08:00",
+  "content_hash": "sha256:e7f8901ecb3126ff7e45122ce30cb55a8f3ce5634ee4aaa5200d24540d5e5fca",
   "bundle": {
     "company": {
       "stock_code": "600057",
@@ -26,7 +26,7 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2839015539
+          "value": 2833684499
         },
         {
           "field": "F021N",
@@ -94,7 +94,7 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2839015539
+          "value": 2833684499
         },
         "流通股本": {
           "field": "F021N",
@@ -159,7 +159,7 @@
         "F041N": 71.742,
         "F115N": 12669186.9,
         "F111N": 17015302532.76,
-        "F020N": 2839015539,
+        "F020N": 2833684499,
         "F021N": 2092510164,
         "F005N": null,
         "ENDDATE": null
