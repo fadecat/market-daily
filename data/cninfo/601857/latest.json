@@ -1,9 +1,9 @@
 {
   "stock_code": "601857",
   "stock_name": "中国石油",
-  "report_date": "2026-10-24T00:00:00.000+00:00",
-  "fetched_at": "2026-10-29T05:36:55+08:00",
-  "content_hash": "sha256:cbc8337407f04d4c13494c9005ab477f801248e62475f6b8aaaa9e30960d72bd",
+  "report_date": null,
+  "fetched_at": "2026-11-02T05:04:38+08:00",
+  "content_hash": "sha256:e88aa8873e77085c27e677aac5cbe7a83fe246552e3c06c5cba89f3a789cd0c9",
   "bundle": {
     "company": {
       "stock_code": "601857",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-24T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.03
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.03
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 119441000000.0,
         "F020N": 161922077818,
         "F021N": 161922077818,
-        "F005N": 0.03,
-        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
