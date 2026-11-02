@@ -1,9 +1,9 @@
 {
   "stock_code": "600039",
   "stock_name": "四川路桥",
-  "report_date": "2026-10-24T00:00:00.000+00:00",
-  "fetched_at": "2026-10-30T09:53:23+08:00",
-  "content_hash": "sha256:c8b8d23e53d85b5429cdfb7fbb15b4d81aeac96a669fee97b2e6e84da6ff964f",
+  "report_date": "2026-10-31T00:00:00.000+00:00",
+  "fetched_at": "2026-11-02T23:19:13+08:00",
+  "content_hash": "sha256:c2547c3e901d3ce85d5ba15d954d7b726b5e347cad34a06ea97dc04e83e2c11b",
   "bundle": {
     "company": {
       "stock_code": "600039",
@@ -14,7 +14,7 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-24T00:00:00.000+00:00",
+      "report_date": "2026-10-31T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -162,7 +162,7 @@
         "F020N": 8695590645,
         "F021N": 8695590645,
         "F005N": 10.51,
-        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
+        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
