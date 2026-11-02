@@ -1,9 +1,9 @@
 {
   "stock_code": "600483",
   "stock_name": "福能股份",
-  "report_date": "2026-10-24T00:00:00.000+00:00",
-  "fetched_at": "2026-10-28T09:13:53+08:00",
-  "content_hash": "sha256:5e3090d796a31ae59d3e46f3f2c037cec0e183fc5861bdca59ecb6e762a8353d",
+  "report_date": null,
+  "fetched_at": "2026-11-02T08:34:47+08:00",
+  "content_hash": "sha256:4b5e928ecee3150c3f05f6c11f193d0b98e3bd220ed79ec303070013c9f0f9ec",
   "bundle": {
     "company": {
       "stock_code": "600483",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-24T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.95
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.95
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 4603566643.05,
         "F020N": 2780148395,
         "F021N": 2780148395,
-        "F005N": 0.95,
-        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

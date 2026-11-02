@@ -1,9 +1,9 @@
 {
   "stock_code": "600710",
   "stock_name": "苏美达",
-  "report_date": "2026-10-24T00:00:00.000+00:00",
-  "fetched_at": "2026-10-29T09:45:04+08:00",
-  "content_hash": "sha256:8095518f133e25226ff9bae21895172d839d7875ad60c2fc4a824816686b0f61",
+  "report_date": null,
+  "fetched_at": "2026-11-02T08:34:47+08:00",
+  "content_hash": "sha256:19d11cad58030e37c53731a3ca293cd863586f50402c65ad173eea589668c473",
   "bundle": {
     "company": {
       "stock_code": "600710",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-24T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.31
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.31
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 14357445743.72,
         "F020N": 1306749434,
         "F021N": 1306749434,
-        "F005N": 1.31,
-        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {
