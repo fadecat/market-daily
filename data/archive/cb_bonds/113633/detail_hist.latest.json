@@ -5,6 +5,32 @@
       "id": "113633",
       "cell": {
         "bond_id": "113633",
+        "last_chg_dt": "2026-11-02",
+        "ytm_rt": "0.67%",
+        "premium_rt": "332.79%",
+        "convert_value": "25.65",
+        "price": "111.016",
+        "volume": "4879.15",
+        "stock_volume": 438550,
+        "sprice": "44.22",
+        "curr_iss_amt": "10.396",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "股票激励计划  转股价由172.440调整为172.390",
+        "amt_change": "-",
+        "turnover_rt": "4.22"
+      }
+    },
+    {
+      "id": "113633",
+      "cell": {
+        "bond_id": "113633",
         "last_chg_dt": "2026-10-30",
         "ytm_rt": "0.65%",
         "premium_rt": "325.47%",
@@ -754,35 +780,9 @@
         "amt_change": "-",
         "turnover_rt": "1.87"
       }
-    },
-    {
-      "id": "113633",
-      "cell": {
-        "bond_id": "113633",
-        "last_chg_dt": "2026-09-11",
-        "ytm_rt": "0.79%",
-        "premium_rt": "272.24%",
-        "convert_value": "29.75",
-        "price": "110.744",
-        "volume": "4336.65",
-        "stock_volume": 391870,
-        "sprice": "51.46",
-        "curr_iss_amt": "10.396",
-        "cflg": "Y",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "-",
-        "amt_change": "-",
-        "turnover_rt": "3.77"
-      }
     }
   ],
   "total": 30,
   "bond_id": "113633",
-  "fetched_at": "2026-10-30"
+  "fetched_at": "2026-11-03"
 }
