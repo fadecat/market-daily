@@ -1,9 +1,9 @@
 {
   "stock_code": "601128",
   "stock_name": "常熟银行",
-  "report_date": null,
-  "fetched_at": "2026-11-02T08:34:47+08:00",
-  "content_hash": "sha256:ee7ef5c292ac6bc430dbf328cbe57c156a7eb48858da3c07d5b387046e34f3af",
+  "report_date": "2026-10-31T00:00:00.000+00:00",
+  "fetched_at": "2026-11-03T07:51:03+08:00",
+  "content_hash": "sha256:9502561a73a72d59180618bce86a3fe7deae25541a42658071e9a65a5fdbc381",
   "bundle": {
     "company": {
       "stock_code": "601128",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-31T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.42
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.42
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 3648180954,
         "F021N": 3648180954,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 1.42,
+        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

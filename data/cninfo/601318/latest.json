@@ -1,9 +1,9 @@
 {
   "stock_code": "601318",
   "stock_name": "中国平安",
-  "report_date": null,
-  "fetched_at": "2026-11-02T08:34:47+08:00",
-  "content_hash": "sha256:8559c3ed467553affaf112bd151505c496db1215958092e3ad38ce4de11fd81a",
+  "report_date": "2026-10-31T00:00:00.000+00:00",
+  "fetched_at": "2026-11-03T07:51:03+08:00",
+  "content_hash": "sha256:5dcbad88f5de753d3d98851af5de88741b265deda78396f9d8839045d30b215d",
   "bundle": {
     "company": {
       "stock_code": "601318",
@@ -14,13 +14,13 @@
       "sign": 4
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-31T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.22
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.22
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 10660065083,
         "F021N": 10660065083,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.22,
+        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

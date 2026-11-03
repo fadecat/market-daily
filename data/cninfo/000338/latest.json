@@ -1,9 +1,9 @@
 {
   "stock_code": "000338",
   "stock_name": "潍柴动力",
-  "report_date": null,
-  "fetched_at": "2026-11-02T08:34:47+08:00",
-  "content_hash": "sha256:29c93598b4fe62fc55cf29b5c6631a5c980869c071809b0f6622d1a16b3d12a3",
+  "report_date": "2026-10-31T00:00:00.000+00:00",
+  "fetched_at": "2026-11-03T07:51:03+08:00",
+  "content_hash": "sha256:5f4d51123094bdae5e37110f2585e23f5abea1255d19edbb7c08f17c2a084f74",
   "bundle": {
     "company": {
       "stock_code": "000338",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-10-31T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.14
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.14
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 42090042629.5,
         "F020N": 6697180621,
         "F021N": 4955494570,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.14,
+        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
