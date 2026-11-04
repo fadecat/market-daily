@@ -1,9 +1,9 @@
 {
   "stock_code": "600377",
   "stock_name": "宁沪高速",
-  "report_date": "2026-10-24T00:00:00.000+00:00",
-  "fetched_at": "2026-10-28T09:13:53+08:00",
-  "content_hash": "sha256:39f5da4245067fd263231b37923e87f2b5f96a9c817fed70fde9099fb20d4422",
+  "report_date": "2026-10-31T00:00:00.000+00:00",
+  "fetched_at": "2026-11-04T22:07:31+08:00",
+  "content_hash": "sha256:cd1ca44a04745ca96d9918dccfdce540dd114b7c771a301fb24c914ed8eee3bc",
   "bundle": {
     "company": {
       "stock_code": "600377",
@@ -14,7 +14,7 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-24T00:00:00.000+00:00",
+      "report_date": "2026-10-31T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-24T00:00:00.000+00:00"
+          "value": "2026-10-31T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -162,7 +162,7 @@
         "F020N": 3815747500,
         "F021N": 3802183001,
         "F005N": 0.08,
-        "ENDDATE": "2026-10-24T00:00:00.000+00:00"
+        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
