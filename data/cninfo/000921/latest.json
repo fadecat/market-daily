@@ -1,9 +1,9 @@
 {
   "stock_code": "000921",
   "stock_name": "海信家电",
-  "report_date": null,
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:0f22e77ddb2bc7f3319cb497687250b5eb6721c3417be06d3fdaeda9956db2b6",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T09:40:46+08:00",
+  "content_hash": "sha256:f8dbc4b22a81b89b0de97199ec6a352922a9ac10e827a5990eb6452a49a757db",
   "bundle": {
     "company": {
       "stock_code": "000921",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.08
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.08
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 10181365078.55,
         "F020N": 924161921,
         "F021N": 923599922,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.08,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

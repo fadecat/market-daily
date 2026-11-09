@@ -1,9 +1,9 @@
 {
   "stock_code": "600332",
   "stock_name": "白云山",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:5c4e9bee24279d472f7da50b3196ed1692c49a626bea3fa68bfc58382335e5ae",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T09:40:46+08:00",
+  "content_hash": "sha256:e8dc520e58aa85ffb9d27a0b417edf755c1fa38e5d98d02628f1701b63a08e0d",
   "bundle": {
     "company": {
       "stock_code": "600332",
@@ -14,7 +14,7 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -162,7 +162,7 @@
         "F020N": 1405890949,
         "F021N": 1405890949,
         "F005N": 0.06,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

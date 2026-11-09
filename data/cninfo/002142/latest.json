@@ -1,9 +1,9 @@
 {
   "stock_code": "002142",
   "stock_name": "宁波银行",
-  "report_date": null,
-  "fetched_at": "2026-10-30T09:53:23+08:00",
-  "content_hash": "sha256:d7f352031d21cc3474cc6cd246015f235c3875b8be773856d1c3d8ef250c9bc4",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T09:40:46+08:00",
+  "content_hash": "sha256:421099d19b12f107de9e4bc03e9709b9fb71fbf64e5b07ad248bd3dd9740370f",
   "bundle": {
     "company": {
       "stock_code": "002142",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.05
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.05
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 6603590792,
         "F021N": 6603208859,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.05,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

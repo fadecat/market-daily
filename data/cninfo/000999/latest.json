@@ -1,9 +1,9 @@
 {
   "stock_code": "000999",
   "stock_name": "华润三九",
-  "report_date": null,
-  "fetched_at": "2026-10-26T06:27:05+08:00",
-  "content_hash": "sha256:63d5fc7a579b5f4cdf37b3df133348cccba5418a1767dafd6797d62c6e6b81ab",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T09:40:46+08:00",
+  "content_hash": "sha256:f345fcb1d2a98d1dc227a49c727babd2509c9f051bfde6d656db35ae4e94f313",
   "bundle": {
     "company": {
       "stock_code": "000999",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.33
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.33
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 7855259721.27,
         "F020N": 1664217858,
         "F021N": 1662523913,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.33,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
