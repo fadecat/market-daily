@@ -1,9 +1,9 @@
 {
   "stock_code": "601336",
   "stock_name": "新华保险",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:e0cb848fea65ca750344657b43dbbf9dadc00afd5c7d63145ad7ce1bf7d2a94f",
+  "report_date": null,
+  "fetched_at": "2026-11-09T08:43:01+08:00",
+  "content_hash": "sha256:2e51c70c1446365d38e82421c717b5792f443a4cc26e277b979989f9c8177089",
   "bundle": {
     "company": {
       "stock_code": "601336",
@@ -14,13 +14,13 @@
       "sign": 4
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": null,
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.2
+          "value": null
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": null
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.2
+          "value": null
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": null
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 2085439340,
         "F021N": 2085439340,
-        "F005N": 0.2,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "F005N": null,
+        "ENDDATE": null
       }
     },
     "main_indicators": {

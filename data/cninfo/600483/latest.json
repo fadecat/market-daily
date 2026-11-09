@@ -1,9 +1,9 @@
 {
   "stock_code": "600483",
   "stock_name": "福能股份",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:637a891fcd0afcb19db6f51b796f8e87fdc8c1c85fad4ced6595813194ff48ff",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T08:43:01+08:00",
+  "content_hash": "sha256:5d1decdace6066426a3d7f74dc9b9df65cfab71ba75b49f9da68ea02c71ca365",
   "bundle": {
     "company": {
       "stock_code": "600483",
@@ -14,7 +14,7 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -162,7 +162,7 @@
         "F020N": 2780148395,
         "F021N": 2780148395,
         "F005N": 0.95,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

@@ -1,9 +1,9 @@
 {
   "stock_code": "600096",
   "stock_name": "云天化",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:c3e8ea40d5aa635e5efc843665fc22d5a5829e3360dcaa4795f9991c031cd185",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T08:43:01+08:00",
+  "content_hash": "sha256:01492ece51d687dc8784b82ff98a8a48da54b1d35d61df1f5e4cb37cf92ff81b",
   "bundle": {
     "company": {
       "stock_code": "600096",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.05
+          "value": 0.08
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.05
+          "value": 0.08
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 480755451.93,
         "F020N": 1822990731,
         "F021N": 1822990731,
-        "F005N": 0.05,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "F005N": 0.08,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
