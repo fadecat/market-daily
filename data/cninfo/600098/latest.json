@@ -1,9 +1,9 @@
 {
   "stock_code": "600098",
   "stock_name": "广州发展",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-03T07:51:03+08:00",
-  "content_hash": "sha256:85a3f5de383849fd65d1475f349d572f74e7310620037b4fe40129c31c78c10a",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-09T13:40:20+08:00",
+  "content_hash": "sha256:dd63fd7a2b3b70053a7d484ce4fa805b73c1a92af5ac35dec0bf5d25e429e931",
   "bundle": {
     "company": {
       "stock_code": "600098",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.31
+          "value": 0.4
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.31
+          "value": 0.4
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 3889722215.41,
         "F020N": 3505864981,
         "F021N": 3505864981,
-        "F005N": 0.31,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "F005N": 0.4,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
