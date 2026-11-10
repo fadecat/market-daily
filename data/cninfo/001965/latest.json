@@ -1,9 +1,9 @@
 {
   "stock_code": "001965",
   "stock_name": "招商公路",
-  "report_date": "2026-10-31T00:00:00.000+00:00",
-  "fetched_at": "2026-11-02T09:28:32+08:00",
-  "content_hash": "sha256:2691d7c95d39daec32f47fba7a0e5603bfbde66088f098829b97bbb42b606598",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-10T12:06:30+08:00",
+  "content_hash": "sha256:f45244c7e71a828ae173d9bff4ca87c9fc45072eb4bc5d90b204a4ab4672a480",
   "bundle": {
     "company": {
       "stock_code": "001965",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-10-31T00:00:00.000+00:00",
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 2.61
+          "value": 3.09
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 2.61
+          "value": 3.09
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-10-31T00:00:00.000+00:00"
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 1594906895.8,
         "F020N": 6795094992,
         "F021N": 6795094992,
-        "F005N": 2.61,
-        "ENDDATE": "2026-10-31T00:00:00.000+00:00"
+        "F005N": 3.09,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
