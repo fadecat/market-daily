@@ -1,9 +1,9 @@
 {
   "stock_code": "601598",
   "stock_name": "中国外运",
-  "report_date": null,
-  "fetched_at": "2026-11-09T05:02:12+08:00",
-  "content_hash": "sha256:842aad66c79205fab5d0424c87128c066fe9ad3bc983c3a091bdf58ce118a839",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-10T08:38:46+08:00",
+  "content_hash": "sha256:04b465353355af74766c0d8eba08b88222c2564fcbdac6d84578ac20285ed2fe",
   "bundle": {
     "company": {
       "stock_code": "601598",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.74
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.74
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 17651525183.13,
         "F020N": 5157470227,
         "F021N": 5157470227,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.74,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

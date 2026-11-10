@@ -1,9 +1,9 @@
 {
   "stock_code": "000338",
   "stock_name": "潍柴动力",
-  "report_date": null,
-  "fetched_at": "2026-11-09T05:02:12+08:00",
-  "content_hash": "sha256:34d6f5971106b1ebf067a25b45054133c2c500b2c01becc927749f0eadf996e9",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-10T08:38:46+08:00",
+  "content_hash": "sha256:667018a7adfa5bdd469de8d04ebe9079d5f73b6fa8ab9891e890b2899a8eb9ea",
   "bundle": {
     "company": {
       "stock_code": "000338",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.14
         },
         {
           "field": "F020N",
@@ -32,7 +32,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4955494420
+          "value": 4955494120
         },
         {
           "field": "F041N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.14
         },
         "总股本": {
           "field": "F020N",
@@ -100,7 +100,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4955494420
+          "value": 4955494120
         },
         "负债率": {
           "field": "F041N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -160,9 +160,9 @@
         "F115N": 24051988890.05,
         "F111N": 42090042629.5,
         "F020N": 6697180621,
-        "F021N": 4955494420,
-        "F005N": null,
-        "ENDDATE": null
+        "F021N": 4955494120,
+        "F005N": 0.14,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

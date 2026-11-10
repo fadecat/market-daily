@@ -1,9 +1,9 @@
 {
   "stock_code": "601166",
   "stock_name": "兴业银行",
-  "report_date": null,
-  "fetched_at": "2026-11-09T08:43:01+08:00",
-  "content_hash": "sha256:9383e444a8cfa959c2f062288013c04a7f86a802051d51dea8cd824dccc6a309",
+  "report_date": "2026-11-07T00:00:00.000+00:00",
+  "fetched_at": "2026-11-10T08:38:46+08:00",
+  "content_hash": "sha256:0bd3db01d379028cf77dfb5756b734add38f4ef8d1af7b4175cd45914d4621c8",
   "bundle": {
     "company": {
       "stock_code": "601166",
@@ -14,13 +14,13 @@
       "sign": 2
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-07T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.62
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.62
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-07T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": null,
         "F020N": 21162865954,
         "F021N": 21162865954,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.62,
+        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
