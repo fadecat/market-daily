@@ -2,8 +2,8 @@
   "stock_code": "000933",
   "stock_name": "神火股份",
   "report_date": null,
-  "fetched_at": "2026-11-04T06:16:58+08:00",
-  "content_hash": "sha256:e05eb9fb3ecccb1b5c74c12074de421bd7bba615655139d804b4fac6f5ac350d",
+  "fetched_at": "2026-11-10T23:33:33+08:00",
+  "content_hash": "sha256:83823fdf95fb5ac13bf4ff4f14546e3847a7caaf366fab68c7e45f5932c0e880",
   "bundle": {
     "company": {
       "stock_code": "000933",
@@ -32,7 +32,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2247570009
+          "value": 2233720509
         },
         {
           "field": "F041N",
@@ -100,7 +100,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2247570009
+          "value": 2233720509
         },
         "负债率": {
           "field": "F041N",
@@ -160,7 +160,7 @@
         "F115N": 13263510.95,
         "F111N": 1543236105.32,
         "F020N": 2249004399,
-        "F021N": 2247570009,
+        "F021N": 2233720509,
         "F005N": null,
         "ENDDATE": null
       }
