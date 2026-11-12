@@ -5,6 +5,58 @@
       "id": "123250",
       "cell": {
         "bond_id": "123250",
+        "last_chg_dt": "2026-11-12",
+        "ytm_rt": "-0.07%",
+        "premium_rt": "212.79%",
+        "convert_value": "37.93",
+        "price": "118.645",
+        "volume": "1450.88",
+        "stock_volume": 121597,
+        "sprice": "29.92",
+        "curr_iss_amt": "3.955",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "-",
+        "amt_change": "-",
+        "turnover_rt": "3.07"
+      }
+    },
+    {
+      "id": "123250",
+      "cell": {
+        "bond_id": "123250",
+        "last_chg_dt": "2026-11-11",
+        "ytm_rt": "-0.28%",
+        "premium_rt": "208.30%",
+        "convert_value": "38.79",
+        "price": "119.601",
+        "volume": "637.37",
+        "stock_volume": 53300,
+        "sprice": "30.60",
+        "curr_iss_amt": "3.955",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "-",
+        "amt_change": "-",
+        "turnover_rt": "1.35"
+      }
+    },
+    {
+      "id": "123250",
+      "cell": {
+        "bond_id": "123250",
         "last_chg_dt": "2026-11-10",
         "ytm_rt": "-0.28%",
         "premium_rt": "207.50%",
@@ -728,61 +780,9 @@
         "amt_change": "-",
         "turnover_rt": "2.43"
       }
-    },
-    {
-      "id": "123250",
-      "cell": {
-        "bond_id": "123250",
-        "last_chg_dt": "2026-09-23",
-        "ytm_rt": "-0.47%",
-        "premium_rt": "189.84%",
-        "convert_value": "41.75",
-        "price": "121.001",
-        "volume": "698.73",
-        "stock_volume": 57509,
-        "sprice": "32.93",
-        "curr_iss_amt": "3.955",
-        "cflg": "Y",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "2026年中每10股派8元  转股价由79.660调整为78.880",
-        "amt_change": "-",
-        "turnover_rt": "1.45"
-      }
-    },
-    {
-      "id": "123250",
-      "cell": {
-        "bond_id": "123250",
-        "last_chg_dt": "2026-09-22",
-        "ytm_rt": "-0.70%",
-        "premium_rt": "181.17%",
-        "convert_value": "43.44",
-        "price": "122.126",
-        "volume": "715.36",
-        "stock_volume": 58402,
-        "sprice": "34.60",
-        "curr_iss_amt": "3.955",
-        "cflg": "N",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "-",
-        "amt_change": "-",
-        "turnover_rt": "1.48"
-      }
     }
   ],
   "total": 30,
   "bond_id": "123250",
-  "fetched_at": "2026-11-10"
+  "fetched_at": "2026-11-13"
 }
