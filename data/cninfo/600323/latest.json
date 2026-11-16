@@ -1,9 +1,9 @@
 {
   "stock_code": "600323",
   "stock_name": "瀚蓝环境",
-  "report_date": "2026-11-07T00:00:00.000+00:00",
-  "fetched_at": "2026-11-10T08:38:46+08:00",
-  "content_hash": "sha256:1eb26a5ab5d44ab3f858934ced305281dd6a5ecd7e14e8941b2fc440578cd87f",
+  "report_date": "2026-11-14T00:00:00.000+00:00",
+  "fetched_at": "2026-11-16T09:54:56+08:00",
+  "content_hash": "sha256:f0336cd31760ee26e01b1d67b6522b52af63f31b14eed9aac00cee3e86f0a97f",
   "bundle": {
     "company": {
       "stock_code": "600323",
@@ -14,7 +14,7 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-11-07T00:00:00.000+00:00",
+      "report_date": "2026-11-14T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-07T00:00:00.000+00:00"
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-07T00:00:00.000+00:00"
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -162,7 +162,7 @@
         "F020N": 815347146,
         "F021N": 815347146,
         "F005N": 0.51,
-        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
+        "ENDDATE": "2026-11-14T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

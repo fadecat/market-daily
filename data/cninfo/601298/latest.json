@@ -1,9 +1,9 @@
 {
   "stock_code": "601298",
   "stock_name": "青岛港",
-  "report_date": "2026-11-07T00:00:00.000+00:00",
-  "fetched_at": "2026-11-12T23:53:26+08:00",
-  "content_hash": "sha256:c10b87814b14c92b7caa23ccc6694e0a6734e79aef18514f8408b4f18cadebb1",
+  "report_date": "2026-11-14T00:00:00.000+00:00",
+  "fetched_at": "2026-11-16T09:54:56+08:00",
+  "content_hash": "sha256:8350f1dfcd5fad805d5aa4dc950ab3f348b0720d81cdcdd1d5c1b2ce05c1b0a8",
   "bundle": {
     "company": {
       "stock_code": "601298",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-11-07T00:00:00.000+00:00",
+      "report_date": "2026-11-14T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.05
+          "value": 0.07
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-07T00:00:00.000+00:00"
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 0.05
+          "value": 0.07
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-07T00:00:00.000+00:00"
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 2360805599.0,
         "F020N": 5392075000,
         "F021N": 5392075000,
-        "F005N": 0.05,
-        "ENDDATE": "2026-11-07T00:00:00.000+00:00"
+        "F005N": 0.07,
+        "ENDDATE": "2026-11-14T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
