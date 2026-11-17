@@ -1,9 +1,9 @@
 {
   "stock_code": "600282",
   "stock_name": "南钢股份",
-  "report_date": null,
-  "fetched_at": "2026-11-16T05:39:04+08:00",
-  "content_hash": "sha256:1abb303f13241e72182e5e19a051b0459cc518b66480305d1cf5c3a15cc3f5d7",
+  "report_date": "2026-11-14T00:00:00.000+00:00",
+  "fetched_at": "2026-11-17T08:44:18+08:00",
+  "content_hash": "sha256:d27ff917182aa8b26a38983e84e75efc81b4f8d9a9b294e7ae18b5a1b6a2b762",
   "bundle": {
     "company": {
       "stock_code": "600282",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-14T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.05
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 1.05
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-14T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 5107572932.74,
         "F020N": 6165091011,
         "F021N": 6165091011,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 1.05,
+        "ENDDATE": "2026-11-14T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
