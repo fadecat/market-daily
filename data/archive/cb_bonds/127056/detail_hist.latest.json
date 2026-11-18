@@ -5,6 +5,32 @@
       "id": "127056",
       "cell": {
         "bond_id": "127056",
+        "last_chg_dt": "2026-11-18",
+        "ytm_rt": "-4.50%",
+        "premium_rt": "19.41%",
+        "convert_value": "95.47",
+        "price": "114.000",
+        "volume": "5223.97",
+        "stock_volume": 458183,
+        "sprice": "13.07",
+        "curr_iss_amt": "49.996",
+        "cflg": "Y",
+        "bqflg": "Y",
+        "_scnt": "-",
+        "_type": "-",
+        "_start_dt": "-",
+        "_end_dt": "-",
+        "_skip_dt": "-",
+        "_cnt": "-",
+        "convert_price_tips": "-",
+        "amt_change": "-",
+        "turnover_rt": "0.92"
+      }
+    },
+    {
+      "id": "127056",
+      "cell": {
+        "bond_id": "127056",
         "last_chg_dt": "2026-11-17",
         "ytm_rt": "-4.34%",
         "premium_rt": "20.55%",
@@ -754,35 +780,9 @@
         "amt_change": "-",
         "turnover_rt": "0.81"
       }
-    },
-    {
-      "id": "127056",
-      "cell": {
-        "bond_id": "127056",
-        "last_chg_dt": "2026-09-30",
-        "ytm_rt": "-8.11%",
-        "premium_rt": "26.35%",
-        "convert_value": "95.76",
-        "price": "121.000",
-        "volume": "6537.40",
-        "stock_volume": 542720,
-        "sprice": "13.11",
-        "curr_iss_amt": "49.996",
-        "cflg": "Y",
-        "bqflg": "Y",
-        "_scnt": "-",
-        "_type": "-",
-        "_start_dt": "-",
-        "_end_dt": "-",
-        "_skip_dt": "-",
-        "_cnt": "-",
-        "convert_price_tips": "-",
-        "amt_change": "-",
-        "turnover_rt": "1.09"
-      }
     }
   ],
   "total": 30,
   "bond_id": "127056",
-  "fetched_at": "2026-11-18"
+  "fetched_at": "2026-11-19"
 }
