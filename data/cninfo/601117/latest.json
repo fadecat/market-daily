@@ -2,8 +2,8 @@
   "stock_code": "601117",
   "stock_name": "中国化学",
   "report_date": null,
-  "fetched_at": "2026-10-30T09:53:23+08:00",
-  "content_hash": "sha256:696a1b88ef37068db46b616d04a00eba474a3f37682dee688cabdc2f5b2bd24e",
+  "fetched_at": "2026-11-20T11:04:31+08:00",
+  "content_hash": "sha256:1559728e6296e673b720c96d136b15e455c4fd7e45d8fb60c890785dc5ed5e8b",
   "bundle": {
     "company": {
       "stock_code": "601117",
@@ -32,7 +32,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6088067362
+          "value": 6105042562
         },
         {
           "field": "F041N",
@@ -100,7 +100,7 @@
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 6088067362
+          "value": 6105042562
         },
         "负债率": {
           "field": "F041N",
@@ -160,7 +160,7 @@
         "F115N": 27577726.65,
         "F111N": 41450563849.14,
         "F020N": 6105560662,
-        "F021N": 6088067362,
+        "F021N": 6105042562,
         "F005N": null,
         "ENDDATE": null
       }
