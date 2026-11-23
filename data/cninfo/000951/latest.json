@@ -1,9 +1,9 @@
 {
   "stock_code": "000951",
   "stock_name": "中国重汽",
-  "report_date": null,
-  "fetched_at": "2026-10-28T09:13:53+08:00",
-  "content_hash": "sha256:615958cdab0b3d219f0a7a715d409fc92bd822d42a24ea47af6841098e98f6b9",
+  "report_date": "2026-11-21T00:00:00.000+00:00",
+  "fetched_at": "2026-11-23T10:34:26+08:00",
+  "content_hash": "sha256:d9ba8c9ba3985541c3331b90ccb318731e322fc3be47ec12e8af2daaaac770ac",
   "bundle": {
     "company": {
       "stock_code": "000951",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": null,
+      "report_date": "2026-11-21T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.12
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-21T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": null
+          "value": 0.12
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": null
+          "value": "2026-11-21T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 19826516642.57,
         "F020N": 1168994951,
         "F021N": 1168994951,
-        "F005N": null,
-        "ENDDATE": null
+        "F005N": 0.12,
+        "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }
     },
     "main_indicators": {

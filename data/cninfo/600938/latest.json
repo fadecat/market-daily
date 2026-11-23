@@ -1,9 +1,9 @@
 {
   "stock_code": "600938",
   "stock_name": "中国海油",
-  "report_date": "2026-11-14T00:00:00.000+00:00",
-  "fetched_at": "2026-11-16T09:54:56+08:00",
-  "content_hash": "sha256:1151a7ba186d2ff2838628c3812b17975b5e2769a1473b3fc37a3fbe4fdd466d",
+  "report_date": "2026-11-21T00:00:00.000+00:00",
+  "fetched_at": "2026-11-23T10:34:26+08:00",
+  "content_hash": "sha256:b2bac8e53c7e0ac8ee94ac7f30fd043a306f721b46cb97d280c708219d7925b3",
   "bundle": {
     "company": {
       "stock_code": "600938",
@@ -14,13 +14,13 @@
       "sign": 1
     },
     "head_strip": {
-      "report_date": "2026-11-14T00:00:00.000+00:00",
+      "report_date": "2026-11-21T00:00:00.000+00:00",
       "fields": [
         {
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.07
+          "value": 1.32
         },
         {
           "field": "F020N",
@@ -80,7 +80,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-14T00:00:00.000+00:00"
+          "value": "2026-11-21T00:00:00.000+00:00"
         }
       ],
       "by_label": {
@@ -88,7 +88,7 @@
           "field": "F005N",
           "label": "质押率",
           "unit": "percent",
-          "value": 1.07
+          "value": 1.32
         },
         "总股本": {
           "field": "F020N",
@@ -148,7 +148,7 @@
           "field": "ENDDATE",
           "label": "报告期",
           "unit": "date",
-          "value": "2026-11-14T00:00:00.000+00:00"
+          "value": "2026-11-21T00:00:00.000+00:00"
         }
       },
       "raw": {
@@ -161,8 +161,8 @@
         "F111N": 47575000000.0,
         "F020N": 2990000000,
         "F021N": 2990000000,
-        "F005N": 1.07,
-        "ENDDATE": "2026-11-14T00:00:00.000+00:00"
+        "F005N": 1.32,
+        "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }
     },
     "main_indicators": {
