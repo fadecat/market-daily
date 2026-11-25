@@ -2,8 +2,8 @@
   "stock_code": "601688",
   "stock_name": "华泰证券",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:4a9d485159087461cfce6c58a79eaef1a6ad646048ff821565b33b4729c2eead",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:96b610671d1fd39eb95c294e23aa049e51e2496a3923e02e85ea9fc95f034954",
   "bundle": {
     "company": {
       "stock_code": "601688",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7307818106
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7306758106
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 7307818106
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 7306758106
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 82.598,
         "F115N": 237560226.97,
         "F111N": null,
-        "F020N": 7307818106,
-        "F021N": 7306758106,
+        "F020N": null,
+        "F021N": null,
         "F005N": 1.04,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

@@ -2,8 +2,8 @@
   "stock_code": "600968",
   "stock_name": "海油发展",
   "report_date": null,
-  "fetched_at": "2026-10-28T09:13:53+08:00",
-  "content_hash": "sha256:643393c61d578c4a3d2eac23c88b4ea52212cd915fbc3af6ab9fc0982207b122",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:4ba00678823ed1483bef049990508bf610989e606ffd351235ce62d7c1476235",
   "bundle": {
     "company": {
       "stock_code": "600968",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 10165104199
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 10165104199
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 10165104199
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 10165104199
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 39.098,
         "F115N": null,
         "F111N": 11532683752.69,
-        "F020N": 10165104199,
-        "F021N": 10165104199,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

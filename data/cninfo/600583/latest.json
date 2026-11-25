@@ -2,8 +2,8 @@
   "stock_code": "600583",
   "stock_name": "海油工程",
   "report_date": null,
-  "fetched_at": "2026-11-05T10:18:25+08:00",
-  "content_hash": "sha256:7ee5cc978ca24a52c92eac58ff0cf18a340d5f947b61e8fca95ebfe48c1c5736",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:497f32d12d42650443be98871e6251ce7e7db93ac8207ab70141babac0bba2c3",
   "bundle": {
     "company": {
       "stock_code": "600583",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4421354800
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4421354800
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4421354800
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4421354800
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 40.288,
         "F115N": null,
         "F111N": 5522205200.0,
-        "F020N": 4421354800,
-        "F021N": 4421354800,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

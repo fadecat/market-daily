@@ -2,8 +2,8 @@
   "stock_code": "601001",
   "stock_name": "晋控煤业",
   "report_date": null,
-  "fetched_at": "2026-11-17T12:26:21+08:00",
-  "content_hash": "sha256:bdb64ee22c6cc72dad3d7d19eebfacfbeb6593b726d286b3a1f2d01a702bfb22",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:87e0db47d4a974e65276f3e7cbed44ed91295716e5d4d457ac8c26732c874ab6",
   "bundle": {
     "company": {
       "stock_code": "601001",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1673700000
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1673700000
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1673700000
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1673700000
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 19.572,
         "F115N": null,
         "F111N": 599348095.06,
-        "F020N": 1673700000,
-        "F021N": 1673700000,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

@@ -2,8 +2,8 @@
   "stock_code": "601555",
   "stock_name": "东吴证券",
   "report_date": null,
-  "fetched_at": "2026-11-21T00:00:00+08:00",
-  "content_hash": "sha256:63d3cb7932faa16462fe59b505fbd204e9ebc6473140b1111be778f775691f3f",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:51ee273556ff35d2b862e5c9ae3556daea2ddbed7ad041f5f9784ec98fc4cb57",
   "bundle": {
     "company": {
       "stock_code": "601555",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4968702837
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4968702837
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 4968702837
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 4968702837
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 78.828,
         "F115N": 315763821.49,
         "F111N": null,
-        "F020N": 4968702837,
-        "F021N": 4968702837,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

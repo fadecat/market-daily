@@ -2,8 +2,8 @@
   "stock_code": "601598",
   "stock_name": "中国外运",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:e201d44df734dfa9a4531afd9f33a4c349b300fe0343ad11a617b48010e2a2fb",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:d6262806cfa37e142645df06b2e44cf7bffbd7a7d78b074470f0c987d94da62c",
   "bundle": {
     "company": {
       "stock_code": "601598",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 5157470227
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 5157470227
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 5157470227
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 5157470227
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 46.909,
         "F115N": 1482574149.32,
         "F111N": 17651525183.13,
-        "F020N": 5157470227,
-        "F021N": 5157470227,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.8,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

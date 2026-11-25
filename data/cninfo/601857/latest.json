@@ -2,8 +2,8 @@
   "stock_code": "601857",
   "stock_name": "中国石油",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:c8662e4201ac39f7d63ae993ad6b82ba9aa3ae571e9a5d7e149adb31d37fb05a",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:55b992eb739b261236b2d270d665fc2149fe004b35d6028230958d1a86cef644",
   "bundle": {
     "company": {
       "stock_code": "601857",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 161922077818
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 161922077818
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 161922077818
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 161922077818
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 40.575,
         "F115N": 6963000000.0,
         "F111N": 119441000000.0,
-        "F020N": 161922077818,
-        "F021N": 161922077818,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.07,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

@@ -2,8 +2,8 @@
   "stock_code": "600323",
   "stock_name": "瀚蓝环境",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-24T03:07:16+08:00",
-  "content_hash": "sha256:4b5d1a9a3137e06e35c11393898bb7016c1090834896087dd4e7a93f8269dc14",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:ab30ebd77adf2cb652854a0aa7de8ef757f2b5e9a7232fd049fa2363ab3786df",
   "bundle": {
     "company": {
       "stock_code": "600323",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 815347146
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 815347146
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 815347146
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 815347146
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 68.104,
         "F115N": 1392551053.2,
         "F111N": 9422094019.81,
-        "F020N": 815347146,
-        "F021N": 815347146,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.51,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

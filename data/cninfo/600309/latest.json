@@ -2,8 +2,8 @@
   "stock_code": "600309",
   "stock_name": "万华化学",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:8ac44eace9460121558f855f10f2e13a69301c95e3ee20c3f76cbcbeece35e1e",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:f4acf742da2bcde3f628e1374f999f3c9df81686bafaa24474904a66a1ad9bd6",
   "bundle": {
     "company": {
       "stock_code": "600309",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3130471626
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3130471626
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 3130471626
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 3130471626
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 63.378,
         "F115N": 2209220464.48,
         "F111N": 18286628470.03,
-        "F020N": 3130471626,
-        "F021N": 3130471626,
+        "F020N": null,
+        "F021N": null,
         "F005N": 3.94,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

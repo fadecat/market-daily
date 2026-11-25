@@ -2,8 +2,8 @@
   "stock_code": "600362",
   "stock_name": "江西铜业",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-24T03:07:16+08:00",
-  "content_hash": "sha256:23d59c8b3aadefca6646efe2e4997ab83f4106e3d5ab2dd5d96891f76f360918",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:496bd23961ecaa28923a5f2733e3c12516c77311c7f178275d1d310e9874127f",
   "bundle": {
     "company": {
       "stock_code": "600362",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2075247405
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2075247405
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2075247405
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2075247405
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 61.991,
         "F115N": 1318169298.0,
         "F111N": 8865663925.0,
-        "F020N": 2075247405,
-        "F021N": 2075247405,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.04,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

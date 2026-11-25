@@ -2,8 +2,8 @@
   "stock_code": "601377",
   "stock_name": "兴业证券",
   "report_date": null,
-  "fetched_at": "2026-11-24T03:07:16+08:00",
-  "content_hash": "sha256:a0b15d02c1b9cb39beec3339a41171130105b2c8f230fbc2e3dbb1057e9c9766",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:b59cd84d54ad7e5505df86d66493180c3ac227d01cab6a78eaaf19f7f75fbd08",
   "bundle": {
     "company": {
       "stock_code": "601377",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 8635987294
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 8635987294
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 8635987294
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 8635987294
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 81.071,
         "F115N": 12264149.78,
         "F111N": null,
-        "F020N": 8635987294,
-        "F021N": 8635987294,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

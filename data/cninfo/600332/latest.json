@@ -2,8 +2,8 @@
   "stock_code": "600332",
   "stock_name": "白云山",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:4894a6f46b1a14ee9d6b74c98e9d95b491308eaff2ffb34292ba2adc5b2861dd",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:284df5e1cdd4c9980a523e4e698ece0e1e52be96e51dbb8f303205ac69c7c958",
   "bundle": {
     "company": {
       "stock_code": "600332",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1405890949
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1405890949
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1405890949
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1405890949
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 52.534,
         "F115N": 919938473.87,
         "F111N": 19866577083.18,
-        "F020N": 1405890949,
-        "F021N": 1405890949,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.06,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

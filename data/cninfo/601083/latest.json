@@ -2,8 +2,8 @@
   "stock_code": "601083",
   "stock_name": "锦江航运",
   "report_date": null,
-  "fetched_at": "2026-11-17T08:44:18+08:00",
-  "content_hash": "sha256:3263bd77776a4d4544eb2c863cdd67c1dd07ccd045ce1f2440e9736aa1a74ea4",
+  "fetched_at": "2026-11-25T15:54:15+08:00",
+  "content_hash": "sha256:787556285d246af6021a4fedec57c985941647e499b53f42b3bebc84216cbe91",
   "bundle": {
     "company": {
       "stock_code": "601083",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1294120000
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 194120000
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1294120000
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 194120000
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 20.329,
         "F115N": null,
         "F111N": 714189857.21,
-        "F020N": 1294120000,
-        "F021N": 194120000,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }
