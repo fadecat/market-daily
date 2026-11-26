@@ -2,8 +2,8 @@
   "stock_code": "601319",
   "stock_name": "中国人保",
   "report_date": null,
-  "fetched_at": "2026-11-02T08:34:47+08:00",
-  "content_hash": "sha256:d194e28600a33c2d7536ccf797d4f4a47857fcfd70e42ce85752772e2c2a8e2a",
+  "fetched_at": "2026-11-26T15:45:06+08:00",
+  "content_hash": "sha256:ec0a907f10cd11e29fb8486c6d03ec04bc27fbdfb7afb6c9591cef3eb4bea9b0",
   "bundle": {
     "company": {
       "stock_code": "601319",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 35497756583
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 35497756583
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 35497756583
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 35497756583
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 78.616,
         "F115N": null,
         "F111N": null,
-        "F020N": 35497756583,
-        "F021N": 35497756583,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }

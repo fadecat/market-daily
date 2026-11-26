@@ -2,8 +2,8 @@
   "stock_code": "600938",
   "stock_name": "中国海油",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-23T10:34:26+08:00",
-  "content_hash": "sha256:b2bac8e53c7e0ac8ee94ac7f30fd043a306f721b46cb97d280c708219d7925b3",
+  "fetched_at": "2026-11-26T15:45:06+08:00",
+  "content_hash": "sha256:02e5c715c9ebad3c97a3dc17924c281df3c9c433df6e54faf8d1b149708e995b",
   "bundle": {
     "company": {
       "stock_code": "600938",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2990000000
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2990000000
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 2990000000
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 2990000000
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 29.831,
         "F115N": 14322000000.0,
         "F111N": 47575000000.0,
-        "F020N": 2990000000,
-        "F021N": 2990000000,
+        "F020N": null,
+        "F021N": null,
         "F005N": 1.32,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }
