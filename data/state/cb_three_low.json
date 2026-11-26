@@ -1,12 +1,12 @@
 {
   "strategy": "cb_three_low",
-  "last_run_date": "2026-11-26",
-  "portfolio_nav": 0.852267,
+  "last_run_date": "2026-11-27",
+  "portfolio_nav": 0.844989,
   "initial_nav": 1.0,
   "target_count": 10,
   "hold_tolerance": 5,
-  "last_snapshot_signature": "ab782223745f256ee2ede8b54d05fa09",
-  "updated_at": "2026-11-26 02:13:00",
+  "last_snapshot_signature": "6f3f5e0301ab3834d72ffe08593e1ef0",
+  "updated_at": "2026-11-27 01:56:47",
   "holdings_history": [
     {
       "date": "2026-08-08",
@@ -18280,6 +18280,286 @@
           "dblow": 186.26,
           "premium_rt": 64.29,
           "curr_iss_amt": 2.035
+        }
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "holdings": [
+        {
+          "code": "123187",
+          "name": "超达转债",
+          "price": 141.398,
+          "rank": 1
+        },
+        {
+          "code": "113695",
+          "name": "华辰转债",
+          "price": 132.69,
+          "rank": 2
+        },
+        {
+          "code": "123211",
+          "name": "阳谷转债",
+          "price": 139.98,
+          "rank": 3
+        },
+        {
+          "code": "123207",
+          "name": "冠中转债",
+          "price": 145.023,
+          "rank": 4
+        },
+        {
+          "code": "123199",
+          "name": "山河转债",
+          "price": 117.02,
+          "rank": 5
+        },
+        {
+          "code": "113681",
+          "name": "镇洋转债",
+          "price": 125.655,
+          "rank": 6
+        },
+        {
+          "code": "113686",
+          "name": "泰瑞转债",
+          "price": 131.791,
+          "rank": 7
+        },
+        {
+          "code": "123160",
+          "name": "泰福转债",
+          "price": 132.483,
+          "rank": 8
+        },
+        {
+          "code": "111017",
+          "name": "蓝天转债",
+          "price": 114.092,
+          "rank": 9
+        },
+        {
+          "code": "123222",
+          "name": "博俊转债",
+          "price": 124.228,
+          "rank": 12
+        }
+      ],
+      "nav": 0.844989,
+      "prev_nav": 0.852267,
+      "daily_return": -0.00854,
+      "selection": [
+        {
+          "code": "123187",
+          "name": "超达转债",
+          "price": 141.398,
+          "rank": 1,
+          "total_score": 342.0,
+          "selected": true,
+          "sw_cd": "280205",
+          "stock_nm": "超达装备",
+          "stock_price": 25.08,
+          "dblow": 163.91,
+          "premium_rt": 22.51,
+          "curr_iss_amt": 2.242
+        },
+        {
+          "code": "113695",
+          "name": "华辰转债",
+          "price": 132.69,
+          "rank": 2,
+          "total_score": 320.0,
+          "selected": true,
+          "sw_cd": "630801",
+          "stock_nm": "江苏华辰",
+          "stock_price": 19.51,
+          "dblow": 146.2,
+          "premium_rt": 13.51,
+          "curr_iss_amt": 4.597
+        },
+        {
+          "code": "123211",
+          "name": "阳谷转债",
+          "price": 139.98,
+          "rank": 3,
+          "total_score": 317.0,
+          "selected": true,
+          "sw_cd": "220604",
+          "stock_nm": "阳谷华泰",
+          "stock_price": 9.63,
+          "dblow": 173.13,
+          "premium_rt": 33.15,
+          "curr_iss_amt": 3.07
+        },
+        {
+          "code": "123207",
+          "name": "冠中转债",
+          "price": 145.023,
+          "rank": 4,
+          "total_score": 314.0,
+          "selected": true,
+          "sw_cd": "620307",
+          "stock_nm": "冠中生态",
+          "stock_price": 10.95,
+          "dblow": 183.29,
+          "premium_rt": 38.27,
+          "curr_iss_amt": 1.455
+        },
+        {
+          "code": "123199",
+          "name": "山河转债",
+          "price": 117.02,
+          "rank": 5,
+          "total_score": 310.0,
+          "selected": true,
+          "sw_cd": "370101",
+          "stock_nm": "山河药辅",
+          "stock_price": 10.49,
+          "dblow": 162.04,
+          "premium_rt": 45.02,
+          "curr_iss_amt": 3.197
+        },
+        {
+          "code": "113681",
+          "name": "镇洋转债",
+          "price": 125.655,
+          "rank": 6,
+          "total_score": 308.0,
+          "selected": true,
+          "sw_cd": "220202",
+          "stock_nm": "镇洋发展",
+          "stock_price": 12.7,
+          "dblow": 134.0,
+          "premium_rt": 8.34,
+          "curr_iss_amt": 5.476
+        },
+        {
+          "code": "113686",
+          "name": "泰瑞转债",
+          "price": 131.791,
+          "rank": 7,
+          "total_score": 306.0,
+          "selected": true,
+          "sw_cd": "640209",
+          "stock_nm": "泰瑞机器",
+          "stock_price": 7.52,
+          "dblow": 171.99,
+          "premium_rt": 40.2,
+          "curr_iss_amt": 3.363
+        },
+        {
+          "code": "123160",
+          "name": "泰福转债",
+          "price": 132.483,
+          "rank": 8,
+          "total_score": 298.0,
+          "selected": true,
+          "sw_cd": "640106",
+          "stock_nm": "泰福泵业",
+          "stock_price": 17.66,
+          "dblow": 180.27,
+          "premium_rt": 47.79,
+          "curr_iss_amt": 2.314
+        },
+        {
+          "code": "111017",
+          "name": "蓝天转债",
+          "price": 114.092,
+          "rank": 9,
+          "total_score": 288.0,
+          "selected": true,
+          "sw_cd": "410301",
+          "stock_nm": "蓝天燃气",
+          "stock_price": 5.76,
+          "dblow": 147.2,
+          "premium_rt": 33.11,
+          "curr_iss_amt": 6.715
+        },
+        {
+          "code": "127055",
+          "name": "精装转债",
+          "price": 141.396,
+          "rank": 10,
+          "total_score": 287.0,
+          "selected": false,
+          "sw_cd": "620201",
+          "stock_nm": "中天精装",
+          "stock_price": 17.65,
+          "dblow": 189.61,
+          "premium_rt": 48.21,
+          "curr_iss_amt": 2.081
+        },
+        {
+          "code": "127069",
+          "name": "小熊转债",
+          "price": 122.78,
+          "rank": 11,
+          "total_score": 285.0,
+          "selected": false,
+          "sw_cd": "330301",
+          "stock_nm": "小熊电器",
+          "stock_price": 37.65,
+          "dblow": 165.32,
+          "premium_rt": 42.54,
+          "curr_iss_amt": 5.04
+        },
+        {
+          "code": "123222",
+          "name": "博俊转债",
+          "price": 124.228,
+          "rank": 12,
+          "total_score": 280.0,
+          "selected": true,
+          "sw_cd": "280205",
+          "stock_nm": "博俊科技",
+          "stock_price": 12.88,
+          "dblow": 182.99,
+          "premium_rt": 58.76,
+          "curr_iss_amt": 2.438
+        },
+        {
+          "code": "123209",
+          "name": "聚隆转债",
+          "price": 132.7,
+          "rank": 13,
+          "total_score": 279.0,
+          "selected": false,
+          "sw_cd": "220503",
+          "stock_nm": "南京聚隆",
+          "stock_price": 14.65,
+          "dblow": 191.31,
+          "premium_rt": 58.61,
+          "curr_iss_amt": 1.672
+        },
+        {
+          "code": "111003",
+          "name": "聚合转债",
+          "price": 121.422,
+          "rank": 14,
+          "total_score": 277.0,
+          "selected": false,
+          "sw_cd": "220406",
+          "stock_nm": "聚合顺",
+          "stock_price": 6.48,
+          "dblow": 187.25,
+          "premium_rt": 65.83,
+          "curr_iss_amt": 2.035
+        },
+        {
+          "code": "123280",
+          "name": "三鑫转债",
+          "price": 132.65,
+          "rank": 15,
+          "total_score": 274.0,
+          "selected": false,
+          "sw_cd": "370503",
+          "stock_nm": "三鑫医疗",
+          "stock_price": 9.0,
+          "dblow": 174.44,
+          "premium_rt": 41.79,
+          "curr_iss_amt": 5.3
         }
       ]
     }

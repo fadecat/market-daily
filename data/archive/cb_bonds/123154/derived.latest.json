@@ -1,17 +1,17 @@
 {
   "bond_id": "123154",
   "bond_nm": "火星转债",
-  "trigger_price": "13.600",
-  "last_adjust_date": "",
-  "last_adjust_from_price": "",
-  "last_adjust_to_price": "",
-  "window_start_date": "2026-09-29",
-  "window_end_date": "2026-11-16",
-  "trigger_hit_days_30": 30,
+  "trigger_price": "7.947",
+  "last_adjust_date": "2026-11-17",
+  "last_adjust_from_price": "16.000",
+  "last_adjust_to_price": "9.350",
+  "window_start_date": "2026-11-17",
+  "window_end_date": "2026-11-26",
+  "trigger_hit_days_30": 0,
   "trigger_required_days": 15,
   "trigger_window_days": 30,
-  "trigger_observed_days": 30,
-  "trigger_total_days_30": 30,
-  "display_text": "15/15 | 30",
-  "updated_at": "2026-11-17"
+  "trigger_observed_days": 8,
+  "trigger_total_days_30": 8,
+  "display_text": "0/15 | 30",
+  "updated_at": "2026-11-27"
 }
