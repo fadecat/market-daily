@@ -2,8 +2,8 @@
   "stock_code": "600057",
   "stock_name": "厦门象屿",
   "report_date": null,
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:23b0eba69f49cb16e43fa639a9f7b49c612777982a1038cc02615d1a40f13e2a",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:908c43962f7d2f59d0df8dfe248a2c173db3a16a469b983077eb370564172f65",
   "bundle": {
     "company": {
       "stock_code": "600057",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2833684499
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2092510164
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2833684499
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2092510164
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 69.87,
         "F115N": 12669186.9,
         "F111N": 17696073112.16,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 2833684499,
+        "F021N": 2092510164,
         "F005N": null,
         "ENDDATE": null
       }

@@ -2,8 +2,8 @@
   "stock_code": "601000",
   "stock_name": "唐山港",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:92ba6b11a0251f9fceb442a76eb364fb6063d2e5bbeb5d0424f2b700a98078c6",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:04c3cc921c9c96ec0184636b1472cb726535cb99af01fef2a6a1910ad2dd8503",
   "bundle": {
     "company": {
       "stock_code": "601000",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 5925928614
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 5925928614
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 5925928614
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 5925928614
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 9.837,
         "F115N": null,
         "F111N": 286433611.0,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 5925928614,
+        "F021N": 5925928614,
         "F005N": 1.41,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

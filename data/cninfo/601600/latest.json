@@ -2,8 +2,8 @@
   "stock_code": "601600",
   "stock_name": "中国铝业",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:b3e6959281aa80f5c8124455fcd13c770feeea476d84aadb527348762824d75d",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:39cd9f4532de71034c120b1af294767c8490c0f467e2e26c11d1b3e558538b38",
   "bundle": {
     "company": {
       "stock_code": "601600",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 13210792779
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13203339905
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 13210792779
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 13203339905
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 42.704,
         "F115N": 3494894000.0,
         "F111N": 9208668000.0,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 13210792779,
+        "F021N": 13203339905,
         "F005N": 0.01,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

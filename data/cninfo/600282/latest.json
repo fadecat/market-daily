@@ -2,8 +2,8 @@
   "stock_code": "600282",
   "stock_name": "南钢股份",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:dab1fe2b55c4228b4ff73610512116c8a4e09116f34205fad53a13eddd710a26",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:73018972adf2db2ec52e3716c94ae2927cb7509f15ddbee04bd448507f46bed4",
   "bundle": {
     "company": {
       "stock_code": "600282",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 6165091011
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 6165091011
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 6165091011
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 6165091011
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 58.427,
         "F115N": 369362157.94,
         "F111N": 5107572932.74,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 6165091011,
+        "F021N": 6165091011,
         "F005N": 1.05,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

@@ -2,8 +2,8 @@
   "stock_code": "601899",
   "stock_name": "紫金矿业",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:306e56a6678634361f9ac8e032365d7e404cf026fe76cf3bae4c3ec22e2d40e7",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:2ff9079f644fb6e95b4516fa813dcff1b307415c8c78a31af0ee11f10093df53",
   "bundle": {
     "company": {
       "stock_code": "601899",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 20601793140
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 20601793140
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 20601793140
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 20601793140
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 49.904,
         "F115N": 677416423.0,
         "F111N": 10660402860.0,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 20601793140,
+        "F021N": 20601793140,
         "F005N": 0.17,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

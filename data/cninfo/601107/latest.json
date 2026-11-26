@@ -2,8 +2,8 @@
   "stock_code": "601107",
   "stock_name": "四川成渝",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:dd685714355f42c27317c7b04415c54fa1886e1d385b97ead5d76f9cb2621722",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:faecaeea18a419d06c570026e831bfe1a74b9e5d38ac058ca5b85382e7c366a8",
   "bundle": {
     "company": {
       "stock_code": "601107",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2162740000
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2162740000
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2162740000
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2162740000
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 67.092,
         "F115N": null,
         "F111N": 76287024.59,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 2162740000,
+        "F021N": 2162740000,
         "F005N": 0.15,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

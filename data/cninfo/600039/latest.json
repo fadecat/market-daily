@@ -2,8 +2,8 @@
   "stock_code": "600039",
   "stock_name": "四川路桥",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:d99bab98bbc4ec4e2a05705c152a270fb09da04ec8754bb668033e46f0fe38c9",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:bae345bd10bd490fbaa900edd44b16adfdc908098b789464ed55716e8e98fce0",
   "bundle": {
     "company": {
       "stock_code": "600039",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 8695590645
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 8695590645
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 8695590645
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 8695590645
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 78.887,
         "F115N": null,
         "F111N": 31686712214.14,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 8695590645,
+        "F021N": 8695590645,
         "F005N": 10.63,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

@@ -2,8 +2,8 @@
   "stock_code": "600483",
   "stock_name": "福能股份",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-25T15:54:15+08:00",
-  "content_hash": "sha256:b760eb66c7b9a79fff0c34a96c0d3c1d1024a65e9744f4ab53fb958fc4439fce",
+  "fetched_at": "2026-11-26T08:55:03+08:00",
+  "content_hash": "sha256:afa73586c8d02af8e836bda40bf2bc491cc64337fac8f05c31270859a4b9d822",
   "bundle": {
     "company": {
       "stock_code": "600483",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2780148500
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2780148500
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 2780148500
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 2780148500
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 39.5,
         "F115N": 70584170.73,
         "F111N": 4603566643.05,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 2780148500,
+        "F021N": 2780148500,
         "F005N": 0.95,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }
