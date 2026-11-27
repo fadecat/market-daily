@@ -2,8 +2,8 @@
   "stock_code": "601919",
   "stock_name": "中远海控",
   "report_date": "2026-11-21T00:00:00.000+00:00",
-  "fetched_at": "2026-11-26T08:55:03+08:00",
-  "content_hash": "sha256:0f099c30ac035abfd98493ca119462df233e709a487da8eb1bb3807e4afc45d2",
+  "fetched_at": "2026-11-27T15:44:09+08:00",
+  "content_hash": "sha256:4ffa4c9d41d548306d1a318d9fbf707a0e7d79d82149b3d43d573e6d9de2d50e",
   "bundle": {
     "company": {
       "stock_code": "601919",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 12506738687
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 12506738687
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 12506738687
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 12506738687
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 41.363,
         "F115N": 6071394712.47,
         "F111N": 12677596499.82,
-        "F020N": 12506738687,
-        "F021N": 12506738687,
+        "F020N": null,
+        "F021N": null,
         "F005N": 0.51,
         "ENDDATE": "2026-11-21T00:00:00.000+00:00"
       }

@@ -2,8 +2,8 @@
   "stock_code": "600546",
   "stock_name": "山煤国际",
   "report_date": null,
-  "fetched_at": "2026-11-26T08:55:03+08:00",
-  "content_hash": "sha256:277faa46161738bf44112b8b4b63b179ffd661a6f538725996d82ab357b381a3",
+  "fetched_at": "2026-11-27T15:44:09+08:00",
+  "content_hash": "sha256:63ff834f434a84b50bca5d05a648c350ec055242ab8196f2d204a5ee68ac99b0",
   "bundle": {
     "company": {
       "stock_code": "600546",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1982456140
+          "value": null
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1982456140
+          "value": null
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": 1982456140
+          "value": null
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": 1982456140
+          "value": null
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 49.105,
         "F115N": null,
         "F111N": 466857850.54,
-        "F020N": 1982456140,
-        "F021N": 1982456140,
+        "F020N": null,
+        "F021N": null,
         "F005N": null,
         "ENDDATE": null
       }
