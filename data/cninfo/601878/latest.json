@@ -2,8 +2,8 @@
   "stock_code": "601878",
   "stock_name": "浙商证券",
   "report_date": null,
-  "fetched_at": "2026-11-26T15:45:06+08:00",
-  "content_hash": "sha256:b69fc04bf72a6803d645b4f5e66ab89e88064b36af5fd7cdb039ddacc6f34f80",
+  "fetched_at": "2026-11-27T08:59:48+08:00",
+  "content_hash": "sha256:7973d4ae387419599e580d239f603cec51d59eff487a9ab9be4e46baccf4a717",
   "bundle": {
     "company": {
       "stock_code": "601878",
@@ -26,13 +26,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 4535015039
         },
         {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 4535015039
         },
         {
           "field": "F041N",
@@ -94,13 +94,13 @@
           "field": "F020N",
           "label": "总股本",
           "unit": "股",
-          "value": null
+          "value": 4535015039
         },
         "流通股本": {
           "field": "F021N",
           "label": "流通股本",
           "unit": "股",
-          "value": null
+          "value": 4535015039
         },
         "负债率": {
           "field": "F041N",
@@ -159,8 +159,8 @@
         "F041N": 80.885,
         "F115N": 682009149.34,
         "F111N": null,
-        "F020N": null,
-        "F021N": null,
+        "F020N": 4535015039,
+        "F021N": 4535015039,
         "F005N": null,
         "ENDDATE": null
       }
